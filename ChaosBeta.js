@@ -1399,6 +1399,37 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 	help: "'all actions have a 35% chance of becoming one of a random seven less powerful actions'"
 },
 
+env.STATUS_EFFECTS.stupihorrible_death = {
+	slug: "stupidhorrible_death",
+	name: "ACTION::DEATH SENTENCE",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/eyew.gif",
+	impulse: {type: "action", component: "stupidhorrible"},
+	events: {
+		GLOBAL_onDeath: function({originalEventTarget}) {
+			let subject = originalEventTarget
+            let user = this.status.affecting
+			let primary = env.ACTIONS[user.actions[0]]
+			let utility = env.ACTIONS[user.actions[2]]
+			let targetTeam
+			switch(user.team.name) {
+				case "ally": targetTeam = env.rpg.enemyTeam; break;
+				case "enemy": targetTeam = env.rpg.allyTeam; break;
+			}
+
+			env.GENERIC_ACTIONS.teamWave({
+				team: targetTeam,
+				exec: (actor, i) => {
+					if(actor == target) return; // we skip the original target
+					useAction(user, primary, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
+				}
+			})
+			useAction(user, utility, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
+		}
+	}
+},
+
 //https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
