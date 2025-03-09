@@ -226,6 +226,14 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 			"hideRead":true
 		})
 		}
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("smoke")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"smoke",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","stupidhorrible")'),
+			"hideRead":true
+		})
+		}
 	if(!env.dialogues["dreammod"].sfer.responses[0].replies.includes("mod tester's delight (999)")) {
 	env.dialogues["dreammod"].sfer.responses[0].replies.push({
 		"name":"mod tester's delight (999)",
@@ -251,6 +259,7 @@ if(page.party){
 			page.flags.components.entropy = 30
 			page.flags.components.surging = 30
 			page.flags.components.stupidhorrible = 30 
+			page.flags.components.smoke = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -278,6 +287,7 @@ if(page.party){
 			page.flags.components.entropy = 3
 			page.flags.components.surging = 3
 			page.flags.components.stupidhorrible = 3
+			page.flags.components.smoke = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -317,6 +327,15 @@ if(page.party){
 				member.components["primary"]="stupidhorrible"
 				member.components["secondary"]="stupidhorrible"
 				member.components["utility"]="stupidhorrible"
+			})
+
+		case "smoke":
+			page.flags.components ={smoke:12}
+
+			page.party.forEach(member=>{
+				member.components["primary"]="smoke"
+				member.components["secondary"]="smoke"
+				member.components["utility"]="smoke"
 			})
 		}
 	}
@@ -3150,6 +3169,33 @@ for (const componentName of ["surging"]) {
      env.e3a2.merchant.commerce.push(commerceObject)
 }
 for (const componentName of ["stupidhorrible"]) {
+	const component = env.COMBAT_COMPONENTS[componentName]
+	let commerceObject = ({
+		 type: "humor",
+		 name: `${component.name.replace("Humor of ", "")}`,
+		 subject: component,
+		 value: 1,
+
+		 showSellIf: ()=> env.e3a2.mTotals[componentName].available > 0,
+		 sellExec: ()=>{
+			  addItem("sfer_cube")
+			  page.flags.components[componentName]--
+			  env.e3a2.mTotals = CrittaMenu.getTotals()
+			  env.commerceNotice = `exchanged ${component.name} for 1 ${env.ITEM_LIST['sfer_cube'].name}`
+		 },
+	})
+	env.e3a2.merchant.sellResponses.replies.push({
+		 name: `${commerceObject.name}::${commerceObject.value}S`,
+		 destination: "sell",
+		 hideRead: true,
+		 showIf: commerceObject.showSellIf,
+		 class: `commerce-${commerceObject.type}`,
+		 definition: `NOTE::'exchange for ${commerceObject.value} ${env.ITEM_LIST['sfer_cube'].name}'`,
+		 exec: ()=> {commerceObject.sellExec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
+	})
+	env.e3a2.merchant.commerce.push(commerceObject)
+}
+for (const componentName of ["smoke"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
 		 type: "humor",
