@@ -374,7 +374,7 @@ if (page.path == '/local/beneath/embassy/') {
 	}
 	[component="surging"] {
     	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surginghumoritself.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Glass-Memoirs/surgingHumor.png);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surgingHumor.gif);
     	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surginghumoritself.gif);
     	--background-size: auto;
     	--background-position: center;
