@@ -363,9 +363,9 @@ if (page.path == '/local/beneath/embassy/') {
 
 	/* humor styling */
 	[component="entropy"] {
-    	--background: url(https://glass-memoirs.github.io/Glass-Memoirs/ENTROPYHUMORundithered.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Glass-Memoirs/ENTROPYHUMORundithered.gif);    
-    	--background-small:  url(https://glass-memoirs.github.io/Glass-Memoirs/ENTROPYHUMORundithered.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/ENTROPYHUMORundithered.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/ENTROPYHUMORundithered.gif);    
+    	--background-small:  url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/ENTROPYHUMORundithered.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -373,9 +373,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--neutral-color);
 	}
 	[component="surging"] {
-    	--background: url(https://glass-memoirs.github.io/Glass-Memoirs/surginghumoritself.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surginghumoritself.gif);
     	--organelle-background: url(https://glass-memoirs.github.io/Glass-Memoirs/surgingHumor.png);
-    	--background-small: url(https://glass-memoirs.github.io/Glass-Memoirs/surginghumoritself.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surginghumoritself.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -383,9 +383,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--fundfriend-color);
 	}
 	[component="stupidhorrible"] {
-    	--background: url(https://glass-memoirs.github.io/Glass-Memoirs/babypear.png);
-    	--organelle-background: url(https://glass-memoirs.github.io/Glass-Memoirs/babypear.png);
-    	--background-small: url(https://glass-memoirs.github.io/Glass-Memoirs/babypear.png);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.png);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.png);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.png);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -393,9 +393,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--neutral-color);
 	}
 	[component="smoke"] {
-    	--background: url(https://glass-memoirs.github.io/Glass-Memoirs/SmokeHumorIcon.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Glass-Memoirs/SmokeHumorIcon.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Glass-Memoirs/SmokeHumorIcon.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -614,7 +614,7 @@ env.ACTOR_AUGMENTS.generic.exp_overload = {
 env.ACTOR_AUGMENTS.generic.showmanship = {
 	slug: "showmanship",
 	name: "Showmanship",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/twotime.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	description: "'SEE HOW THEY FALL!';'THEY THOUGHT THEY WERE LAUGHING DOWN AT US';'ONLY FOR US TO SWEEP THEIR KNEES!'",
 	alterations: [["tormenting_delight", "player_show"]],
 	component: ["primary", "surging"],
@@ -624,7 +624,7 @@ env.ACTOR_AUGMENTS.generic.showmanship = {
 env.ACTOR_AUGMENTS.generic.method_acting = {
 	slug: "method_acting",
 	name: "Method Acting",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/twotime.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	description: "'STARVED THIN AND CHITTIN SCATTERED';'YOU MUST CONTINUE!';'VELZIE DEMANDS! VELZIE COMMANDS!'",
 	alterations: [["back_to_stage", "player_act"]],
 	component: ["secondary", "surging"],
@@ -634,7 +634,7 @@ env.ACTOR_AUGMENTS.generic.method_acting = {
 env.ACTOR_AUGMENTS.generic.sacrificial_act = {
 	slug: "sacrificial_act",
 	name: "Sacrifical Act",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/twotime.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	description: "'LET THE SHOW GO FORTH! AGAIN!';'LET VELZIE VEIW OUR CRUDE IMMITATIONS';'FOR THAT WILL ONLY INSPIRE US MORE!'",
 	alterations: [["velnits_lament", "player_sacri"]],
 	component: ["utility", "surging"],
@@ -644,7 +644,7 @@ env.ACTOR_AUGMENTS.generic.sacrificial_act = {
 env.ACTOR_AUGMENTS.generic.stupidhorrible_kabluey = {
 	slug: "stupidhorrible_kabluey",
 	name: "KaBLLLUEYYYYYY!!!",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/demoflower.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/demoflower.gif",
 	description: "'oh boy the tf2 youtube channel just uploaded!'",
 	alterations: [["pin_pull", "stupidhorrible_kaber"],
 				["ADD", "stupidhorrible_claymore"],
@@ -658,7 +658,7 @@ env.ACTOR_AUGMENTS.generic.stupidhorrible_kabluey = {
 env.ACTOR_AUGMENTS.generic.stupidhorrible_colonthree ={ 
 	slug: "stupidhorrible_colonthree",
 	name: "Realistic :3",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/colonthree.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/colonthree.gif",
 	description: "'Oh boy waht a nice GUN','i love GUN'",
 	alterations: [["brrrttrttt", "stupidhorrible_colonthree"]],
 	component: ["secondary", "stupidhorrible"],
@@ -668,7 +668,7 @@ env.ACTOR_AUGMENTS.generic.stupidhorrible_colonthree ={
 env.ACTOR_AUGMENTS.generic.stupidhorrible_buncture ={
 	slug: "stupidhorrible_buncture",
 	name: "Buncture Beam",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/huehuehue.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/huehuehue.gif",
 	description: "'You may have gotten this far';'but its time for you to witness just a fraction of my power!'",
 	alterations: [["puncture_bomb", "stupidhorrible_buncture"]],
 	component: ["utility", "stupidhorrible"],
@@ -678,7 +678,7 @@ env.ACTOR_AUGMENTS.generic.stupidhorrible_buncture ={
 env.ACTOR_AUGMENTS.generic.smoke_hour = {
 	slug: "smoke_hour",
 	name: "Hour Hand",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "'Increase time i guess this text is temporary ok'",
 	alterations: [["smoke_minute","smoke_hour"]],
 	component: ["primary","smoke"],
@@ -976,7 +976,7 @@ env.STATUS_EFFECTS.entropy_reaction = {
 	name: "ACTION:: REACT",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/eyew.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/eyew.gif",
 	impulse: {type: "action", component: "entropy"},
 	events: {
 		onCrit: function({subject, target}) {
@@ -1026,7 +1026,7 @@ env.STATUS_EFFECTS.exp_over = { //This was what spurred this entire idea. The in
 	name: "Exponential Overload",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/Overclocked.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/Overclocked.gif",
 	events: {
 		onTurn: function() { 
 			reactDialogue(this.status.affecting, 'surge') 
@@ -1078,7 +1078,7 @@ env.STATUS_EFFECTS.burnout = {
 	slug: "burnout",
 	name: "Burnout",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/Hhhotpocket.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/Hhhotpocket.gif",
 	events:{
 		onCrit: function({subject, attack, originalEventTarget}) {
 			removeStatus(this.status.affecting, 'burnout',{runEvents: false})
@@ -1134,7 +1134,7 @@ env.STATUS_EFFECTS.surging_two = {
 	name: "Two Time",
 	beneficial: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/twotime.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	impulse: {type: "common",component: "surging"},
 	events: {
 		onCreated: function({statusObj}) {
@@ -1151,7 +1151,7 @@ env.STATUS_EFFECTS.surging_set = {
 	name: "Temporary Setback",
 	passive: "modifier",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/twotime.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	events:{
 		onRemoveStatus: function({target, removingStatusName}) {
 			if(removingStatusName == "regen") {
@@ -1167,7 +1167,7 @@ env.STATUS_EFFECTS.surging_pace = {
 	name: "Double The Pace",
 	passive: true,
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/twotime.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	events: {
 		onTurn: function() {
 			addStatus({target: this.status.affecting, status: "surge", noReact: true, length: 1})
@@ -1181,7 +1181,7 @@ env.STATUS_EFFECTS.surging_story = {
 	name: "My Story Now",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/MyStory.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/MyStory.gif",
 	impulse: {type: "common", component: "surging"},
 	events:{
 		onAction: function({action}) {
@@ -1202,7 +1202,7 @@ env.STATUS_EFFECTS.surging_improvised = {
 	name: "ACTION:: IMPROVISED SCRIPTWRITING",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/eyew.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/eyew.gif",
 	inUse: false,
 	impulse: {type: "action", component: "surging"},
 	events: {
@@ -1247,7 +1247,7 @@ env.STATUS_EFFECTS.surging_second = {
 	name: "Second Act",
 	passive: "modifier",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/twotime.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	events: {
 		GLOBAL_onDeath: function({attack}) {
             let hitpow = Math.floor(attack / 2)
@@ -1284,7 +1284,7 @@ env.STATUS_EFFECTS.fated_surging = {
 	name: "FATED::SURGE",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/surginghumoritself.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Humors/surginghumoritself.gif",
 	impulse: {
 		type: "fated",
 		component: "surging",
@@ -1323,7 +1323,7 @@ env.STATUS_EFFECTS.stupidhorrible_bad = {
 	name: "GHATSHRGSGH BAD",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/cakedupvolcano.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/cakedupvolcano.gif",
 	impulse: {type: "common", component: "stupidhorrible"},
 	events: {
 		onAddStatus: function({statusObj}) {
@@ -1340,7 +1340,7 @@ env.STATUS_EFFECTS.btgothwar ={
 	slug: "btgothwar",
 	name: "BTGOTHWAR",
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/dwaynerock.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/dwaynerock.gif",
 	impulse: {type: "common", component: "stupidhorrible"},
 	grantsActions:["btgothwar"],
 	help: "'grants one action.';'The action to BEAT THAT GUY OVER THE HEAD WITH A ROCK'"
@@ -1350,7 +1350,7 @@ env.STATUS_EFFECTS.byothwar = {
 	slug: "byothwar",
 	name: "BYOTHWAR",
 	passive: "modifier",
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/dwaynerock.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupihorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
 	events: {
 		onAction: function({action, context}) {
@@ -1368,7 +1368,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 	slug: "stupidhorrible_hard",
 	name: "Hard Mode",
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/hardmode.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/hardmode.gif",
 	impulse: {type: "common", component: "stupidhorrible"},
 	events: {
 		onBeforeAction: function({context}) {
@@ -1404,7 +1404,7 @@ env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
 	name: "Minor Concussion",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/concussion.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/concussion.gif",
 	events: {
 		onBeforeAction: function(context) {		
 			if(!context.settings.action.type.includes("target")) return;
@@ -1433,7 +1433,7 @@ env.STATUS_EFFECTS.tetration_shock = { //This was what spurred this entire idea.
 	name: "Tetration Shock",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/Overclocked.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/Overclocked.gif",
 	events: {
 		onTurn: function() { 
 			reactDialogue(this.status.affecting, 'surge') 
@@ -3040,7 +3040,7 @@ env.COMBAT_ACTORS.speech_bubble = {
 	actions: ["attack","focus"],
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
-			<img class="sprite" src="https://glass-memoirs.github.io/Glass-Memoirs/Smile.png" id="%SLUG-sprite">
+			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
 			<div class="target" entity="Coin"></div>
 		</div>
 		`,
@@ -3089,7 +3089,7 @@ env.ITEM_LIST.odd_battery = {
 	slug: "odd_battery",
 	name: "Odd Battery",
 	imgClass: "fish",
-	image: "https://glass-memoirs.github.io/Glass-Memoirs/odd_battery.png",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Items/odd_battery.gif",
 	group: "support",
 	description: `'a cousinly container';'why was it in the depths?'`,
 	oocnote: "'Grants a random level of surge'",
