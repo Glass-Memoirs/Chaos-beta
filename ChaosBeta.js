@@ -1470,6 +1470,16 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 	}
 },
 
+env.STATUS_EFFECTS.smoke_scream = {
+	slug: "smoke_scream",
+	name: "Scream",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
+	impulse: {type: "common", component: "smoke"},
+	help: "'Boosts shout';'lets you call for a threatening voice'"
+},
+
 //https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
@@ -3009,13 +3019,21 @@ env.ACTIONS.smoke_shout ={
 		flavour: "'Summon a voice';'a Strong voice but a voice none the less'",
 		onUse: "'Summon Actor: Voice bubble'"
 	},
-	exec: function() {
+	exec: function(user) {
 		let rand = Math.random()
 		play('talkfairy', 0.5);
 		if (rand > 0.5) {
-			midCombatAllyAdd("speech_bubble_strong", "left")
+			if (hasStatus(user,"smoke_scream")) {
+				midCombatAllyAdd("threat_bubble", "left")
+			} else {
+				midCombatAllyAdd("speech_bubble_strong", "left")
+			}
 		} else {
-			midCombatAllyAdd("speech_bubble_strong", "right")
+			if (hasStatus(user,"smoke_scream")) {
+				midCombatAllyAdd("threat_bubble", "right")
+			} else {
+				midCombatAllyAdd("speech_bubble_strong", "right")
+			}
 		}
 	}
 },
@@ -3223,6 +3241,41 @@ env.COMBAT_ACTORS.speech_bubble_strong = {
 	}
 }
 
+env.COMBAT_ACTORS.speech_bubble_strong = {
+	name: "Speech Bubble",
+	maxhp: 25,
+	hp: 25,
+	actions: ["attack","focus"],
+	graphic: `
+		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
+			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
+			<div class="target" entity="Speech Bubble"></div>
+		</div>
+		`,
+	reactions: {
+		evade: ["笑"],
+    	crit: [ "笑"],
+		crit_buff: [ "笑"],
+		miss: ["笑"],
+		dead: ["笑"],
+		puncture: ["笑"],
+		regen: ["笑"],
+		destabilized: ["笑"],
+		stun: ["笑"],
+		laugh: ["笑"],
+		sacrifice: ["笑"],
+		receive_hit: ["笑"],
+		receive_crit: ["笑"],
+		receive_puncture: ["笑"],
+		receive_buff: ["笑"],
+		receive_destabilized: ["笑"],
+		receive_rez: ["笑"],
+		receive_carapace: ["笑"],
+		receive_repairs: ["笑"],
+		receive_fear: ["笑"],
+		receive_redirection: ["笑"],
+	}
+}
 /*env.COMBAT_ACTORS.bstrdcoin = {
 	name: "Coin",
 	maxhp: 1,
@@ -3378,3 +3431,4 @@ for (const componentName of ["smoke"]) {
 }
 console.log("LOADED::CHAOS+ 'go forth and kill bestie'")
 }
+//Hi yeah if you scrolled all the way down here nice lmao.
