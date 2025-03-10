@@ -685,6 +685,16 @@ env.ACTOR_AUGMENTS.generic.smoke_hour = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.smoke_cloud = {
+	slug: "smoke_cloud",
+	name: "Cloud",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeCloud.gif",
+	description: "got nothing yet",
+	alterations: [["smoke_haze", "smoke_cloud"]],
+	component: ["secondary", "smoke"],
+	cost: 2
+}
+
 env.ACTOR_AUGMENTS.generic.smoke_shout = {
 	slug: "smoke_shout",
 	name: "Shout",
@@ -2908,6 +2918,34 @@ env.ACTIONS.smoke_haze = {
 			critExec: (target) => {
 				addStatus({target: target, status: "regen", length: 2})
 				addStatus({target: target, Status: "evasion", length: 3})
+			}
+		})
+	}
+},
+
+env.ACTIONS.smoke_cloud = {
+	slug: "smoke_cloud",
+	name: "Cloud",
+	type: "self+autohit+support",
+	details: {
+		flavour: "'Shroud the entire team in smoke';'harder to be hit if you cannot be seen'",
+		onUse: "'[STATUS::regen] [STATUS::evasion] to team'"
+	},
+	stats: {
+		status: {
+			regen: {name: "regen", length: 4},
+			evasion: {name: "evasion", length: 5},
+		}
+	},
+	exec: function(user, target) {
+		play("talkchoir7", 2)
+
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i)=>{
+				addStatus({target: actor, origin: user, status: "focused", origin: user, length: 1})
+				addStatus({target: user, origin: user, status: "evasion", origin: user, length: 1})
+				play('mend', 0.5);
 			}
 		})
 	}
