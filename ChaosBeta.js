@@ -2818,7 +2818,7 @@ env.ACTIONS.btgothwar = {
 			critExec: (target) => {
 				addStatus(target, "stun")
 				if (chancerolled < 0.3) {
-					addStatus(target, "minor_concussion")
+					addStatus({target: target,status: "minor_concussion", lenght: 1})
 				}
 			}
 		})
@@ -2931,7 +2931,7 @@ env.ACTIONS.smoke_chatter = {
 			midCombatAllyAdd("speech_bubble", "right")
 		}
 	}
-}
+},
 
 env.ACTIONS.energizer = {
 	slug: "energizer",
