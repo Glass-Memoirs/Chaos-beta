@@ -1413,7 +1413,7 @@ env.STATUS_EFFECTS.stupihorrible_death = {
 	name: "ACTION::DEATH SENTENCE",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/eyew.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/death_sentence.gif",
 	impulse: {type: "action", component: "stupidhorrible"},
 	events: {
 		GLOBAL_onDeath: function({originalEventTarget}) {
