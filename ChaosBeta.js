@@ -1446,7 +1446,7 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 	beneficial: true,
 	outgoingCrit: 0,
 	outgoingMult,
-	img: "https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png",
+	icon: "https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png",
 	impulse: {
 		type: "fated",
 		component: "stupidhorrible",
