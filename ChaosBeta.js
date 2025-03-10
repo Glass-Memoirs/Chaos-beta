@@ -685,16 +685,15 @@ env.ACTOR_AUGMENTS.generic.smoke_hour = {
 	cost: 2
 }
 
-
-/*env.ACTOR_AUGMENTS.generic.smoke_shout = {
+env.ACTOR_AUGMENTS.generic.smoke_shout = {
 	slug: "smoke_shout",
 	name: "Shout",
-	image: "",
-	description: "",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
+	description: "Also more temp text ill give it new ones later",
 	alterations: [["smoke_chatter", "smoke_shout"]],
 	component: ["utility", "smoke"],
 	cost: 2
-}*/
+}
 
 //COMBAT MODIFIERS
 env.MODIFIERS.entropy_eternal = {
@@ -2926,9 +2925,28 @@ env.ACTIONS.smoke_chatter = {
 		let rand = Math.random()
 		play('talkfairy', 0.5);
 		if (rand > 0.5) {
-			midCombatAllyAdd("speech_bubble", "left")
+			midCombatAllyAdd("speech_bubble_weak", "left")
 		} else {
-			midCombatAllyAdd("speech_bubble", "right")
+			midCombatAllyAdd("speech_bubble_weak", "right")
+		}
+	}
+},
+
+env.ACTIONS.smoke_shout ={
+	slug: "smoke_shout",
+	name: "Shout",
+	type: "autohit",
+	description: {
+		flavour: "'Summon a voice';'a Strong voice but a voice none the less'",
+		onUse: "'Summon Actor: Voice bubble'"
+	},
+	exec: function() {
+		let rand = Math.random()
+		play('talkfairy', 0.5);
+		if (rand > 0.5) {
+			midCombatAllyAdd("speech_bubble_strong", "left")
+		} else {
+			midCombatAllyAdd("speech_bubble_strong", "right")
 		}
 	}
 },
@@ -3064,7 +3082,7 @@ env.COMBAT_ACTORS.immobile_actor = {
 	reactions: {} //SILENT CREATURE
 }
 
-env.COMBAT_ACTORS.speech_bubble = {
+env.COMBAT_ACTORS.speech_bubble_weak = {
 	name: "Speech Bubble",
 	maxhp: 12,
 	hp: 12,
@@ -3072,7 +3090,43 @@ env.COMBAT_ACTORS.speech_bubble = {
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
-			<div class="target" entity="Coin"></div>
+			<div class="target" entity="Speech Bubble"></div>
+		</div>
+		`,
+	reactions: {
+		evade: ["笑"],
+    	crit: [ "笑"],
+		crit_buff: [ "笑"],
+		miss: ["笑"],
+		dead: ["笑"],
+		puncture: ["笑"],
+		regen: ["笑"],
+		destabilized: ["笑"],
+		stun: ["笑"],
+		laugh: ["笑"],
+		sacrifice: ["笑"],
+		receive_hit: ["笑"],
+		receive_crit: ["笑"],
+		receive_puncture: ["笑"],
+		receive_buff: ["笑"],
+		receive_destabilized: ["笑"],
+		receive_rez: ["笑"],
+		receive_carapace: ["笑"],
+		receive_repairs: ["笑"],
+		receive_fear: ["笑"],
+		receive_redirection: ["笑"],
+	}
+}
+
+env.COMBAT_ACTORS.speech_bubble_strong = {
+	name: "Speech Bubble",
+	maxhp: 20,
+	hp: 20,
+	actions: ["attack","focus"],
+	graphic: `
+		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
+			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
+			<div class="target" entity="Speech Bubble"></div>
 		</div>
 		`,
 	reactions: {
