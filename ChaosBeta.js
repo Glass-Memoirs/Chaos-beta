@@ -1447,6 +1447,10 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 	outgoingCrit: 0,
 	outgoingMult,
 	img: "https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png",
+	impulse: {
+		type: "fated",
+		component: "stupidhorrible",
+	},
 	events: {
 		onCreated: function({statusObj}) {
 			if(statusObj.slug != this.status.slug) return;
