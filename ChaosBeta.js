@@ -678,7 +678,7 @@ env.ACTOR_AUGMENTS.generic.stupidhorrible_buncture ={
 env.ACTOR_AUGMENTS.generic.smoke_hour = {
 	slug: "smoke_hour",
 	name: "Hour Hand",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeHour.gif",
 	description: "'Increase time i guess this text is temporary ok'",
 	alterations: [["smoke_minute","smoke_hour"]],
 	component: ["primary","smoke"],
