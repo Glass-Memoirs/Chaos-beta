@@ -1439,6 +1439,33 @@ env.STATUS_EFFECTS.stupihorrible_death = {
 	}
 },
 
+env.STATUS_EFFECTS.fated_stupidhorrible = {
+	slug: "fated_stupidhorrible",
+	name: "FATE::STUPIDHORRIBLE",
+	passive: true,
+	beneficial: true,
+	outgoingCrit: 0,
+	outgoingMult,
+	img: "https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png",
+	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			
+			this.status.power = 0
+			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
+				if(slotContents == "stupidhorrible") this.status.power++
+			}
+
+			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
+				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+				if(augment?.component) if(augment.component[1] == "stupidhorrible") this.status.power += 2
+			}
+			this.status.outgoingCrit = -0.2 * this.status.power
+			this.status.outgoingMult = floor(0.2*this.status.power)
+		},
+	}
+},
+
 //https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
