@@ -3175,7 +3175,7 @@ env.COMBAT_ACTORS.speech_bubble_weak = {
 	name: "Speech Bubble",
 	maxhp: 12,
 	hp: 12,
-	actions: ["attack","focus"],
+	actions: ["attack","evade"],
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
@@ -3211,7 +3211,7 @@ env.COMBAT_ACTORS.speech_bubble_strong = {
 	name: "Speech Bubble",
 	maxhp: 20,
 	hp: 20,
-	actions: ["attack","focus"],
+	actions: ["attack","evade"],
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
@@ -3247,7 +3247,7 @@ env.COMBAT_ACTORS.threat_bubble = {
 	name: "Speech Bubble",
 	maxhp: 25,
 	hp: 25,
-	actions: ["attack","focus"],
+	actions: ["attack","evade"],
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
