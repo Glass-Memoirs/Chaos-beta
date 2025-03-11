@@ -1436,7 +1436,8 @@ env.STATUS_EFFECTS.stupihorrible_death = {
 			})
 			useAction(user, utility, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
 		}
-	}
+	},
+	help: "when ally fucking dies, use primary on all foes and then the utility once."
 },
 
 env.STATUS_EFFECTS.fated_stupidhorrible = {
@@ -1467,7 +1468,8 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 			this.status.outgoingCrit = -0.2 * this.status.power
 			this.status.outgoingMult = floor(0.2*this.status.power)
 		},
-	}
+	},
+	help: "'Per humor of stupidhorrible on this shell: reduce crit chance, but increase power yadda yadda im trying to fix this'"
 },
 
 env.STATUS_EFFECTS.smoke_scream = {
