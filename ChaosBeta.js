@@ -1137,6 +1137,17 @@ env.STATUS_EFFECTS.entropy_call = {
 	help: "Allows shell to call forth new targets"
 },
 
+env.STATUS_EFFECTS.entropy_invert = {
+	slug: "entropy_invert",
+	name: "Corrupted Signal",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "entropy"},
+	grantsActions: ["special_inversion"],
+	help: "look i was told about this, i wanna get it used lamo."
+},
+
 //surging
 env.STATUS_EFFECTS.surging_two = {
 	slug: "surging_two",
@@ -1482,7 +1493,7 @@ env.STATUS_EFFECTS.smoke_scream = {
 	help: "'Boosts shout';'lets you call for a threatening voice'"
 },
 
-//https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png <- placeholder sprite that we can usewhen no images are made for a thing yet
+//https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
 	name: "Minor Concussion",
