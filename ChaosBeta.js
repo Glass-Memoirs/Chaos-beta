@@ -1196,7 +1196,7 @@ env.STATUS_EFFECTS.surging_story = {
 		onAction: function({action}) {
 			let actionSlug = action.slug
 			let user = this.status.affecting
-			if (length(user.actions)> 2) {
+			if (user.actions.length> 2) {
 				let utility = env.ACTIONS[user.actions[2]]
 				if(!actionSlug == utility.slug) return;
 				addStatus({target: user, status: "surge", length: 1})
@@ -2870,7 +2870,7 @@ env.ACTIONS.btgothwar = {
 			critExec: (target) => {
 				addStatus(target, "stun")
 				if (chancerolled < 0.3) {
-					addStatus({target: target,status: "minor_concussion", lenght: 1})
+					addStatus({target: target,status: "minor_concussion", length: 1})
 				}
 			}
 		})
@@ -3243,7 +3243,7 @@ env.COMBAT_ACTORS.speech_bubble_strong = {
 	}
 }
 
-env.COMBAT_ACTORS.speech_bubble_strong = {
+env.COMBAT_ACTORS.threat_bubble = {
 	name: "Speech Bubble",
 	maxhp: 25,
 	hp: 25,
