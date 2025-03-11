@@ -1199,7 +1199,7 @@ env.STATUS_EFFECTS.surging_story = {
 				let user = this.status.affecting
 				let utility = env.ACTIONS[user.actions[2]]
 				if(!actionSlug == utility.slug) return;
-				addStatus({target: this.status.affecting, status: "surge", noReact: true, length: 1})
+				addStatus({target: user, status: "surge", length: 1})
 			}
 		}
 	},
