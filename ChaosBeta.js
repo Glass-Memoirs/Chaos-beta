@@ -1358,7 +1358,7 @@ env.STATUS_EFFECTS.btgothwar ={
 env.STATUS_EFFECTS.byothwar = {
 	slug: "byothwar",
 	name: "BYOTHWAR",
-	passive: "modifier",
+	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupihorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
 	events: {
