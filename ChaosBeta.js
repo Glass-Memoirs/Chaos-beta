@@ -399,8 +399,8 @@ if (page.path == '/local/beneath/embassy/') {
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
-    	--accent-color: var(#90e404);
-    	--font-color: var(#90e404);
+    	--accent-color: #90e404;
+    	--font-color: #90e404;
 	}
 	</style>`);
 
