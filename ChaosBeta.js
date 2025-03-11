@@ -383,9 +383,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--fundfriend-color);
 	}
 	[component="stupidhorrible"] {
-    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.png);
-    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.png);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.png);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
