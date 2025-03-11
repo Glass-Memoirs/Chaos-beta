@@ -363,9 +363,9 @@ if (page.path == '/local/beneath/embassy/') {
 
 	/* humor styling */
 	[component="entropy"] {
-    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/ENTROPYHUMORundithered.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/ENTROPYHUMORundithered.gif);    
-    	--background-small:  url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/ENTROPYHUMORundithered.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropyHumor.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropyHumor.gif);    
+    	--background-small:  url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropyHumor.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
