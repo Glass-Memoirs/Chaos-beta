@@ -230,7 +230,7 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 		env.dialogues["dreammod"].humors.responses[0].replies.push({
 			"name":"smoke",
 			"destination":"loop",
-			"exec": Function('change("e3a2_newcomp","stupidhorrible")'),
+			"exec": Function('change("e3a2_newcomp","smoke")'),
 			"hideRead":true
 		})
 		}
