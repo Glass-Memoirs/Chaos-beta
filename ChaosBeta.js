@@ -33,8 +33,7 @@ I - ROXY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3 (LOOK THE LOWERCASE IS IMPORTAN
  13. Merchant Code
 
  TO DO:
-+ Make the modifiers for surging (almost done!!!)
-+ work on meat, stupidhorrible, and SiIva
++ work on meat and SiIva
 		+ SiIva humor ideas so far
 		+ primary: rip
 		+ secondary: (we'll figure it out)
@@ -2867,6 +2866,7 @@ env.ACTIONS.btgothwar = {
 	},
 	stats: {
 		accuracy: 0.7,
+		crit: 0.6,
 		amt: 2,
 		status: {
 			stun: {name: "stun", showReference: true},
