@@ -15,7 +15,7 @@ CREATORS:
  - And also with showing me ([]^[]) how to format the description for the recent update, pointing out enegrgy, and overall helping with fixing the code.
  - Mewo for helping with StupidHorrible text, and for making that humor's personality
  - Luna from the sunset system for the updated battery image!
- PLAYTESTERS:
+ - Belznoki Qou Tezis for the altered idea of what would have been the lured status effect
 I - ROXY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3 (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME)
  SECTIONS:
  1. Dialogue changing
@@ -401,6 +401,16 @@ if (page.path == '/local/beneath/embassy/') {
     	--accent-color: #90e404;
     	--font-color: #90e404;
 	}
+	[component="offmetal"] {
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
+    	--background-size: auto;
+    	--background-position: center;
+    	--background-color: var(--dark-color);
+    	--accent-color: #d004a4;
+    	--font-color: #d004a4;
+	}
 	</style>`);
 
 //FUNCTIONS
@@ -542,6 +552,28 @@ env.COMBAT_COMPONENTS.smoke = {
 	combatModifiers: [] //"Maddening Apathy"
 }
 
+env.COMBAT_COMPONENTS.off_metal = {
+	name: "Metal",
+	slug: "off_metal",
+	description: "'oddly harminous';'feels shrouded'",
+	help: "'Tune';'Discipline';'Fortify'",
+	primary: {
+		alterations: [["primary", "off_metal_harmony"],["ADD_WINDUP", "cresendo"]],
+		stats: {
+			maxhp: 3
+		}
+	},
+	secondary: {
+		alterations: [["secondary", "off_metal_scold"]],
+		stats: {
+			maxhp: 3
+		}
+	},
+	utility: {
+		alterations: [["evade","off_metal_stand"]]
+	}
+}
+
 /*
 env.COMBAT_COMPONENTS.meat = {
      name: "Meat",
@@ -570,7 +602,7 @@ env.COMBAT_COMPONENTS.meat = {
 }
 */
 
-
+let temp = "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif"
 //AUGMENTS
 /*
 + Yknow, you dont really need to look at these, they all do the same layout and are generally hard to break.
@@ -1490,6 +1522,86 @@ env.STATUS_EFFECTS.smoke_scream = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
 	impulse: {type: "common", component: "smoke"},
 	help: "'Boosts shout';'lets you call for a threatening voice'"
+},
+
+env.STATUS_EFFECTS.forte = {
+	slug: "forte",
+	name: "Forte",
+	beneficial: true,
+	icon: temp,
+	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'",
+	events: {
+		onTurn: function() { 
+			reactDialogue(this.status.affecting, 'surge') 
+			delete this.status.justGotSurge
+		},
+		onAction: function(user,target) {
+			if(this.status.justGotSurge || beingUsedAsync || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
+				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
+			for (i = 0; i < Math.floor(hasStatus(targuseret, "forte")); i++) {
+				setTimeout(()=>{
+					sendFloater({
+						target: user,
+						type: "arbitrary",
+						arbitraryString: "FORTE",
+						size: 1.5,
+					})
+					readoutAdd({
+						message: `${user.name} goes again! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+						name: "sourceless", 
+						type: "sourceless combat minordetail", 
+						show: false,
+						sfx: false
+					})
+					useAction(user, action, actor, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
+				}, 500)
+			}
+			removeStatus(this.status.affecting, "forte")
+		},
+	}
+},
+
+env.STATUS_EFFECTS.high_note = {
+	slug: "high_note",
+	name: "High Note",
+	beneficial: true,
+	icon: temp,
+	outgoingCrit: 0,
+	incomingCrit: 0,
+	events: {
+		onAction: function() {
+			outgoingCrit = 2
+			incomingCrit = 2
+		}
+	},
+	help: "200% incoming and outgoing crits"
+},
+
+env.STATUS_EFFECTS.tuned = {
+	slug: "tuned",
+	name: "Tuned",
+	beneficial: true,
+	icon: temp,
+	events: {
+		onTurn: function(user,target) {
+			let modifierPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = false
+				if(statusData.passive) {usable = true}
+				if(statusData.infinite || (statusData.slug != "windup")) {usable = true}
+				if(i.includes("global_")||i.includes("malware_")||i.includes("fish_")) {usable = false}
+				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
+				if(i == "imperfect_reset") {usable = false}
+				if(i == "redirection" || i == "ethereal" || i == "immobile" || i == "conjoined" || i == "permanent_hp") {usable = false}
+				if(!i.beneficial) {usable = false}
+				console.log(i, usable)
+				if(usable) modifierPool.push(i)
+			}
+			addStatus({target: user, status: modifierPool.sample(), length: 3})
+		}
+	},
+	help: "Add a random beneficial status each turn this effect is present"
 },
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
@@ -3048,6 +3160,104 @@ env.ACTIONS.smoke_shout ={
 				midCombatAllyAdd("speech_bubble_strong", "right")
 			}
 		}
+	}
+},
+
+env.ACTIONS.off_metal_harmony = {
+	slug: "off_metal_harmony",
+	name: "Harmony",
+	type: "target",
+	verb: "harmonize at",
+	decription: {
+		flavour: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
+		onUse: "'Randomize Action betwee: ALTO, SOPRANO, TENOR, HEAD-VOICE'"
+	},
+},
+
+env.ACTIONS.off_metal_scold = {
+
+},
+
+env.ACTIONS.alto = {
+
+},
+
+env.ACTIONS.soprano = {
+	slug: "soprano",
+	name: "Soprano",
+	type: "target",
+	description: {
+		flavour: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
+		onHit: "'[STAT::amt]'"
+	},
+	stats: {
+		accuracy: 0.9,
+		crit: 0.5,
+		amt: 2,
+		status: {
+			high_note: {name: "high_note", length: 5},
+		},
+	},
+	exec: function(user,target) {
+		for (let i = 0; i <12; i++) {
+			env.GENERIC_ACTIONS.singleTarget({
+				action: this,
+				user,
+				target
+			})
+		}
+		addStatus({target: user, status: "high_note", length: 5})
+	}
+},
+
+env.ACTIONS.tenor = {
+	slug: "tenor",
+	name: "Tenor",
+	type: "autohit",
+	description: {
+		flavour: "'Wind up your voice for a burst';'show em whos boss'",
+		onUse: "[STATUS::windup] and [STATUS::forte",
+	},
+	stats: {
+		status: {
+			windup: {name: "windup", showReference: true},
+		},
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "windup", length: 1})
+				addStatus({target: user, status: "forte", length: 5})
+			}
+		})
+	},
+},
+
+env.ACTIONS.head_voice = {
+	slug: "head_voice",
+	name: "Head Voice",
+	type: "autohit",
+	description: {
+		flavour: "'i was gonna make a joke about opposite of bad chest feels dont touch your feet together but it doesnt work.'",
+		onUse: "apply [STATUS::tuned]"
+	},
+	stats: {
+		status: {
+			tuned: {name: "tuned", length:5},
+		},
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "tuned", length: 5})
+			}
+		})
 	}
 },
 
