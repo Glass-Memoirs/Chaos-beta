@@ -1499,7 +1499,7 @@ env.STATUS_EFFECTS.minor_concussion = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/concussion.gif",
 	events: {
-		onBeforeAction: function(context) {		
+		onBeforeAction: function({user,target,context}) {		
 			if(!context.settings.action.type.includes("target")) return;
                 
                 // alter target maybe
