@@ -233,6 +233,14 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 			"hideRead":true
 		})
 		}
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("off_metal")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"off_metal",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","off_metal")'),
+			"hideRead":true
+		})
+		}
 	if(!env.dialogues["dreammod"].sfer.responses[0].replies.includes("mod tester's delight (999)")) {
 	env.dialogues["dreammod"].sfer.responses[0].replies.push({
 		"name":"mod tester's delight (999)",
@@ -259,6 +267,7 @@ if(page.party){
 			page.flags.components.surging = 30
 			page.flags.components.stupidhorrible = 30 
 			page.flags.components.smoke = 30
+			page.flags.components.off_metal = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -287,6 +296,7 @@ if(page.party){
 			page.flags.components.surging = 3
 			page.flags.components.stupidhorrible = 3
 			page.flags.components.smoke = 3
+			page.flags.components.off_metal = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -335,6 +345,14 @@ if(page.party){
 				member.components["primary"]="smoke"
 				member.components["secondary"]="smoke"
 				member.components["utility"]="smoke"
+			})
+		case "off_metal":
+			page.flags.components ={off_metal:12}
+
+			page.party.forEach(member=>{
+				member.components["primary"]="off_metal"
+				member.components["secondary"]="off_metal"
+				member.components["utility"]="off_metal"
 			})
 		}
 	}
