@@ -1418,7 +1418,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 	help: "'all actions have a 35% chance of becoming one of a random seven less powerful actions'"
 },
 
-env.STATUS_EFFECTS.stupihorrible_death = {
+env.STATUS_EFFECTS.stupidhorrible_death = {
 	slug: "stupidhorrible_death",
 	name: "ACTION::DEATH SENTENCE",
 	passive: true,
