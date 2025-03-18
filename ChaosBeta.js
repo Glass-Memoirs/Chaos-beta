@@ -36,7 +36,7 @@ I - ROXY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3 (LOOK THE LOWERCASE IS IMPORTAN
 + work on meat and SiIva
 		+ SiIva humor ideas so far
 		+ primary: rip
-		+ secondary: (we'll figure it out)
+		+ secondary: mashup
 		+ utility: Snow Halation
 		+ utility augment (use 7 SiIvas): The MF Like Button
 		+ action does a random move that is strong, but requires a buildup of energy to do so
