@@ -1533,10 +1533,10 @@ env.STATUS_EFFECTS.smoke_deep = {
 	impulse: {type: "common", component: "smoke"},
 	inUse: false,
 	events: {
-		onAddStatus: function({statusObj}) {
+		onAddStatus: function({target,statusObj}) {
 			if (env.STATUS_EFFECTS.smoke_deep.inUse) return
 			else env.STATUS_EFFECTS.smoke_deep.inUse = true
-			if (!statusObj.passive && statusObj.beneficial) {
+			if (!statusObj.passive && statusObj.beneficial && !env.STATUS_EFFECTS.smoke_deep.inUse) {
 				addStatus({target: this.status.affectiing, status: "focused", length: 2})
 			}
 		}
@@ -3045,7 +3045,7 @@ env.ACTIONS.smoke_haze = {
 	details: {
 		flavour: "'Surround an ally with smoke';'Heal them and make them harder to hit'",
 		onhit: "'2T:[STATUS::regen] + 2T:[STATUS::evasion]'",
-		oncrit: "'4T:[STATUS::regen] + 5T:[STATUS::evasion]'"
+		oncrit: "'4T:[STATUS::regen] + 5T:[STATUS::evasion]'",
 	},
 	stats: {
 		accuracy: 1,
