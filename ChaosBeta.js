@@ -539,7 +539,7 @@ env.COMBAT_COMPONENTS.smoke = {
 			maxhp: 3
 		}
 	},
-	combatModifiers: [] //"Maddening Apathy"
+	combatModifiers: ["smoke_cut", "smoke_deep"] //"Maddening Apathy"
 }
 
 /*
@@ -802,6 +802,21 @@ env.MODIFIERS.stupidhorrible_hard ={
 	}
 }
 
+env.MODIFIERS.smoke_cut = {
+	name: "Cut Lungs",
+	getHelp: ()=> {return env.STATUS_EFFECTS.smoke_cut.help},
+	alterations: {
+		all: [["STATUS", "smoke_cut"]]
+	}
+}
+
+env.MODIFIERS.smoke_deep ={
+	name: "Deep Breath",
+	getHelp: ()=> {return env.STATUS_EFFECTS.smoke_deep.help},
+	alterations: {
+		all: [["STATUS", "smoke_deep"]]
+	}
+}
 //STATUS EFFECTS
 /*
 + Yeah these needed doccumenting
@@ -1172,9 +1187,9 @@ env.STATUS_EFFECTS.surging_set = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	events:{
-		onRemoveStatus: function({target, removingStatusName}) {
+		onRemoveStatus: function({removingStatusName}) {
 			if(removingStatusName == "regen") {
-				addStatus({target: target, origin: false, status: "stun", length: 2})
+				addStatus({target: this.status.affecting, origin: false, status: "stun", length: 2})
 			}
 		},
 	},
@@ -1490,6 +1505,59 @@ env.STATUS_EFFECTS.smoke_scream = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
 	impulse: {type: "common", component: "smoke"},
 	help: "'Boosts shout';'lets you call for a threatening voice'"
+},
+
+env.STATUS_EFFECTS.smoke_patch = {
+	slug: "smoke_patch",
+	name: "Patchwork Lungs",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "smoke"},
+	events: {
+		onRemoveStatus: function({removingStatusName}) {
+			if (removingStatusName == "puncture") {
+				addStatus({target: this.status.affecting, status: "focused", length: 2})
+			}
+		}
+	},
+	help: "'when PUNCTURE removed, gain FOCUSED'"
+},
+
+env.STATUS_EFFECTS.smoke_deep = {
+	slug: "smoke_deep",
+	name: "Deep Breath",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "smoke"},
+	inUse: false,
+	events: {
+		onAddStatus: function({statusObj}) {
+			if (env.STATUS_EFFECTS.smoke_deep.inUse) return
+			else env.STATUS_EFFECTS.smoke_deep.inUse = true
+			if (!statusObj.passive && statusObj.beneficial) {
+				addStatus({target: this.status.affectiing, status: "focused", length: 2})
+			}
+		}
+	},
+	help: "'When gaining a beneficial effect, gain 2T:FOCUSED'"
+},
+
+env.STATUS_EFFECTS.smoke_cut = {
+	slug: "smoke_cut",
+	name: "Cut Lungs",
+	passive: true,
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onRemoveStatus: function({removingStatusName}) {
+			if (removingStatusName == "focused") {
+				addStatus({target: this.status.affecting, status: "puncture", length: 2})
+			}
+		}
+	},
+	help: "'When FOCUSED removed, gain 2T:PUNCTURE'"
 },
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
