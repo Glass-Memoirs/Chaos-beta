@@ -3076,7 +3076,7 @@ env.ACTIONS.smoke_haze = {
 env.ACTIONS.smoke_cloud = {
 	slug: "smoke_cloud",
 	name: "Cloud",
-	type: "self+autohit+support",
+	type: "autohit+support",
 	details: {
 		flavour: "'Shroud the entire team in smoke';'harder to be hit if you cannot be seen'",
 		onUse: "'[STATUS::regen] [STATUS::evasion] to team'"
@@ -3093,8 +3093,8 @@ env.ACTIONS.smoke_cloud = {
 		env.GENERIC_ACTIONS.teamWave({
 			team: user.team,
 			exec: (actor, i)=>{
-				addStatus({target: actor, origin: user, status: "focused", origin: user, length: 1})
-				addStatus({target: user, origin: user, status: "evasion", origin: user, length: 1})
+				addStatus({target: actor, origin: user, status: "regen", origin: user, length: 4})
+				addStatus({target: user, origin: user, status: "evasion", origin: user, length: 5})
 				play('mend', 0.5);
 			}
 		})
