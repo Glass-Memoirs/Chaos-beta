@@ -2,7 +2,7 @@
 WARNING: I ([]^[]) AM PROBABLY LIABLE FOR ANY DISTRESS OR RAGE READING THIS PRODUCES. I AM SORRY
 OK REDOING THIS COMMENTING BECAUSE I LOST IT AGAIN
 CREATORS:
-- EmptyEchos (hey das the co-creator), ClocktowerCollective (hey das me)
+- EmptyEchos (hey das the co-creator(hiii dats me :3)), ClocktowerCollective (hey das me)
  Credits:
  - EE for ideas, playtesting, status effect icons, and also making the undithered gif for entropy
  - Lustre for making the dithered version of the fractal gif
@@ -13,7 +13,7 @@ CREATORS:
  - Narra for immobile_actor, the fishing minigame part as well.
  - Adenator for the code for making the status pool because i was probably not gonna figure that out at all, also for helping me ([]^[]) fix the loader with the resources
  - And also with showing me ([]^[]) how to format the description for the recent update, pointing out enegrgy, and overall helping with fixing the code.
- - Mewo for helping with StupidHorrible text, and for making that humor's personality
+ - Mewo for helping with StupidHorrible text, and for making that humor's personality (thx so much mewo u tha goat)
  - Luna from the sunset system for the updated battery image!
  PLAYTESTERS:
 I - ROXY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3 (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME)
@@ -676,7 +676,7 @@ env.ACTOR_AUGMENTS.generic.stupidhorrible_buncture ={
 //Smoke
 env.ACTOR_AUGMENTS.generic.smoke_hour = {
 	slug: "smoke_hour",
-	name: "Hour Hand",
+	name: "Winking Hand",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeHour.gif",
 	description: "'Increase time i guess this text is temporary ok'",
 	alterations: [["smoke_minute","smoke_hour"]],
@@ -2958,7 +2958,7 @@ env.ACTIONS.btgothwar = {
 
 env.ACTIONS.smoke_minute = {
 	slug: "smoke_minute",
-	name: "Minute Hand",
+	name: "Blinking Hand",
 	type: "target",
 	verb: "time",
 	details: {
@@ -2981,7 +2981,7 @@ env.ACTIONS.smoke_minute = {
 
 env.ACTIONS.smoke_hour = {
 	slug: "smoke_hour",
-	name: "Hour Hand",
+	name: "Winking Hand",
 	type: "target",
 	verb: "time",
 	details: {
