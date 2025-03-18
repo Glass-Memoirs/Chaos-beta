@@ -1560,6 +1560,34 @@ env.STATUS_EFFECTS.smoke_cut = {
 	help: "'When FOCUSED removed, gain 2T:PUNCTURE'"
 },
 
+env.STATUS_EFFECTS.rainy_day = {
+	slug: "rainy_day",
+	name: "Rainy Day",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	grantsActions: ["directional_rain"],
+	impulse: {type: "common", component: "smoke"},
+	help: "'Grants move DIRECTIONAL RAIN'"
+},
+
+env.STATUS_EFFECTS.clouded_lungs = {
+	slug: "clouded_lungs",
+	name: "Clouded Lungs",
+	passive: false,
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onBeforeAction: function({context}) {
+			let pow = hasStatus(this.status.affecting,"clouded_lungs")
+			if (Math.random() < (0.2 + (pow *0.02))) {
+				context.settings.action = env.ACTIONS["cough"]
+			}
+		}
+	},
+	help: "'actions have a chance to become COUGH'"
+},
+
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
@@ -3115,6 +3143,56 @@ env.ACTIONS.smoke_shout ={
 			} else {
 				midCombatAllyAdd("speech_bubble_strong", "right")
 			}
+		}
+	}
+},
+
+env.ACTIONS.directional_rain = {
+	slug: "directional_rain",
+	name: "Directional Rain",
+	type: "target",
+	description: {
+		flavour: "'A dreary day';'You could catch a cold'",
+		onHit: "'+3-4T:[STATUS::clouded_lungs]';'[STAT::amt]'"
+	},
+	stats: {
+		accuracy: 0.7,
+		crit: 0.1,
+		amt: 1,
+		status: {
+			clouded_lungs: {name: "clouded_lungs", showReference: true},
+		},
+	},
+	exec: function(user,target) {
+		let durationVal = [3,4]
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({target})=> {
+				addStatus({target: target, status: "clouded_lungs", length: durationVal.sample()})
+			}
+		})
+	}
+},
+
+env.ACTIONS.cough = {
+	slug: "cough",
+	name: "Cough",
+	type: "self+autohit",
+	description: {
+		flavour: "'you just cough. thats it.'",
+		onUse: "'REMOVE 1-3T:[STATUS::clouded_lungs]'"
+	},
+	stats: {
+		status: {
+			clouded_lungs: {name: "clouded_lungs", showReference: true},
+		},
+	},
+	exec: function(user) {
+		if (hasStatus(user, "clouded_lungs")) {
+			let removeLength = [-1,-2,-3]
+			addStatus({target: user, status: "clouded_lungs", length: removeLength.sample()})
 		}
 	}
 },
