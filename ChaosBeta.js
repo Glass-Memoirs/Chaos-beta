@@ -3040,7 +3040,7 @@ env.ACTIONS.smoke_hour = {
 env.ACTIONS.smoke_haze = {
 	slug: "smoke_haze",
 	name: "Haze",
-	type: "support+autoit+target+self",
+	type: "support+autoit+target",
 	verb: "shroud",
 	details: {
 		flavour: "'Surround an ally with smoke';'Heal them and make them harder to hit'",
