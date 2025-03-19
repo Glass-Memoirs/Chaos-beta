@@ -1607,7 +1607,7 @@ env.STATUS_EFFECTS.rainy_day = {
 	name: "Rainy Day",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeRainy.gif",
 	grantsActions: ["directional_rain"],
 	impulse: {type: "common", component: "smoke"},
 	help: "'Grants move DIRECTIONAL RAIN'"
