@@ -3043,7 +3043,7 @@ env.ACTIONS.btgothwar = {
 			action: this,
 			user,
 			target,
-			critExec: (target) => {
+			critExec: ({target}) => {
 				addStatus(target, "stun")
 				if (chancerolled < 0.3) {
 					addStatus({target: target,status: "minor_concussion", length: 1})
@@ -3099,7 +3099,7 @@ env.ACTIONS.smoke_hour = {
 			action: this,
 			user,
 			target,
-			critExec: (target) => {
+			critExec: ({target}) => {
 				addStatus(target, "stun")
 			}
 		})
