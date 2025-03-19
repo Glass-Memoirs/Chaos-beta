@@ -1520,7 +1520,7 @@ env.STATUS_EFFECTS.smoke_patch = {
 	name: "Patchwork Lungs",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokePatch.gif",
 	impulse: {type: "common", component: "smoke"},
 	events: {
 		onRemoveStatus: function({removingStatusName}) {
@@ -1557,7 +1557,7 @@ env.STATUS_EFFECTS.smoke_cut = {
 	name: "Cut Lungs",
 	passive: true,
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeCut.gif",
 	events: {
 		onRemoveStatus: function({removingStatusName}) {
 			if (removingStatusName == "focused") {
@@ -1618,7 +1618,7 @@ env.STATUS_EFFECTS.clouded_lungs = {
 	name: "Clouded Lungs",
 	passive: false,
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeCloudy.gif",
 	events: {
 		onBeforeAction: function({context}) {
 			let pow = hasStatus(this.status.affecting,"clouded_lungs")
