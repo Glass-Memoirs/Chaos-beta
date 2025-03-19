@@ -3001,8 +3001,8 @@ env.ACTIONS.stupidhorrible_buncture ={
 		})
 		if (AllTargets.length) {
 			for (let i = 0; i < AllTargets.length; i++) {
-			let target = AllTargets[i]
-			env.GENERIC_ACTIONS.singleTarget({
+				let target = AllTargets[i]
+				env.GENERIC_ACTIONS.singleTarget({
 					action: this,
 					user,
 					target,
