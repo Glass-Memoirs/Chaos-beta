@@ -1630,6 +1630,36 @@ env.STATUS_EFFECTS.clouded_lungs = {
 	help: "'actions have a chance to become COUGH'"
 },
 
+env.STATUS_EFFECTS.fated_smoke = {
+	slug: "fated_smoke",
+	name: "FATED::SMOKE",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "fated", component: "smoke"},
+	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			
+			this.status.power = 0
+			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
+				if(slotContents == "smoke") this.status.power++
+			}
+
+			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
+				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+				if(augment?.component) if(augment.component[1] == "smoke") this.status.power += 2
+			}
+		},
+		onTurn: function() {
+			if (Math.random() < (0.5 + (0.5 * this.status.power))) {
+				addStatus({target: this.status.affecting, status: "regen", length: 2})
+			}
+		}
+	},
+	help: "'per humor of SMOKE on this shell: 5% chance to gain 2T:regen'"
+},
+
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
