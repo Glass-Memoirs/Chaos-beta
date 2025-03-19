@@ -1652,7 +1652,7 @@ env.STATUS_EFFECTS.fated_smoke = {
 			}
 		},
 		onTurn: function() {
-			if (Math.random() < (0.5 + (0.5 * this.status.power))) {
+			if (Math.random() < (0.05 + (0.05 * this.status.power))) {
 				addStatus({target: this.status.affecting, status: "regen", length: 2})
 			}
 		}
