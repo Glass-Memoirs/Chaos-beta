@@ -1916,24 +1916,29 @@ env.ACTIONS.level_statuses ={ //this would not deal damage for me at all so i ma
 		userEffects.forEach((status) => {
 			removeStatus(user, status)
 		})
-		critExec: { //DOnt believe its lies this works jsut fine
-			if (targetEffects.includes("windup")) {
-				sendFloater({
-					target: user,
-					type: "arbitrary",
-					arbitraryString: "LMAO",
-					size: 1.5,
-				})
-				readoutAdd({
-					message: `${target.name} forgot what it was doing.`, 
-					name: "sourceless", 
-					type: "sourceless combat minordetail", 
-					show: false,
-					sfx: false
-				})
-				removeStatus(target, "windup")
+		env.GENERIC_ACTIONS.singleTarget({
+			action:this,
+			user,
+			target,
+			critExec: ()=> { //DOnt believe its lies this works jsut fine
+				if (targetEffects.includes("windup")) {
+					sendFloater({
+						target: user,
+						type: "arbitrary",
+						arbitraryString: "LMAO",
+						size: 1.5,
+					})
+					readoutAdd({
+						message: `${target.name} forgot what it was doing.`, 
+						name: "sourceless", 
+						type: "sourceless combat minordetail", 
+						show: false,
+						sfx: false
+					})
+					removeStatus(target, "windup")
+				}
 			}
-		}
+		})
 	}
 },
 
