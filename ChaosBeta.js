@@ -1652,12 +1652,12 @@ env.STATUS_EFFECTS.fated_smoke = {
 			}
 		},
 		onTurn: function() {
-			if (Math.random() < (0.05 + (0.05 * this.status.power))) {
+			if (Math.random() < (0.09 + (0.09 * this.status.power))) {
 				addStatus({target: this.status.affecting, status: "regen", length: 2})
 			}
 		}
 	},
-	help: "'per humor of SMOKE on this shell: 5% chance to gain 2T:regen'"
+	help: "'per humor of SMOKE on this shell: 9% chance to gain 2T:regen'"
 },
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
