@@ -817,6 +817,14 @@ env.MODIFIERS.smoke_deep ={
 		all: [["STATUS", "smoke_deep"]]
 	}
 }
+
+env.MODIFIERS.maddening_apathy = {
+	name: "Maddening Apathy",
+	getHelp: ()=> {return env.STATUS_EFFECTS.maddening_apathy.help},
+	alterations: {
+		all: [["STATUS", "maddening_apathy"]]
+	}
+}
 //STATUS EFFECTS
 /*
 + Yeah these needed doccumenting
@@ -1558,6 +1566,40 @@ env.STATUS_EFFECTS.smoke_cut = {
 		}
 	},
 	help: "'When FOCUSED removed, gain 2T:PUNCTURE'"
+},
+
+env.STATUS_EFFECTS.maddening_apathy = {
+	slug: "maddening_apathy",
+	name: "Maddening Apathy",
+	passive: true,
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onBeforeAction: function(action, user, context) {
+			if (action.type.includes("target") && action.beneficial){
+				context.settings.target = user
+			}
+		},
+		onTurn: function() {
+			let summonFoe = ["hallucination","hallucination","hallucination","container"]
+			if (this.status.affecting.team.name == "ally") {
+				if (Math.random() < 0.175) {
+					if (Math.random() < 0.5) {
+						if (Math.random() < 0.03) {
+							midCombatActorAdd(env.rpg.enemyTeam, summonFoe.sample(), 'left')
+						}
+						midCombatActorAdd(env.rpg.enemyTeam, summonFoe.sample(), 'left')
+					} else {
+						if (Math.random() < 0.03) {
+							midCombatActorAdd(env.rpg.enemyTeam, summonFoe.sample(), 'right')
+						}
+						midCombatActorAdd(env.rpg.enemyTeam, summonFoe.sample(), 'right')
+					}
+				}
+			}
+		}
+	},
+	help: "'Each Ally turn: 17.5% chance to summon enemy';'All positive target actions will be rerouted to the user.'"
 },
 
 env.STATUS_EFFECTS.rainy_day = {
