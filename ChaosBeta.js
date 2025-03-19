@@ -1573,7 +1573,7 @@ env.STATUS_EFFECTS.maddening_apathy = {
 	name: "Maddening Apathy",
 	passive: true,
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeApathy.gif",
 	events: {
 		onBeforeAction: function(action, user, context) {
 			if (action.type.includes("target") && action.beneficial){
