@@ -1540,9 +1540,9 @@ env.STATUS_EFFECTS.smoke_deep = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "common", component: "smoke"},
 	events: {
-		onAddStatus: function({target,statusObj}) {
-			if (!statusObj.passive && statusObj.beneficial && !env.STATUS_EFFECTS.smoke_deep.inUse && statusObj.slug != "focused") {
-				addStatus({target: this.status.affectiing, status: "focused", length: 2})
+		onAddStatus: function({statusObj}) {
+			if (!statusObj.passive && statusObj.beneficial && statusObj.slug != "focused") {
+				addStatus({target: this.status.affecting, status: "focused", length: 2})
 			}
 		}
 	},
