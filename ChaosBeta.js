@@ -3130,11 +3130,11 @@ env.ACTIONS.smoke_haze = {
 			action: this,
 			user,
 			target,
-			hitExec: (target) => {
+			hitExec: ({target}) => {
 				addStatus({target: target, status: "regen", length: 2})
 				addStatus({target: target, status: "evasion", length: 2})
 			},
-			critExec: (target) => {
+			critExec: ({target}) => {
 				addStatus({target: target, status: "regen", length: 2})
 				addStatus({target: target, Status: "evasion", length: 3})
 			}
