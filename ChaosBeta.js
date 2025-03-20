@@ -2218,7 +2218,7 @@ env.ACTIONS.tormenting_delight = {
 				if (Math.random() < 0.25) {
 					addStatus({target: user,status: "surge", length: 1})
 					addStatus({target: target, status: "stun", length: 1})
-					if (includeFocus) {addStatus({target: user, status: "focus", length: 1})}
+					if (includeFocus) {addStatus({target: user, status: "focused", length: 1})}
 				}
 			}
 		})
