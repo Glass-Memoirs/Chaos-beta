@@ -539,7 +539,7 @@ env.COMBAT_COMPONENTS.smoke = {
 			maxhp: 3
 		}
 	},
-	combatModifiers: ["smoke_cut", "smoke_deep", "maddening_apathy"] //"Maddening Apathy"
+	combatModifiers: ["smoke_cut", "smoke_deep", "maddening_apathy"]
 }
 
 /*
