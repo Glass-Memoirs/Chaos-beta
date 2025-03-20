@@ -512,7 +512,7 @@ env.COMBAT_COMPONENTS.stupidhorrible = {
             maxhp: 0
         }
     },
-    combatModifiers: ["stupidhorrible_bad", "btgothwar", "byothwar", "stupihorrible_hard"]
+    combatModifiers: ["stupidhorrible_bad", "btgothwar", "byothwar", "stupidhorrible_hard"]
 }
 
 env.COMBAT_COMPONENTS.smoke = {
