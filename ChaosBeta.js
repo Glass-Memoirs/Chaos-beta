@@ -3051,7 +3051,7 @@ env.ACTIONS.btgothwar = {
 			critExec: ({target}) => {
 				addStatus({target: target, status: "stun", length: 1})
 				if (chancerolled < 0.3) {
-					addStatus({target: target,status: "minor_concussion", length: 1})
+					addStatus({target: target,status: "minor_concussion", length: 3})
 				}
 			}
 		})
