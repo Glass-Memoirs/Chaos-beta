@@ -691,7 +691,7 @@ env.ACTOR_AUGMENTS.generic.smoke_cloud = {
 	description: "got nothing yet",
 	alterations: [["smoke_haze", "smoke_cloud"]],
 	component: ["secondary", "smoke"],
-	cost: 2
+	cost: 3
 }
 
 env.ACTOR_AUGMENTS.generic.smoke_shout = {
