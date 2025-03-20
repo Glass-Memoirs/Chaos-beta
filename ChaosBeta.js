@@ -3168,7 +3168,7 @@ env.ACTIONS.smoke_cloud = {
 			team: user.team,
 			exec: (actor, i)=>{
 				addStatus({target: actor, origin: user, status: "regen", origin: user, length: 4})
-				addStatus({target: user, origin: user, status: "evasion", origin: user, length: 5})
+				addStatus({target: actor, origin: user, status: "evasion", origin: user, length: 5})
 				play('mend', 0.5);
 			}
 		})
