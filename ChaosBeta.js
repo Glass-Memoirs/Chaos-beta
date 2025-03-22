@@ -3420,6 +3420,30 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.stupidhorrible = {
 	receive_redirection: ["what the fuck are you smoking.", "oh so yr like cooked. okay (not) nice knowing you."],
 }
 
+env.COMBAT_ACTORS.generic.reactionPersonalities.smoke = {
+	evade: ["Try it again and you will die.","what part of 'im going to kill you' do you not understand?"],
+    crit: ["Youre not even worth this"],
+	crit_buff: ["Meet your end you sick specter."],
+	miss: ["Next time youre dead."],
+	dead: ["No..."],
+	puncture: ["My body..."],
+	regen: ["Ah, Thank you!", "I dont need your help."],
+	destabilized: ["What?"],
+	stun: ["Why can I move?"],
+	laugh: ["HAHAHAHAHA"],
+	sacrifice: ["Do my job in my stead"],
+	receive_hit: ["Pathetic."],
+	receive_crit: ["You insane specter..."],
+	receive_puncture: ["You coward"],
+	receive_buff: ["As timely as ever!","Useless"],
+	receive_destabilized: ["Ill tear that smile off of your face"],
+	receive_rez: ["Finally something done right."],
+	receive_carapace: ["We shall end these specters together!", "Do your job."],
+	receive_repairs: ["Thank you friend!"],
+	receive_fear: ["Why you-"],
+	receive_redirection: ["Good.","Maybe I wont have to see you alive.", "Stay out of my way."],
+}
+
 //Combat Actors
 
 env.COMBAT_ACTORS.immobile_actor = {
