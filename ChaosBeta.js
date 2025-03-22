@@ -1644,9 +1644,26 @@ env.STATUS_EFFECTS.ashen_hands = {
 			else env.STATUS_EFFECTS.ashen_hands.inUse = true
 			let pow = hasStatus(this.status.affecting, "regen")
 			let action = env.ACTIONS[user.actions[2]]
-			for (let i = 1; i <= pow; i++) {
-				useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ashen Hands"})
-			}
+			setTimeout(()=>{
+				sendFloater({
+					target: user,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: `ASHEN HANDS::${action.name}`,
+					size: 1.5,
+				})
+
+				readoutAdd({
+					message: `${user.name} Swings with burning hands!`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+				for (let i = 1; i <= pow; i++) {
+					useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ashen Hands"})
+				}
+			}, 250)
 		}
 	},
 	help: "'On Crit, use SECONDARY on the target the same amoun of turns the shell has regen'"
