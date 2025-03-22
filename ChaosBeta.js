@@ -1578,7 +1578,7 @@ env.STATUS_EFFECTS.maddening_apathy = {
 			}
 		},
 		onTurn: function() {
-			let summonFoe = ["hallucination","hallucination","hallucination","container"]
+			let summonFoe = ["critta_spawner_bee","critta_spawner_bee","critta_spawner_bee","dull_container"]
 			if (this.status.affecting.team.name == "ally") {
 				if (Math.random() < 0.175) {
 					if (Math.random() < 0.5) {
@@ -1639,10 +1639,12 @@ env.STATUS_EFFECTS.ashen_hands = {
 		onTurn: function() {
 			env.STATUS_EFFECTS.ashen_hands.inUse = false
 		},
-		onCrit: function({user,target}) {
+		onCrit: function({subject,origin,attack, beneficial}) {
 			if (env.STATUS_EFFECTS.ashen_hands.inUse) return
 			else env.STATUS_EFFECTS.ashen_hands.inUse = true
 			let pow = hasStatus(this.status.affecting, "regen")
+			let user = this.status.affecting
+			if(beneficial || user.team.members.includes(subject) || user.state == "dead" || !user.actions[2] || hasStatus(user, "fear")) return;
 			let action = env.ACTIONS[user.actions[2]]
 			setTimeout(()=>{
 				sendFloater({
@@ -1661,7 +1663,7 @@ env.STATUS_EFFECTS.ashen_hands = {
 					sfx: false
 				})
 				for (let i = 1; i <= pow; i++) {
-					useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ashen Hands"})
+					useAction(user, action, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ashen Hands"})
 				}
 			}, 250)
 		}
