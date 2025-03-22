@@ -1668,7 +1668,7 @@ env.STATUS_EFFECTS.ashen_hands = {
 			}, 250)
 		}
 	},
-	help: "'On Crit, use SECONDARY on the target the same amoun of turns the shell has regen'"
+	help: "'On Crit, use SECONDARY on the target the same amount of turns the shell has regen'"
 },
 
 env.STATUS_EFFECTS.fated_smoke = {
