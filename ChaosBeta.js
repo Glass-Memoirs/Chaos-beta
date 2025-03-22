@@ -1326,7 +1326,7 @@ env.STATUS_EFFECTS.fated_surging = {
 	name: "FATED::SURGE",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Humors/surginghumoritself.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/FatedSurging.gif",
 	impulse: {
 		type: "fated",
 		component: "surging",
@@ -1480,7 +1480,7 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 	beneficial: true,
 	outgoingCrit: 0,
 	outgoingMult: 0,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/Placeholder.png",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/FatedStupidhorrible.gif",
 	impulse: {
 		type: "fated",
 		component: "stupidhorrible",
