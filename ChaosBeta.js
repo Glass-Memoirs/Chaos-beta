@@ -1627,6 +1627,31 @@ env.STATUS_EFFECTS.clouded_lungs = {
 	help: "'actions have a chance to become COUGH'"
 },
 
+env.STATUS_EFFECTS.ashen_hands = {
+	slug: "ashen_hands",
+	name: "ACTION::ASHEN HANDS",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	inUse: false,
+	impulse: {type: "action", component: "smoke"},
+	events:{
+		onTurn: function() {
+			env.STATUS_EFFECTS.ashen_hands.inUse = false
+		},
+		onCrit: function({user,target}) {
+			if (env.STATUS_EFFECTS.ashen_hands.inUse) return
+			else env.STATUS_EFFECTS.ashen_hands.inUse = true
+			let pow = hasStatus(this.status.affecting, "regen")
+			let action = env.ACTIONS[user.actions[2]]
+			for (let i = 1; i <= pow; i++) {
+				useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ashen Hands"})
+			}
+		}
+	},
+	help: "'On Crit, use SECONDARY on the target the same amoun of turns the shell has regen'"
+},
+
 env.STATUS_EFFECTS.fated_smoke = {
 	slug: "fated_smoke",
 	name: "FATED::SMOKE",
