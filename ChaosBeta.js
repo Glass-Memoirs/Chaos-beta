@@ -3295,7 +3295,7 @@ env.ACTIONS.energizer = {
 				} else if (choice > 0.5 && choice < 0.8) {
 					addStatus({target: target, status: "wild_surge", length:1 })
 				} else if (choice > 0.8 && choice < 0.99) {
-					addStatus({target: target, status: "exponential_overload", length: 1})
+					addStatus({target: target, status: "exp_overload", length: 1})
 				} else {
 					addStatus({target: target, status: "tetration_shock", length: 1})
 				}
