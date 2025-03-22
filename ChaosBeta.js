@@ -1699,6 +1699,21 @@ env.STATUS_EFFECTS.fated_smoke = {
 	help: "'per humor of SMOKE on this shell: 9% chance to gain 2T:regen'"
 },
 
+env.STATUS_EFFECTS.muted = {
+	slug: "muted",
+	name: "Muted",
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onBeforeAction: function({context}) {
+			if (Math.random() < 0.23) {
+				context.settings.action = env.ACTIONS["nothing"]
+			}
+		} 
+	},
+	help: "'using an action has a 23% chance to do nothing'"
+}
+
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
@@ -3313,6 +3328,35 @@ env.ACTIONS.cough = {
 	}
 },
 
+env.ACTIONS.harsh_noise = {
+	slug: "harsh_noise",
+	name: "Hars Noise",
+	type: "target",
+	description: {
+		flavour: "'Emit a painful sound','has a chance to silence foes'",
+		onHit: "'[STAT::amt]'",
+		onCrit: "'[STATUS::mute]'",
+	},
+	stats: {
+		accuracy: 0.82,
+		crit: 0.125,
+		amt: 2,
+		status: {
+			muted: {name: "muted", length: 3},
+		},
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			critExec: ({target}) => {
+				addStatus({target: target, status: "muted", length: 3})
+			}
+		})
+	}
+},
+
 env.ACTIONS.energizer = {
 	slug: "energizer",
 	name: "Energizer",
@@ -3344,7 +3388,7 @@ env.ACTIONS.energizer = {
 			}
 		})
 	}
-}
+},
 
 //Personality
 
@@ -3508,7 +3552,7 @@ env.COMBAT_ACTORS.speech_bubble_strong = {
 	name: "Speech Bubble",
 	maxhp: 20,
 	hp: 20,
-	actions: ["attack","evade"],
+	actions: ["harsh_noise","evade"],
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
@@ -3544,7 +3588,7 @@ env.COMBAT_ACTORS.threat_bubble = {
 	name: "Speech Bubble",
 	maxhp: 25,
 	hp: 25,
-	actions: ["attack","evade"],
+	actions: ["harsh_noise","evade"],
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
