@@ -372,9 +372,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--neutral-color);
 	}
 	[component="surging"] {
-    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surginghumoritself.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surgingHumor.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/surginghumoritself.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SurgingHumorLarge.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SurgingHumorSmall.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SurgingHumorSmall.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
