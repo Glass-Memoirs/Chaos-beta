@@ -362,9 +362,9 @@ if (page.path == '/local/beneath/embassy/') {
 
 	/* humor styling */
 	[component="entropy"] {
-    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropyHumor.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropyLarge.gif);
     	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropyHumor.gif);    
-    	--background-small:  url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropyHumor.gif);
+    	--background-small:  url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/EntropySmall.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -382,9 +382,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--fundfriend-color);
 	}
 	[component="stupidhorrible"] {
-    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/babypear.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/BabyPearLarge.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/BabyPearLarge.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/BabyPearSmall.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -392,9 +392,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--neutral-color);
 	}
 	[component="smoke"] {
-    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorLarge.gif);
     	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorSmall.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
