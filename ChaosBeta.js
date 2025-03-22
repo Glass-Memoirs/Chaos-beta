@@ -392,8 +392,8 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--neutral-color);
 	}
 	[component="smoke"] {
-    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorLarge.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorSmall.gif);
     	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorSmall.gif);
     	--background-size: auto;
     	--background-position: center;
