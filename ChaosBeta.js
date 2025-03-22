@@ -3418,7 +3418,7 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.stupidhorrible = {
 	receive_repairs: ["this is js like the convenience store: convenient!"],
 	receive_fear: ["gordon ramsay voice fuck me thats frightening. bloody hell."],
 	receive_redirection: ["what the fuck are you smoking.", "oh so yr like cooked. okay (not) nice knowing you."],
-}
+},
 
 env.COMBAT_ACTORS.generic.reactionPersonalities.smoke = {
 	evade: ["Try it again and you will die.","what part of 'im going to kill you' do you not understand?"],
