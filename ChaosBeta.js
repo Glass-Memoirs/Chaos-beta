@@ -1900,7 +1900,7 @@ env.STATUS_EFFECTS.minor_concussion = {
 
 env.STATUS_EFFECTS.tetration_shock = { //This was what spurred this entire idea. The interaction between Bazruka and Wild Surge was interesting
 	slug: "tetration_shock",
-	name: "Tetration Shock",
+	name: "Ferocious Shock",
 	beneficial: true,
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/Overclocked.gif",
