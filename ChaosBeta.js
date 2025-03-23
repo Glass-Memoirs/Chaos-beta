@@ -1808,7 +1808,7 @@ env.STATUS_EFFECTS.high_note = {
 	slug: "high_note",
 	name: "High Note",
 	beneficial: true,
-	icon: temp,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	outgoingCrit: 0,
 	incomingCrit: 0,
 	events: {
@@ -1824,7 +1824,7 @@ env.STATUS_EFFECTS.tuned = {
 	slug: "tuned",
 	name: "Tuned",
 	beneficial: true,
-	icon: temp,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	events: {
 		onTurn: function(user,target) {
 			let modifierPool = []
