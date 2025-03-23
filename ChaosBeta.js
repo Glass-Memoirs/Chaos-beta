@@ -576,7 +576,7 @@ env.COMBAT_COMPONENTS.steel = {
 	description: "'oddly harminous';'feels shrouded'",
 	help: "'Tune';'Discipline';'Fortify'",
 	primary: {
-		alterations: [["primary", "steel_harmony"],["ADD_WINDUP", "cresendo"]],
+		alterations: [["primary", "steel_harmony"],/*["ADD_WINDUP", "cresendo"]*/],
 		stats: {
 			maxhp: 3
 		}
@@ -3618,7 +3618,7 @@ env.ACTIONS.tenor = {
 			user,
 			target,
 			hitExec: ({user}) => {
-				addStatus({target: user, status: "windup", length: 1})
+				//addStatus({target: user, status: "windup", length: 1})
 				addStatus({target: user, status: "forte", length: 5})
 			}
 		})
