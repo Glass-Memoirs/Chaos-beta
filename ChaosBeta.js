@@ -1771,7 +1771,7 @@ env.STATUS_EFFECTS.forte = {
 	slug: "forte",
 	name: "Forte",
 	beneficial: true,
-	icon: temp,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'",
 	events: {
 		onTurn: function() { 
