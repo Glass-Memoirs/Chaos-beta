@@ -1590,10 +1590,17 @@ env.STATUS_EFFECTS.smog_deep = {
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "common", component: "smog"},
+	loopCount: 100,
 	events: {
+		onTurn: function() {
+			env.STATUS_EFFECTS.smog_deep.loopCount = 100
+		},
 		onAddStatus: function({statusObj}) {
-			if (!statusObj.passive && statusObj.beneficial && statusObj.slug != "focused") {
-				addStatus({target: this.status.affecting, status: "focused", length: 2})
+			if (env.STATUS_EFFECTS.smogDeep > 0) {
+				if (!statusObj.passive && statusObj.beneficial && statusObj.slug != "focused") {
+					addStatus({target: this.status.affecting, status: "focused", length: 2})
+					env.STATUS_EFFECTS.smog_deep.loopCount = env.STATUS_EFFECTS.smog_deep.loopCount - 1
+				}
 			}
 		}
 	},
