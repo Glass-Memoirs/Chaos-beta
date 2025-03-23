@@ -225,11 +225,19 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 			"hideRead":true
 		})
 		}
-	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("smoke")) {
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("smog")) {
 		env.dialogues["dreammod"].humors.responses[0].replies.push({
-			"name":"smoke",
+			"name":"smog",
 			"destination":"loop",
-			"exec": Function('change("e3a2_newcomp","smoke")'),
+			"exec": Function('change("e3a2_newcomp","smog")'),
+			"hideRead":true
+		})
+		}
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("steel")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"steel",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","steel")'),
 			"hideRead":true
 		})
 		}
@@ -258,7 +266,8 @@ if(page.party){
 			page.flags.components.entropy = 30
 			page.flags.components.surging = 30
 			page.flags.components.stupidhorrible = 30 
-			page.flags.components.smoke = 30
+			page.flags.components.smog = 30
+			page.flags.components.steel = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -286,7 +295,8 @@ if(page.party){
 			page.flags.components.entropy = 3
 			page.flags.components.surging = 3
 			page.flags.components.stupidhorrible = 3
-			page.flags.components.smoke = 3
+			page.flags.components.smog = 3
+			page.flags.components.steel = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -328,13 +338,21 @@ if(page.party){
 				member.components["utility"]="stupidhorrible"
 			})
 
-		case "smoke":
-			page.flags.components ={smoke:12}
+		case "smog":
+			page.flags.components ={smog:12}
 
 			page.party.forEach(member=>{
-				member.components["primary"]="smoke"
-				member.components["secondary"]="smoke"
-				member.components["utility"]="smoke"
+				member.components["primary"]="smog"
+				member.components["secondary"]="smog"
+				member.components["utility"]="smog"
+			})
+		case "steel":
+			page.flags.components = {steel :12}
+
+			page.party.forEach(member=>{
+				member.components["primary"]="steel"
+				member.components["secondary"]="steel"
+				member.components["utility"]="steel"
 			})
 		}
 	}
@@ -391,7 +409,7 @@ if (page.path == '/local/beneath/embassy/') {
     	--accent-color: var(--friend-color);
     	--font-color: var(--neutral-color);
 	}
-	[component="smoke"] {
+	[component="smog"] {
     	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorIcon.gif);
     	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorMedium.gif);
     	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/SmokeHumorMedium.gif);
@@ -400,6 +418,16 @@ if (page.path == '/local/beneath/embassy/') {
     	--background-color: var(--dark-color);
     	--accent-color: #90e404;
     	--font-color: #90e404;
+	}
+	[component="steel"] {
+    	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
+    	--background-size: auto;
+    	--background-position: center;
+    	--background-color: var(--dark-color);
+    	--accent-color: #d004a4;
+    	--font-color: #d004a4;
 	}
 	</style>`);
 
@@ -515,31 +543,53 @@ env.COMBAT_COMPONENTS.stupidhorrible = {
     combatModifiers: ["stupidhorrible_bad", "btgothwar", "byothwar", "stupidhorrible_hard"]
 }
 
-env.COMBAT_COMPONENTS.smoke = {
-	name: "Smoke",
-	slug: "smoke",
+env.COMBAT_COMPONENTS.smog = {
+	name: "Smog",
+	slug: "smog",
 	description: "'As timely as the breaths taken';'As enraged as one could be'",
 	help: "'Time';'Breathe';'Chatter'",
 
 	primary: {
-		alterations: [["primary", "smoke_minute"]],
+		alterations: [["primary", "smog_minute"]],
 		stats: {
 			maxhp: 3
 		}
 	},
 	secondary: {
-		alterations: [["secondary", "smoke_haze"]],
+		alterations: [["secondary", "smog_haze"]],
 		stats: {
 			maxhp: 3
 		}
 	},
 	utility: {
-		alterations: [["evade", "smoke_chatter"]],
+		alterations: [["evade", "smog_chatter"]],
 		stats: {
 			maxhp: 3
 		}
 	},
-	combatModifiers: ["smoke_cut", "smoke_deep", "maddening_apathy"]
+	combatModifiers: ["smog_cut", "smog_deep", "maddening_apathy"]
+}
+
+env.COMBAT_COMPONENTS.steel = {
+	name: "Steel",
+	slug: "steel",
+	description: "'oddly harminous';'feels shrouded'",
+	help: "'Tune';'Discipline';'Fortify'",
+	primary: {
+		alterations: [["primary", "steel_harmony"],["ADD_WINDUP", "cresendo"]],
+		stats: {
+			maxhp: 3
+		}
+	},
+	secondary: {
+		alterations: [["secondary", "steel_scold"]],
+		stats: {
+			maxhp: 3
+		}
+	},
+	utility: {
+		alterations: [["evade","steel_stand"]]
+	}
 }
 
 /*
@@ -673,34 +723,34 @@ env.ACTOR_AUGMENTS.generic.stupidhorrible_buncture ={
 	component: ["utility", "stupidhorrible"],
 	cost: 2
 }
-//Smoke
-env.ACTOR_AUGMENTS.generic.smoke_hour = {
-	slug: "smoke_hour",
+//smog
+env.ACTOR_AUGMENTS.generic.smog_hour = {
+	slug: "smog_hour",
 	name: "Winking Hand",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeHour.gif",
 	description: "'Increase time i guess this text is temporary ok'",
-	alterations: [["smoke_minute","smoke_hour"]],
-	component: ["primary","smoke"],
+	alterations: [["smog_minute","smog_hour"]],
+	component: ["primary","smog"],
 	cost: 2
 }
 
-env.ACTOR_AUGMENTS.generic.smoke_cloud = {
-	slug: "smoke_cloud",
+env.ACTOR_AUGMENTS.generic.smog_cloud = {
+	slug: "smog_cloud",
 	name: "Cloud",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeCloud.gif",
 	description: "got nothing yet",
-	alterations: [["smoke_haze", "smoke_cloud"]],
-	component: ["secondary", "smoke"],
+	alterations: [["smog_haze", "smog_cloud"]],
+	component: ["secondary", "smog"],
 	cost: 3
 }
 
-env.ACTOR_AUGMENTS.generic.smoke_shout = {
-	slug: "smoke_shout",
+env.ACTOR_AUGMENTS.generic.smog_shout = {
+	slug: "smog_shout",
 	name: "Shout",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
 	description: "Also more temp text ill give it new ones later",
-	alterations: [["smoke_chatter", "smoke_shout"]],
-	component: ["utility", "smoke"],
+	alterations: [["smog_chatter", "smog_shout"]],
+	component: ["utility", "smog"],
 	cost: 2
 }
 
@@ -802,19 +852,19 @@ env.MODIFIERS.stupidhorrible_hard ={
 	}
 }
 
-env.MODIFIERS.smoke_cut = {
+env.MODIFIERS.smog_cut = {
 	name: "Cut Lungs",
-	getHelp: ()=> {return env.STATUS_EFFECTS.smoke_cut.help},
+	getHelp: ()=> {return env.STATUS_EFFECTS.smog_cut.help},
 	alterations: {
-		all: [["STATUS", "smoke_cut"]]
+		all: [["STATUS", "smog_cut"]]
 	}
 }
 
-env.MODIFIERS.smoke_deep ={
+env.MODIFIERS.smog_deep ={
 	name: "Deep Breath",
-	getHelp: ()=> {return env.STATUS_EFFECTS.smoke_deep.help},
+	getHelp: ()=> {return env.STATUS_EFFECTS.smog_deep.help},
 	alterations: {
-		all: [["STATUS", "smoke_deep"]]
+		all: [["STATUS", "smog_deep"]]
 	}
 }
 
@@ -1505,23 +1555,23 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 	help: "'Per humor of stupidhorrible on this shell: reduce crit chance, but increase power yadda yadda im trying to fix this'"
 },
 
-env.STATUS_EFFECTS.smoke_scream = {
-	slug: "smoke_scream",
+env.STATUS_EFFECTS.smog_scream = {
+	slug: "smog_scream",
 	name: "Scream",
 	passive: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
-	impulse: {type: "common", component: "smoke"},
+	impulse: {type: "common", component: "smog"},
 	help: "'Boosts shout';'lets you call for a threatening voice'"
 },
 
-env.STATUS_EFFECTS.smoke_patch = {
-	slug: "smoke_patch",
+env.STATUS_EFFECTS.smog_patch = {
+	slug: "smog_patch",
 	name: "Patchwork Lungs",
 	passive: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokePatch.gif",
-	impulse: {type: "common", component: "smoke"},
+	impulse: {type: "common", component: "smog"},
 	events: {
 		onRemoveStatus: function({removingStatusName}) {
 			if (removingStatusName == "puncture") {
@@ -1532,13 +1582,13 @@ env.STATUS_EFFECTS.smoke_patch = {
 	help: "'when PUNCTURE removed, gain FOCUSED'"
 },
 
-env.STATUS_EFFECTS.smoke_deep = {
-	slug: "smoke_deep",
+env.STATUS_EFFECTS.smog_deep = {
+	slug: "smog_deep",
 	name: "Deep Breath",
 	passive: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	impulse: {type: "common", component: "smoke"},
+	impulse: {type: "common", component: "smog"},
 	events: {
 		onAddStatus: function({statusObj}) {
 			if (!statusObj.passive && statusObj.beneficial && statusObj.slug != "focused") {
@@ -1549,8 +1599,8 @@ env.STATUS_EFFECTS.smoke_deep = {
 	help: "'When gaining a beneficial effect, gain 2T:FOCUSED'"
 },
 
-env.STATUS_EFFECTS.smoke_cut = {
-	slug: "smoke_cut",
+env.STATUS_EFFECTS.smog_cut = {
+	slug: "smog_cut",
 	name: "Cut Lungs",
 	passive: true,
 	beneficial: false,
@@ -1606,7 +1656,7 @@ env.STATUS_EFFECTS.rainy_day = {
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeRainy.gif",
 	grantsActions: ["directional_rain"],
-	impulse: {type: "common", component: "smoke"},
+	impulse: {type: "common", component: "smog"},
 	help: "'Grants move DIRECTIONAL RAIN'"
 },
 
@@ -1634,7 +1684,7 @@ env.STATUS_EFFECTS.ashen_hands = {
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	inUse: false,
-	impulse: {type: "action", component: "smoke"},
+	impulse: {type: "action", component: "smog"},
 	events:{
 		onTurn: function() {
 			env.STATUS_EFFECTS.ashen_hands.inUse = false
@@ -1671,25 +1721,25 @@ env.STATUS_EFFECTS.ashen_hands = {
 	help: "'On Crit, use SECONDARY on the target the same amount of turns the shell has regen'"
 },
 
-env.STATUS_EFFECTS.fated_smoke = {
-	slug: "fated_smoke",
-	name: "FATED::SMOKE",
+env.STATUS_EFFECTS.fated_smog = {
+	slug: "fated_smog",
+	name: "FATED::SMOG",
 	passive: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	impulse: {type: "fated", component: "smoke"},
+	impulse: {type: "fated", component: "smog"},
 	events: {
 		onCreated: function({statusObj}) {
 			if(statusObj.slug != this.status.slug) return;
 			
 			this.status.power = 0
 			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
-				if(slotContents == "smoke") this.status.power++
+				if(slotContents == "smog") this.status.power++
 			}
 
 			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
 				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
-				if(augment?.component) if(augment.component[1] == "smoke") this.status.power += 2
+				if(augment?.component) if(augment.component[1] == "smog") this.status.power += 2
 			}
 		},
 		onTurn: function() {
@@ -1698,7 +1748,7 @@ env.STATUS_EFFECTS.fated_smoke = {
 			}
 		}
 	},
-	help: "'per humor of SMOKE on this shell: 9% chance to gain 2T:regen'"
+	help: "'per humor of SMOG on this shell: 9% chance to gain 2T:regen'"
 },
 
 env.STATUS_EFFECTS.muted = {
@@ -1714,7 +1764,87 @@ env.STATUS_EFFECTS.muted = {
 		} 
 	},
 	help: "'using an action has a 23% chance to do nothing'"
-}
+},
+
+env.STATUS_EFFECTS.forte = {
+	slug: "forte",
+	name: "Forte",
+	beneficial: true,
+	icon: temp,
+	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'",
+	events: {
+		onTurn: function() { 
+			reactDialogue(this.status.affecting, 'surge') 
+			delete this.status.justGotSurge
+		},
+		onAction: function(user,target) {
+			if(this.status.justGotSurge || beingUsedAsync || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
+				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
+			for (i = 0; i < Math.floor(hasStatus(targuseret, "forte")); i++) {
+				setTimeout(()=>{
+					sendFloater({
+						target: user,
+						type: "arbitrary",
+						arbitraryString: "FORTE",
+						size: 1.5,
+					})
+					readoutAdd({
+						message: `${user.name} goes again! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+						name: "sourceless", 
+						type: "sourceless combat minordetail", 
+						show: false,
+						sfx: false
+					})
+					useAction(user, action, actor, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
+				}, 500)
+			}
+			removeStatus(this.status.affecting, "forte")
+		},
+	}
+},
+
+env.STATUS_EFFECTS.high_note = {
+	slug: "high_note",
+	name: "High Note",
+	beneficial: true,
+	icon: temp,
+	outgoingCrit: 0,
+	incomingCrit: 0,
+	events: {
+		onAction: function() {
+			outgoingCrit = 2
+			incomingCrit = 2
+		}
+	},
+	help: "200% incoming and outgoing crits"
+},
+
+env.STATUS_EFFECTS.tuned = {
+	slug: "tuned",
+	name: "Tuned",
+	beneficial: true,
+	icon: temp,
+	events: {
+		onTurn: function(user,target) {
+			let modifierPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = false
+				if(statusData.passive) {usable = true}
+				if(statusData.infinite || (statusData.slug != "windup")) {usable = true}
+				if(i.includes("global_")||i.includes("malware_")||i.includes("fish_")) {usable = false}
+				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
+				if(i == "imperfect_reset") {usable = false}
+				if(i == "redirection" || i == "ethereal" || i == "immobile" || i == "conjoined" || i == "permanent_hp") {usable = false}
+				if(!i.beneficial) {usable = false}
+				console.log(i, usable)
+				if(usable) modifierPool.push(i)
+			}
+			addStatus({target: user, status: modifierPool.sample(), length: 3})
+		}
+	},
+	help: "Add a random beneficial status each turn this effect is present"
+},
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
@@ -3117,8 +3247,8 @@ env.ACTIONS.btgothwar = {
 	}
 },
 
-env.ACTIONS.smoke_minute = {
-	slug: "smoke_minute",
+env.ACTIONS.smog_minute = {
+	slug: "smog_minute",
 	name: "Blinking Hand",
 	type: "target",
 	verb: "time",
@@ -3140,8 +3270,8 @@ env.ACTIONS.smoke_minute = {
 	}
 },
 
-env.ACTIONS.smoke_hour = {
-	slug: "smoke_hour",
+env.ACTIONS.smog_hour = {
+	slug: "smog_hour",
 	name: "Winking Hand",
 	type: "target",
 	verb: "time",
@@ -3170,13 +3300,13 @@ env.ACTIONS.smoke_hour = {
 	}
 },
 
-env.ACTIONS.smoke_haze = {
-	slug: "smoke_haze",
+env.ACTIONS.smog_haze = {
+	slug: "smog_haze",
 	name: "Haze",
 	type: "support+target+self+autohit",
 	verb: "shroud",
 	details: {
-		flavour: "'Surround an ally with smoke';'Heal them and make them harder to hit'",
+		flavour: "'Surround an ally with smog';'Heal them and make them harder to hit'",
 		onhit: "'2T:[STATUS::regen] + 2T:[STATUS::evasion]'",
 		oncrit: "'4T:[STATUS::regen] + 5T:[STATUS::evasion]'",
 	},
@@ -3206,12 +3336,12 @@ env.ACTIONS.smoke_haze = {
 	}
 },
 
-env.ACTIONS.smoke_cloud = {
-	slug: "smoke_cloud",
+env.ACTIONS.smog_cloud = {
+	slug: "smog_cloud",
 	name: "Cloud",
 	type: "autohit+support",
 	details: {
-		flavour: "'Shroud the entire team in smoke';'harder to be hit if you cannot be seen'",
+		flavour: "'Shroud the entire team in smog';'harder to be hit if you cannot be seen'",
 		onUse: "'[STATUS::regen] [STATUS::evasion] to team'"
 	},
 	stats: {
@@ -3234,8 +3364,8 @@ env.ACTIONS.smoke_cloud = {
 	}
 },
 
-env.ACTIONS.smoke_chatter = {
-	slug: "smoke_chatter",
+env.ACTIONS.smog_chatter = {
+	slug: "smog_chatter",
 	name: "Chatter",
 	type: "autohit",
 	description: {
@@ -3253,8 +3383,8 @@ env.ACTIONS.smoke_chatter = {
 	}
 },
 
-env.ACTIONS.smoke_shout ={
-	slug: "smoke_shout",
+env.ACTIONS.smog_shout ={
+	slug: "smog_shout",
 	name: "Shout",
 	type: "autohit",
 	description: {
@@ -3265,13 +3395,13 @@ env.ACTIONS.smoke_shout ={
 		let rand = Math.random()
 		play('talkfairy', 0.5);
 		if (rand > 0.5) {
-			if (hasStatus(user,"smoke_scream")) {
+			if (hasStatus(user,"smog_scream")) {
 				midCombatAllyAdd("threat_bubble", "left")
 			} else {
 				midCombatAllyAdd("speech_bubble_strong", "left")
 			}
 		} else {
-			if (hasStatus(user,"smoke_scream")) {
+			if (hasStatus(user,"smog_scream")) {
 				midCombatAllyAdd("threat_bubble", "right")
 			} else {
 				midCombatAllyAdd("speech_bubble_strong", "right")
@@ -3354,6 +3484,167 @@ env.ACTIONS.harsh_noise = {
 			target,
 			critExec: ({target}) => {
 				addStatus({target: target, status: "muted", length: 3})
+			}
+		})
+	}
+},
+
+env.ACTIONS.steel_harmony = {
+	slug: "steel_harmony",
+	name: "Harmony",
+	type: "target",
+	verb: "harmonize at",
+	decription: {
+		flavour: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
+		onUse: "'Randomize Action betwee: ALTO (sorry it dont exist rn), SOPRANO, TENOR, HEAD-VOICE'"
+	},
+	stats: {
+		accuracy: 1,
+		crit: 0,
+		amt: 0,
+	},
+	exec: function(user,target) {
+		setTimeout(()=>{
+			let AttackList = [,"soprano", "tenor", "head_voice"] //add alto back later
+			let rand = Math.random()
+			let chosenCard = majorArcana.sample()
+			useAction(user, env.ACTIONS[chosenCard], target, {beingUsedAsync: false, reason: "tarot"})
+		},
+		env.ADVANCE_RATE * 1)
+	}
+},
+
+env.ACTIONS.steel_scold = {
+	slug: "steel_scold",
+	name: "Scold",
+	type: "target",
+	description: {
+		flavour: "'Scold target';'Still a work in progress sorry i wanna be able to bugfix things so no serious progress right now'",
+		onHit: "'[STAT::amt]'"
+	},
+	stats: {
+		accuracy: 0.9,
+		crit: 0.8,
+		amt: 2,
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action:this,
+			user,
+			target,
+		})
+	}
+},
+
+env.ACTIONS.steel_stand = {
+	slug: "steel_stand",
+	name: "stand",
+	type: "self+autohit+support",
+	description: {
+		flavour: "'yeah no this isnt done yet, ur getting evade'"
+	},
+	stats: {
+		status: {
+			evasion: {
+				name: 'evasion',
+				length: 1
+			},
+			focused: {
+				name: 'focused',
+				length: 1
+			},                
+		}
+	},
+	exec: function(user, target) {
+		play('mend', 0.5);
+		addStatus({target: user, status: this.stats.status.evasion.name, length: this.stats.status.evasion.length, noReact: true}); 
+		addStatus({target: user, status: this.stats.status.focused.name, length: this.stats.status.focused.length, noReact: true}); 
+		return 'nothing';
+	},
+
+	disableIf: (actor)=>{ if(hasStatus(actor,"fear")) return "PROHIBITED BY FEAR" },
+	avoidChaining: true
+},
+
+//env.ACTIONS.alto = {
+
+//},
+
+env.ACTIONS.soprano = {
+	slug: "soprano",
+	name: "Soprano",
+	type: "target",
+	description: {
+		flavour: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
+		onHit: "'[STAT::amt]'"
+	},
+	stats: {
+		accuracy: 0.9,
+		crit: 0.5,
+		amt: 2,
+		status: {
+			high_note: {name: "high_note", length: 5},
+		},
+	},
+	exec: function(user,target) {
+		for (let i = 0; i <12; i++) {
+			env.GENERIC_ACTIONS.singleTarget({
+				action: this,
+				user,
+				target
+			})
+		}
+		addStatus({target: user, status: "high_note", length: 5})
+	}
+},
+
+env.ACTIONS.tenor = {
+	slug: "tenor",
+	name: "Tenor",
+	type: "autohit",
+	description: {
+		flavour: "'Wind up your voice for a burst';'show em whos boss'",
+		onUse: "'[STAT::amt]';'[STATUS::windup] and [STATUS::forte]'",
+	},
+	stats: {
+		amt: 2,
+		status: {
+			windup: {name: "windup", showReference: true},
+		},
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "windup", length: 1})
+				addStatus({target: user, status: "forte", length: 5})
+			}
+		})
+	},
+},
+
+env.ACTIONS.head_voice = {
+	slug: "head_voice",
+	name: "Head Voice",
+	type: "autohit",
+	description: {
+		flavour: "'i was gonna make a joke about opposite of bad chest feels dont touch your feet together but it doesnt work.'",
+		onUse: "apply [STATUS::tuned]"
+	},
+	stats: {
+		status: {
+			tuned: {name: "tuned", length:5},
+		},
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "tuned", length: 5})
 			}
 		})
 	}
@@ -3466,7 +3757,7 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.stupidhorrible = {
 	receive_redirection: ["what the fuck are you smoking.", "oh so yr like cooked. okay (not) nice knowing you."],
 },
 
-env.COMBAT_ACTORS.generic.reactionPersonalities.smoke = {
+env.COMBAT_ACTORS.generic.reactionPersonalities.smog = {
 	evade: ["Try it again and you will die.","what part of 'im going to kill you' do you not understand?"],
     crit: ["Youre not even worth this"],
 	crit_buff: ["Meet your end you sick specter."],
@@ -3747,7 +4038,7 @@ for (const componentName of ["stupidhorrible"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
-for (const componentName of ["smoke"]) {
+for (const componentName of ["smog"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
 		 type: "humor",
