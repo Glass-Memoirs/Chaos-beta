@@ -589,7 +589,8 @@ env.COMBAT_COMPONENTS.steel = {
 	},
 	utility: {
 		alterations: [["evade","steel_stand"]]
-	}
+	},
+	combatModifiers: []
 }
 
 /*
