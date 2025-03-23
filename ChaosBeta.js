@@ -1553,7 +1553,7 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 			this.status.outgoingMult = floor(0.2*this.status.power)
 		},
 	},
-	help: "'Per humor of stupidhorrible on this shell: reduce crit chance, but increase power yadda yadda im trying to fix this'"
+	help: "Per humor of stupidhorrible on this shell: reduce crit chance, but increase power'"
 },
 
 env.STATUS_EFFECTS.smog_scream = {
@@ -1563,7 +1563,7 @@ env.STATUS_EFFECTS.smog_scream = {
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
 	impulse: {type: "common", component: "smog"},
-	help: "'Boosts shout';'lets you call for a threatening voice'"
+	help: "Boosts shout, lets you call for a threatening voice"
 },
 
 env.STATUS_EFFECTS.smog_patch = {
@@ -1580,7 +1580,7 @@ env.STATUS_EFFECTS.smog_patch = {
 			}
 		}
 	},
-	help: "'when PUNCTURE removed, gain FOCUSED'"
+	help: "when PUNCTURE removed, gain FOCUSED"
 },
 
 env.STATUS_EFFECTS.smog_deep = {
@@ -1597,7 +1597,7 @@ env.STATUS_EFFECTS.smog_deep = {
 			}
 		}
 	},
-	help: "'When gaining a beneficial effect, gain 2T:FOCUSED'"
+	help: "When gaining a beneficial effect, gain 2T:FOCUSED"
 },
 
 env.STATUS_EFFECTS.smog_cut = {
@@ -1613,7 +1613,7 @@ env.STATUS_EFFECTS.smog_cut = {
 			}
 		}
 	},
-	help: "'When FOCUSED removed, gain 2T:PUNCTURE'"
+	help: "When FOCUSED removed, gain 2T:PUNCTURE"
 },
 
 env.STATUS_EFFECTS.maddening_apathy = {
@@ -1647,7 +1647,7 @@ env.STATUS_EFFECTS.maddening_apathy = {
 			}
 		}
 	},
-	help: "'Each Ally turn: 17.5% chance to summon enemy';'All positive target actions will be rerouted to the user.'"
+	help: "Each Ally turn: 17.5% chance to summon enemy, All positive target actions will be rerouted to the user."
 },
 
 env.STATUS_EFFECTS.rainy_day = {
@@ -1668,14 +1668,14 @@ env.STATUS_EFFECTS.clouded_lungs = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeCloudy.gif",
 	events: {
-		onBeforeAction: function({context}) {
+		onBeforeAction: function(context) {
 			let pow = hasStatus(this.status.affecting,"clouded_lungs")
 			if (Math.random() < (0.2 + (pow *0.02))) {
 				context.settings.action = env.ACTIONS["cough"]
 			}
 		}
 	},
-	help: "'actions have a chance to become COUGH'"
+	help: "'actions have a chance to become COUGH, the chance scales with the ammount applied'"
 },
 
 env.STATUS_EFFECTS.ashen_hands = {
