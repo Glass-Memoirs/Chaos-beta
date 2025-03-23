@@ -1774,6 +1774,21 @@ env.STATUS_EFFECTS.muted = {
 	help: "'using an action has a 23% chance to do nothing'"
 },
 
+env.STATUS_EFFECTS.burning_wings = {
+	slug: "burning_wings",
+	name: "Burning Wings",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "Convert FOCUSED to EVASION",
+	impulse: {type: "common", component: "steel"},
+	events: {
+		onBeforeAddStatus: function(context) {
+			if(context.status == "focused") context.status = "evasion"
+		},
+	}
+},
+
 env.STATUS_EFFECTS.forte = {
 	slug: "forte",
 	name: "Forte",
