@@ -1794,7 +1794,7 @@ env.STATUS_EFFECTS.forte = {
 	name: "Forte",
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'",
+	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'", //[]^[] < reading this what the fuck was i on
 	events: {
 		onTurn: function() { 
 			reactDialogue(this.status.affecting, 'surge') 
