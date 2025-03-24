@@ -1588,7 +1588,7 @@ env.STATUS_EFFECTS.smog_deep = {
 	name: "Deep Breath",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/SmogDeep.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmogDeep.gif",
 	impulse: {type: "common", component: "smog"},
 	loopCount: 100,
 	events: {
