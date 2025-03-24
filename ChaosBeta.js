@@ -1446,7 +1446,7 @@ env.STATUS_EFFECTS.byothwar = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupihorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
 	events: {
-		onBeforeAction: function({context}) {
+		onBeforeAction: function(context) {
 			if (action.slug == "btgothwar") {
 				if (Math.random() < 0.3) {
 					context.settings.target = this.status.affecting
@@ -1464,7 +1464,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/hardmode.gif",
 	impulse: {type: "common", component: "stupidhorrible"},
 	events: {
-		onBeforeAction: function({context}) {
+		onBeforeAction: function(context) {
 			let ActionSwap = ["evade", "skitter" ,"malfunction" , "attack", "shell", "cower", "btgothwar"]
 			if(Math.random() < 0.35) {
 
@@ -1630,7 +1630,7 @@ env.STATUS_EFFECTS.maddening_apathy = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeApathy.gif",
 	events: {
-		onBeforeAction: function({action, user, context}) {
+		onBeforeAction: function({action, user}, context) {
 			if (action.type.includes("target") && action.beneficial){
 				context.settings.target = user
 			}
@@ -1765,7 +1765,7 @@ env.STATUS_EFFECTS.muted = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	events: {
-		onBeforeAction: function({context}) {
+		onBeforeAction: function(context) {
 			if (Math.random() < 0.23) {
 				context.settings.action = env.ACTIONS["nothing"]
 			}
@@ -1876,7 +1876,7 @@ env.STATUS_EFFECTS.minor_concussion = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/concussion.gif",
 	events: {
-		onBeforeAction: function({user,target,context}) {		
+		onBeforeAction: function({user,target},context) {		
 			if(!context.settings.action.type.includes("target")) return;
                 
                 // alter target maybe
