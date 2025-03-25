@@ -1443,7 +1443,7 @@ env.STATUS_EFFECTS.byothwar = {
 	slug: "byothwar",
 	name: "BYOTHWAR",
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupihorrible/dwaynerock.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
 	events: {
 		onBeforeAction: function(context) {
