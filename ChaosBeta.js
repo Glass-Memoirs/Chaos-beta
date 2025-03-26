@@ -1447,7 +1447,7 @@ env.STATUS_EFFECTS.byothwar = {
 	grantsActions: ["btgothwar"],
 	events: {
 		onBeforeAction: function({action}, context) {
-			if (action.slug == "btgothwar") {
+			if (action.type.includes("target") && !action.beneficial) {
 				if (Math.random() < 0.3) {
 					context.settings.target = this.status.affecting
 				}
@@ -3529,9 +3529,8 @@ env.ACTIONS.steel_harmony = {
 	exec: function(user,target) {
 		setTimeout(()=>{
 			let AttackList = [,"soprano", "tenor", "head_voice"] //add alto back later
-			let rand = Math.random()
-			let chosenCard = majorArcana.sample()
-			useAction(user, env.ACTIONS[chosenCard], target, {beingUsedAsync: false, reason: "tarot"})
+			let ChosenAttack = AttackList.sample()
+			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
 		},
 		env.ADVANCE_RATE * 1)
 	}
