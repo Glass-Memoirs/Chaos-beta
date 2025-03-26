@@ -1446,7 +1446,7 @@ env.STATUS_EFFECTS.byothwar = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
 	events: {
-		onBeforeAction: function(context) {
+		onBeforeAction: function({action}, context) {
 			if (action.slug == "btgothwar") {
 				if (Math.random() < 0.3) {
 					context.settings.target = this.status.affecting
