@@ -1503,22 +1503,25 @@ env.STATUS_EFFECTS.stupidhorrible_death = {
 		GLOBAL_onDeath: function({originalEventTarget}) {
 			let subject = originalEventTarget
             let user = this.status.affecting
-			let primary = env.ACTIONS[user.actions[0]]
-			let utility = env.ACTIONS[user.actions[2]]
-			let targetTeam
-			switch(user.team.name) {
-				case "ally": targetTeam = env.rpg.enemyTeam; break;
-				case "enemy": targetTeam = env.rpg.allyTeam; break;
-			}
-
-			env.GENERIC_ACTIONS.teamWave({
-				team: targetTeam,
-				exec: (actor, i) => {
-					if(actor == target) return; // we skip the original target
-					useAction(user, primary, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
+			if (user.team.name == subject.team.name) {
+				let primary = env.ACTIONS[user.actions[0]]
+				let utility = env.ACTIONS[user.actions[2]]
+				let targetTeam
+				switch(user.team.name) {
+					case "ally": targetTeam = env.rpg.enemyTeam; break;
+					case "enemy": targetTeam = env.rpg.allyTeam; break;
 				}
-			})
-			useAction(user, utility, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
+
+				env.GENERIC_ACTIONS.teamWave({
+					team: targetTeam,
+					exec: (actor, i) => {
+						if(actor == target) return; // we skip the original target
+						useAction(user, primary, actor, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
+					}
+				})
+				if (!utility.type.includes("special")) return;
+				useAction(user, utility, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
+			}
 		}
 	},
 	help: "when ally fucking dies, use primary on all foes and then the utility once."
