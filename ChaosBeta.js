@@ -1803,7 +1803,7 @@ env.STATUS_EFFECTS.forte = {
 			reactDialogue(this.status.affecting, 'surge') 
 			delete this.status.justGotSurge
 		},
-		onAction: function(user,target) {
+		onAction: function({user,target, action}) {
 			if(this.status.justGotSurge || beingUsedAsync || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
 				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
 			for (i = 0; i < Math.floor(hasStatus(targuseret, "forte")); i++) {
