@@ -1633,9 +1633,9 @@ env.STATUS_EFFECTS.maddening_apathy = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeApathy.gif",
 	events: {
-		onBeforeAction: function({action, user}, context) {
-			if (action.type.includes("target") && action.beneficial){
-				context.settings.target = user
+		onBeforeAction: function(context) {
+			if (context.action.type.includes("target") && context.action.beneficial){
+				context.settings.target = context.user
 			}
 		},
 		onTurn: function() {
