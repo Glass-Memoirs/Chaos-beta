@@ -1446,8 +1446,8 @@ env.STATUS_EFFECTS.byothwar = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
 	events: {
-		onBeforeAction: function({action}, context) {
-			if (action.type.includes("target") && !action.beneficial) {
+		onBeforeAction: function(context) {
+			if (context.action.type.includes("target") && !context.action.beneficial) {
 				if (Math.random() < 0.3) {
 					context.settings.target = this.status.affecting
 				}
@@ -1879,7 +1879,7 @@ env.STATUS_EFFECTS.minor_concussion = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/concussion.gif",
 	events: {
-		onBeforeAction: function({user,target},context) {		
+		onBeforeAction: function(context) {		
 			if(!context.settings.action.type.includes("target")) return;
                 
                 // alter target maybe
