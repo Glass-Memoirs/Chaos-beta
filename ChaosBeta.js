@@ -319,6 +319,7 @@ if(page.party){
 				member.components["secondary"] = "entropy"
 				member.components["utility"] = "entropy"
 			})
+			break
 
         case "surge":
             page.flags.components = { surging: 12}
@@ -328,6 +329,7 @@ if(page.party){
                 member.components["secondary"] = "surging"
                 member.components["utility"] = "surging"
            })
+		   break
 		
 		case "stupidhorrible":
 			page.flags.components = {stupidhorrible: 12}
@@ -337,6 +339,7 @@ if(page.party){
 				member.components["secondary"]="stupidhorrible"
 				member.components["utility"]="stupidhorrible"
 			})
+			break
 
 		case "smog":
 			page.flags.components ={smog:12}
@@ -346,6 +349,7 @@ if(page.party){
 				member.components["secondary"]="smog"
 				member.components["utility"]="smog"
 			})
+			break
 		case "steel":
 			page.flags.components = {steel :12}
 
@@ -354,6 +358,7 @@ if(page.party){
 				member.components["secondary"]="steel"
 				member.components["utility"]="steel"
 			})
+			break
 		}
 	}
 if (page.path == '/local/beneath/embassy/') {
