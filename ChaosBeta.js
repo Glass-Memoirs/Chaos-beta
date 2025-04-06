@@ -937,6 +937,13 @@ env.STATUS_EFFECTS.entropy_eternal = {//THIS WAS THE HARDEST
                         arbitraryString: "DECAYED!",
                         isGood: false
                     })
+					readoutAdd({
+						message: `${target.name}'s ${Replace.name} gets decayed to ${selectedStatus.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+						name: "sourceless", 
+						type: "sourceless combat minordetail",
+						show: false,
+						sfx: false
+					})
 		            if (hasStatus(target, Replace)) { //if the status didnt die or if it doesnt get rolled twice (i dunno if thats possible)
                     //slap it onto another person
 		    	    	addStatus({target: target, origin: false, status: selectedStatus, length: Math.floor(hasStatus(target, Replace)), noReact: true})
@@ -1001,6 +1008,13 @@ env.STATUS_EFFECTS.entropy_eyes = {
 						type: "arbitrary",
 						arbitraryString: "REFRACTED!",
 						isGood: false
+					})
+					readoutAdd({
+						message: `${target.name}'s ${TakingStat.name} gets refracted onto ${SendingTo.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+						name: "sourceless", 
+						type: "sourceless combat minordetail",
+						show: false,
+						sfx: false
 					})
 					let TakingStat = TakableEffects.sample()
 					let SendingTo = AllTargets.sample({noRepeat: true})
