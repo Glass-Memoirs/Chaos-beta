@@ -2419,8 +2419,8 @@ env.ACTIONS.tormenting_delight = {
 	//help: "100% -3HP 25% +1T STUN, +SURGE USER/n20%C -6HP +2T STUN, 25% +1T STUN, +2T FOCUSED +SURGE USER",
 	details: {
 		flavour: "'Oh how crude!';'laugh at us more';'it only inspires us to keep hitting while you are on your last legs!'",
-		onHit: "'[STAT::amt]';'25% 1T:[STATUS::stun]';'USER 25% [STATUS::surge]'",
-		onCrit: "'2T:[STATUS::stun]';'USER 2T:[STATUS::focused]+[STATUS::surge]'",
+		onHit: "'[STAT::amt]';'25% 1T:[STATUS::stun]';'USER 32.3% [STATUS::surge]'",
+		onCrit: "'2T:[STATUS::stun]';'USER 32.3% 2T:[STATUS::focused]+[STATUS::surge]'",
 	},
 	usage: {
 		act: "%USER READIES A SWING",
@@ -2452,7 +2452,7 @@ env.ACTIONS.tormenting_delight = {
 				includeFocus = true
 			},
 			genExec: ({user,target})=> {
-				if (Math.random() < 0.25) {
+				if (Math.random() < 0.323) {
 					addStatus({target: user,status: "surge", length: 1})
 					addStatus({target: target, status: "stun", length: 1})
 					if (includeFocus) {addStatus({target: user, status: "focused", length: 1})}
