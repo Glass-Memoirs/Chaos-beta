@@ -2359,16 +2359,25 @@ env.ACTIONS.entropy_burnout = {
 	slug: "entropy_burnout",
 	name: "Burnout",
 	type: 'target',
-	desc: "'Set off their end'",
+	//desc: "'Set off their end'",
 	anim: "basic-attack",
-	help: "AUTOHIT, +5T BURNOUT ON TARGET",
+	//help: "AUTOHIT, +5T BURNOUT ON TARGET",
 	autohit: true,
+	details: {
+		flavour: "'Set off their end'",
+		onUse: "AUTOHIT, [STATUS::burnout]"
+	},
 	usage: {
 		act: "%USER IGNITES THE ENERGY OF %TARGET",
 		hit: "%TARGET STARTS TO BURN UP",
 	},
-	crit: 0,
-	amt: 2,
+	stats: {
+		crit: 0,
+		amt: 2,
+		status: {
+			burnout: {name: "burnout", length: 5}
+		}
+	},
 	exec: function(user, target) {
 		return env.GENERIC_ACTIONS.singleTarget({
 			action: this, 
@@ -2474,6 +2483,11 @@ env.ACTIONS.back_to_stage = {
 		flavour: "'oh not just yet!';'you cannot be unable to dance now!';'far too important for you to leave so early!'",
 		onHit: "'[STAT::amt]';'If [STATUS::stun] then +1-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if no [STATUS::stun] then 1T:[STATUS::evasion]'",
 		onCrit: "'if [STATUS::stun] then +2-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if no [STATUS::stun] then 3T:[STATUS::evasion]'",
+	},
+	usage: {
+		act: "%USER FORCES %TARGET TO KEEP ACTING",
+		hit: "%TAREGET IS SICKLY BACK ON THEIR FEET",
+		crit: "%TARGET IS BACK ON THEIR FEET"
 	},
 	stats: {
 		accuracy: 1,
@@ -2588,6 +2602,10 @@ env.ACTIONS.velnits_lament = {
 	details: {
 		flavour: "'O, so my act come to an end';'a well earned break from this play!';'for you however';'must pick up the pace!'",
 		onHit: "'TEAMMATE: -[STATUS::surge] +[STATUS::wild_surge]';'SELF: -[STATUS::surge] +[STATUS::stun] +[STATUS::vulnerable] +[STATUS::wild_surge]'",
+	},
+	usage: {
+		act: "%USER SACRIFICES A BIT OF THEIRSELF",
+		hit: "%TARGET IS SLIGHTLY EMPOWERED"
 	},
 	stats: {
 		crit: 0.2,
@@ -2727,7 +2745,7 @@ env.ACTIONS.player_act = {
 			user,
 			target,
 			hitSfx: {
-				name: 'chomp',
+				name: 'stab',
 				rate: 0.7
 			},
 			critExec: ({target}) =>{
@@ -2834,7 +2852,7 @@ env.ACTIONS.player_sacri = {
 			user,
 			target,
 			hitSfx: {
-				name: 'chomp',
+				name: 'stab',
 				rate: 3
 			},
 			genExec: ({target}) => {
@@ -2923,6 +2941,10 @@ env.ACTIONS.pin_pull = {
 			action: this,
 			user,
 			target,
+			hitSfx: {
+				name: "hit",
+				rate: 2.5,
+			},
 			genExec:({user}) => {
 				combatHit(user,{amt: 5, autohit: true, redirectable:false})
 			}
@@ -2935,9 +2957,15 @@ env.ACTIONS.brrrttrttt = {
 	name: "Brrrttrttt",
 	type: "autohit",
 	details: {
-		flavour: "Hehe the cousins combined one of their arms with dull technology';'now we have a mized arms weapon!'",
+		flavour: "Hehe the cousins combined one of their arms with dull technology';'now we have a mixed arms weapon!'",
 		onUse: "'Hit 12 random actors'",
 		onHit: "'[STAT::amt]'"
+	},
+	usage: {
+		act: "%USER OPENS FIRE",
+		hit: "%TARGET GETS HIT",
+		crit: "%TARGET IS PIERCED",
+		miss: "%TARGET DUCKS BEIND COVER"
 	},
 	stats: {
 		accuracy: 1,
@@ -3009,8 +3037,8 @@ env.ACTIONS.puncture_bomb = {
 					action,
 					user,
 					target,
-					hitSfx: { name: 'shot2' },
-					critSfx: { name: 'shot6' },
+					hitSfx: { name: 'hit' },
+					critSfx: { name: 'shot5' },
 					genExec: ({target}) => {
 						addStatus({target: target, status: "puncture", length: 5})
 					}
@@ -3036,6 +3064,9 @@ env.ACTIONS.stupidhorrible_kaber = {
 			action: this,
 			user,
 			target,
+			hitSfx: {
+				name: "shot4"
+			},
 			hitExec: ({user}) => {
 				combatHit(user,{amt: 5, autohit: true, redirectable:false})
 			}
@@ -3065,6 +3096,8 @@ env.ACTIONS.stupidhorrible_claymore = {
 			action:this,
 			user,
 			target,
+			hitSfx: { name: "shot4"},
+			critSfx: { name: "shot4" },
 			critExec: ({user}) => {
 				addStatus({target: user, status: "puncture", length: 5})
 			}
