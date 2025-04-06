@@ -3441,7 +3441,7 @@ env.ACTIONS.smog_shout ={
 	},
 	exec: function(user) {
 		let rand = Math.random()
-		play('talkfairy', 0.5);
+		play('okidoia1', 0.5);
 		if (rand > 0.5) {
 			if (hasStatus(user,"smog_scream")) {
 				midCombatAllyAdd("threat_bubble", "left")
@@ -3476,6 +3476,7 @@ env.ACTIONS.directional_rain = {
 	},
 	exec: function(user,target) {
 		let durationVal = [3,4]
+		play('destabilize', 0.75, 0.5);
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
