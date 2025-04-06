@@ -2429,7 +2429,7 @@ env.ACTIONS.tormenting_delight = {
 	},
 	stats: {
 		accuracy: 1.0,
-		crit: 0.2,
+		crit: 0.222,
 		amt: 3,
 		status: {
 			stun: {name: "stun", showReference: true},
