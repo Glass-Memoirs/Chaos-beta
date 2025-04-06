@@ -2420,7 +2420,7 @@ env.ACTIONS.tormenting_delight = {
 	details: {
 		flavour: "'Oh how crude!';'laugh at us more';'it only inspires us to keep hitting while you are on your last legs!'",
 		onHit: "'[STAT::amt]';'25% [STATUS::stun]';'USER 25% [STATUS::surge]'",
-		onCrit: "'2T:[STATUS::stun]';'USER 2T:[STATUS::focused]+[STATUS::surge]'",
+		onCrit: "'2T:[STATUS::stun]';'USER 25% 2T:[STATUS::focused]+[STATUS::surge]'",
 	},
 	usage: {
 		act: "%USER READIES A SWING",
