@@ -1491,6 +1491,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 					show: false,
 					sfx: false
 				})
+				advanceTurn()
 			}
 		}
 	},
