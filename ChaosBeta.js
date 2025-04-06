@@ -2419,8 +2419,8 @@ env.ACTIONS.tormenting_delight = {
 	//help: "100% -3HP 25% +1T STUN, +SURGE USER/n20%C -6HP +2T STUN, 25% +1T STUN, +2T FOCUSED +SURGE USER",
 	details: {
 		flavour: "'Oh how crude!';'laugh at us more';'it only inspires us to keep hitting while you are on your last legs!'",
-		onHit: "'[STAT::amt]';'25% [STATUS::stun]';'USER 25% [STATUS::surge]'",
-		onCrit: "'2T:[STATUS::stun]';'USER 25% 2T:[STATUS::focused]+[STATUS::surge]'",
+		onHit: "'[STAT::amt]';'25% 1T:[STATUS::stun]';'USER 25% [STATUS::surge]'",
+		onCrit: "'2T:[STATUS::stun]';'USER 2T:[STATUS::focused]+[STATUS::surge]'",
 	},
 	usage: {
 		act: "%USER READIES A SWING",
@@ -2432,7 +2432,7 @@ env.ACTIONS.tormenting_delight = {
 		crit: 0.2,
 		amt: 3,
 		status: {
-			stun: {name: "stun", length:1},
+			stun: {name: "stun", showReference: true},
 			surge: {name: "surge", showReference: true},
 			focused: {name: "focused", showReference: true},
 		},
@@ -2587,7 +2587,7 @@ env.ACTIONS.velnits_lament = {
 	//help: "IF TEAMMATE: -SURGE +WILD SURGE\nIF SELF: -SURGE +WILDSURGE +1T STUN +2T VULNERABLE",
 	details: {
 		flavour: "'O, so my act come to an end';'a well earned break from this play!';'for you however';'must pick up the pace!'",
-		onHit: "'TEAMMATE: -[STATUS::surge] +[STATUS::wild_surge]';'SELF: -[STATUS::surge] [STATUS::stun] [STATUS::vulnerable] [STATUS::wild_surge]'",
+		onHit: "'TEAMMATE: -[STATUS::surge] +[STATUS::wild_surge]';'SELF: -[STATUS::surge] +[STATUS::stun] +[STATUS::vulnerable] +[STATUS::wild_surge]'",
 	},
 	stats: {
 		crit: 0.2,
@@ -2604,6 +2604,10 @@ env.ACTIONS.velnits_lament = {
 			action: this,
 			user,
 			target,
+			hitSfx: {
+				name: "bingbong",
+				rate: 1,
+			},
 			genExec: ({target, user}) => {
 				if (hasStatus(target, "surge")) {
 					removeStatus(target, "surge")
