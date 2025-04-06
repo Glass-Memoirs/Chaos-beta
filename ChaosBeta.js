@@ -1486,7 +1486,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 				})
 
 				readoutAdd({
-					message: `${subject.name}'s action gets scrambled! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					message: `${subject.name}'s action gets scrambled to ${ChosenAction.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
 					name: "sourceless", 
 					type: "sourceless combat minordetail",
 					show: false,
