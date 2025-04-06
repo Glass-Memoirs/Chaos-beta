@@ -1471,9 +1471,10 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 	events: {
 		onBeforeAction: function(context) {
 			let ActionSwap = ["evade", "skitter" ,"malfunction" , "attack", "shell", "cower", "btgothwar"]
+			let ChosenAction = ActionSwap.sample()
 			if(Math.random() < 0.35) {
 
-				context.settings.action = env.ACTIONS[ActionSwap.sample()]
+				context.settings.action = env.ACTIONS[ChosenAction]
 				let subject = context.settings.user
 
 				sendFloater({
@@ -1491,6 +1492,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 					show: false,
 					sfx: false
 				})
+				if (ChosenAction.slug == "malfunction")
 				advanceTurn()
 			}
 		}
