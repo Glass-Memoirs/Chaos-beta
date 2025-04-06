@@ -3462,9 +3462,17 @@ env.ACTIONS.directional_rain = {
 	slug: "directional_rain",
 	name: "Directional Rain",
 	type: "target",
+	verb: "rain on",
 	description: {
 		flavour: "'A dreary day';'You could catch a cold'",
-		onHit: "'+3-4T:[STATUS::clouded_lungs]';'[STAT::amt]'"
+		onHit: "'+3-4T:[STATUS::clouded_lungs]';'[STAT::amt]'",
+		onCrit: "'+6-8T:[STATUS::clouded_lungs]'"
+	},
+	usage :{
+		act: "%USER CALLS FOR RAIN",
+		hit: "%TARGET IS CAUGHT IN THE STORM",
+		crit: "%TARGET GETS THE CHILLS",
+		miss: "%TARGET AVOIDS THE RAIN",
 	},
 	stats: {
 		accuracy: 0.7,
@@ -3482,6 +3490,9 @@ env.ACTIONS.directional_rain = {
 			user,
 			target,
 			hitExec: ({target})=> {
+				addStatus({target: target, status: "clouded_lungs", length: durationVal.sample()})
+			},
+			critExec: ({target}) => {
 				addStatus({target: target, status: "clouded_lungs", length: durationVal.sample()})
 			}
 		})
