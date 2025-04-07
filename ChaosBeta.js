@@ -891,7 +891,7 @@ env.STATUS_EFFECTS.entropy_eternal = {//THIS WAS THE HARDEST
 	name: "Eternal Decay",
 	passive: "modifier",
 	beneficial: false,
-	icon: "/img/sprites/combat/passives/light_glee.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/EternalDecay.gif",
 	impulse: {type: "common", component: "entropy"},
 	events: {
         
@@ -962,7 +962,7 @@ env.STATUS_EFFECTS.entropy_eyes = {
 	name: "Shattered Eyes",
 	passive: "modifier",
 	beneficial: false,
-	icon: "/img/sprites/combat/passives/light_dark.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/ShatteredEyes.gif",
 	events: {
 
 		onTurn: function(){
@@ -1034,7 +1034,7 @@ env.STATUS_EFFECTS.entropy_clock = {
 	name: "Broken Clock",
 	passive: true,
 	beneficial: false,
-	icon: "/img/sprites/combat/passives/claws_infection.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/BrokenClock.gif",
 	events: {
 		onTurn: function() {
 			reactDialogue(this.status.affecting, 'rot');
@@ -1050,7 +1050,7 @@ env.STATUS_EFFECTS.entropy_heat = {
 	name: "Heat Death",
 	passive: true,
 	beneficial: true,
-	icon: "/img/sprites/combat/augs/bazruka.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/HeatDeath.gif",
 	events: {
 		onBeforeAction: function(context) {
 			if(!context.settings.action.type.includes("target")) return;
@@ -1210,7 +1210,7 @@ env.STATUS_EFFECTS.hotpocket = {
 	slug: "hotpocket",
 	name: "Imminent Death",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/BSTRDIZEDHOTPOCKET.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/BSTRDIZEDHOTPOCKET.gif",
 	events: {
 		onTurn: function() {
 			combatHit(this.status.affecting, {amt: 1000, autohit: true, redirectable: false})
@@ -1223,7 +1223,7 @@ env.STATUS_EFFECTS.entropy_call = {
 	slug: "entropy_call",
 	name: "Fragmented Call",
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/BSTRDIZEDHOTPOCKET.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/FragmentedCall.gif",
 	impulse: {type: "common", component: "entropy"},
 	grantsActions: ["entropy_call"],
 	help: "Allows shell to call forth new targets"
@@ -1234,7 +1234,7 @@ env.STATUS_EFFECTS.entropy_invert = {
 	name: "Corrupted Signal",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/CorruptedSignal.gif",
 	impulse: {type: "common", component: "entropy"},
 	grantsActions: ["special_inversion"],
 	help: "look i was told about this, i wanna get it used lamo."
