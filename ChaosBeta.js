@@ -2652,8 +2652,12 @@ env.ACTIONS.player_show = {
 		onHit: "'90% Target 3: [STAT::amt] 50% [STATUS::vulnerable]'",
 		onCrit: "'20% Teamwide: [STAT::amt] 10% [STATUS::stun] 75% [STATUS::vulnerable]'"
 	},
-	//usage: {
-	//},
+	usage: {
+		act: "%USER PUTS ON A SHOW",
+		hit: "%TARGET IS KNOCKED OFF BALANCE",
+		crit: "%TARGET AND THEIR TEAM ARE STUNNED",
+		miss: "%USER MESSES UP AN ACT"
+	},
 	stats: {
 		accuracy: 0.9,
 		crit: 0.2,
