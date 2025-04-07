@@ -3341,6 +3341,11 @@ env.ACTIONS.smog_minute = {
 		flavour: "'A mediocre impact';'but still a timely one'",
 		onHit: "'[STAT::amt]'",
 	},
+	usage: {
+		act: "%USER TAKES A SWING",
+		hit: "%TARGET IS HIT IN TIME",
+		crit: "%TARGET IS STRUCK ON THE MINUTE"
+	},
 	stats: {
 		accuracy: 0.8,
 		crit: 0.2,
@@ -3364,6 +3369,11 @@ env.ACTIONS.smog_hour = {
 		flavour: "'Much stronger';'has a chance to stun now'",
 		onhit: "'[STAT::amt]'",
 		oncrit: "'[STATUS::stun]'",
+	},
+	usage: {
+		act: "%USER TAKES A SWING",
+		hit: "%TARGET GETS HIT ON THE HOUR",
+		crit: "%TARGET GET STRUCK AS THE BELL RINGS",
 	},
 	stats: {
 		accuracy: 0.15,
@@ -3394,6 +3404,11 @@ env.ACTIONS.smog_haze = {
 		flavour: "'Surround an ally with smog';'Heal them and make them harder to hit'",
 		onhit: "'2T:[STATUS::regen] + 2T:[STATUS::evasion]'",
 		oncrit: "'4T:[STATUS::regen] + 5T:[STATUS::evasion]'",
+	},
+	usage: {
+		act: "%USER SHROUDS %TARGET",
+		hit: "%TARGET IS SHADOWED",
+		crit: "%TARGET IS HIDDEN IN THE SMOG"
 	},
 	stats: {
 		accuracy: 1,
@@ -3429,6 +3444,9 @@ env.ACTIONS.smog_cloud = {
 		flavour: "'Shroud the entire team in smog';'harder to be hit if you cannot be seen'",
 		onUse: "'[STATUS::regen] [STATUS::evasion] to team'"
 	},
+	usage: {
+		act: "%USER OBSCURES THEIR TEAM"
+	},
 	stats: {
 		status: {
 			regen: {name: "regen", length: 4},
@@ -3457,6 +3475,9 @@ env.ACTIONS.smog_chatter = {
 		flavour: "'Summon a voice';'a weak voice but a voice none the less'",
 		onUse: "'Summon Actor: Voice bubble'"
 	},
+	usage: {
+		act: "%USER MOLDS THEIR VOICE SOFTLY"
+	},
 	exec: function() {
 		let rand = Math.random()
 		play('talkfairy', 0.5);
@@ -3475,6 +3496,9 @@ env.ACTIONS.smog_shout ={
 	description: {
 		flavour: "'Summon a voice';'a Strong voice but a voice none the less'",
 		onUse: "'Summon Actor: Voice bubble'"
+	},
+	usage: {
+		act: "%USER SHAPES THEIR VOICE SHARPLY"
 	},
 	exec: function(user) {
 		let rand = Math.random()
