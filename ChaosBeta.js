@@ -3610,7 +3610,7 @@ env.ACTIONS.steel_harmony = {
 	}
 },
 
-env.ACTIONS.steel_scold = {
+env.ACTIONS.steel_scold = { //remember to make this give the status effect that causes damage on action and removes one turn from the action (check tick type i think)
 	slug: "steel_scold",
 	name: "Scold",
 	type: "target",
@@ -3632,7 +3632,7 @@ env.ACTIONS.steel_scold = {
 	}
 },
 
-env.ACTIONS.steel_stand = {
+env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using carapce or smthn.
 	slug: "steel_stand",
 	name: "stand",
 	type: "self+autohit+support",
@@ -3662,7 +3662,7 @@ env.ACTIONS.steel_stand = {
 	avoidChaining: true
 },
 
-//env.ACTIONS.alto = {
+//env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gives BP instead of HP?
 
 //},
 
