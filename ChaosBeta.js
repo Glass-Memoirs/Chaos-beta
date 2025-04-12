@@ -3406,8 +3406,8 @@ env.ACTIONS.smog_haze = {
 	verb: "shroud",
 	details: {
 		flavour: "'Surround an ally with smog';'Heal them and make them harder to hit'",
-		onhit: "'2T:[STATUS::regen] + 2T:[STATUS::evasion]'",
-		oncrit: "'4T:[STATUS::regen] + 5T:[STATUS::evasion]'",
+		onhit: "'2T:[STATUS::regen] 2T:[STATUS::evasion]'",
+		oncrit: "'4T:[STATUS::regen] 5T:[STATUS::evasion]'",
 	},
 	usage: {
 		act: "%USER SHROUDS %TARGET",
