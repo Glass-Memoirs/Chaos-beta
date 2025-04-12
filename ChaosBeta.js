@@ -3371,8 +3371,8 @@ env.ACTIONS.smog_hour = {
 	verb: "time",
 	details: {
 		flavour: "'Much stronger';'has a chance to stun now'",
-		onhit: "'[STAT::amt]'",
-		oncrit: "'[STATUS::stun]'",
+		onHit: "'[STAT::amt]'",
+		onCrit: "'[STATUS::stun]'",
 	},
 	usage: {
 		act: "%USER TAKES A SWING",
@@ -3406,8 +3406,8 @@ env.ACTIONS.smog_haze = {
 	verb: "shroud",
 	details: {
 		flavour: "'Surround an ally with smog';'Heal them and make them harder to hit'",
-		onhit: "'2T:[STATUS::regen] 2T:[STATUS::evasion]'",
-		oncrit: "'4T:[STATUS::regen] 5T:[STATUS::evasion]'",
+		onHit: "'2T:[STATUS::regen] 2T:[STATUS::evasion]'",
+		onCrit: "'4T:[STATUS::regen] 5T:[STATUS::evasion]'",
 	},
 	usage: {
 		act: "%USER SHROUDS %TARGET",
