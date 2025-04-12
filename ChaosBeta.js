@@ -3587,7 +3587,7 @@ env.ACTIONS.harsh_noise = {
 	slug: "harsh_noise",
 	name: "Hars Noise",
 	type: "target",
-	description: {
+	details: {
 		flavor: "'Emit a painful sound','has a chance to silence foes'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::mute]'",
@@ -3612,12 +3612,29 @@ env.ACTIONS.harsh_noise = {
 	}
 },
 
+env.ACTIONS.mockery = {
+	slug: "mockery",
+	name: "Mockery",
+	type: "autohit+target",
+	dtails: {
+		flavor: "taunt your foes, yeah sorry no i have to make this fast",
+	},
+	stats: {
+	},
+	exec: function(user,target) {
+		addStatus({target: target, status: "destabilized", length: 3})
+		addStatus({target: target, status: "critical_flaw", length: 1})
+		addStatus({target: user, status: "vulnerable", length: 2})
+		addStatus({target: user, status: "focused", length: 3})
+	}
+},
+
 env.ACTIONS.steel_harmony = {
 	slug: "steel_harmony",
 	name: "Harmony",
 	type: "target",
 	verb: "harmonize at",
-	decription: {
+	details: {
 		flavor: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
 		onUse: "'Randomize Action betwee: ALTO (sorry it dont exist rn), SOPRANO, TENOR, HEAD-VOICE'"
 	},
@@ -3640,7 +3657,7 @@ env.ACTIONS.steel_scold = { //remember to make this give the status effect that 
 	slug: "steel_scold",
 	name: "Scold",
 	type: "target",
-	description: {
+	details: {
 		flavor: "'Scold target';'Still a work in progress sorry i wanna be able to bugfix things so no serious progress right now'",
 		onHit: "'[STAT::amt]'"
 	},
@@ -3662,7 +3679,7 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 	slug: "steel_stand",
 	name: "stand",
 	type: "self+autohit+support",
-	description: {
+	details: {
 		flavor: "'yeah no this isnt done yet, ur getting evade'"
 	},
 	stats: {
@@ -3696,7 +3713,7 @@ env.ACTIONS.soprano = {
 	slug: "soprano",
 	name: "Soprano",
 	type: "target",
-	description: {
+	details: {
 		flavor: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
 		onHit: "'[STAT::amt]'"
 	},
@@ -3724,7 +3741,7 @@ env.ACTIONS.tenor = {
 	slug: "tenor",
 	name: "Tenor",
 	type: "autohit",
-	description: {
+	details: {
 		flavor: "'Wind up your voice for a burst';'show em whos boss'",
 		onUse: "'[STAT::amt]';'[STATUS::windup] and [STATUS::forte]'",
 	},
@@ -3751,7 +3768,7 @@ env.ACTIONS.head_voice = {
 	slug: "head_voice",
 	name: "Head Voice",
 	type: "autohit",
-	description: {
+	details: {
 		flavor: "'i was gonna make a joke about opposite of bad chest feels dont touch your feet together but it doesnt work.'",
 		onUse: "apply [STATUS::tuned]"
 	},
@@ -3777,7 +3794,7 @@ env.ACTIONS.energizer = {
 	name: "Energizer",
 	type: "support+autohit+target+self",
 	itemAction: true,
-	decription: {
+	details: {
 		flavor: "'It still seems to have power';'Why did a bright cousin throw it down there?'",
 		onUse: "'Grant random level of surge'",
 	},
@@ -4003,7 +4020,7 @@ env.COMBAT_ACTORS.threat_bubble = {
 	name: "Speech Bubble",
 	maxhp: 25,
 	hp: 25,
-	actions: ["harsh_noise","evade"],
+	actions: ["harsh_noise","mockery"],
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
