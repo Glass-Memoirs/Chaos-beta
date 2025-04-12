@@ -3473,7 +3473,7 @@ env.ACTIONS.smog_chatter = {
 	slug: "smog_chatter",
 	name: "Chatter",
 	type: "autohit",
-	description: {
+	details: {
 		flavor: "'Call a voice';'a weak voice but a voice none the less'",
 		onUse: "'Call a speech bubble'",
 	},
@@ -3495,7 +3495,7 @@ env.ACTIONS.smog_shout ={
 	slug: "smog_shout",
 	name: "Shout",
 	type: "autohit",
-	description: {
+	details: {
 		flavor: "'Call a voice';'a Strong voice but a voice none the less'",
 		onUse: "'Call a much more violent speech bubble'",
 	},
