@@ -1993,7 +1993,7 @@ env.ACTIONS.momentum = { //couldnt figure out how to make this thing actually mu
 	verb: "sprint at",
 	//help: "'100% -2HP + (XT:REGEN/FOCUS)\nSELF::-REGEN/FOCUS'",
 	details: {
-		flavour: "'redirect beneficial effects into power';'removes them once the hit connects'",
+		flavor: "'redirect beneficial effects into power';'removes them once the hit connects'",
 		onUse: "'repeat for every T:[STATUS::regen] and T:[STATUS::focused]';'lose all [STATUS::regen] and [STATUS::focused]'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::stun]'",
@@ -2042,7 +2042,7 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 	verb: "Barrel towards",
 	//help: "'100% -2HP * (XT:REGEN+FOCUS) 15%C +2T STUN +3T VULNERABLE\nSELF:: #T/2 REGEN/FOCUS/EVASION'",
 	details :{
-		flavour: "'barrel towards foes';'chance to stun and apply vulnerable'",
+		flavor: "'barrel towards foes';'chance to stun and apply vulnerable'",
 		onUse: "'Repeat for every T:[STATUS::regen], T:[STATUS::focused], and T:[STATUS::evasion]';'Half all [STATUS::regen], [STATUS::focused], and [STATUS::evasion]'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::stun] and [STATUS::vulnerable]'"
@@ -2100,7 +2100,7 @@ env.ACTIONS.level_statuses ={ //this would not deal damage for me at all so i ma
 	anim: "basic-attack",
 	//help: "80% REMOVE MOST STATUS EFFECTS, 15%C REMOVE WINDUP",
 	details: {
-		flavour: "'collapse beyond both yourself and the foe';'remove all statuses'",
+		flavor: "'collapse beyond both yourself and the foe';'remove all statuses'",
 		onUse: "'80% chance to remove most statuses excluding impulses and modifiers'",
 		onCrit: "'15% chance to remove [STATUS::windup]'"
 	},
@@ -2188,7 +2188,7 @@ env.ACTIONS.player_rig = {
 	verb: "rig",
 	//help: "'FOES:: 80%  -POSITIVE STATUS, 10%C 2*T NEGATIVE STATUS\nUSER:: 80% -NEGATIVE STATUS, 10%C 2*T POSITIVE STATUS'",
 	details :{
-		flavour: "'use foe resources to remove negative statuses';'chance of doubling status duration'",
+		flavor: "'use foe resources to remove negative statuses';'chance of doubling status duration'",
 		onUse: "'FOES: 80% chance to remove all positive statuses';'USER: 80% chance to remove all negative statuses'",
 		onCrit: "'FOES: 10% to double all negative statuses';'USER: 10% chance to double all positives'",
 	},
@@ -2277,7 +2277,7 @@ env.ACTIONS.wild_frenzy = { //yknow this was what i thought would be the hardest
 	verb: "flail at",
 	//help: "100% -2HP, 15%C USE THIS ACTION AGAIN ON RANDOM TARGET",
 	details: {
-		flavour: "'flail around';'a chance to keep hitting'",
+		flavor: "'flail around';'a chance to keep hitting'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'15% chance to hit again'",
 	},
@@ -2333,7 +2333,7 @@ env.ACTIONS.player_overload = { //THis will let you traumatize the firmament
 	verb: "overload",
 	//help: "+1T:FOCUSED +EXPONENTIAL SURGE",
 	details: {
-		flavour: "'focus flailing into a long barrage';'next attack is used across entire team';'long period of focus tires shell out and stuns'",
+		flavor: "'focus flailing into a long barrage';'next attack is used across entire team';'long period of focus tires shell out and stuns'",
 		onUse: "'[STATUS::exp_over]'",
 	},
 	usage: {
@@ -2364,7 +2364,7 @@ env.ACTIONS.entropy_burnout = {
 	//help: "AUTOHIT, +5T BURNOUT ON TARGET",
 	autohit: true,
 	details: {
-		flavour: "'Set off their end'",
+		flavor: "'Set off their end'",
 		onUse: "AUTOHIT, [STATUS::burnout]"
 	},
 	usage: {
@@ -2399,7 +2399,7 @@ env.ACTIONS.entropy_call = {
 	name: "Send Signal",
 	type: "autohit",
 	details: {
-		flavour: "'Call out with a strained and distorted voice';'summon more casualties'",
+		flavor: "'Call out with a strained and distorted voice';'summon more casualties'",
 		onUse: "'Summon more foes that cannot attack'",
 	},
 	usage: {
@@ -2427,7 +2427,7 @@ env.ACTIONS.tormenting_delight = {
 	verb: "Torment",
 	//help: "100% -3HP 25% +1T STUN, +SURGE USER/n20%C -6HP +2T STUN, 25% +1T STUN, +2T FOCUSED +SURGE USER",
 	details: {
-		flavour: "'Oh how crude!';'laugh at us more';'it only inspires us to keep hitting while you are on your last legs!'",
+		flavor: "'Oh how crude!';'laugh at us more';'it only inspires us to keep hitting while you are on your last legs!'",
 		onHit: "'[STAT::amt]';'25% 1T:[STATUS::stun]';'USER 32.3% [STATUS::surge]'",
 		onCrit: "'2T:[STATUS::stun]';'USER 32.3% 2T:[STATUS::focused]+[STATUS::surge]'",
 	},
@@ -2480,7 +2480,7 @@ env.ACTIONS.back_to_stage = {
 	//help: "IF STUN: +1-3T [ROT/DESTABILIZED/VULNERABLE/PUNCTURE]\nIF NO STUN: +2/3T EVASION",
 	beneficial: true,
 	details: {
-		flavour: "'oh not just yet!';'you cannot be unable to dance now!';'far too important for you to leave so early!'",
+		flavor: "'oh not just yet!';'you cannot be unable to dance now!';'far too important for you to leave so early!'",
 		onHit: "'[STAT::amt]';'If [STATUS::stun] then +1-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if no [STATUS::stun] then 1T:[STATUS::evasion]'",
 		onCrit: "'if [STATUS::stun] then +2-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if no [STATUS::stun] then 3T:[STATUS::evasion]'",
 	},
@@ -2600,7 +2600,7 @@ env.ACTIONS.velnits_lament = {
 	verb: "lament",
 	//help: "IF TEAMMATE: -SURGE +WILD SURGE\nIF SELF: -SURGE +WILDSURGE +1T STUN +2T VULNERABLE",
 	details: {
-		flavour: "'O, so my act come to an end';'a well earned break from this play!';'for you however';'must pick up the pace!'",
+		flavor: "'O, so my act come to an end';'a well earned break from this play!';'for you however';'must pick up the pace!'",
 		onHit: "'TEAMMATE: -[STATUS::surge] +[STATUS::wild_surge]';'SELF: -[STATUS::surge] +[STATUS::stun] +[STATUS::vulnerable] +[STATUS::wild_surge]'",
 	},
 	usage: {
@@ -2648,7 +2648,7 @@ env.ACTIONS.player_show = {
 	verb: "Heckle",
 	//help: "aaaaaaaa",
 	details: {
-		flavour: "'SEE HOW THEY FALL!';'THEY THOUGHT THEY WERE LAUGHING DOWN AT US';'ONLY FOR US TO SWEEP THEIR KNEES!'",
+		flavor: "'SEE HOW THEY FALL!';'THEY THOUGHT THEY WERE LAUGHING DOWN AT US';'ONLY FOR US TO SWEEP THEIR KNEES!'",
 		onHit: "'90% Target 3: [STAT::amt] 50% [STATUS::vulnerable]'",
 		onCrit: "'20% Teamwide: [STAT::amt] 10% [STATUS::stun] 75% [STATUS::vulnerable]'"
 	},
@@ -2723,7 +2723,7 @@ env.ACTIONS.player_act = {
 	verb: "Work on",
 	//help: "aaaaaaaaaa",
 	details: {
-		flavour: "'STARVED THIN AND CHITTIN SCATTERED';'YOU MUST CONTINUE!';'VELZIE DEMANDS! VELZIE COMMANDS!'",
+		flavor: "'STARVED THIN AND CHITTIN SCATTERED';'YOU MUST CONTINUE!';'VELZIE DEMANDS! VELZIE COMMANDS!'",
 		onHit: "'[STAT::amt], -[STATUS::stun] add [STATUS::surge] and [STATUS::destabilized],[STATUS::vulnerable],[STATUS::puncture],or [STATUS::rot]';'else [STATUS::evasion]'",
 		onCrit: "'-[STATUS::stun], add [STATUS::surge] and 3T:[STATUS::destabilized]'"
 	},
@@ -2835,7 +2835,7 @@ env.ACTIONS.player_sacri = {
 	//help: "IF TARGET HAS SURGE, -SURGE +WILDSURGE +1T EMPOWERED +2T FOCUSED/nIF ON SELF:-4HP,+2T FEAR, +1T STUN, +1T VULNERABLE +1T WILD",
 	verb: "Empower",
 	details: {
-		flavour: "'LET THE SHOW GO FORTH! AGAIN!';'LET VELZIE VIEW OUR CRUDE IMMITATIONS';'FOR THAT WILL ONLY INSPIRE US MORE!'",
+		flavor: "'LET THE SHOW GO FORTH! AGAIN!';'LET VELZIE VIEW OUR CRUDE IMMITATIONS';'FOR THAT WILL ONLY INSPIRE US MORE!'",
 		onUse: "'if target has [STATUS::surge], remove [SATUS::surge] and add [STATUS::wild_surge]';'if target is self: -4HP, +2T:[STATUS::fear], [STATUS::stun], [STATUS::vulnerable], [STATUS::wild_surge]'"
 	},
 	stats: {
@@ -2930,7 +2930,7 @@ env.ACTIONS.pin_pull = {
 	type: "autohit+target",
 	verb: "ask",
 	details: {
-		flavour: "'Hey mind holding thsi for a second?';'yeah sure'",
+		flavor: "'Hey mind holding thsi for a second?';'yeah sure'",
 		onUse: "'[STAT::amt] to user and target'"
 	},
 	usage: {
@@ -2961,7 +2961,7 @@ env.ACTIONS.brrrttrttt = {
 	name: "Brrrttrttt",
 	type: "autohit",
 	details: {
-		flavour: "Hehe the cousins combined one of their arms with dull technology';'now we have a mixed arms weapon!'",
+		flavor: "Hehe the cousins combined one of their arms with dull technology';'now we have a mixed arms weapon!'",
 		onUse: "'Hit 12 random actors'",
 		onHit: "'[STAT::amt]'"
 	},
@@ -3011,7 +3011,7 @@ env.ACTIONS.puncture_bomb = {
 	name: "Puncture Bomb",
 	type: "autohit",
 	details: {
-		flavour: "'This is just like that one time i was an effigy!';'family guy cutaway gag here'",
+		flavor: "'This is just like that one time i was an effigy!';'family guy cutaway gag here'",
 		onUse: "'+5T:[STATUS::puncture] to everyone'",
 		onHit: "'[STAT::amt]'",
 	},
@@ -3057,7 +3057,7 @@ env.ACTIONS.stupidhorrible_kaber = {
 	name: "Kaber",
 	type: "target",
 	details: {
-		flavour: "'What makes me a good Demoman?';'If I were a bad Demoman,';'I wouldn't be sittin' here, discussin' it with you now would I?'",
+		flavor: "'What makes me a good Demoman?';'If I were a bad Demoman,';'I wouldn't be sittin' here, discussin' it with you now would I?'",
 		onHit: "'[STAT::amt] to taget and user'",
 	},
 	stats: {
@@ -3083,7 +3083,7 @@ env.ACTIONS.stupidhorrible_claymore = {
 	name: "Claymore",
 	type: "target",
 	details: {
-		flavour: "'Lets do it!';'Not one of yas gonna survive this!'",
+		flavor: "'Lets do it!';'Not one of yas gonna survive this!'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::puncture]'",
 	},
@@ -3114,7 +3114,7 @@ env.ACTIONS.stupidhorrible_charge = {
 	name: "Charge",
 	type: "autohit",
 	details: {
-		flavour: "'One crossed wire, one wayward pinch of potassium chlorate, one errant twitch... and kablooie!'",
+		flavor: "'One crossed wire, one wayward pinch of potassium chlorate, one errant twitch... and kablooie!'",
 		onUse: "'[STATUS::windup] [STATUS::focused]'",
 	},
 	stats: {
@@ -3140,7 +3140,7 @@ env.ACTIONS.stupidhorrible_taunt = {
 	name: "Taunt Kill",
 	type: "target",
 	details: {
-		flavour: "'So Tall you fine dandies so proud, so cocksure!';'Prancin aboot with your heads full of eyeballs!';'Come and get me I say!'",
+		flavor: "'So Tall you fine dandies so proud, so cocksure!';'Prancin aboot with your heads full of eyeballs!';'Come and get me I say!'",
 		onUse: "'-[STATUS::windup]'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::empowered]'",
@@ -3171,7 +3171,7 @@ env.ACTIONS.stupidhorrible_blood = {
 	name: "Bloodshed",
 	type: 'target',
 	details: {
-		flavour: "'Ill be waiting on ya with a whiff of the ol brimstone.';'Im a grim bloody fable... with an unhappy bloody end!';'Oh, theyre going to have to glue you back together... in hell!'",
+		flavor: "'Ill be waiting on ya with a whiff of the ol brimstone.';'Im a grim bloody fable... with an unhappy bloody end!';'Oh, theyre going to have to glue you back together... in hell!'",
 		onHit: "'[STAT::amt] [STATUS::windup]'",
 		onCrit: "'[STATUS::focused] [STATUS::empowered]'",
 	},
@@ -3205,7 +3205,7 @@ env.ACTIONS.stupidhorrible_colonthree = { //somehow githubs pushing broke.
 	name: "Realistic MP5",
 	type: "autohit",
 	details: {
-		flavour: "Oh boy waht a nice GUN';'i love GUNs'",
+		flavor: "Oh boy waht a nice GUN';'i love GUNs'",
 		onUse: "'75% to target 30 random actors'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::empowered]'"
@@ -3256,7 +3256,7 @@ env.ACTIONS.stupidhorrible_buncture ={
 	name: "Buncture Beam",
 	type: "autohit",
 	details: {
-		flavour: "'You may have gotten this far';'but its time for you to witness just a fraction of my power!'",
+		flavor: "'You may have gotten this far';'but its time for you to witness just a fraction of my power!'",
 		onUse: "'[STATUS::puncture] to everyone';'[STATUS::rot] to allies'"
 	},
 	stats: {
@@ -3302,7 +3302,7 @@ env.ACTIONS.btgothwar = {
 	type: "target",
 	verb: "use a rock to beat the head of",
 	details: {
-		flavour: "'do it';'fucking do it';'unleash the cain instinct'",
+		flavor: "'do it';'fucking do it';'unleash the cain instinct'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::stun]'"
 	},
@@ -3342,7 +3342,7 @@ env.ACTIONS.smog_minute = {
 	type: "target",
 	verb: "time",
 	details: {
-		flavour: "'A mediocre impact';'but still a timely one'",
+		flavor: "'A mediocre impact';'but still a timely one'",
 		onHit: "'[STAT::amt]'",
 	},
 	usage: {
@@ -3370,7 +3370,7 @@ env.ACTIONS.smog_hour = {
 	type: "target",
 	verb: "time",
 	details: {
-		flavour: "'Much stronger';'has a chance to stun now'",
+		flavor: "'Much stronger';'has a chance to stun now'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::stun]'",
 	},
@@ -3392,9 +3392,7 @@ env.ACTIONS.smog_hour = {
 			action: this,
 			user,
 			target,
-			critExec: ({target}) => {
-				addStatus(target, "stun")
-			}
+			critStatus: this.stats.status.stun
 		})
 	}
 },
@@ -3405,7 +3403,7 @@ env.ACTIONS.smog_haze = {
 	type: "support+target+self+autohit",
 	verb: "shroud",
 	details: {
-		flavour: "'Surround an ally with smog';'Heal them and make them harder to hit'",
+		flavor: "'Surround an ally with smog';'Heal them and make them harder to hit'",
 		onHit: "'2T:[STATUS::regen] 2T:[STATUS::evasion]'",
 		onCrit: "'4T:[STATUS::regen] 5T:[STATUS::evasion]'",
 	},
@@ -3445,7 +3443,7 @@ env.ACTIONS.smog_cloud = {
 	name: "Cloud",
 	type: "autohit+support",
 	details: {
-		flavour: "'Shroud the entire team in smog';'harder to be hit if you cannot be seen'",
+		flavor: "'Shroud the entire team in smog';'harder to be hit if you cannot be seen'",
 		onUse: "'[STATUS::regen] [STATUS::evasion] to team'"
 	},
 	usage: {
@@ -3476,7 +3474,7 @@ env.ACTIONS.smog_chatter = {
 	name: "Chatter",
 	type: "autohit",
 	description: {
-		flavour: "'Call a voice';'a weak voice but a voice none the less'",
+		flavor: "'Call a voice';'a weak voice but a voice none the less'",
 		onUse: "'Call a speech bubble'",
 	},
 	usage: {
@@ -3498,7 +3496,7 @@ env.ACTIONS.smog_shout ={
 	name: "Shout",
 	type: "autohit",
 	description: {
-		flavour: "'Call a voice';'a Strong voice but a voice none the less'",
+		flavor: "'Call a voice';'a Strong voice but a voice none the less'",
 		onUse: "'Call a much more violent speech bubble'",
 	},
 	usage: {
@@ -3529,7 +3527,7 @@ env.ACTIONS.directional_rain = {
 	type: "target",
 	verb: "rain on",
 	description: {
-		flavour: "'A dreary day';'You could catch a cold'",
+		flavor: "'A dreary day';'You could catch a cold'",
 		onHit: "'+3-4T:[STATUS::clouded_lungs]';'[STAT::amt]'",
 		onCrit: "'+6-8T:[STATUS::clouded_lungs]'"
 	},
@@ -3569,7 +3567,7 @@ env.ACTIONS.cough = {
 	name: "Cough",
 	type: "self+autohit",
 	description: {
-		flavour: "'you just cough. thats it.'",
+		flavor: "'you just cough. thats it.'",
 		onUse: "'REMOVE 1-3T:[STATUS::clouded_lungs]'"
 	},
 	stats: {
@@ -3590,7 +3588,7 @@ env.ACTIONS.harsh_noise = {
 	name: "Hars Noise",
 	type: "target",
 	description: {
-		flavour: "'Emit a painful sound','has a chance to silence foes'",
+		flavor: "'Emit a painful sound','has a chance to silence foes'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::mute]'",
 	},
@@ -3620,7 +3618,7 @@ env.ACTIONS.steel_harmony = {
 	type: "target",
 	verb: "harmonize at",
 	decription: {
-		flavour: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
+		flavor: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
 		onUse: "'Randomize Action betwee: ALTO (sorry it dont exist rn), SOPRANO, TENOR, HEAD-VOICE'"
 	},
 	stats: {
@@ -3643,7 +3641,7 @@ env.ACTIONS.steel_scold = { //remember to make this give the status effect that 
 	name: "Scold",
 	type: "target",
 	description: {
-		flavour: "'Scold target';'Still a work in progress sorry i wanna be able to bugfix things so no serious progress right now'",
+		flavor: "'Scold target';'Still a work in progress sorry i wanna be able to bugfix things so no serious progress right now'",
 		onHit: "'[STAT::amt]'"
 	},
 	stats: {
@@ -3665,7 +3663,7 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 	name: "stand",
 	type: "self+autohit+support",
 	description: {
-		flavour: "'yeah no this isnt done yet, ur getting evade'"
+		flavor: "'yeah no this isnt done yet, ur getting evade'"
 	},
 	stats: {
 		status: {
@@ -3699,7 +3697,7 @@ env.ACTIONS.soprano = {
 	name: "Soprano",
 	type: "target",
 	description: {
-		flavour: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
+		flavor: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
 		onHit: "'[STAT::amt]'"
 	},
 	stats: {
@@ -3727,7 +3725,7 @@ env.ACTIONS.tenor = {
 	name: "Tenor",
 	type: "autohit",
 	description: {
-		flavour: "'Wind up your voice for a burst';'show em whos boss'",
+		flavor: "'Wind up your voice for a burst';'show em whos boss'",
 		onUse: "'[STAT::amt]';'[STATUS::windup] and [STATUS::forte]'",
 	},
 	stats: {
@@ -3754,7 +3752,7 @@ env.ACTIONS.head_voice = {
 	name: "Head Voice",
 	type: "autohit",
 	description: {
-		flavour: "'i was gonna make a joke about opposite of bad chest feels dont touch your feet together but it doesnt work.'",
+		flavor: "'i was gonna make a joke about opposite of bad chest feels dont touch your feet together but it doesnt work.'",
 		onUse: "apply [STATUS::tuned]"
 	},
 	stats: {
@@ -3780,7 +3778,7 @@ env.ACTIONS.energizer = {
 	type: "support+autohit+target+self",
 	itemAction: true,
 	decription: {
-		flavour: "'It still seems to have power';'Why did a bright cousin throw it down there?'",
+		flavor: "'It still seems to have power';'Why did a bright cousin throw it down there?'",
 		onUse: "'Grant random level of surge'",
 	},
 	stats: {
