@@ -463,6 +463,12 @@ function midCombatAllyAdd(actorSpecifier, side = "right") {
     return actor
 }
 
+function TempIconChoice() {
+	let Icons = ["https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif", "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/testinghumor.gif"]
+	let IconChoice = Icons.sample()
+	return IconChoice
+}
+
 //HUMORS
 env.COMBAT_COMPONENTS.entropy = {
      name: "Entropy",
@@ -1715,7 +1721,7 @@ env.STATUS_EFFECTS.ashen_hands = {
 	name: "ACTION::ASHEN HANDS",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: TempIconChoice(),
 	inUse: false,
 	impulse: {type: "action", component: "smog"},
 	events:{
@@ -1759,7 +1765,7 @@ env.STATUS_EFFECTS.fated_smog = {
 	name: "FATED::SMOG",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: TempIconChoice(),
 	impulse: {type: "fated", component: "smog"},
 	events: {
 		onCreated: function({statusObj}) {
@@ -1788,7 +1794,7 @@ env.STATUS_EFFECTS.muted = {
 	slug: "muted",
 	name: "Muted",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: TempIconChoice(),
 	events: {
 		onBeforeAction: function(context) {
 			if (Math.random() < 0.23) {
@@ -1804,7 +1810,7 @@ env.STATUS_EFFECTS.burning_wings = {
 	name: "Burning Wings",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: TempIconChoice(),
 	help: "Convert FOCUSED to EVASION",
 	impulse: {type: "common", component: "steel"},
 	events: {
@@ -1818,7 +1824,7 @@ env.STATUS_EFFECTS.forte = {
 	slug: "forte",
 	name: "Forte",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: TempIconChoice(),
 	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'", //[]^[] < reading this what the fuck was i on
 	events: {
 		onTurn: function() { 
@@ -1855,7 +1861,7 @@ env.STATUS_EFFECTS.high_note = {
 	slug: "high_note",
 	name: "High Note",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: TempIconChoice(),
 	outgoingCrit: 0,
 	incomingCrit: 0,
 	events: {
@@ -1871,7 +1877,7 @@ env.STATUS_EFFECTS.tuned = {
 	slug: "tuned",
 	name: "Tuned",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: TempIconChoice(),
 	events: {
 		onTurn: function(user,target) {
 			let modifierPool = []
