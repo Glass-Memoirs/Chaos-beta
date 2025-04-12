@@ -3476,8 +3476,8 @@ env.ACTIONS.smog_chatter = {
 	name: "Chatter",
 	type: "autohit",
 	description: {
-		flavour: "'Summon a voice';'a weak voice but a voice none the less'",
-		onUse: "'Summon a speech bubble'",
+		flavour: "'Call a voice';'a weak voice but a voice none the less'",
+		onUse: "'Call a speech bubble'",
 	},
 	usage: {
 		act: "%USER MOLDS THEIR VOICE SOFTLY",
@@ -3498,8 +3498,8 @@ env.ACTIONS.smog_shout ={
 	name: "Shout",
 	type: "autohit",
 	description: {
-		flavour: "'Summon a voice';'a Strong voice but a voice none the less'",
-		onUse: "'Summon a much more violent speech bubble'",
+		flavour: "'Call a voice';'a Strong voice but a voice none the less'",
+		onUse: "'Call a much more violent speech bubble'",
 	},
 	usage: {
 		act: "%USER SHAPES THEIR VOICE SHARPLY"
