@@ -1009,6 +1009,8 @@ env.STATUS_EFFECTS.entropy_eyes = {
 			if(TakableEffects.length) for (let i = 0; i <= Math.floor(Math.random()*TakableEffects.length); i++) {
 				let Chance = 0.4
 				if (Math.random() < Chance) {
+					let TakingStat = TakableEffects.sample()
+					let SendingTo = AllTargets.sample({noRepeat: true})
 					sendFloater({
 						target: this.status.affecting,
 						type: "arbitrary",
@@ -1022,8 +1024,6 @@ env.STATUS_EFFECTS.entropy_eyes = {
 						show: false,
 						sfx: false
 					})
-					let TakingStat = TakableEffects.sample()
-					let SendingTo = AllTargets.sample({noRepeat: true})
 					if (hasStatus(target, TakingStat)) {
 						addStatus({target: SendingTo, status: TakingStat, length: Math.floor(hasStatus(target, TakingStat))})
 						removeStatus(target, TakingStat)
