@@ -3684,25 +3684,20 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 	name: "stand",
 	type: "self+autohit+support",
 	details: {
-		flavor: "'yeah no this isnt done yet, ur getting evade'"
+		flavor: "'Gain [STATUS::carapace]'"
 	},
 	stats: {
 		status: {
-			evasion: {
-				name: 'evasion',
-				length: 1
-			},
-			focused: {
-				name: 'focused',
-				length: 1
-			},                
+			carapace: {
+				name: "carapace",
+				length: 2
+			}
 		}
 	},
-	exec: function(user, target) {
+	exec: function(user) {
 		play('mend', 0.5);
-		addStatus({target: user, status: this.stats.status.evasion.name, length: this.stats.status.evasion.length, noReact: true}); 
-		addStatus({target: user, status: this.stats.status.focused.name, length: this.stats.status.focused.length, noReact: true}); 
-		return 'nothing';
+		combatHit(user, {amt: 1, autohit: true, redirectable: false})
+		addStatus({target: user, status: "carapace", length : 2})
 	},
 
 	disableIf: (actor)=>{ if(hasStatus(actor,"fear")) return "PROHIBITED BY FEAR" },
