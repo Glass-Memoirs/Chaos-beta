@@ -3657,30 +3657,6 @@ env.ACTIONS.mockery = {
 	}
 },
 
-env.ACTIONS.steel_harmony = {
-	slug: "steel_harmony",
-	name: "Harmony",
-	type: "target",
-	verb: "harmonize at",
-	details: {
-		flavor: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
-		onUse: "'Randomize Action betwee: ALTO (sorry it dont exist rn), SOPRANO, TENOR, HEAD-VOICE'"
-	},
-	stats: {
-		accuracy: 1,
-		crit: 0,
-		amt: 0,
-	},
-	exec: function(user,target) {
-		setTimeout(()=>{
-			let AttackList = [,"soprano", "tenor", "head_voice"] //add alto back later
-			let ChosenAttack = AttackList.sample()
-			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
-		},
-		env.ADVANCE_RATE * 1)
-	}
-},
-
 env.ACTIONS.steel_scold = { //remember to make this give the status effect that causes damage on action and removes one turn from the action (check tick type i think)
 	slug: "steel_scold",
 	name: "Scold",
@@ -3814,6 +3790,30 @@ env.ACTIONS.head_voice = {
 				addStatus({target: user, status: "tuned", length: 5})
 			}
 		})
+	}
+},
+
+env.ACTIONS.steel_harmony = {
+	slug: "steel_harmony",
+	name: "Harmony",
+	type: "target",
+	verb: "harmonize at",
+	details: {
+		flavor: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
+		onUse: "'Randomize Action betwee: ALTO (sorry it dont exist rn), SOPRANO, TENOR, HEAD-VOICE'"
+	},
+	stats: {
+		accuracy: 1,
+		crit: 0,
+		amt: 0,
+	},
+	exec: function(user,target) {
+		setTimeout(()=>{
+			let AttackList = [,"soprano", "tenor", "head_voice"] //add alto back later
+			let ChosenAttack = AttackList.sample()
+			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
+		},
+		env.ADVANCE_RATE * 1)
 	}
 },
 
