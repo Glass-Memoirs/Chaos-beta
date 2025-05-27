@@ -1470,16 +1470,29 @@ env.STATUS_EFFECTS.byothwar = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
+	AbleInstinctFollowed: false,
 	events: {
+		onTurn: function() {
+			env.STATUS_EFFECTS.byothwar.AbleInstinctFollowed = false
+		},
 		onBeforeAction: function(context) {
 			if (context.action.type.includes("target") && !context.action.beneficial) {
-				if (Math.random() < 0.3) {
-					context.settings.target = this.status.affecting
+				if (context.settings.target != this.status.affecting) {
+					OriginalTarget = context.settings.target
+				}
+				if (env.STATUS_EFFECTS.byothwar.AbleInstinctFollowed) {
+					context.settings.target = OriginalTarget
+					env.STATUS_EFFECTS.byothwar.AbleInstinctFollowed = false
+				} else {
+					if (Math.random() < 0.3) {
+						context.settings.target = this.status.affecting
+						env.STATUS_EFFECTS.byothwar.AbleInstinctFollowed = true
+					}
 				}
 			}
 		}
 	},
-	help: "'gives BTGOTHWAR and gives it a chance to accidentally be you hitting yourself over the head with a rock'"
+	help: "'gives BTGOTHWAR and has a 30% chance to direct target attacks onto the user each attack'"
 },
 
 env.STATUS_EFFECTS.stupidhorrible_hard = {
