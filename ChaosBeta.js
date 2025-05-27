@@ -1924,6 +1924,22 @@ env.STATUS_EFFECTS.vibrato = {
 			this.status.affecting.bp = this.status.affecting.bp + 2
 		}
 	}
+},
+
+env.STATUS_EFFECTS.steel_skin = {
+	slug: "steel_skin",
+	name: "True Skin",
+	beneficial: true,
+	icon: TempIconChoice(),
+	help: "'Regen with BP is doubled'",
+	impulse: {type: "common", component: "steel" },
+	events: {
+		onTurn: function () {
+			if (this.status.affecting.bp > 0 && hasStatus(this.status.affecting, "regen")) {
+				combatHit(this.status.affecting, {amt: -1, beneficial: true, type: "hp"});
+			}
+		}
+	}
 }
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
