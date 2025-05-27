@@ -1904,6 +1904,7 @@ env.STATUS_EFFECTS.tuned = {
 				if(i == "imperfect_reset") {usable = false}
 				if(i == "redirection" || i == "ethereal" || i == "immobile" || i == "conjoined" || i == "permanent_hp") {usable = false}
 				if(!i.beneficial) {usable = false}
+				if(i.slug = 'tuned') {usable = false}
 				console.log(i, usable)
 				if(usable) modifierPool.push(i)
 			}
@@ -1912,6 +1913,18 @@ env.STATUS_EFFECTS.tuned = {
 	},
 	help: "Add a random beneficial status each turn this effect is present"
 },
+
+env.STATUS_EFFECTS.vibrato = {
+	slug: "vibrato",
+	name: "Vibrato",
+	beneficial: true,
+	icon: TempIconChoice(),
+	events: {
+		onTurn: function () {
+			this.status.affecting.bp = this.status.affecting.bp + 2
+		}
+	}
+}
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
@@ -3704,9 +3717,36 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 	avoidChaining: true
 },
 
-//env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gives BP instead of HP?
-
-//},
+env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gives BP instead of HP?
+	slug: "alto",
+	name: "Alto",
+	type: "target",
+	details: {
+		flavour: "'does anyone read these?'",
+		onHit: "'bweh'"
+	},
+	stats: {
+		accuracy: 0.7,
+		crit: 0.34,
+		hit: 2,
+		status: {
+			vibrato: {
+				name: "vibrato",
+				length: 3
+			}
+		}
+	},
+	exec: function (user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "vibrato", length: 3})
+			}
+		})
+	}
+},
 
 env.ACTIONS.soprano = {
 	slug: "soprano",
@@ -3795,7 +3835,7 @@ env.ACTIONS.steel_harmony = {
 	verb: "harmonize at",
 	details: {
 		flavor: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
-		onUse: "'Randomize Action betwee: ALTO (sorry it dont exist rn), SOPRANO, TENOR, HEAD-VOICE'"
+		onUse: "'Randomize Action betwee: ALTO, SOPRANO, TENOR, HEAD-VOICE'"
 	},
 	stats: {
 		accuracy: 1,
@@ -3804,7 +3844,7 @@ env.ACTIONS.steel_harmony = {
 	},
 	exec: function(user,target) {
 		setTimeout(()=>{
-			let AttackList = [,"soprano", "tenor", "head_voice"] //add alto back later
+			let AttackList = ["alto","soprano", "tenor", "head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
 			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
 		},
