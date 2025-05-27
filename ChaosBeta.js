@@ -1932,11 +1932,29 @@ env.STATUS_EFFECTS.steel_skin = {
 	beneficial: true,
 	icon: TempIconChoice(),
 	help: "'Regen with BP is doubled'",
+	passive: true,
 	impulse: {type: "common", component: "steel" },
 	events: {
 		onTurn: function () {
 			if (this.status.affecting.bp > 0 && hasStatus(this.status.affecting, "regen")) {
 				combatHit(this.status.affecting, {amt: -1, beneficial: true, type: "hp"});
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.steel_care = {
+	slug: "steel_care",
+	name: "Careful Steps",
+	beneficial: true,
+	icon: TempIconChoice(),
+	help: "'Actor cannot be punctured when they have evasion'",
+	passive: true,
+	impulse: {type: "common", component: "steel"},
+	events: {
+		onAddStatus: function({statusObj}) {
+			if (hasStatus(this.status.affecting, "evasion") && statusObj.slug == "puncture") {
+				removeStatus(this.status.affecting, "puncture")
 			}
 		}
 	}
