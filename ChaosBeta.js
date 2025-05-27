@@ -601,7 +601,7 @@ env.COMBAT_COMPONENTS.steel = {
 	utility: {
 		alterations: [["evade","steel_stand"]]
 	},
-	combatModifiers: ["maddening_ignorance"]
+	combatModifiers: ["maddening_ignorance", "steel_false", "steel_sharp"]
 }
 
 /*
@@ -885,6 +885,22 @@ env.MODIFIERS.maddening_apathy = {
 	getHelp: ()=> {return env.STATUS_EFFECTS.maddening_apathy.help},
 	alterations: {
 		all: [["STATUS", "maddening_apathy"]]
+	}
+}
+
+env.MODIFIERS.steel_false = {
+	name: "False-skin",
+	getHelp: ()=> {return env.STATUS_EFFECTS.steel_false.help},
+	alterations: {
+		all: [["STATUS", "steel_false"]]
+	}
+}
+
+env.MODIFIERS.steel_sharp = {
+	name: "Sharp Steps",
+	getHelp: () => {return env.STATUS_EFFECTS.steel_sharp.help},
+	alterations: {
+		all: [["STATUS", "steel_sharp"]]
 	}
 }
 
@@ -1475,7 +1491,7 @@ env.STATUS_EFFECTS.btgothwar ={
 
 env.STATUS_EFFECTS.byothwar = {
 	slug: "byothwar",
-	name: "BYOTHWAR",
+	name: "Cain Instinct",
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/dwaynerock.gif",
 	grantsActions: ["btgothwar"],
@@ -1935,8 +1951,8 @@ env.STATUS_EFFECTS.vibrato = {
 	}
 },
 
-env.STATUS_EFFECTS.steel_skin = {
-	slug: "steel_skin",
+env.STATUS_EFFECTS.steel_true = {
+	slug: "steel_true",
 	name: "True Skin",
 	beneficial: true,
 	icon: TempIconChoice(),
@@ -1964,6 +1980,40 @@ env.STATUS_EFFECTS.steel_care = {
 		onBeforeAddStatus: function(context) {
 			if (hasStatus(this.status.affecting, "evasion") && context.status == "puncture") {
 				context.noAdd = true
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.steel_false = {
+	slug: "steel_false",
+	name: "Flase-skin",
+	beneficial: false,
+	icon: TempIconChoice(),
+	help: "'Actor cannot gain regen without BP'",
+	passive: true,
+	events: {
+		onBeforeAddStatus: function(context) {
+			if(this.status.affecting.bp == 0 && context.status == "regen") {
+				context.noAdd = true
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.steel_sharp = {
+	slug: "steel_sharp",
+	name: "Sharp Steps",
+	beneficial: false,
+	icon: TempIconChoice(),
+	help: "'Actor has a chance to be punctured while they have evasion'",
+	passive: true,
+	events: {
+		onTurn: function() {
+			if (hasStatus(this.status.affecting, "evasion")){
+				if (Math.random < 0.2) {
+					addStatus({target: this.status.affecting, status: "puncture", length: 3})
+				}
 			}
 		}
 	}
