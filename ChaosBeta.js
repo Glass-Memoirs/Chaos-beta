@@ -2037,7 +2037,7 @@ env.ACTIONS.momentum = { //couldnt figure out how to make this thing actually mu
 		let action = this
 		//console.log(hasStatus(user, 'focused'))
 		//The looping part
-		for (let i = 1; i <= (Math.floor(hasStatus(user, 'focused')) + Math.floor(hasStatus(user, 'regen')))+1; i++) {
+		for (let i = 1; i <= (Math.floor(hasStatus(user, 'focused')) + (Math.floor(hasStatus(user, 'hyperfocus_flat'))) + Math.floor(hasStatus(user, 'regen')))+1; i++) {
 			env.GENERIC_ACTIONS.singleTarget({
 				action,
 				user,
@@ -2048,6 +2048,7 @@ env.ACTIONS.momentum = { //couldnt figure out how to make this thing actually mu
 			})
 		}
 		if(hasStatus(user, 'focused')) removeStatus(user, "focused")
+		if(hasStatus(user, 'hyperfocus_flat')) removeStatus(user, "hyperfocus_flat")
 		if(hasStatus(user, 'focused')) removeStatus(user, "regen")
 	}
 },
@@ -2086,7 +2087,7 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 	},
 	exec: function(user, target) {
 		let action = this
-		for (let i = 1; i <= (Math.floor(hasStatus(user, 'focused')) + Math.floor(hasStatus(user, 'regen')) + Math.floor(hasStatus(user, 'evasion'))); i++) {
+		for (let i = 1; i <= (Math.floor(hasStatus(user, 'focused')) + Math.floor(hasStatus(user, 'hyperfocus_flat')) + Math.floor(hasStatus(user, 'regen')) + Math.floor(hasStatus(user, 'evasion'))) + Math.floor(hasStatus(user, 'evasion_mega')); i++) {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: action, user,
 				target: target,
@@ -2100,6 +2101,10 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 			let half = 0 - Math.floor(hasStatus(user, 'focused') / 2)
 			addStatus({target: user, status: "focused", length: half, noReact: true})
 		}
+		if (hasStatus(user, 'hyperfocus_flat')) {
+			let half = 0 - Math.floor(hasStatus(user, 'hyperfocus_flat') / 2)
+			addStatus({target: user, status: "hyperfocus_flat", length: half, noReact: true})
+		}
 		if (hasStatus(user, 'regen')) {
 			let half = 0 - Math.floor(hasStatus(user, "regen") / 2)
 			addStatus({target: user, status: "regen", length: half, noReact: true})
@@ -2107,6 +2112,10 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 		if (hasStatus(user, 'evasion')) {
 			let half = 0 - Math.floor(hasStatus(user, 'evasion') / 2)
 			addStatus({target: user, status: "evasion", length: half, noReact: true})
+		}
+		if (hasStatus(user, 'evasion_mega')) {
+			let half = 0 - Math.floor(hasStatus(user, 'evasion_mega')/2)
+			addStatus({target: user, status: "evasion_mega", length: half, noReact: true})
 		}
 	}
 },
