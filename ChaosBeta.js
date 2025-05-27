@@ -601,7 +601,7 @@ env.COMBAT_COMPONENTS.steel = {
 	utility: {
 		alterations: [["evade","steel_stand"]]
 	},
-	combatModifiers: []
+	combatModifiers: ["maddening_ignorance"]
 }
 
 /*
@@ -887,6 +887,15 @@ env.MODIFIERS.maddening_apathy = {
 		all: [["STATUS", "maddening_apathy"]]
 	}
 }
+
+env.MODIFIERS.maddening_ignorance = {
+	name: "Maddening Ignorance",
+	getHelp: ()=> {return env.STATUS_EFFECTS.maddening_ignorance.help},
+	alterations: {
+		all: [["STATUS", "maddening_ignorance"]]
+	}
+}
+
 //STATUS EFFECTS
 /*
 + Yeah these needed doccumenting
@@ -1952,13 +1961,60 @@ env.STATUS_EFFECTS.steel_care = {
 	passive: true,
 	impulse: {type: "common", component: "steel"},
 	events: {
-		onAddStatus: function({statusObj}) {
-			if (hasStatus(this.status.affecting, "evasion") && statusObj.slug == "puncture") {
-				removeStatus(this.status.affecting, "puncture")
+		onBeforeAddStatus: function(context) {
+			if (hasStatus(this.status.affecting, "evasion") && context.status == "puncture") {
+				context.noAdd = true
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.maddening_ignorance = {
+	slug: "maddening_ignorance",
+	name: "Maddening Ignoarnce",
+	beneficial: false,
+	icon: TempIconChoice(),
+	help: "Focus is unable to be applied. Effects have a chance to disappear.",
+	passive: true,
+	events: {
+		onBeforeAddStatus: function(context) {
+			if (context.status == "focused") {
+				context.noAdd = true
+			}
+		},
+		onTurn: function() {
+			target = this.status.affecting
+			let statusPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = true
+				if(statusData.infinite) {usable = false}
+				if(statusData.passive) {usable = false}
+				if(i.includes("global_")) {usable = false}
+				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
+				if(i == "imperfect_reset") {usable = false}
+				if(i == "redirection") {usable = false}
+				if(i == "entropy_eternal") {usable = false}
+				if(i == "channeling_flat"|| i == "coiling_flat"|| i == "rocket_bearer") {usable=false}
+				//console.log(i, usable)
+				if(usable) statusPool.push(i)
+			}
+
+			let AffectedEffects = []
+			target.statusEffects.forEach((status, i) => {
+				if((!status.infinite || !status.passive) && (statusPool.includes(status.slug))) {
+					AffectedEffects.push(status.slug)
+				}
+			})
+
+			let RemovalTarg = AffectedEffects.sample()
+			if (Math.random < 0.23) {
+				removeStatus(this.status.affecting, RemovalTarg)
 			}
 		}
 	}
 }
+
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
