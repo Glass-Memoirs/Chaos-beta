@@ -4123,7 +4123,7 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.smog = {
 	receive_redirection: ["Good.","Maybe I wont have to see you alive.", "Stay out of my way."],
 }
 
-//Combat Actors
+//10. Combat Actors
 
 env.COMBAT_ACTORS.immobile_actor = {
 	name: "immobile critta",
@@ -4152,6 +4152,8 @@ env.COMBAT_ACTORS.speech_bubble_weak = {
 	maxhp: 12,
 	hp: 12,
 	actions: ["attack","evade"],
+	portrait: `<img class="portrait" src="[[PORTRAITURL]]">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png',
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
@@ -4188,6 +4190,8 @@ env.COMBAT_ACTORS.speech_bubble_strong = {
 	maxhp: 20,
 	hp: 20,
 	actions: ["harsh_noise","evade"],
+	portrait: `<img class="portrait" src="[[PORTRAITURL]]">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png',
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
@@ -4224,6 +4228,8 @@ env.COMBAT_ACTORS.threat_bubble = {
 	maxhp: 25,
 	hp: 25,
 	actions: ["harsh_noise","mockery"],
+	portrait: `<img class="portrait" src="[[PORTRAITURL]]">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png',
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
@@ -4276,8 +4282,7 @@ env.ITEM_LIST.odd_battery = {
 	imgClass: "fish",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Items/odd_battery.gif",
 	group: "support",
-	description: `'a cousinly container';'why was it in the depths?'`,
-	oocnote: "'Grants a random level of surge'",
+	description: `'Grants a random level of surge';'a cousinly container';'why was it in the depths?'`,
 	combatAction: env.ACTIONS.energizer,
 	max: 10,
 	batches: 2
