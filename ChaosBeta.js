@@ -1528,11 +1528,11 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 	impulse: {type: "common", component: "stupidhorrible"},
 	events: {
 		onBeforeAction: function(context) {
-			let ActionSwap = ["evade", "skitter" ,"malfunction" , "attack", "shell", "cower", "btgothwar"]
-			let ChosenAction = ActionSwap.sample()
-			if(Math.random() < 0.35) {
-
-				context.settings.action = env.ACTIONS[ChosenAction]
+			
+			if(Math.random() < 0.35 && !context.settings.action.itemAction) {
+				let ActionSwap = ["evade", "skitter", "malfunction", "attack", "shell", "cower", "btgothwar"]
+				let ChosenAction = ActionSwap.sample()
+				context.settings.action = env.ACTIONS[ChosenAction.slug]
 				let subject = context.settings.user
 
 				sendFloater({
@@ -1550,8 +1550,6 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 					show: false,
 					sfx: false
 				})
-				if (ChosenAction.slug == "malfunction")
-				advanceTurn()
 			}
 		}
 	},
