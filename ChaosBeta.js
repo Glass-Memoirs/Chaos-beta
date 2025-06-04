@@ -1949,6 +1949,22 @@ env.STATUS_EFFECTS.vibrato = {
 	}
 },
 
+env.STATUS_EFFECTS.discipline = {
+	slug: "discipline",
+	name: "Discipline",
+	beneficial: false,
+	icon: TempIconChoice(),
+	help: "'Lose 1hp when using primary or secondary'",
+	oppoite: "rebel",
+	events: {
+		onAction: function({user, action}) {
+			if (user.actions.indexOf(action.slug) < 2) {
+				combatHit(user, {amt: 1, autohit: true, redirectable: false})
+			}
+		}
+	},
+},
+
 env.STATUS_EFFECTS.steel_true = {
 	slug: "steel_true",
 	name: "True Skin",
@@ -2061,8 +2077,20 @@ env.STATUS_EFFECTS.maddening_ignorance = {
 			}
 		}
 	}
-}
+},
 
+env.STATUS_EFFECTS.rebel = { //might change this up a bit later, feels a bit weak tbh
+	slug: "rebel",
+	name: "Rebel",
+	beneficial: true,
+	help: "'Gives actor FOCUSED'",
+	opposite: "discipline",
+	events: {
+		onTurn: function() {
+			addStatus(this.status.affecting, "focused")
+		}
+	}
+},
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
@@ -3820,19 +3848,28 @@ env.ACTIONS.steel_scold = { //remember to make this give the status effect that 
 	name: "Scold",
 	type: "target",
 	details: {
-		flavor: "'Scold target';'Still a work in progress sorry i wanna be able to bugfix things so no serious progress right now'",
-		onHit: "'[STAT::amt]'"
+		flavor: "'Scold target';'instill fear into them'",
+		onHit: "'[STAT::amt]'",
+		onCrit: "'[STATUS::discipline]"
 	},
 	stats: {
 		accuracy: 0.9,
 		crit: 0.8,
 		amt: 2,
+		status :{
+			discipline: {name: "discipline", length: 2},
+			fear: {name: "fear", length: 2}
+		},
 	},
 	exec: function(user,target) {
 		env.GENERIC_ACTIONS.singleTarget({
 			action:this,
 			user,
 			target,
+			critExec: () => {
+				addStatus({target: target, status: "discipline", length: 2})
+				addStatus({target: target, status: "fear", length: 2})
+			}
 		})
 	}
 },
