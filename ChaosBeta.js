@@ -3861,7 +3861,7 @@ env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gi
 	type: "target",
 	details: {
 		flavour: "'does anyone read these?'",
-		onHit: "'bweh'"
+		onHit: "'[STATUS::vibrato]'"
 	},
 	stats: {
 		accuracy: 0.7,
