@@ -3796,9 +3796,16 @@ env.ACTIONS.mockery = {
 	name: "Mockery",
 	type: "autohit+target",
 	dtails: {
-		flavor: "taunt your foes, yeah sorry no i have to make this fast",
+		flavor: "taunt your foes",
+		onUse: "'USER [STATUS::focused] [STATUS::vulnerable]';'FOE [STATUS::destabilized] [STATUS::critical_flaw]'"
 	},
 	stats: {
+		status: {
+			destabilized : {name: "destabilized", length: 3},
+			critical_flaw : {name: "critical_flaw", length: 1},
+			vulnerable: {name: "vulnerable", length: 2},
+			focused: {name: "focused", length: 3}
+		}
 	},
 	exec: function(user,target) {
 		addStatus({target: target, status: "destabilized", length: 3})
