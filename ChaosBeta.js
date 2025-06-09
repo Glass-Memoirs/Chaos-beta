@@ -1542,7 +1542,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 			if(Math.random() < 0.35 && !context.settings.action.itemAction) {
 				let ActionSwap = ["evade", "skitter", "malfunction", "attack", "shell", "cower", "btgothwar"]
 				let ChosenAction = ActionSwap.sample()
-				context.settings.action = env.ACTIONS[ChosenAction.slug]
+				context.settings.action = env.ACTIONS[ChosenAction]
 				let subject = context.settings.user
 
 				sendFloater({
@@ -1554,7 +1554,7 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 				})
 
 				readoutAdd({
-					message: `${subject.name}'s action gets scrambled to ${ChosenAction.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					message: `${subject.name}'s action gets scrambled to ${ChosenAction}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
 					name: "sourceless", 
 					type: "sourceless combat minordetail",
 					show: false,
