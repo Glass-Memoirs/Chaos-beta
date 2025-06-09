@@ -1915,13 +1915,13 @@ env.STATUS_EFFECTS.tuned = {
 	beneficial: true,
 	icon: TempIconChoice(),
 	events: {
-		onTurn: function(user,target) {
+		onTurn: function() {
 			let modifierPool = []
 			for (let i in env.STATUS_EFFECTS) {
 				let statusData = env.STATUS_EFFECTS[i]
 				let usable = false
-				if(statusData.passive) {usable = true}
-				if(statusData.infinite || (statusData.slug != "windup")) {usable = true}
+				if(statusData.passive) {usable = false}
+				if(statusData.infinite || (statusData.slug == "windup")) {usable = false}
 				if(i.includes("global_")||i.includes("malware_")||i.includes("fish_")) {usable = false}
 				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
 				if(i == "imperfect_reset") {usable = false}
@@ -1931,7 +1931,7 @@ env.STATUS_EFFECTS.tuned = {
 				console.log(i, usable)
 				if(usable) modifierPool.push(i)
 			}
-			addStatus({target: user, status: modifierPool.sample(), length: 3})
+			addStatus({target: this.status.affecting, status: modifierPool.sample(), length: 3})
 		}
 	},
 	help: "Add a random beneficial status each turn this effect is present"
