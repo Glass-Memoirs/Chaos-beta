@@ -740,7 +740,7 @@ env.ACTOR_AUGMENTS.generic.smog_hour = {
 	slug: "smog_hour",
 	name: "Winking Hand",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeHour.gif",
-	description: "'Increase time i guess this text is temporary ok'",
+	description: "'drag their time out';'make them lose track'",
 	alterations: [["smog_minute","smog_hour"]],
 	component: ["primary","smog"],
 	cost: 2
@@ -750,7 +750,7 @@ env.ACTOR_AUGMENTS.generic.smog_cloud = {
 	slug: "smog_cloud",
 	name: "Cloud",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeCloud.gif",
-	description: "got nothing yet",
+	description: "'create a veil';'avoid their worthless gaze'",
 	alterations: [["smog_haze", "smog_cloud"]],
 	component: ["secondary", "smog"],
 	cost: 3
@@ -760,7 +760,7 @@ env.ACTOR_AUGMENTS.generic.smog_shout = {
 	slug: "smog_shout",
 	name: "Shout",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
-	description: "Also more temp text ill give it new ones later",
+	description: "'Channel your voice';'show them your indifference'",
 	alterations: [["smog_chatter", "smog_shout"]],
 	component: ["utility", "smog"],
 	cost: 2
