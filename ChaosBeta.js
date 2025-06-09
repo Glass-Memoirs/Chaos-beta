@@ -770,7 +770,7 @@ env.ACTOR_AUGMENTS.generic.steel_songbird = {
 	slug: "steel_songbird",
 	name: "Songbird",
 	image: TempIconChoice(),
-	description: "'songbird, oh songbird';'what is your song?'",
+	description: "'songbird, oh songbird, what is your song?';'I would love to hear it, as you are the one who knows'",
 	alterations: [["steel_stand", "steel_songbird"]],
 	component: ["utility","steel"],
 	cost: 2
