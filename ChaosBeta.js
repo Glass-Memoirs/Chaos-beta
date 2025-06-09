@@ -3939,8 +3939,8 @@ env.ACTIONS.soprano = {
 		onHit: "'[STAT::amt]'"
 	},
 	stats: {
-		accuracy: 0.9,
-		crit: 0.5,
+		accuracy: 0.7,
+		crit: 0.12,
 		amt: 2,
 		status: {
 			high_note: {name: "high_note", length: 5},
