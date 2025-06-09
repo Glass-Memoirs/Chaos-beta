@@ -464,7 +464,7 @@ function midCombatAllyAdd(actorSpecifier, side = "right") {
 }
 
 function TempIconChoice() {
-	let Icons = ["https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif", "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/testinghumor.gif"]
+	let Icons = ["https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif", "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/testinghumor.png"]
 	let IconChoice = Icons.sample()
 	return IconChoice
 }
@@ -4239,11 +4239,11 @@ env.COMBAT_ACTORS.speech_bubble_weak = {
 	maxhp: 12,
 	hp: 12,
 	actions: ["attack","evade"],
-	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png">`,
-	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png',
+	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif',
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
-			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
+			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif" id="%SLUG-sprite">
 			<div class="target" entity="Speech Bubble"></div>
 		</div>
 		`,
@@ -4277,11 +4277,11 @@ env.COMBAT_ACTORS.speech_bubble_strong = {
 	maxhp: 20,
 	hp: 20,
 	actions: ["harsh_noise","evade"],
-	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png">`,
-	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png',
+	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif',
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
-			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
+			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif" id="%SLUG-sprite">
 			<div class="target" entity="Speech Bubble"></div>
 		</div>
 		`,
@@ -4315,11 +4315,11 @@ env.COMBAT_ACTORS.threat_bubble = {
 	maxhp: 25,
 	hp: 25,
 	actions: ["harsh_noise","mockery"],
-	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png">`,
-	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png',
+	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif',
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
-			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.png" id="%SLUG-sprite">
+			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif" id="%SLUG-sprite">
 			<div class="target" entity="Speech Bubble"></div>
 		</div>
 		`,
