@@ -766,6 +766,16 @@ env.ACTOR_AUGMENTS.generic.smog_shout = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.steel_songbird = {
+	slug: "steel_songbird",
+	name: "Songbird",
+	image: TempIconChoice(),
+	description: "'songbird, oh songbird';'what is your song?'",
+	alterations: [["steel_stand", "steel_songbird"]],
+	component: ["utility","steel"],
+	cost: 2
+}
+
 //COMBAT MODIFIERS
 env.MODIFIERS.entropy_eternal = {
 	name: "Eternal Decay",
@@ -1268,7 +1278,7 @@ env.STATUS_EFFECTS.entropy_invert = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/CorruptedSignal.gif",
 	impulse: {type: "common", component: "entropy"},
 	grantsActions: ["special_inversion"],
-	help: "look i was told about this, i wanna get it used lamo."
+	help: "A corrupted memory of the call, maybe its still useful?"
 },
 
 //surging
@@ -3897,6 +3907,41 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 
 	disableIf: (actor)=>{ if(hasStatus(actor,"fear")) return "PROHIBITED BY FEAR" },
 	avoidChaining: true
+},
+
+env.ACTIONS.songbird = {
+	slug: "steel_songbird",
+	name: "Songbird",
+	type: "self+autohit+support",
+	autohit: true,
+	details: {
+		flavour: "'songbird, oh songbird, what truly is wrong?';'do they not give you the assurance of the destruction of those who oppose?'",
+		onUse: "ALLIES: -2HP, USER: [STATUS::carapace] [STATUS::empowered] per Ally"
+	},
+	stat: {
+		amt: 0,
+		crit: 0,
+		accuracy: 1,
+		status: {
+			carapace: {name: "carapace", length: 2},
+			empowered: {name: "empowered", length: 2}
+		}
+	},
+	disableIf: (actor)=>{ if(hasStatus(actor,"fear")) return "PROHIBITED BY FEAR" },
+	exec: function(user, target) {
+		play("talkchoir7", 2)
+
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i)=>{
+				if (actor != user) {
+					combatHit(actor, {amt: 1, autohit: true, redirectable: false})
+					addStatus({target: actor, status: "carapace", length: 2})
+					addStatus({target: actor, status: "empowered", length: 2})
+				}
+			}
+		})
+	}
 },
 
 env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gives BP instead of HP?
