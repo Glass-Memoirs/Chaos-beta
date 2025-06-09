@@ -3949,7 +3949,7 @@ env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gi
 	name: "Alto",
 	type: "target",
 	details: {
-		flavour: "'does anyone read these?'",
+		flavor: "'does anyone read these?'",
 		onHit: "'[STATUS::vibrato]'"
 	},
 	stats: {
