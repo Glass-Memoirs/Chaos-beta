@@ -1932,7 +1932,7 @@ env.STATUS_EFFECTS.tuned = {
 				if(usable) modifierPool.push(i)
 			}
 			addStatus({target: this.status.affecting, status: modifierPool.sample(), length: 3})
-		}
+		},
 	},
 	help: "Add a random beneficial status each turn this effect is present"
 },
