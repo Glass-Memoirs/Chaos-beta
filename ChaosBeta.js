@@ -1870,7 +1870,7 @@ env.STATUS_EFFECTS.forte = {
 		onAction: function({user,target, action}) {
 			if(this.status.justGotSurge || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
 				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
-			for (i = 0; i < Math.floor(hasStatus(targuseret, "forte")); i++) {
+			for (i = 0; i < Math.floor(hasStatus(this.status.affecting, "forte")); i++) {
 				setTimeout(()=>{
 					sendFloater({
 						target: user,
