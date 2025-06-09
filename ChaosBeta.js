@@ -1919,7 +1919,7 @@ env.STATUS_EFFECTS.tuned = {
 			let modifierPool = []
 			for (let i in env.STATUS_EFFECTS) {
 				let statusData = env.STATUS_EFFECTS[i]
-				let usable = false
+				let usable = true
 				if(statusData.passive) {usable = false}
 				if(statusData.infinite || (statusData.slug == "windup")) {usable = false}
 				if(i.includes("global_")||i.includes("malware_")||i.includes("fish_")) {usable = false}
