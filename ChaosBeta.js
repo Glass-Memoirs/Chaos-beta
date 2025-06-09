@@ -769,7 +769,7 @@ env.ACTOR_AUGMENTS.generic.smog_shout = {
 env.ACTOR_AUGMENTS.generic.steel_songbird = {
 	slug: "steel_songbird",
 	name: "Songbird",
-	image: TempIconChoice(),
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/testinghumor.gif",
 	description: "'songbird, oh songbird, what is your song?';'I would love to hear it, as you are the one who knows'",
 	alterations: [["steel_stand", "steel_songbird"]],
 	component: ["utility","steel"],
