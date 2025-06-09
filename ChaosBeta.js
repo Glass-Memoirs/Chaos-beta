@@ -3915,7 +3915,7 @@ env.ACTIONS.songbird = {
 	type: "self+autohit+support",
 	autohit: true,
 	details: {
-		flavour: "'songbird, oh songbird, what truly is wrong?';'do they not give you the assurance of the destruction of those who oppose?'",
+		flavor: "'songbird, oh songbird, what truly is wrong?';'do they not give you the assurance of the destruction of those who oppose?'",
 		onUse: "ALLIES: -2HP, USER: [STATUS::carapace] [STATUS::empowered] per Ally"
 	},
 	stat: {
