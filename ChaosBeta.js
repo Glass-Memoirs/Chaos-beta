@@ -770,7 +770,7 @@ env.ACTOR_AUGMENTS.generic.steel_songbird = {
 	slug: "steel_songbird",
 	name: "Songbird",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	description: "'songbird, oh songbird, what is your song?';'I would love to hear it, as you are the one who knows'",
+	description: "'songbird oh songbird what is your song?';'I would love to hear it as you are the one who knows'",
 	alterations: [["steel_stand", "steel_songbird"]],
 	component: ["utility","steel"],
 	cost: 2
@@ -3915,8 +3915,8 @@ env.ACTIONS.songbird = {
 	type: "self+autohit+support",
 	autohit: true,
 	details: {
-		flavor: "'songbird, oh songbird, what truly is wrong?';'do they not give you the assurance of the destruction of those who oppose?'",
-		onUse: "ALLIES: -2HP, USER: [STATUS::carapace] [STATUS::empowered] per Ally"
+		flavor: "'songbird oh songbird what truly is wrong?';'do they not give you the assurance of the destruction of those who oppose?'",
+		onUse: "ALLIES: -2HP USER: [STATUS::carapace] [STATUS::empowered] per Ally"
 	},
 	stat: {
 		amt: 0,
