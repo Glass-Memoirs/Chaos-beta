@@ -3936,8 +3936,8 @@ env.ACTIONS.steel_songbird = {
 			exec: (actor, i)=>{
 				if (actor != user) {
 					combatHit(actor, {amt: 1, autohit: true, redirectable: false})
-					addStatus({target: actor, status: "carapace", length: 2})
-					addStatus({target: actor, status: "empowered", length: 2})
+					addStatus({target: user, status: "carapace", length: 2})
+					addStatus({target: user, status: "empowered", length: 2})
 				}
 			}
 		})
