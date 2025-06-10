@@ -3609,8 +3609,9 @@ env.ACTIONS.smog_hour = {
 	},
 	exec: function(user,target) {
 		let NameCheck = target
-		if (NameCheck.name.includes(["Elsen", "elsen"])) {
+		if (["elsen","Elsen","ELsen","ELSEN"].includes(target.name)) {
 			addStatus({target: user, status: "regen", length: 3})
+			console.log("Elsen was struck lmao")
 		}
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
