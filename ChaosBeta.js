@@ -3939,6 +3939,9 @@ env.ACTIONS.steel_songbird = {
 					addStatus({target: user, status: "carapace", length: 2})
 					addStatus({target: user, status: "empowered", length: 2})
 				}
+				if(actor = user && !["Japhet", "Valérie", "Valerie"].includes(user.name)) {
+					addStatus({target: user, status: "carapace", length: 2})
+				}
 			}
 		})
 	}
