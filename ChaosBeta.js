@@ -770,7 +770,7 @@ env.ACTOR_AUGMENTS.generic.steel_songbird = {
 	slug: "steel_songbird",
 	name: "Songbird",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	description: "'songbird oh songbird what is your song?';'I would love to hear it as you are the one who knows'",
+	description: "'songbird, oh songbird, what is your song?';'I would love to hear it as you're the one who knows'",
 	alterations: [["steel_stand", "steel_songbird"]],
 	component: ["utility","steel"],
 	cost: 2
@@ -3909,13 +3909,13 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 	avoidChaining: true
 },
 
-env.ACTIONS.songbird = {
+env.ACTIONS.steel_songbird = {
 	slug: "steel_songbird",
 	name: "Songbird",
 	type: "self+autohit+support",
 	autohit: true,
 	details: {
-		flavor: "'songbird oh songbird what truly is wrong?';'do they not give you the assurance of the destruction of those who oppose?'",
+		flavor: "'songbird, oh songbird, what truly is wrong?';'do they not give you the destruction of those who oppose?'",
 		onUse: "ALLIES: -2HP USER: [STATUS::carapace] [STATUS::empowered] per Ally"
 	},
 	stat: {
