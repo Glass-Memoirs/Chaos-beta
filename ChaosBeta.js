@@ -3573,15 +3573,13 @@ env.ACTIONS.smog_minute = {
 		amt: 2
 	},
 	exec: function(user,target) {
+		if (target.name.includes("Elsen")) {
+			addStatus({target: user, status: "regen", length: 2})
+		}
 		env.GENERIC_ACTIONS.singleTarget({
 			action:this,
 			user,
 			target,
-			critExec: ({target}) => {
-				if (target.name.includes("Elsen")) {
-					addStatus({target: user, status: "regen", length: 1})
-				}
-			}
 		})
 	}
 },
@@ -3610,6 +3608,9 @@ env.ACTIONS.smog_hour = {
 		}
 	},
 	exec: function(user,target) {
+		if (target.name.includes("Elsen")) {
+			addStatus({target: user, status: "regen", length: 3})
+		}
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
