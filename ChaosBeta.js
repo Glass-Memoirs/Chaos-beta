@@ -3576,7 +3576,12 @@ env.ACTIONS.smog_minute = {
 		env.GENERIC_ACTIONS.singleTarget({
 			action:this,
 			user,
-			target
+			target,
+			critExec: () => {
+				if (["Elsen"].includes(target.name)) {
+					addStatus({target: user, status: "regen", length: 2})
+				}
+			}
 		})
 	}
 },
@@ -3609,7 +3614,12 @@ env.ACTIONS.smog_hour = {
 			action: this,
 			user,
 			target,
-			critStatus: this.stats.status.stun
+			critStatus: this.stats.status.stun,
+			critExec: () => {
+				if (["Elsen"].includes(target.name)) {
+					addStatus({target: user, status: "regen", length: 2})
+				}
+			}
 		})
 	}
 },
