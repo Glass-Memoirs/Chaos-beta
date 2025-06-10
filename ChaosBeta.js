@@ -1767,7 +1767,7 @@ env.STATUS_EFFECTS.ashen_hands = {
 	name: "ACTION::ASHEN HANDS",
 	passive: true,
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	inUse: false,
 	impulse: {type: "action", component: "smog"},
 	events:{
@@ -1811,7 +1811,7 @@ env.STATUS_EFFECTS.fated_smog = {
 	name: "FATED::SMOG",
 	passive: true,
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "fated", component: "smog"},
 	events: {
 		onCreated: function({statusObj}) {
@@ -1840,7 +1840,7 @@ env.STATUS_EFFECTS.muted = {
 	slug: "muted",
 	name: "Muted",
 	beneficial: false,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	events: {
 		onBeforeAction: function(context) {
 			if (Math.random() < 0.23) {
@@ -1856,7 +1856,7 @@ env.STATUS_EFFECTS.burning_wings = {
 	name: "Burning Wings",
 	passive: true,
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "Convert FOCUSED to EVASION",
 	impulse: {type: "common", component: "steel"},
 	events: {
@@ -1870,7 +1870,7 @@ env.STATUS_EFFECTS.forte = {
 	slug: "forte",
 	name: "Forte",
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'", //[]^[] < reading this what the fuck was i on
 	events: {
 		onTurn: function() { 
@@ -1907,7 +1907,7 @@ env.STATUS_EFFECTS.high_note = {
 	slug: "high_note",
 	name: "High Note",
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	outgoingCrit: 0,
 	incomingCrit: 0,
 	events: {
@@ -1923,7 +1923,7 @@ env.STATUS_EFFECTS.tuned = {
 	slug: "tuned",
 	name: "Tuned",
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	events: {
 		onTurn: function() {
 			let modifierPool = []
@@ -1951,19 +1951,20 @@ env.STATUS_EFFECTS.vibrato = {
 	slug: "vibrato",
 	name: "Vibrato",
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	events: {
 		onTurn: function () {
 			this.status.affecting.bp = this.status.affecting.bp + 2
 		}
-	}
+	},
+	help: "gives actor +2BP each turn"
 },
 
 env.STATUS_EFFECTS.discipline = {
 	slug: "discipline",
 	name: "Discipline",
 	beneficial: false,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'Lose 1hp when using primary or secondary'",
 	oppoite: "rebel",
 	events: {
@@ -1979,7 +1980,7 @@ env.STATUS_EFFECTS.steel_true = {
 	slug: "steel_true",
 	name: "True Skin",
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'Regen with BP is doubled'",
 	passive: true,
 	impulse: {type: "common", component: "steel" },
@@ -1996,7 +1997,7 @@ env.STATUS_EFFECTS.steel_care = {
 	slug: "steel_care",
 	name: "Careful Steps",
 	beneficial: true,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'Actor cannot be punctured when they have evasion'",
 	passive: true,
 	impulse: {type: "common", component: "steel"},
@@ -2013,7 +2014,7 @@ env.STATUS_EFFECTS.steel_false = {
 	slug: "steel_false",
 	name: "Flase-skin",
 	beneficial: false,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'Actor cannot gain regen without BP'",
 	passive: true,
 	events: {
@@ -2029,7 +2030,7 @@ env.STATUS_EFFECTS.steel_sharp = {
 	slug: "steel_sharp",
 	name: "Sharp Steps",
 	beneficial: false,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'Actor has a chance to be punctured while they have evasion'",
 	passive: true,
 	events: {
@@ -2047,7 +2048,7 @@ env.STATUS_EFFECTS.maddening_ignorance = {
 	slug: "maddening_ignorance",
 	name: "Maddening Ignoarnce",
 	beneficial: false,
-	icon: TempIconChoice(),
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "Focus is unable to be applied. Effects have a chance to disappear.",
 	passive: true,
 	events: {
