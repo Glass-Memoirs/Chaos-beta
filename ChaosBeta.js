@@ -3938,11 +3938,12 @@ env.ACTIONS.steel_songbird = {
 					combatHit(actor, {amt: 1, autohit: true, redirectable: false})
 					addStatus({target: user, status: "carapace", length: 2})
 					addStatus({target: user, status: "empowered", length: 2})
-				}
-				if(actor == user && !["Japhet", "Valérie", "Valerie"].includes(user.name)) {
-					addStatus({target: user, status: "carapace", length: 2})
-					if (!["Valérie"].includes(user.name)) {
-						addStatus({target: user, status: "regen", length: 2})
+				} else {
+					if(!["Japhet", "Valérie", "Valerie"].includes(user.name)) {
+						addStatus({target: user, status: "carapace", length: 2})
+						if (!["Valérie"].includes(user.name)) {
+							addStatus({target: user, status: "regen", length: 2})
+						}
 					}
 				}
 			}
