@@ -766,6 +766,16 @@ env.ACTOR_AUGMENTS.generic.smog_shout = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.steel_punish = {
+	slug: "steel_punish",
+	name: "Punishment",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'They wont listen to your demands';'make them listen'",
+	alterations: [["steel_scold", "steel_punsish"]],
+	component: ["secondary", "steel"],
+	cost: 2
+}
+
 env.ACTOR_AUGMENTS.generic.steel_songbird = {
 	slug: "steel_songbird",
 	name: "Songbird",
@@ -3898,6 +3908,37 @@ env.ACTIONS.steel_scold = { //remember to make this give the status effect that 
 			critExec: () => {
 				addStatus({target: target, status: "discipline", length: 2})
 				addStatus({target: target, status: "fear", length: 2})
+			}
+		})
+	}
+},
+
+env.ACTIONS.steel_punish = {
+	slug: "steel_punish",
+	name: "Punsihment",
+	type: "target",
+	details: {
+		flavor: "'Punish them for their ignorance';'Make them weak with fear'",
+		onHit: "[STAT::amt]",
+		onCrit: "[STATUS::discipline] [STATUS::weakness]"
+	},
+	stats: {
+		amt: 1,
+		crit: 0.2,
+		accuracy: 0.82,
+		status: {
+			discipline: {name: "discipline", length: 3},
+			weakness: {name: "weakness", length: 2}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			critExec: () => {
+				addStatus({target: target, status: "discipline", length: 3})
+				addStatus({target: target, status: "weakness", length: 2})
 			}
 		})
 	}
