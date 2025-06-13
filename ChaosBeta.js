@@ -786,6 +786,16 @@ env.ACTOR_AUGMENTS.generic.steel_songbird = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.steel_angel = {
+	slug: "steel_angel",
+	name: "Guarding Angel",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "this is gonna be changed once i know it works",
+	alterations: [["steel_songbird","steel_angel"]],
+	component: ["utility","steel"],
+	cost: 2
+}
+
 //COMBAT MODIFIERS
 env.MODIFIERS.entropy_eternal = {
 	name: "Eternal Decay",
@@ -3978,7 +3988,7 @@ env.ACTIONS.steel_songbird = {
 		flavor: "'songbird, oh songbird, what truly is wrong?';'do they not give you the destruction of those who oppose?'",
 		onUse: "ALLIES: -2HP USER: [STATUS::carapace] [STATUS::empowered] per Ally"
 	},
-	stat: {
+	stats: {
 		amt: 0,
 		crit: 0,
 		accuracy: 1,
@@ -4005,6 +4015,36 @@ env.ACTIONS.steel_songbird = {
 							addStatus({target: user, status: "regen", length: 2})
 						}
 					}
+				}
+			}
+		})
+	}
+},
+
+env.ACTIONS.steel_angel = {
+	slug: "steel_angel",
+	name: "Guarding Angel",
+	type: "self+support+autohit",
+	autohit: true,
+	details: {
+		flavor: "yadda yadda to be change once it works",
+		onUse: "ALLIES [STATUS::carapace], USER -2HP"
+	},
+	stats: {
+		status: {
+			carapce: {name: "carapace", length: 2}
+		}
+	},
+	exec: function(user, target) {
+		play("talkchoir7", 3)
+		
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i)=> {
+				if (actor != user) {
+					addStatus({target: actor, status: "carapce", length: 2})
+				} else {
+					combatHit(actor, {amt: 2, autohit: true, redirectable: false})
 				}
 			}
 		})
