@@ -3847,7 +3847,7 @@ env.ACTIONS.harsh_noise = {
 	details: {
 		flavor: "'Emit a painful sound','has a chance to silence foes'",
 		onHit: "'[STAT::amt]'",
-		onCrit: "'[STATUS::mute]'",
+		onCrit: "'[STATUS::muted]'",
 	},
 	stats: {
 		accuracy: 0.82,
