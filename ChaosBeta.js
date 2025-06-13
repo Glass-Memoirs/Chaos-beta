@@ -2104,7 +2104,7 @@ env.STATUS_EFFECTS.maddening_ignorance = {
 			})
 
 			let RemovalTarg = AffectedEffects.sample()
-			if (Math.random < 0.23) {
+			if (Math.random < 0.30) {
 				removeStatus(this.status.affecting, RemovalTarg)
 			}
 		}
