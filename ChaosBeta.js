@@ -3931,7 +3931,7 @@ env.ACTIONS.steel_punish = {
 	details: {
 		flavor: "'Punish them for their ignorance';'Make them weak with fear'",
 		onHit: "[STAT::amt]",
-		onCrit: "[STATUS::discipline] [STATUS::weakness]"
+		onCrit: "[STATUS::discipline] [STATUS::weakened]"
 	},
 	stats: {
 		amt: 1,
@@ -3939,7 +3939,7 @@ env.ACTIONS.steel_punish = {
 		accuracy: 0.82,
 		status: {
 			discipline: {name: "discipline", length: 3},
-			weakness: {name: "weakness", length: 2},
+			weakened: {name: "weakened", length: 2},
 		}
 	},
 	exec: function(user,target) {
@@ -3949,7 +3949,7 @@ env.ACTIONS.steel_punish = {
 			target,
 			critExec: () => {
 				addStatus({target: target, status: "discipline", length: 3})
-				addStatus({target: target, status: "weakness", length: 2})
+				addStatus({target: target, status: "weakened", length: 2})
 			}
 		})
 	}
