@@ -3960,14 +3960,12 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 	name: "stand",
 	type: "self+autohit+support",
 	details: {
-		flavor: "'Gain [STATUS::carapace]'"
+		flavor: "'Hold your ground';'Protect your subjects'",
+		onUse: "'Gain [STATUS::carapace]'"
 	},
 	stats: {
 		status: {
-			carapace: {
-				name: "carapace",
-				length: 2
-			},
+			carapace: {name: "carapace",length: 2},
 		}
 	},
 	exec: function(user) {
