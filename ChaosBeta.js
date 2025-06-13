@@ -4031,7 +4031,7 @@ env.ACTIONS.steel_angel = {
 	},
 	stats: {
 		status: {
-			carapce: {name: "carapace", length: 2}
+			carapace: {name: "carapace", length: 2}
 		}
 	},
 	exec: function(user, target) {
