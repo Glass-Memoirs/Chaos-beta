@@ -4041,7 +4041,7 @@ env.ACTIONS.steel_angel = {
 			team: user.team,
 			exec: (actor, i)=> {
 				if (actor != user) {
-					addStatus({target: actor, status: "carapce", length: 2})
+					addStatus({target: actor, status: "carapace", length: 2})
 				} else {
 					combatHit(actor, {amt: 2, autohit: true, redirectable: false})
 				}
