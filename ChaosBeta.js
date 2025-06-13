@@ -3882,7 +3882,7 @@ env.ACTIONS.mockery = {
 			destabilized : {name: "destabilized", length: 3},
 			critical_flaw : {name: "critical_flaw", length: 1},
 			vulnerable: {name: "vulnerable", length: 2},
-			focused: {name: "focused", length: 3}
+			focused: {name: "focused", length: 3},
 		}
 	},
 	exec: function(user,target) {
@@ -3908,7 +3908,7 @@ env.ACTIONS.steel_scold = { //remember to make this give the status effect that 
 		amt: 2,
 		status :{
 			discipline: {name: "discipline", length: 2},
-			fear: {name: "fear", length: 2}
+			fear: {name: "fear", length: 2},
 		},
 	},
 	exec: function(user,target) {
@@ -3939,7 +3939,7 @@ env.ACTIONS.steel_punish = {
 		accuracy: 0.82,
 		status: {
 			discipline: {name: "discipline", length: 3},
-			weakness: {name: "weakness", length: 2}
+			weakness: {name: "weakness", length: 2},
 		}
 	},
 	exec: function(user,target) {
@@ -3967,7 +3967,7 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 			carapace: {
 				name: "carapace",
 				length: 2
-			}
+			},
 		}
 	},
 	exec: function(user) {
