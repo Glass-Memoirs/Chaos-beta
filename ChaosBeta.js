@@ -793,7 +793,7 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 	description: "this is gonna be changed once i know it works",
 	alterations: [["steel_songbird","steel_angel"]],
 	component: ["utility","steel"],
-	showIf: "effectiveAugments|steel_songbird",
+	showIf: effectiveAugments.includes("steel_songbird"),
 	cost: 2
 }
 
