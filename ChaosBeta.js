@@ -771,7 +771,7 @@ env.ACTOR_AUGMENTS.generic.steel_punish = {
 	name: "Punishment",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "'They wont listen to your demands';'make them listen'",
-	alterations: [["steel_scold", "steel_punsish"]],
+	alterations: [["steel_scold", "steel_punish"]],
 	component: ["secondary", "steel"],
 	cost: 2
 }
