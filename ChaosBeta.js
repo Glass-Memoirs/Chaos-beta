@@ -461,7 +461,7 @@ if (page.path == '/local/beneath/embassy/') {
     	--background-position: center;
     	--background-color: var(--fundfriend-color);
     	--accent-color: var(--neutral-color);
-    	--font-color: var(--dark-color);
+    	--font-color: var(--fundfriend-color);
 	}
 	</style>`);
 
