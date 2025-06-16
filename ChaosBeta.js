@@ -675,7 +675,7 @@ env.COMBAT_COMPONENTS.life = {
 	secondary: {
 		alterations: [["secondary","life_ensnare"]],
 		stats: {
-			mxhp: 2
+			maxhp: 2
 		}
 	},
 	utility: {
