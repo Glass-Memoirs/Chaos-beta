@@ -683,7 +683,8 @@ env.COMBAT_COMPONENTS.life = {
 		stats: {
 			maxhp: 2
 		}
-	}
+	},
+	combatModifiers: ["life_healing", "life_transfer", /*"life_social"*/]
 }
 
 //AUGMENTS
@@ -996,6 +997,29 @@ env.MODIFIERS.maddening_ignorance = {
 	}
 }
 
+env.MODIFIERS.life_healing = {
+	name: "Healing Grounds",
+	getHelp:()=> {return env.STATUS_EFFECTS.life_healing.help},
+	alterations: {
+		all: [["STATUS", "life_healing"]]
+	}
+}
+
+env.MODIFIERS.life_transfer = {
+	name: "Transfered Lifeforce",
+	getHelp: ()=> {return env.STATUS_EFFECTS.life_transfer.help},
+	alterations: {
+		all: [["STATUS", "life_transfer"]]
+	}
+}
+
+/*env.MODIFIERS.life_social = {
+	name: "Social Parasite",
+	getHelp: ()=> {return env.STATUS_EFFECTS.life_social.help},
+	alterations: {
+		all: [["STATUS", "life_social"]]
+	}
+}*/
 //STATUS EFFECTS
 /*
 + Yeah these needed doccumenting
@@ -2177,6 +2201,93 @@ env.STATUS_EFFECTS.rebel = { //might change this up a bit later, feels a bit wea
 		}
 	}
 },
+
+env.STATUS_EFFECTS.life_healing = {
+	slug: "life_healing",
+	name: "Healing Grounds",
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "Makes Regen permanent, and gives Bash",
+	events: {
+		onAddStatus: function({statusObj}) {
+        	if(!statusObj.infinite && statusObj.slug == "regen"){
+            	statusObj.duration = 1;
+            	statusObj.infinite = true;
+        	}
+        },
+	}
+},
+
+env.STATUS_EFFECTS.life_transfer = {
+	slug: "life_transfer",
+	name: "Transfered Lifeforce",
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "when ally dies, revive random actor",
+	events: {
+		GLOBAL_onDeath: function({originalEventTarget}) {
+			let subject = originalEventTarget
+			let user = this.status.affecting
+
+			if(user.state == "dead" ||
+				user == subject || 
+				user.team.name == subject.team.name || 
+				subject.state != "dead"
+			) return;
+
+			let DeadTargets = []
+			env.rpg.enemyTeam.members.forEach((target) => {
+				if (target => target.state == "dead" && target.state != "lastStand") {
+					DeadTargets.push(target)
+				}
+			})
+			let LivingTargets = []
+			env.rpg.enemyTeam.members.forEach((target)=> {
+				if (target => target.state != "dead" && target.state != "lastStand") {
+					LivingTargets.push(target)
+				}
+			})
+
+			let RandomRev = DeadTargets.sample()
+			let RandomRever = LivingTargets.sample()
+			RandomRev.state = "living"
+
+			setTimeout(()=>{
+				RandomRev.hp = 0.1 // hack to avoid extra updatestats
+				useAction(RandomRever, env.ACTIONS.rez, RandomRev, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ally died lol"})
+
+				setTimeout(()=>{
+					if(RandomRev.hp != 0) combatRevive(RandomRev)
+				}, 310)
+			
+				sendFloater({
+					target: subject,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: "TRANSFERED LIFEFORCE",
+					size: 1.5,
+				})
+                
+				readoutAdd({
+					message: `${RandomRever.name} rebuilds ${RandomRev.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)
+		}
+	}
+},
+
+/*env.STATUS_EFFECTS.life_social = {
+	slug: "life_social",
+	name: "Social Parasite",
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "All actors have MIMIC",
+	grantsActions: [""]
+},*/
 
 env.STATUS_EFFECTS.deft = {
 	slug: "deft",
@@ -4338,6 +4449,28 @@ env.ACTIONS.life_veilkstrider = {
 	},
 	exec: function(user) {
 		addStatus({target: user, status: "deft", length:1})
+	}
+},
+
+env.ACTIONS.bash = {
+	slug: "bash",
+	name: "Bash",
+	type: "target",
+	details: {
+		flavor: "'Bash your foes, Does not deal much damage'",
+		onHit: "[STAT::amt]"
+	},
+	stats: {
+		accuracy: 0.9,
+		cirt: 0,
+		amt: 2
+	},
+	exec: function(user, target){
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+		})
 	}
 },
 
