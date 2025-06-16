@@ -241,6 +241,14 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 			"hideRead":true
 		})
 		}
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("life")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"life",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","life")'),
+			"hideRead":true
+		})
+		}
 	if(!env.dialogues["dreammod"].sfer.responses[0].replies.includes("mod tester's delight (999)")) {
 	env.dialogues["dreammod"].sfer.responses[0].replies.push({
 		"name":"mod tester's delight (999)",
@@ -268,6 +276,7 @@ if(page.party){
 			page.flags.components.stupidhorrible = 30 
 			page.flags.components.smog = 30
 			page.flags.components.steel = 30
+			page.flags.components.life = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -297,6 +306,7 @@ if(page.party){
 			page.flags.components.stupidhorrible = 3
 			page.flags.components.smog = 3
 			page.flags.components.steel = 3
+			page.flags.components.life = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -357,6 +367,15 @@ if(page.party){
 				member.components["primary"]="steel"
 				member.components["secondary"]="steel"
 				member.components["utility"]="steel"
+			})
+			break
+		case "life":
+			page.flags.components = {life: 12}
+
+			page.party.forEach(member=>{
+				member.components["primary"]="life"
+				member.components["secondary"]="life"
+				member.components["utility"]="life"
 			})
 			break
 		}
@@ -433,6 +452,16 @@ if (page.path == '/local/beneath/embassy/') {
     	--background-color: var(--dark-color);
     	--accent-color: #d004a4;
     	--font-color: #d004a4;
+	}
+	[component="life"] {
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+    	--background-size: auto;
+    	--background-position: center;
+    	--background-color: var(--fundfriend-color);
+    	--accent-color: var(--neutral-color);
+    	--font-color: var(--dark-color);
 	}
 	</style>`);
 
@@ -632,6 +661,30 @@ env.COMBAT_COMPONENTS.meat = {
 }
 */
 
+env.COMBAT_COMPONENTS.life = {
+	name: "Life",
+	slug: "life",
+	description: "'New findings in unexpected places';'Worlds of life never seen';'Growth and spread'",
+	help: "'growth';'trapped';'avoiding fate'",
+	primary: {
+		alterations: [["primary","life_seeding"]],
+		stats: {
+			maxhp: 2
+		}
+	},
+	secondary: {
+		alterations: [["secondary","life_ensnare"]],
+		stats: {
+			mxhp: 2
+		}
+	},
+	utility: {
+		alterations: [["evade","life_veilkstrider"]],
+		stats: {
+			maxhp: 2
+		}
+	}
+}
 
 //AUGMENTS
 /*
@@ -2115,6 +2168,7 @@ env.STATUS_EFFECTS.rebel = { //might change this up a bit later, feels a bit wea
 	slug: "rebel",
 	name: "Rebel",
 	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "'Gives actor FOCUSED'",
 	opposite: "discipline",
 	events: {
@@ -2122,6 +2176,19 @@ env.STATUS_EFFECTS.rebel = { //might change this up a bit later, feels a bit wea
 			addStatus(this.status.affecting, "focused")
 		}
 	}
+},
+
+env.STATUS_EFFECTS.deft = {
+	slug: "deft",
+	name: "Deft",
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	infinite: true,
+	help: "-50% IN:HIT & IN:CRIT",
+	incomingToHit: -0.5,
+	incomingCrit: -0.5,
+	removes: ["vulnerable"],
+	opposite: "vulnerable"
 },
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
@@ -4185,6 +4252,95 @@ env.ACTIONS.steel_harmony = {
 	}
 },
 
+env.ACTIONS.life_seeding = {
+	slug: "life_seeding",
+	name: "Seeding",
+	type: "target",
+	details: {
+		flavor: "'release potent parasites unto foe';'disorientate and disillusion'",
+		onHit: "[STAT::amt] [STATUS::madness] [STATUS::fear]",
+		onCrit: "ALL [STAT::amt] [STATUS::fear]",
+	},
+	stats: {
+		accuracy: 0.75,
+		cirt: 0.25,
+		amt: 1,
+		status: {
+			madness: {name: "madness", showReference: true},
+			fear: {name: "fear", length: 2}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ()=>{
+				addStatus({target: target, status: "fear", length: 2})
+				addStatus({target: target, status: "madness", length: 2})
+			},
+			critExec: ()=> env.GENERIC_ACTIONS.teamWave({
+				team: user.enemyTeam,
+				exec: (actor, i) => {
+					addStatus({target: actor, status: "fear", length: 2})
+				}
+			})
+		})
+	}
+},
+
+env.ACTIONS.life_ensnare = {
+	slug: "life_ensnare",
+	name: "Ensnare",
+	type: "target",
+	details: {
+		flavor: "'trap foes within vines';'leave target open to devistating follow-up attacks'",
+		onHit: "[STAT::amt] [STATUS::vulnerable]",
+		onCrit: "[STATUS::vulnerable] [STATUS::stun]"
+	},
+	stats: {
+		accuracy: 0.9,
+		crit: 0.25,
+		amt: 1,
+		status: {
+			vulnerable: {name: "vulnerable", length: 2},
+			stun: {name: "stun", showReference: true}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ()=> {
+				addStatus({target: target, status: "vulnerable", length: 2})
+			},
+			critExec: ()=> {
+				addStatus({target: target, status: "vulnerable", length: 2})
+				addStatus({target: target, status: "stun", length: 1})
+			}
+		})
+	}
+},
+
+env.ACTIONS.life_veilk = {
+	slug: "life_vielk",
+	name: "Veilkstrider",
+	type: "self+support+autohit",
+	details: {
+		flavor: "'modify body with spindly limbs reminiscent of young veilk';'enables passive evasion'",
+		onUse: "[STATUS:deft]"
+	},
+	stats:{
+		status: {
+			deft: {name: "deft", showReference: true}
+		}
+	},
+	exec: function(user) {
+		addStatus({target: user, status: "deft", length:1})
+	}
+},
+
 env.ACTIONS.energizer = {
 	slug: "energizer",
 	name: "Energizer",
@@ -4606,6 +4762,33 @@ for (const componentName of ["smog"]) {
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
 for (const componentName of ["steel"]) {
+	const component = env.COMBAT_COMPONENTS[componentName]
+	let commerceObject = ({
+		 type: "humor",
+		 name: `${component.name.replace("Humor of ", "")}`,
+		 subject: component,
+		 value: 1,
+
+		 showSellIf: ()=> env.e3a2.mTotals[componentName].available > 0,
+		 sellExec: ()=>{
+			  addItem("sfer_cube")
+			  page.flags.components[componentName]--
+			  env.e3a2.mTotals = CrittaMenu.getTotals()
+			  env.commerceNotice = `exchanged ${component.name} for 1 ${env.ITEM_LIST['sfer_cube'].name}`
+		 },
+	})
+	env.e3a2.merchant.sellResponses.replies.push({
+		 name: `${commerceObject.name}::${commerceObject.value}S`,
+		 destination: "sell",
+		 hideRead: true,
+		 showIf: commerceObject.showSellIf,
+		 class: `commerce-${commerceObject.type}`,
+		 definition: `NOTE::'exchange for ${commerceObject.value} ${env.ITEM_LIST['sfer_cube'].name}'`,
+		 exec: ()=> {commerceObject.sellExec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
+	})
+	env.e3a2.merchant.commerce.push(commerceObject)
+}
+for (const componentName of ["life"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
 		 type: "humor",
