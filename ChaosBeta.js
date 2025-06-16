@@ -4324,7 +4324,7 @@ env.ACTIONS.life_ensnare = {
 },
 
 env.ACTIONS.life_veilkstrider = {
-	slug: "life_vielkstrider",
+	slug: "life_veilkstrider",
 	name: "Veilkstrider",
 	type: "self+support+autohit",
 	details: {
