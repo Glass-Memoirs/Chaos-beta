@@ -4323,8 +4323,8 @@ env.ACTIONS.life_ensnare = {
 	}
 },
 
-env.ACTIONS.life_veilk = {
-	slug: "life_vielk",
+env.ACTIONS.life_veilkstrider = {
+	slug: "life_vielkstrider",
 	name: "Veilkstrider",
 	type: "self+support+autohit",
 	details: {
