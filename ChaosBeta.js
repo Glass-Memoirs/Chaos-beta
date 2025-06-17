@@ -2297,7 +2297,7 @@ env.STATUS_EFFECTS.deft = {
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	infinite: true,
-	help: "-50% IN:HIT & IN:CRIT",
+	help: "-50% IN:HIT & IN:CRIT;REMOVED BY FOE CRIT",
 	incomingToHit: -0.5,
 	incomingCrit: -0.5,
 	removes: ["vulnerable"],
