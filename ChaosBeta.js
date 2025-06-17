@@ -1998,6 +1998,9 @@ env.STATUS_EFFECTS.forte = {
 			}
 			removeStatus(this.status.affecting, "forte")
 		},
+		onCreated: function({statusObj}) {
+                if(statusObj.slug == this.status.slug) this.status.justGotSurge = true
+		},
 	}
 },
 
