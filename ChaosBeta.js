@@ -2,9 +2,9 @@
 WARNING: I ([]^[]) AM PROBABLY LIABLE FOR ANY DISTRESS OR RAGE READING THIS PRODUCES. I AM SORRY
 OK REDOING THIS COMMENTING BECAUSE I LOST IT AGAIN
 CREATORS:
-- EmptyEchos (hey das the co-creator(hiii dats me :3)), ClocktowerCollective (hey das me)
+- Echo Shard System (hey das the co-creator(hiii dats me :3)), ClocktowerCollective (hey das me)
  Credits:
- - EE for ideas, playtesting, status effect icons, and also making the undithered gif for entropy
+ - ES for ideas, playtesting, status effect icons, and also making the undithered gif for entropy
  - Lustre for making the dithered version of the fractal gif
  - Sola for making the monochrome eye for Entropy's action as well as the ditherd soul hotpocket gif
  - Narra, Kuvi, and Adri and Fyrox from the Novae for judging my code
