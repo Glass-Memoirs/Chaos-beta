@@ -1954,7 +1954,7 @@ env.STATUS_EFFECTS.burning_wings = {
 	name: "Burning Wings",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalBurningWings.gif",
 	help: "Convert FOCUSED to EVASION",
 	impulse: {type: "common", component: "steel"},
 	events: {
@@ -1968,7 +1968,7 @@ env.STATUS_EFFECTS.forte = {
 	slug: "forte",
 	name: "Forte",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalForte.gif",
 	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'", //[]^[] < reading this what the fuck was i on
 	events: {
 		onTurn: function() { 
@@ -2005,7 +2005,7 @@ env.STATUS_EFFECTS.high_note = {
 	slug: "high_note",
 	name: "High Note",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalHighNote.gif",
 	outgoingCrit: 0,
 	incomingCrit: 0,
 	events: {
@@ -2021,7 +2021,7 @@ env.STATUS_EFFECTS.tuned = {
 	slug: "tuned",
 	name: "Tuned",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalTuned.gif",
 	events: {
 		onTurn: function() {
 			let modifierPool = []
