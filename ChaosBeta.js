@@ -2304,7 +2304,7 @@ env.STATUS_EFFECTS.deft = {
 	opposite: "vulnerable",
 	events: {
 		GLOBAL_onCrit: function({subject, attack, originalEventTarget}) {
-			if(originalEventTarget.team.name != this.status.affecting.team.name) return;
+			if(originalEventTarget.team.name == this.status.affecting.team.name) return;
 			removeStatus(this.status.affecting, 'fear')
 		}
 	}
