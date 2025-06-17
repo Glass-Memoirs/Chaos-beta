@@ -1993,7 +1993,7 @@ env.STATUS_EFFECTS.forte = {
 						show: false,
 						sfx: false
 					})
-					useAction(user, action, actor, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
+					useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
 				}, 500)
 			}
 			removeStatus(this.status.affecting, "forte")
