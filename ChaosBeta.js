@@ -2042,7 +2042,8 @@ env.STATUS_EFFECTS.tuned = {
 				console.log(i, usable)
 				if(usable) modifierPool.push(i.slug)
 			}
-			addStatus({target: this.status.affecting, status: modifierPool.sample(), length: 3})
+			let AddedStat = modifierPool.sample().slug
+			addStatus({target: this.status.affecting, status: AddedStat, length: 3})
 		},
 	},
 	help: "Add a random beneficial status each turn this effect is present"
