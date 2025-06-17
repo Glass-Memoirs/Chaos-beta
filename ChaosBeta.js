@@ -2301,7 +2301,13 @@ env.STATUS_EFFECTS.deft = {
 	incomingToHit: -0.5,
 	incomingCrit: -0.5,
 	removes: ["vulnerable"],
-	opposite: "vulnerable"
+	opposite: "vulnerable",
+	events: {
+		GLOBAL_onCrit: function({subject, attack, originalEventTarget}) {
+			if(originalEventTarget.team.name != this.status.affecting.team.name) return;
+			removeStatus(this.status.affecting, 'fear')
+		}
+	}
 },
 
 env.STATUS_EFFECTS.life_herb = {
