@@ -2206,6 +2206,7 @@ env.STATUS_EFFECTS.life_healing = {
 	slug: "life_healing",
 	name: "Healing Grounds",
 	beneficial: true,
+	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "Makes Regen permanent, and gives Bash",
 	events: {
@@ -2222,6 +2223,7 @@ env.STATUS_EFFECTS.life_transfer = {
 	slug: "life_transfer",
 	name: "Transfered Lifeforce",
 	beneficial: false,
+	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "when ally dies, revive random actor",
 	events: {
@@ -2300,6 +2302,17 @@ env.STATUS_EFFECTS.deft = {
 	incomingCrit: -0.5,
 	removes: ["vulnerable"],
 	opposite: "vulnerable"
+},
+
+env.STATUS_EFFECTS.life_herb = {
+	slug: "life_herb",
+	name: "Herbal Aid",
+	beneficial: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "'Grants the action FIELD REPAIRS'",
+	grantsActions: ["life_repairs"],
+	impulse: {type: "common", component: "life"}
 },
 
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
@@ -4470,6 +4483,35 @@ env.ACTIONS.bash = {
 			action: this,
 			user,
 			target,
+		})
+	}
+},
+
+env.ACTIONS.life_repairs = {
+	slug: "life_repairs",
+	name: "Field Repairs",
+	type: "support+autohit+target+self",
+	autohit: true,
+	details: {
+		flavor: "'Make quick repairs to an ally''",
+		onUse: "[STATUS::regen] to target"
+	},
+	stats: {
+		amt: 0,
+		crit: 0,
+		status: {
+			regen: {name: "regen", length: 2}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: "regen",
+				length: 2
+			}
 		})
 	}
 },
