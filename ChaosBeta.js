@@ -820,6 +820,16 @@ env.ACTOR_AUGMENTS.generic.smog_shout = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.steel_scale = {
+	slug: "steel_scale",
+	name: "Scale",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalSymphony.gif",
+	description: "'The instrument is tuned';'The music shall flow'",
+	alterations: [["steel_harmony","steel_strong_harmony"]],
+	component: ["primary", "steel"],
+	cost: 2
+}
+
 env.ACTOR_AUGMENTS.generic.steel_punish = {
 	slug: "steel_punish",
 	name: "Punishment",
@@ -4282,13 +4292,41 @@ env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gi
 	}
 },
 
+env.ACTIONS.strong_alto = {
+	slug: "strong_alto",
+	name: "Alto",
+	type: "target",
+	details: {
+		flavor: "yeah no one prolly reads these. dont antishells use the humor itself?",
+		onHit: "[STATUS::vibrato]"
+	},
+	stats: {
+		accuracy: 0.7,
+		crit: 0.42,
+		amt: 3,
+		status: {
+			vibrato: {name: "vibrato", length: 5}
+		}
+	},
+	exec: function (user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "vibrato", length: 3})
+			}
+		})
+	}
+},
+
 env.ACTIONS.soprano = {
 	slug: "soprano",
 	name: "Soprano",
 	type: "target",
 	details: {
-		flavor: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
-		onHit: "'[STAT::amt]'"
+		flavor: "'Attack in a string of 12 notes';'end off on a High Note'",
+		onHit: "'12*[STAT::amt], [STATUS::high_note]'"
 	},
 	stats: {
 		accuracy: 0.7,
@@ -4297,6 +4335,34 @@ env.ACTIONS.soprano = {
 		status: {
 			high_note: {name: "high_note", length: 5},
 		},
+	},
+	exec: function(user,target) {
+		for (let i = 0; i <12; i++) {
+			env.GENERIC_ACTIONS.singleTarget({
+				action: this,
+				user,
+				target
+			})
+		}
+		addStatus({target: user, status: "high_note", length: 5})
+	}
+},
+
+env.ACTIONS.strong_soprano = {
+	slug: "strong_soprano",
+	name: "Soprano",
+	type: "target",
+	details: {
+		flavour: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
+		onHit: "'12*[STAT::amt], [STATUS::high_note]'"
+	},
+	stats: {
+		accuracy: 0.8,
+		crit: 0.19,
+		amt: 2,
+		status: {
+			high_note: {name: "high_note", length: 7}
+		}
 	},
 	exec: function(user,target) {
 		for (let i = 0; i <12; i++) {
@@ -4337,6 +4403,32 @@ env.ACTIONS.tenor = {
 	},
 },
 
+env.ACTIONS.strong_tenor = {
+	slug: "strong_tenor",
+	name: "Tenor",
+	type: "autohit",
+	details: {
+		flavor: "'Wind up your voice for a burst';'show em whos boss'",
+		onUse: "'[STAT::amt]';'[STATUS::forte]'",
+	},
+	stats: {
+		amt: 3,
+		status: {
+			windup: {name: "windup", showReference: true},
+		},
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "forte", length: 9})
+			}
+		})
+	},
+},
+
 env.ACTIONS.head_voice = {
 	slug: "head_voice",
 	name: "Head Voice",
@@ -4362,6 +4454,31 @@ env.ACTIONS.head_voice = {
 	}
 },
 
+env.ACTIONS.strong_head_voice = {
+	slug: "strong_head_voice",
+	name: "Head Voice",
+	type: "autohit",
+	details: {
+		flavor: "'i was gonna make a joke about opposite of bad chest feels dont touch your feet together but it doesnt work.'",
+		onUse: "apply [STATUS::tuned]"
+	},
+	stats: {
+		status: {
+			tuned: {name: "tuned", length:5},
+		},
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "tuned", length: 7})
+			}
+		})
+	}
+},
+
 env.ACTIONS.steel_harmony = {
 	slug: "steel_harmony",
 	name: "Harmony",
@@ -4381,6 +4498,30 @@ env.ACTIONS.steel_harmony = {
 			let AttackList = ["alto","soprano", "tenor", "head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
 			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
+		},
+		env.ADVANCE_RATE * 1)
+	}
+},
+
+env.ACTIONS.steel_strong_harmony = {
+	slug: "steel_strong_harmony",
+	name: "Scale",
+	type: "target",
+	verb: "harmonize at",
+	details: {
+		flavor: "'Strike the notes';'the ranges ring out'",
+		onUse: "'Randomize Action between: ALTO, SOPRANO, TENOR, HEAD-VOICE'"
+	},
+	stats: {
+		accuracy: 1,
+		crit: 0,
+		amt: 0,
+	},
+	exec: function(user,target) {
+		setTimeout(()=>{
+			let AttackList = ["strong_alto","strong_soprano", "strong_tenor", "strong_head_voice"] //add alto back later
+			let ChosenAttack = AttackList.sample()
+			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "Scale"})
 		},
 		env.ADVANCE_RATE * 1)
 	}
