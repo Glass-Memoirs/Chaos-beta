@@ -844,7 +844,7 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 	slug: "steel_angel",
 	name: "Guarding Angel",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	description: "this is gonna be changed once i know it works",
+	description: "'The burnt angel's purpose unfolds';'A shield for all';'IMPORTANT: requires songbird to be active first'",
 	alterations: [["steel_songbird","steel_angel"]],
 	component: ["utility","steel"],
 	//showIf: "editingMember.augments|steel_songbird",
@@ -4227,7 +4227,7 @@ env.ACTIONS.steel_angel = {
 	type: "self+support+autohit",
 	autohit: true,
 	details: {
-		flavor: "yadda yadda to be change once it works",
+		flavor: "'sacrifice a part of yourself to protect others'",
 		onUse: "ALLIES [STATUS::carapace], USER -2HP"
 	},
 	stats: {
