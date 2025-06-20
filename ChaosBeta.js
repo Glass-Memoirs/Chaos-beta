@@ -2050,7 +2050,7 @@ env.STATUS_EFFECTS.tuned = {
 				if(!i.beneficial) {usable = false}
 				if(i.slug == 'tuned') {usable = false}
 				console.log(i, usable)
-				if(usable) modifierPool.push(i.slug)
+				if(usable) modifierPool.push(i)
 			}
 			let AddedStat = modifierPool.sample()
 			addStatus({target: this.status.affecting, status: AddedStat, length: 3})
