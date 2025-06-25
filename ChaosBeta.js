@@ -2043,14 +2043,14 @@ env.STATUS_EFFECTS.tuned = {
 				let usable = true
 				if(statusData.passive) {usable = false}
 				if(statusData.infinite || (statusData.slug == "windup")) {usable = false}
-				if(i.includes("global_")||i.includes("malware_")||i.includes("fish_")) {usable = false}
-				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
-				if(i == "imperfect_reset") {usable = false}
-				if(i == "redirection" || i == "ethereal" || i == "immobile" || i == "conjoined" || i == "permanent_hp") {usable = false}
-				if(!i.beneficial) {usable = false}
-				if(i.slug == 'tuned') {usable = false}
-				console.log(i, usable)
-				if(usable) modifierPool.push(i)
+				if(statusData.slug.includes("global_")||statusData.slug.includes("malware_")||statusData.slug.includes("fish_")) {usable = false}
+				if(statusData.slug == "misalign_weaken" || statusData.slug == "misalign_stun" || statusData.slug == "realign" || statusData.slug == "realign_stun") {usable = false}
+				if(statusData.slug == "imperfect_reset") {usable = false}
+				if(statusData.slug == "redirection" || statusData.slug == "ethereal" || statusData.slug == "immobile" || statusData.slug == "conjoined" || statusData.slug == "permanent_hp") {usable = false}
+				if(!statusData.beneficial) {usable = false}
+				if(statusData.slug == 'tuned') {usable = false}
+				console.log(statusData, usable)
+				if(usable) modifierPool.push(statusData.slug)
 			}
 			let AddedStat = modifierPool.sample()
 			addStatus({target: this.status.affecting, status: AddedStat, length: 3})
