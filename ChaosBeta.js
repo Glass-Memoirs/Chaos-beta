@@ -4500,7 +4500,7 @@ env.ACTIONS.steel_harmony = {
 			let ChosenAttack = AttackList.sample()
 			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
 		},
-		env.ADVANCE_RATE * 1)
+		env.ADVANCE_RATE * 0.5)
 	}
 },
 
