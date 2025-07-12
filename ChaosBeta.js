@@ -2049,6 +2049,7 @@ env.STATUS_EFFECTS.tuned = {
 				if(statusData.slug == "redirection" || statusData.slug == "ethereal" || statusData.slug == "immobile" || statusData.slug == "conjoined" || statusData.slug == "permanent_hp") {usable = false}
 				if(!statusData.beneficial) {usable = false}
 				if(statusData.slug == 'tuned') {usable = false}
+				if(statusData.slug == "undefined") {usable = false}
 				console.log(statusData, usable)
 				if(usable) modifierPool.push(statusData.slug)
 			}
