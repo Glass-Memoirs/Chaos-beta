@@ -4498,7 +4498,6 @@ env.ACTIONS.steel_harmony = {
 		setTimeout(()=>{
 			let AttackList = ["alto","soprano", "tenor", "head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
-			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
 			sendFloater({ //let them know whats going on!
 				target: this.status.affecting,
 				type: "arbitrary",
@@ -4512,6 +4511,7 @@ env.ACTIONS.steel_harmony = {
 				show: false,
 				sfx: false
 			})
+			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
 		},
 		env.ADVANCE_RATE * 0.5)
 	}
@@ -4535,9 +4535,22 @@ env.ACTIONS.steel_strong_harmony = {
 		setTimeout(()=>{
 			let AttackList = ["strong_alto","strong_soprano", "strong_tenor", "strong_head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
+			sendFloater({ //let them know whats going on!
+				target: this.status.affecting,
+				type: "arbitrary",
+				arbitraryString: "HARMONIC!",
+				isGood: true
+			})
+			readoutAdd({
+				message: `${user.name} harmonizes with using ${ChosenAttack.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+				name: "sourceless", 
+				type: "sourceless combat minordetail",
+				show: false,
+				sfx: false
+			})
 			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "Scale"})
 		},
-		env.ADVANCE_RATE * 1)
+		env.ADVANCE_RATE * 0.5)
 	}
 },
 
