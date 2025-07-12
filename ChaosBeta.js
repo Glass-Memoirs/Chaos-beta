@@ -2046,6 +2046,7 @@ env.STATUS_EFFECTS.tuned = {
 				if(statusData.slug.includes("global_")||statusData.slug.includes("malware_")||statusData.slug.includes("fish_")) {usable = false}
 				if(statusData.slug == "misalign_weaken" || statusData.slug == "misalign_stun" || statusData.slug == "realign" || statusData.slug == "realign_stun") {usable = false}
 				if(statusData.slug == "imperfect_reset") {usable = false}
+				if(statusData.slug == "unnatural_carapace") {usable = false}
 				if(statusData.slug == "redirection" || statusData.slug == "ethereal" || statusData.slug == "immobile" || statusData.slug == "conjoined" || statusData.slug == "permanent_hp") {usable = false}
 				if(!statusData.beneficial) {usable = false}
 				if(statusData.slug == 'tuned') {usable = false}
