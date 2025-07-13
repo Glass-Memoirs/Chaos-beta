@@ -13,7 +13,7 @@ CREATORS:
  - Narra for immobile_actor, the fishing minigame part as well.
  - Adenator for the code for making the status pool because i was probably not gonna figure that out at all, also for helping me ([]^[]) fix the loader with the resources
  - And also with showing me ([]^[]) how to format the description for the recent update, pointing out enegrgy, and overall helping with fixing the code.
- - Mewo for helping with StupidHorrible text, and for making that humor's personality (thx so much mewo u tha goat)
+ - Mewo for helping with StupidHorrible text, and for making that humor's personality (thx so much mewo u tha goat :3)
  - Luna from the sunset system for the updated battery image!
  PLAYTESTERS:
 I - JUNE, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME), MOTH_GELI
@@ -42,8 +42,7 @@ I - JUNE, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTA
 		+ action does a random move that is strong, but requires a buildup of energy to do so
 		- MEAT (hunger)
 		- SUGAR (sanity)
-		- SMOKE (breath)
-		- METAL (land)
+		- METAL (land) (semi finished at this moment :3)
 		- PLASTIC (boundary)
 + OFF humors could possibly be based off of the bosses, also add in three sumon pieces (alpha, omega, epsilon)
 + Possibly make the zodiac cards be used in peace, could make them summon allies.
@@ -4801,15 +4800,15 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.surging = {
 },
 
 env.COMBAT_ACTORS.generic.reactionPersonalities.stupidhorrible = {
-	evade: ["nice try buddy"],
+	evade: ["nice try buddy","womp womp"],
     crit: [ "im so sigma! ... i meant that ironically okay ?", "yeah idiots do it me style lets go gng."],
 	crit_buff: [ "are you like. good", "walk it off like a wheelchair user. okay?", "lock in lock in."],
 	miss: ["erm. oospies.", "thats my bad gng", "no its js a delayed maneuver. trust."],
 	dead: ["theyre making me fight in the Bone War."],
 	puncture: ["can some1 get it 2gether & help me.", "no dw ignore the blood im good."],
 	regen: ["Oogh Yeah That's The Fent."],
-	destabilized: ["a"],
-	stun: ["is it just me or am i moving so fast i cant move."],
+	destabilized: ["a","e","i","o","u","uhhhmmm... y...?"],
+	stun: ["is it just me or am i moving so fast i cant move.","this is jst bs man. lemme out of this prison. i am a totally law abbiding citizen my  man. yr locking me up 4 this shit? ill call my lawer. saul goodman. jelous asshat."],
 	laugh: ["> kekekeke", "roflmao lol", "teehee owo", "im js a sillay thang."],
 	sacrifice: ["um. this is awkjward."],
 	receive_hit: ["my bones."],
@@ -4821,7 +4820,30 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.stupidhorrible = {
 	receive_carapace: ["im not a little bug alr im fine.", "since you INSIST."],
 	receive_repairs: ["this is js like the convenience store: convenient!"],
 	receive_fear: ["gordon ramsay voice fuck me thats frightening. bloody hell."],
-	receive_redirection: ["what the fuck are you smoking.", "oh so yr like cooked. okay (not) nice knowing you."],
+	receive_redirection: ["what the fuck are you smoking.", "oh so yr like cooked. okay (not) nice knowing you.","CAN YOU LOCK THE FUCK IN????????"],
+},
+env.COMBAT_ACTORS.generic.reactionPersonalities.steel = {
+	evade: ["GRRRRAH","KNOCK IT OUT YOU ROOKIE.","YOU'RE GONNA PAY FOR THAT..."],
+    crit: ["GET BACK TO WORK"],
+	crit_buff: ["End this already","Ill get this over with","Good for nothing..."],
+	miss: ["You're just lucky...","shut UP ABOUT IT!"],
+	dead: ["..."],
+	puncture: ["eugh...","ill make YOU BLEED"],
+	regen: ["Took you long enough.","useful as a specter..."],
+	destabilized: ["this is not home..."],
+	stun: ["WHEN I GET TO YOU ITS ALL OVER!"],
+	laugh: ["HAHAHAHAHA","GAHHAHAAAAHAHAA"],
+	sacrifice: ["you must expect ME to do all the work..."],
+	receive_hit: ["Pathetic."],
+	receive_crit: ["IM GOING TO END YOUR LIKES, FOOL"],
+	receive_puncture: ["ill leave you BEGGING FOR MY MERCY"],
+	receive_buff: ["Took you long enough...","should have done it SOONER..."],
+	receive_destabilized: ["i... see... YOU..."],
+	receive_rez: ["ALL OF YOU WILL BE OUT LONGER THAN ME!"],
+	receive_carapace: ["yeah yeah, now GET BACK TO WORK", "hurry up..."],
+	receive_repairs: ["fianlly useful for something..."],
+	receive_fear: ["I-IM NOT AFRAID OF YOU!"],
+	receive_redirection: ["pshh...","get in the way already.", "Trying to get out of work with your heroics?"],
 },
 
 env.COMBAT_ACTORS.generic.reactionPersonalities.smog = {
