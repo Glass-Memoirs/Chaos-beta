@@ -445,8 +445,8 @@ if (page.path == '/local/beneath/embassy/') {
 	}
 	[component="steel"] {
     	--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
-    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumor.gif);
+    	--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumorMeium.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/OFFmetalHumorMedium.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
