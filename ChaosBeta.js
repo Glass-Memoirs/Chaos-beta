@@ -4500,7 +4500,7 @@ env.ACTIONS.steel_harmony = {
 			let AttackList = ["alto","soprano", "tenor", "head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
 			sendFloater({ //let them know whats going on!
-				target: this.status.affecting,
+				target: user,
 				type: "arbitrary",
 				arbitraryString: "HARMONIC!",
 				isGood: true
@@ -4537,7 +4537,7 @@ env.ACTIONS.steel_strong_harmony = {
 			let AttackList = ["strong_alto","strong_soprano", "strong_tenor", "strong_head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
 			sendFloater({ //let them know whats going on!
-				target: this.status.affecting,
+				target: user,
 				type: "arbitrary",
 				arbitraryString: "HARMONIC!",
 				isGood: true
