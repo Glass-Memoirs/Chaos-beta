@@ -2065,7 +2065,7 @@ env.STATUS_EFFECTS.vibrato = {
 	slug: "vibrato",
 	name: "Vibrato",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalBurningWings.gif",
 	events: {
 		onTurn: function () {
 			this.status.affecting.bp = this.status.affecting.bp + 2
