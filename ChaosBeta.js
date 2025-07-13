@@ -853,7 +853,7 @@ env.ACTOR_AUGMENTS.generic.steel_songbird = {
 env.ACTOR_AUGMENTS.generic.steel_angel = {
 	slug: "steel_angel",
 	name: "Guarding Angel",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalBurningWings.gif",
 	description: "'The burnt angel's purpose unfolds';'A shield for all';'IMPORTANT: requires songbird to be active first'",
 	alterations: [["steel_songbird","steel_angel"]],
 	component: ["utility","steel"],
