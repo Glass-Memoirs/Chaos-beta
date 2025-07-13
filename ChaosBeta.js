@@ -4283,6 +4283,12 @@ env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gi
 		}
 	},
 	exec: function (user, target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "ALTO!",
+			isGood: true
+		})
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4311,6 +4317,12 @@ env.ACTIONS.strong_alto = {
 		}
 	},
 	exec: function (user, target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "ALTO!",
+			isGood: true
+		})
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4339,6 +4351,12 @@ env.ACTIONS.soprano = {
 		},
 	},
 	exec: function(user,target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "SOPRANO!",
+			isGood: true
+		})
 		for (let i = 0; i <12; i++) {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: this,
@@ -4367,6 +4385,12 @@ env.ACTIONS.strong_soprano = {
 		}
 	},
 	exec: function(user,target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "SOPRANO!",
+			isGood: true
+		})
 		for (let i = 0; i <12; i++) {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: this,
@@ -4393,6 +4417,12 @@ env.ACTIONS.tenor = {
 		},
 	},
 	exec: function(user,target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "TENOR!",
+			isGood: true
+		})
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4420,6 +4450,12 @@ env.ACTIONS.strong_tenor = {
 		},
 	},
 	exec: function(user,target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "TENOR!",
+			isGood: true
+		})
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4445,6 +4481,12 @@ env.ACTIONS.head_voice = {
 		},
 	},
 	exec: function(user,target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "HEAD VOICE!",
+			isGood: true
+		})
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4470,6 +4512,12 @@ env.ACTIONS.strong_head_voice = {
 		},
 	},
 	exec: function(user,target) {
+		sendFloater({ //let them know whats going on!
+			target: user,
+			type: "arbitrary",
+			arbitraryString: "HEAD VOICE!",
+			isGood: true
+		})
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4499,19 +4547,6 @@ env.ACTIONS.steel_harmony = {
 		setTimeout(()=>{
 			let AttackList = ["alto","soprano", "tenor", "head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
-			sendFloater({ //let them know whats going on!
-				target: user,
-				type: "arbitrary",
-				arbitraryString: "HARMONIC!",
-				isGood: true
-			})
-			readoutAdd({
-				message: `${user.name} harmonizes with using ${ChosenAttack.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
-				name: "sourceless", 
-				type: "sourceless combat minordetail",
-				show: false,
-				sfx: false
-			})
 			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "harmony"})
 		},
 		env.ADVANCE_RATE * 0.5)
@@ -4536,19 +4571,6 @@ env.ACTIONS.steel_strong_harmony = {
 		setTimeout(()=>{
 			let AttackList = ["strong_alto","strong_soprano", "strong_tenor", "strong_head_voice"] //add alto back later
 			let ChosenAttack = AttackList.sample()
-			sendFloater({ //let them know whats going on!
-				target: user,
-				type: "arbitrary",
-				arbitraryString: "HARMONIC!",
-				isGood: true
-			})
-			readoutAdd({
-				message: `${user.name} harmonizes with using ${ChosenAttack.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
-				name: "sourceless", 
-				type: "sourceless combat minordetail",
-				show: false,
-				sfx: false
-			})
 			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "Scale"})
 		},
 		env.ADVANCE_RATE * 0.5)
