@@ -833,7 +833,7 @@ env.ACTOR_AUGMENTS.generic.steel_scale = {
 env.ACTOR_AUGMENTS.generic.steel_punish = {
 	slug: "steel_punish",
 	name: "Punishment",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalHighNote.gif",
 	description: "'They wont listen to your demands';'make them listen'",
 	alterations: [["steel_scold", "steel_punish"]],
 	component: ["secondary", "steel"],
@@ -843,7 +843,7 @@ env.ACTOR_AUGMENTS.generic.steel_punish = {
 env.ACTOR_AUGMENTS.generic.steel_songbird = {
 	slug: "steel_songbird",
 	name: "Songbird",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalForte.gif",
 	description: "'songbird, oh songbird, what is your song?';'I would love to hear it as you're the one who knows'",
 	alterations: [["steel_stand", "steel_songbird"]],
 	component: ["utility","steel"],
