@@ -4801,7 +4801,7 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.surging = {
 
 env.COMBAT_ACTORS.generic.reactionPersonalities.stupidhorrible = {
 	evade: ["nice try buddy","womp womp"],
-    crit: [ "im so sigma! ... i meant that ironically okay ?", "yeah idiots do it me style lets go gng."],
+    crit: [ "im so sigma! ... i meant that ironically okay ?", "yeah idiots do it me style lets go gng.", "ITS ALL ABOUT THE FUCKING GAME BAYBEE!!!"],
 	crit_buff: [ "are you like. good", "walk it off like a wheelchair user. okay?", "lock in lock in."],
 	miss: ["erm. oospies.", "thats my bad gng", "no its js a delayed maneuver. trust."],
 	dead: ["theyre making me fight in the Bone War."],
