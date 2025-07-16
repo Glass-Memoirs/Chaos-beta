@@ -453,9 +453,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: #d004a4;
 	}
 	[component="life"] {
-		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
-		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/lifeHumor.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/lifeHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/lifeHumor.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--fundfriend-color);
