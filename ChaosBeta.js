@@ -458,7 +458,7 @@ if (page.path == '/local/beneath/embassy/') {
     	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/lifeHumorSmall.gif);
     	--background-size: auto;
     	--background-position: center;
-    	--background-color: var(--fundfriend-color);
+    	--background-color: var(--dark-color);
     	--accent-color: var(--neutral-color);
     	--font-color: var(--fundfriend-color);
 	}
