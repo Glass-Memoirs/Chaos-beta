@@ -1974,7 +1974,7 @@ env.STATUS_EFFECTS.fated_smog = {
 	name: "FATED::SMOG",
 	passive: true,
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/smogEye.gif",
 	impulse: {type: "fated", component: "smog"},
 	events: {
 		onCreated: function({statusObj}) {
