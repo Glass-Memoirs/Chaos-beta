@@ -2300,7 +2300,7 @@ env.STATUS_EFFECTS.life_transfer = {
 	reviveHappened: false,
 	events: {
 		GLOBAL_onDeath: function({originalEventTarget}) {
-			if (reviveHappened) return;
+			if (env.STATUS_EFFECTS.life_transfer.reviveHappened) return;
 			let subject = originalEventTarget
 			let user = this.status.affecting
 
