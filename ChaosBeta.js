@@ -633,9 +633,65 @@ env.COMBAT_COMPONENTS.steel = {
 }
 
 /*
+env.COMBAT_COMPONENTS.silicon = {
+     name: "Silicon",
+     slug: "silicon",
+     description: "shhhh",
+     help: "not here yet",
+
+     primary: {
+          alterations: [["primary"]],
+          stats: {
+               maxhp: 3
+          }
+     },
+     secondary: {
+          alterations: [["secondary"]],
+          stats: {
+               maxhp: 3
+          }
+     },
+     utility: {
+          alterations: [["evade"]],
+          stats: {
+               maxhp: 3
+          }
+     }
+}
+*/
+
+/*
 env.COMBAT_COMPONENTS.meat = {
      name: "Meat",
      slug: "meat",
+     description: "shhhh",
+     help: "not here yet",
+
+     primary: {
+          alterations: [["primary"]],
+          stats: {
+               maxhp: 3
+          }
+     },
+     secondary: {
+          alterations: [["secondary"]],
+          stats: {
+               maxhp: 3
+          }
+     },
+     utility: {
+          alterations: [["evade"]],
+          stats: {
+               maxhp: 3
+          }
+     }
+}
+*/
+
+/*
+env.COMBAT_COMPONENTS.sugar = {
+     name: "Sugar",
+     slug: "sugar",
      description: "shhhh",
      help: "not here yet",
 
