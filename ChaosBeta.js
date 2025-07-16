@@ -2297,10 +2297,10 @@ env.STATUS_EFFECTS.life_transfer = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "when ally dies, revive random actor",
-	reviveHappened: false,
+	inUse: false,
 	events: {
 		GLOBAL_onDeath: function({originalEventTarget}) {
-			if (env.STATUS_EFFECTS.life_transfer.reviveHappened) return;
+			if (env.STATUS_EFFECTS.life_transfer.inUse) return;
 			let subject = originalEventTarget
 			let user = this.status.affecting
 
@@ -2326,7 +2326,7 @@ env.STATUS_EFFECTS.life_transfer = {
 			let RandomRev = DeadTargets.sample()
 			let RandomRever = LivingTargets.sample()
 			RandomRev.state = "living"
-			reviveHappened = true
+			inUse = true
 			setTimeout(()=>{
 				RandomRev.hp = 0.1 // hack to avoid extra updatestats
 				useAction(RandomRever, env.ACTIONS.rez, RandomRev, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ally died lol"})
