@@ -2392,6 +2392,57 @@ env.STATUS_EFFECTS.life_herb = {
 	impulse: {type: "common", component: "life"}
 },
 
+env.STATUS_EFFECTS.vicious_senses = {
+	slug: "vicious_senses",
+	name: "Vicious Senses",
+	beneficial: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	opposite: "dulled_senses", //YPOOO HOLY SHIT ITS THE DULL
+	outgoingMult: 0.5,
+	events: {
+		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
+			if(subject == this.status.affecting && removingStatusName == "focused") {
+				removeStatus(this.status.affecting, "vicious_senses")
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.dulled_senses = {
+	slug: "dulled_senses",
+	name: "Dulled Senses",
+	beneficial: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	opposite: "vicious_senses",
+	outgoingMult: -0.5,
+	events: {
+		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
+			if(subject == this.status.affecting && removingStatusName == "fear") {
+				removeStatus(this.status.affecting, "dulled_senses")
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.predation = {
+	slug: "predation",
+	name: "Predation",
+	beneficial: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "life"},
+	help: "when focus is put on this shell, apply VICIOUS SENSES",
+	events: {
+		GLOBAL_onAddStatus: function({target, statusObj, originalEventTarget}) {
+			if (statusObj.slug == "focused" && target == this.status.affecting) {
+				addStatus({target: this.status.affecting, status: "vicious_senses"})
+			}
+		}
+	}
+},
+
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
