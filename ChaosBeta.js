@@ -2326,7 +2326,7 @@ env.STATUS_EFFECTS.life_transfer = {
 			let RandomRev = DeadTargets.sample()
 			let RandomRever = LivingTargets.sample()
 			RandomRev.state = "living"
-			inUse = true
+			env.STATUS_EFFECTS.life_transfer.inUse = true
 			setTimeout(()=>{
 				RandomRev.hp = 0.1 // hack to avoid extra updatestats
 				useAction(RandomRever, env.ACTIONS.rez, RandomRev, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "ally died lol"})
