@@ -4977,6 +4977,30 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.smog = {
 	receive_repairs: ["Thank you friend!"],
 	receive_fear: ["Why you-"],
 	receive_redirection: ["Good.","Maybe I wont have to see you alive.", "Stay out of my way."],
+},
+
+env.COMBAT_ACTORS.generic.reactionPersonalities.life = {
+      evade: ["not as quick as you thought, hmm?","please refrain from doing that again.","please do not."],
+    crit: ["sorry about that!!","ouch…","sorry sorry sorry-"],
+      crit_buff: ["try not to hurt them too much-!","dont hurts them badly!","careful with that!"],
+      miss: ["y-your welcome!!","cant we just be friends-?"],
+      dead: ["o-oh…"],
+      puncture: ["ah-","ill have to patch this up…"],
+      regen: ["here you are!","try not to get hurt next time-!"],
+      destabilized: ["w… why can’t we be friends…?","im trying to help-!!"],
+      stun: ["whoops… sorry-!","please stop hurting eachother-!!"],
+      laugh: ["tehehehee!!","mehehee!!"],
+      sacrifice: ["ill try to heal you all, if I must-!"],
+      receive_hit: ["owwie!!!","please don’t!!!"],
+      receive_crit: ["youch-!!!","yikes-!!!","can’t we just be friends-??"],
+      receive_puncture: ["owwie…","am I… bleeding?","I’ll have to patch this up asap-!"],
+      receive_buff: ["i will use this wisely!","thank you friend!!!"],
+      receive_destabilized: ["do… do I have to..?","stop it… I just want friends…"],
+      receive_rez: ["thank you friends!!!"],
+      receive_carapace: ["oh!! For me?", "thank you so much!!"],
+      receive_repairs: ["mmm… feels safe-!"],
+      receive_fear: ["e-eek-!","w-why are you so… big…?","i- I didn’t do anything!!!"],
+      receive_redirection: ["r-really…?","t… thank you so much...", "you are really doing this…?","I will make sure you are all healthy for this!"],
 }
 
 //10. Combat Actors
