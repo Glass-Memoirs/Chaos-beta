@@ -2401,6 +2401,7 @@ env.STATUS_EFFECTS.vicious_senses = {
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	opposite: "dulled_senses", //YPOOO HOLY SHIT ITS THE DULL
+	help: "outgoing damage increased by 50%, removed when focused is removed",
 	outgoingMult: 0.5,
 	events: {
 		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
@@ -2418,6 +2419,7 @@ env.STATUS_EFFECTS.dulled_senses = {
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	opposite: "vicious_senses",
+	help: "outgoing damage is decreased by 50%, removed when fear is removed",
 	outgoingMult: -0.5,
 	events: {
 		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
