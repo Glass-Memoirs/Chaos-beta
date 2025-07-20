@@ -4764,7 +4764,7 @@ env.ACTIONS.life_veilkstrider = {
 	type: "self+support+autohit",
 	details: {
 		flavor: "'modify body with spindly limbs reminiscent of young veilk';'enables passive evasion'",
-		onUse: "[STATUS:deft]"
+		onUse: "[STATUS::deft]"
 	},
 	stats:{
 		status: {
