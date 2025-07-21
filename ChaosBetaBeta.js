@@ -2547,9 +2547,16 @@ env.STATUS_EFFECTS.deflective_stance = {
 	grantsActions: ["parry"],
 	help: "gives move PARRY, nullifies all incoming damage while PARRY is active",
 	impulse: {type: "common", component: "graceful"},
-	events: {
+	events: { //god this code prolly is bad, unfortunately i think it has to be like this to make the checks work
 		onAddStatus: function({statusObj}) {
 			if(statusObj.slug == "parry") {
+				this.status.incomingFlat = -9999999999999999999
+			} else {
+				this.status.incomingFlat = 0
+			}
+		},
+		onTurn: function() {
+			if (hasStatus(this.status.affecting, "parry")) {
 				this.status.incomingFlat = -9999999999999999999
 			} else {
 				this.status.incomingFlat = 0
