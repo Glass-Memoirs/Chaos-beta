@@ -462,6 +462,16 @@ if (page.path == '/local/beneath/embassy/') {
     	--accent-color: var(--neutral-color);
     	--font-color: var(--fundfriend-color);
 	}
+	[component="graceful"] {
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+    	--background-size: auto;
+    	--background-position: center;
+    	--background-color: var(--dark-color);
+    	--accent-color: var(--neutral-color);
+    	--font-color: var(--fundfriend-color);
+	}
 	</style>`);
 
 //FUNCTIONS
@@ -740,6 +750,31 @@ env.COMBAT_COMPONENTS.life = {
 		}
 	},
 	combatModifiers: ["life_healing", "life_transfer", /*"life_social"*/]
+}
+
+env.COMBAT_COMPONENTS.graceful = {
+	name: "Graceful",
+	slug: "graceful",
+	description: "'Cousinly religion taken to an extreme';'like the most maddened worshippers of velzie'",
+	help: "",
+	primary: {
+		alterations: [["primary","graceful_taint"]],
+		stats: {
+			maxhp: 3
+		}
+	},
+	secondary: {
+		alterations: [["secondary","graceful_beacon"]],
+		stats: {
+			maxhp: 3
+		}
+	},
+	utility: {
+		alterations: [["evade","graceful_heed"]],
+		stats: {
+			maxhp: 3
+		}
+	}
 }
 
 //AUGMENTS
@@ -2477,15 +2512,30 @@ env.STATUS_EFFECTS.parry = {
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
-	incomingFlat: 0,
-	incomingMult: 0,
 	events: {
 		onStruck: function({subject, attack, beneficial}) { 
 			if(beneficial) return;
-			let Nullify = attack.stats.amt
-			incomingFlat = 0-Nullify
-			incomingMult = 0
 			useAction(this.status.affecting, attack, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
+		}
+	}
+},
+
+env.STATUS_EFFECTS.deflective_stance = {
+	slug: "deflective_stance",
+	name: "Deflective Stance",
+	beneficial: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	grantsActions: ["parry"],
+	help: "gives move PARRY, nullifies all incoming damage while PARRY is active",
+	impulse: {type: "common", component: "graceful"},
+	events: {
+		onAddStatus: function({statusObj}) {
+			if(statusObj.slug == "parry") {
+				this.status.incomingFlat = -9999999999999999999
+			} else {
+				this.status.incomingFlat = 0
+			}
 		}
 	}
 },
@@ -4912,6 +4962,102 @@ env.ACTIONS.parry = {
 	},
 	exec: function(user) {
 		addStatus(user, "parry")
+	}
+},
+
+env.ACTIONS.graceful_taint = {
+	slug: "graceful_taint",
+	name: "Taint",
+	type: "target",
+	details: {
+		flavor: "led astray by the smell of flowers and a false promise...",
+		onHit: "[STAT::amt] [STATUS::fear]"
+	},
+	stats: {
+		amt: 2,
+		crit: 0.23,
+		accuracy: 0.9,
+		status: {
+			fear: {name: "fear", length: 2}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: "fear",
+				length: 2,
+			}
+		})
+	}
+},
+
+env.ACTIONS.graceful_beacon = {
+	slug: "graceful_beacon",
+	name: "Beacon",
+	type: "target",
+	details: {
+		flavor: "Shine bright my little star, Shine bright with His light and love",
+		onUse: "3x[STAT::amt]",
+		onCrit: "3X [STATUS::regen] or [STATUS::carapace]"
+	},
+	stats: {
+		amt: 1,
+		crit: 0.43,
+		accuracy: 0.43,
+		status: {
+			regen: {name: "regen", length: 1},
+			carapace: {name: "carapace", length: 1}
+		}
+	},
+	exec: function(user,target) {
+		for (i =0; i < 3; i++) {
+			env.GENERIC_ACTIONS.singleTarget({
+				action: this,
+				user,
+				target,
+				critExec: (user) => {
+					if (Math.random() < 0.5) {
+						addStatus(user, "regen")
+					} else {
+						addStatus(user, "carapace")
+					}
+				}
+			})
+		}
+	}
+},
+
+env.ACTIONS.graceful_heed = {
+	slug: "graceful_heed",
+	name: "Heed",
+	type: "support+self+autohit",
+	autohit: true,
+	details: {
+		flavor: "Please... look away... I don't want you to look at me",
+		onUse: "ALLIES: [STATUS::redirection] [STATUS::regen]"
+	},
+	stats: {
+		amt: 0,
+		crit: 0,
+		accuracy: 1,
+		status: {
+			redirection: {name: "redirection", length: 2},
+			regen: {name: "regen", length: 2}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i) => {
+				if (actor != user) {
+					addStatus({target: actor, status: "redirection", length: 2})
+					addStatus({target: actor, status: "regen", length: 2})
+				}
+			}
+		})
 	}
 },
 
