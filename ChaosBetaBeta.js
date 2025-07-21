@@ -2530,6 +2530,9 @@ env.STATUS_EFFECTS.parry = {
 			if (target == this.status.affecting) {
 				useAction(target, action, user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
 			}
+		},
+		onTurn: function() {
+			removeStatus(this.status.affecting, "parry")
 		}
 	}
 },
