@@ -4747,7 +4747,7 @@ env.ACTIONS.life_seeding = {
 	},
 	stats: {
 		accuracy: 0.75,
-		cirt: 0.25,
+		crit: 0.25,
 		amt: 1,
 		status: {
 			madness: {name: "madness", showReference: true},
