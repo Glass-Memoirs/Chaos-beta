@@ -276,6 +276,7 @@ if(page.party){
 			page.flags.components.smog = 30
 			page.flags.components.steel = 30
 			page.flags.components.life = 30
+			page.flags.components.graceful = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -306,6 +307,7 @@ if(page.party){
 			page.flags.components.smog = 3
 			page.flags.components.steel = 3
 			page.flags.components.life = 3
+			page.flags.components.graceful = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -377,7 +379,16 @@ if(page.party){
 				member.components["utility"]="life"
 			})
 			break
+		case "graceful":
+			page.flags.components = {graceful: 12}
+
+			page.party.forEach(member=>{
+				member.components["primary"]="graceful"
+				member.components["secondary"]="graceful"
+				member.components["utility"]="graceful"
+			})
 		}
+
 	}
 if (page.path == '/local/beneath/embassy/') {
 	//CSS
@@ -5582,6 +5593,33 @@ for (const componentName of ["life"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
-console.log("LOADED::CHAOS+ 'go forth and kill bestie'")
+for (const componentName of ["graceful"]) {
+	const component = env.COMBAT_COMPONENTS[componentName]
+	let commerceObject = ({
+		 type: "humor",
+		 name: `${component.name.replace("Humor of ", "")}`,
+		 subject: component,
+		 value: 1,
+
+		 showSellIf: ()=> env.e3a2.mTotals[componentName].available > 0,
+		 sellExec: ()=>{
+			  addItem("sfer_cube")
+			  page.flags.components[componentName]--
+			  env.e3a2.mTotals = CrittaMenu.getTotals()
+			  env.commerceNotice = `exchanged ${component.name} for 1 ${env.ITEM_LIST['sfer_cube'].name}`
+		 },
+	})
+	env.e3a2.merchant.sellResponses.replies.push({
+		 name: `${commerceObject.name}::${commerceObject.value}S`,
+		 destination: "sell",
+		 hideRead: true,
+		 showIf: commerceObject.showSellIf,
+		 class: `commerce-${commerceObject.type}`,
+		 definition: `NOTE::'exchange for ${commerceObject.value} ${env.ITEM_LIST['sfer_cube'].name}'`,
+		 exec: ()=> {commerceObject.sellExec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
+	})
+	env.e3a2.merchant.commerce.push(commerceObject)
 }
+}
+console.log("LOADED::CHAOS+ 'go forth and kill bestie'")
 //Hi yeah if you scrolled all the way down here nice lmao.
