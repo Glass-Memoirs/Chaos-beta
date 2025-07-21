@@ -4972,7 +4972,7 @@ env.ACTIONS.parry = {
 		}
 	},
 	exec: function(user) {
-		addStatus(user, "parry")
+		addStatus({target: user, status: "parry", length: 1})
 	}
 },
 
