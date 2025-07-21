@@ -2470,6 +2470,26 @@ env.STATUS_EFFECTS.predation = {
 	}
 },
 
+env.STATUS_EFFECTS.parry = {
+	slug: "parry",
+	name: "Parry",
+	beneficial: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
+	incomingFlat: 0,
+	incomingMult: 0,
+	events: {
+		onStruck: function({subject, attack, beneficial}) { 
+			if(beneficial) return;
+			let Nullify = attack.stats.amt
+			incomingFlat = 0-Nullify
+			incomingMult = 0
+			useAction(this.status.affecting, attack, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
+		}
+	}
+},
+
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
@@ -4873,6 +4893,25 @@ env.ACTIONS.life_repairs = {
 				length: 2
 			}
 		})
+	}
+},
+
+env.ACTIONS.parry = {
+	slug: "parry",
+	name: "Parry",
+	type: "support+autohit+self",
+	autohit: true,
+	details: {
+		flavor: "Hit the attack back",
+		onUse: "[STATUS::parry]",
+	},
+	stats: {
+		status: {
+			parry: {name: "parry", showReference: true}
+		}
+	},
+	exec: function(user) {
+		addStatus(user, "parry")
 	}
 },
 
