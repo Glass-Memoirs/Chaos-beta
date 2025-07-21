@@ -2522,7 +2522,7 @@ env.STATUS_EFFECTS.parry = {
 	name: "Parry",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulParry.gif",
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
 	events: {
 		GLOBAL_onAction: function({user, action, target, originalEventTarget}) { 
@@ -2543,7 +2543,7 @@ env.STATUS_EFFECTS.deflective_stance = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulParry.gif",
 	grantsActions: ["parry"],
 	help: "gives move PARRY, nullifies all incoming damage while PARRY is active",
 	impulse: {type: "common", component: "graceful"},
