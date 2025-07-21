@@ -2526,7 +2526,7 @@ env.STATUS_EFFECTS.parry = {
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
 	events: {
 		GLOBAL_onAction: function({user, action, target, originalEventTarget}) { 
-			if(action.beneficial) return;
+			if(action.beneficial || target != this.status.affecting) return;
 			if (target == this.status.affecting) {
 				useAction(target, action, user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
 			}
