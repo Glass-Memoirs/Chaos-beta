@@ -2329,7 +2329,7 @@ env.STATUS_EFFECTS.life_transfer = {
 
 			if(user.state == "dead" ||
 				user == subject || 
-				user.team.name == enemyTeam || 
+				user.team.name == "enemy" || 
 				subject.state != "dead"
 			) return;
 
