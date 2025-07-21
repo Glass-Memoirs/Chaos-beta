@@ -5036,7 +5036,7 @@ env.ACTIONS.graceful_beacon = {
 				action: this,
 				user,
 				target,
-				critExec: (user) => {
+				critExec: () => {
 					if (Math.random() < 0.5) {
 						addStatus(user, "regen")
 					} else {
