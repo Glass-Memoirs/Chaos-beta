@@ -474,9 +474,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--fundfriend-color);
 	}
 	[component="graceful"] {
-		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
-		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif);
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulHumor.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulHumor.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -5629,4 +5629,4 @@ for (const componentName of ["graceful"]) {
 }
 }
 console.log("LOADED::CHAOS+ 'go forth and kill bestie'")
-//Hi yeah if you scrolled all the way down here nice lmao.
+//Hi yeah if you scrolled all the way down here nice lmao. I (:3) am also here!
