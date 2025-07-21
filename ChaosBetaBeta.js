@@ -2525,9 +2525,11 @@ env.STATUS_EFFECTS.parry = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
 	events: {
-		onStruck: function({subject, attack, beneficial}) { 
-			if(beneficial) return;
-			useAction(this.status.affecting, attack.slug, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
+		GLOBAL_onAction: function({user, action, target, originalEventTarget}) { 
+			if(action.beneficial) return;
+			if (target == this.status.affecting) {
+				useAction(target, action, user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
+			}
 		}
 	}
 },
