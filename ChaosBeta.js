@@ -2290,6 +2290,29 @@ env.STATUS_EFFECTS.life_healing = {
 	}
 },
 
+env.STATUS_EFFECTS.sunny_day = {
+	slug: "sunny_day",
+	name: "Sunny Day",
+	beneficial: true,
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "steel"},
+	help: "Grants move SHINY REFLECTION",
+	grantsActions: ["shiny_reflection"]
+},
+
+env.STATUS_EFFECTS.glow = {
+	slug: "glow",
+	name: "Glow",
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "+10% evasion, +15% outgoing mult, +3 outgoing Crit",
+	incomingToHit: -0.1,
+	outgoingMult: 0.15,
+	outgoingCrit: 3,
+},
+
 env.STATUS_EFFECTS.life_transfer = {
 	slug: "life_transfer",
 	name: "Transfered Lifeforce",
@@ -4483,7 +4506,7 @@ env.ACTIONS.strong_soprano = {
 	name: "Soprano",
 	type: "target",
 	details: {
-		flavour: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
+		flavor: "'Attack in a string of 12 notes';'end off in a [STATUS::high_note]'",
 		onHit: "'12*[STAT::amt], [STATUS::high_note]'"
 	},
 	stats: {
@@ -4684,6 +4707,32 @@ env.ACTIONS.steel_strong_harmony = {
 			useAction(user, env.ACTIONS[ChosenAttack], target, {beingUsedAsync: false, reason: "Scale"})
 		},
 		env.ADVANCE_RATE * 0.5)
+	}
+},
+
+env.ACTIONS.shiny_reflection = {
+	slug: "shiny_reflection",
+	name: "Shiny Reflection",
+	details: {
+		flavor: "'a bright day';'it feels freeing'",
+		onUse: "[STATUS::glow]",
+		onHit: "[STAT::amt]"
+	},
+	stats: {
+		amt: 2,
+		crit: 0.2,
+		accuracy: 0.8,
+		status: {
+			glow: {name: "glow", length: 5}
+		}
+	},
+	exec: function(user,target) {
+		addStatus({target: user, status: "glow", length: 5})
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target
+		})
 	}
 },
 
