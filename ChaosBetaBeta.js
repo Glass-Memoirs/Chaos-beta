@@ -2527,7 +2527,7 @@ env.STATUS_EFFECTS.parry = {
 	events: {
 		onStruck: function({subject, attack, beneficial}) { 
 			if(beneficial) return;
-			useAction(this.status.affecting, attack, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
+			useAction(this.status.affecting, attack.slug, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
 		}
 	}
 },
