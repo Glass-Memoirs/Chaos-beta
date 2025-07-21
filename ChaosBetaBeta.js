@@ -474,9 +474,9 @@ if (page.path == '/local/beneath/embassy/') {
     	--font-color: var(--fundfriend-color);
 	}
 	[component="graceful"] {
-		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulHumor.gif);
-		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulHumor.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulHumor.gif);
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/GracefulHumor.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/GracefulHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/GracefulHumor.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -2522,7 +2522,7 @@ env.STATUS_EFFECTS.parry = {
 	name: "Parry",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulParry.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/GracefulParry.gif",
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
 	events: {
 		GLOBAL_onAction: function({user, action, target, originalEventTarget}) { 
@@ -2543,7 +2543,7 @@ env.STATUS_EFFECTS.deflective_stance = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/GracefulParry.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/GracefulParry.gif",
 	grantsActions: ["parry"],
 	help: "gives move PARRY, nullifies all incoming damage while PARRY is active",
 	impulse: {type: "common", component: "graceful"},
