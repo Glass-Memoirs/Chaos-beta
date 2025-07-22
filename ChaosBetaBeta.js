@@ -5069,9 +5069,9 @@ env.ACTIONS.graceful_beacon = {
 				target,
 				critExec: () => {
 					if (Math.random() < 0.5) {
-						addStatus(user, "regen")
+						addStatus({target: user, status: "regen", length: 1})
 					} else {
-						addStatus(user, "carapace")
+						addStatus({target: user, status: "carapace",length: 1})
 					}
 				}
 			})
