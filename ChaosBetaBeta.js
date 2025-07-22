@@ -5114,8 +5114,8 @@ env.ACTIONS.life_intimidating = {
 			shattering_carapace: {name: "shattering_carapace", length: 2},
 		}
 	},
-	exec: function(user, target) {
-		exec: function(user, target, beingUsedAsync) {
+	exec: function(user, target, beingUsedAsync) {
+
             addStatus({target: user, status: "shattering_carapace", length: 2, noReact: true}); 
 
             env.GENERIC_ACTIONS.teamWave({
@@ -5233,8 +5233,7 @@ env.ACTIONS.graceful_heed = {
 			regen: {name: "regen", length: 2}
 		}
 	},
-	exec: function(user, target) {
-		exec: function(user, target, beingUsedAsync) {
+	exec: function(user, target, beingUsedAsync) {
             
             env.GENERIC_ACTIONS.teamWave({
                 team: user.team,
