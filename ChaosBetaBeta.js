@@ -5114,9 +5114,9 @@ env.ACTIONS.life_intimidating = {
 			shattering_carapace: {name: "shattering_carapace", length: 2},
 		}
 	},
-	exec: function(user) {
+	exec: function(user, target) {
 		env.GENERIC_ACTONS.teamWave({
-			team: user.allyTeam,
+			team: user.team,
 			exec: (actor, i) => {
 				if (actor != user) {
 					addStatus({target: actor, status: "redirection", length: 2})
