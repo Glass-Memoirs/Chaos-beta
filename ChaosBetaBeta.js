@@ -5116,18 +5116,17 @@ env.ACTIONS.life_intimidating = {
 	},
 	exec: function(user, target, beingUsedAsync) {
 
-            addStatus({target: user, status: "shattering_carapace", length: 2, noReact: true}); 
+		addStatus({target: user, status: "shattering_carapace", length: 2, noReact: true})
 
-            env.GENERIC_ACTIONS.teamWave({
-                team: user.team,
-                exec: (actor, i) => {
-                    if(actor.slug == user.slug) return
-                    addStatus({target: actor, origin: user, status: "redirection", length: 2}); 
-                    play('guard', 2, 0.75);
-                },
-                advanceAfterExec: true, beingUsedAsync, user,
-            })
-        }
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i) => {
+				if(actor.slug == user.slug) return
+				addStatus({target: actor, origin: user, status: "redirection", length: 2}) 
+				play('guard', 2, 0.75)
+			},
+			advanceAfterExec: true, beingUsedAsync, user,
+		})
 	}
 },
 
@@ -5235,17 +5234,16 @@ env.ACTIONS.graceful_heed = {
 	},
 	exec: function(user, target, beingUsedAsync) {
             
-            env.GENERIC_ACTIONS.teamWave({
-                team: user.team,
-                exec: (actor, i) => {
-					addStatus({target: user, status: "regen", length: 2, noReact: true}); 
-                    if(actor.slug == user.slug) return
-                    addStatus({target: actor, origin: user, status: "redirection", length: 2}); 
-                    play('guard', 2, 0.75);
-                },
-                advanceAfterExec: true, beingUsedAsync, user,
-            })
-        }
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i) => {
+				addStatus({target: user, status: "regen", length: 2, noReact: true}); 
+				if(actor.slug == user.slug) return
+				addStatus({target: actor, origin: user, status: "redirection", length: 2}); 
+				play('guard', 2, 0.75);
+			},
+			advanceAfterExec: true, beingUsedAsync, user,
+		})
 	}
 },
 
