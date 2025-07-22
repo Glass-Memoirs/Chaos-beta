@@ -595,7 +595,7 @@ env.COMBAT_COMPONENTS.stupidhorrible = {
         }
     },
     utility: {
-        alterations: [["evade", "puncture_bomb"]], //surging surge lmao. like yeah thats what it does - note::velnits lamet use to be called surging surge
+        alterations: [["evade", "puncture_bomb"]], 
         stats: {
             maxhp: 0
         }
