@@ -2534,12 +2534,12 @@ env.STATUS_EFFECTS.parry = {
 		GLOBAL_onTurn: function() { //"glass you didnt need to make an entire thing to remove all parries at the same time for a given team" the nefarious beast:
 			if (this.status.lastTeam == "undefined") {
 				this.status.lastTeam = "ally"
-			}
-			if (env.rpg.currentActor == env.rpg.allyTeam) {
-				this.status.lastTeam = this.status.currentTeam
-				this.status.currentTeam = "ally"
 			} else {
 				this.status.lastTeam = this.status.currentTeam
+			}
+			if (env.rpg.currentActor == env.rpg.allyTeam) {
+				this.status.currentTeam = "ally"
+			} else {
 				this.status.currentTeam = "enemy"
 			}
 			if (this.status.lastTeam != this.status.currentTeam) {
