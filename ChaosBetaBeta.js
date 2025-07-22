@@ -5049,20 +5049,20 @@ env.ACTIONS.graceful_beacon = {
 	type: "target",
 	details: {
 		flavor: "Shine bright my little star, Shine bright with His light and love",
-		onUse: "3x[STAT::amt]",
+		onUse: "up to 3x [STAT::amt]",
 		onCrit: "3X [STATUS::regen] or [STATUS::carapace]"
 	},
 	stats: {
 		amt: 1,
 		crit: 0.43,
-		accuracy: 0.43,
+		accuracy: 0.7,
 		status: {
 			regen: {name: "regen", length: 3},
 			carapace: {name: "carapace", length: 3}
 		}
 	},
 	exec: function(user,target) {
-		for (let i =0; i < 3; i++) {
+		for (let i = 0; i < 3; i++) {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: this,
 				user,
