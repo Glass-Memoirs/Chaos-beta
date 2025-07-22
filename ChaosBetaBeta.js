@@ -5057,21 +5057,21 @@ env.ACTIONS.graceful_beacon = {
 		crit: 0.43,
 		accuracy: 0.43,
 		status: {
-			regen: {name: "regen", length: 1},
-			carapace: {name: "carapace", length: 1}
+			regen: {name: "regen", length: 3},
+			carapace: {name: "carapace", length: 3}
 		}
 	},
 	exec: function(user,target) {
-		for (i =0; i < 3; i++) {
+		for (let i =0; i < 3; i++) {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: this,
 				user,
 				target,
 				critExec: () => {
 					if (Math.random() < 0.5) {
-						addStatus({target: user, status: "regen", length: 1})
+						addStatus({target: user, status: "regen", length: 3})
 					} else {
-						addStatus({target: user, status: "carapace",length: 1})
+						addStatus({target: user, status: "carapace",length: 3})
 					}
 				}
 			})
