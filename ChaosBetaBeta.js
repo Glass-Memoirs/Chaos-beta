@@ -978,7 +978,7 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "'Modify your stance';'tower over your foes'",
 	alterations: [["life_veilkstrider", "life_intimidating"]],
-	component: ["secondary", "life"],
+	component: ["uility", "life"],
 	cost: 2
 }
 //END OF AUGMENTS
