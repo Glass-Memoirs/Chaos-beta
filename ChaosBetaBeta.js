@@ -2526,13 +2526,35 @@ env.STATUS_EFFECTS.parry = {
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
 	events: {
 		GLOBAL_onAction: function({user, action, target, originalEventTarget}) { 
-			if(action.beneficial || target != this.status.affecting) return;
+			if(action.beneficial || target != this.status.affecting || !action.type.includes("target")) return;
 			if (target == this.status.affecting) {
 				useAction(target, action, user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "get parried fucko"})
 			}
 		},
-		onTurn: function() {
-			removeStatus(this.status.affecting, "parry")
+		GLOBAL_onTurn: function() { //"glass you didnt need to make an entire thing to remove all parries at the same time for a given team" the nefarious beast:
+			if (this.status.lastTeam == "undefined") {
+				this.status.lastTeam = "ally"
+			}
+			if (env.rpg.allyTeam.includes(env.rpg._currentActor)) {
+				this.status.currentTeam = "ally"
+			} else {
+				this.status.currentTeam = "enemy"
+			}
+			if (this.status.lastTeam != this.status.currentTeam) {
+				if (this.status.lastTeam == "ally") {
+					env.rpg.enemyTeam.forEach((actor, i) =>{
+						if (hasStatus(actor, "parry")) {
+							removeStatus(actor, "parry")
+						}
+					})
+				} else {
+					env.rpg.allyTeam.forEach((actor, i) =>{
+						if (hasStatus(actor, "parry")) {
+							removeStatus(actor, "parry")
+						}
+					})
+				}
+			}
 		}
 	}
 },
@@ -2555,7 +2577,7 @@ env.STATUS_EFFECTS.deflective_stance = {
 				this.status.incomingFlat = 0
 			}
 		},
-		onTurn: function() {
+		GLOABAL_onTurn: function() {
 			if (hasStatus(this.status.affecting, "parry")) {
 				this.status.incomingFlat = -9999999999999999999
 			} else {
