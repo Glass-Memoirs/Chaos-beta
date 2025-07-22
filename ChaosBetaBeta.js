@@ -2536,7 +2536,7 @@ env.STATUS_EFFECTS.life_amalgamate = {
 			}
 		}
 	}
-}
+},
 
 env.STATUS_EFFECTS.predation = {
 	slug: "predation",
@@ -5061,6 +5061,40 @@ env.ACTIONS.life_tuvazu = {
 				if (Math.random() < 0.1) {
 					addStatus({target: actor, status: "rot", length: 2})
 					addStatus({target: actor, status: "life_amalgamate", length: 2})
+				}
+			}
+		})
+	}
+},
+
+/*env.ACTIONS.life_entomb = {
+	slug: "life_entomb",
+	name: "Entomb"
+},*/
+
+env.ACTIONS.life_intimidating = {
+	slug: "life_intimidating",
+	name: "Intimidating Stance",
+	type: "support+self+autohit",
+	autohit: true,
+	details: {
+		flavor: "'modify to greatly increase size';'block incoming attacks and weaken blows of attackers'",
+		onUse: "ALLIES: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
+	},
+	stats: {
+		status: {
+			redirection: {name: "redirection", length: 2},
+			shattering_carapace: {name: "shattering_carapace", length: 2},
+		}
+	},
+	exec: function(user) {
+		env.GENERIC_ACTONS.teamWave({
+			team: user.allyTeam,
+			exec: (actor, i) => {
+				if (actor != user) {
+					addStatus({target: actor, status: "redirection", length: 2})
+				} else {
+					addStatus({target: user, status: "shattering_carapace", length: 2})
 				}
 			}
 		})
