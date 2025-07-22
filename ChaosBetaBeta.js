@@ -5102,11 +5102,11 @@ env.ACTIONS.life_tuvazu = {
 env.ACTIONS.life_intimidating = {
 	slug: "life_intimidating",
 	name: "Intimidating Stance",
-	type: "support+self+autohit",
+	type: "support+self+autohit+target",
 	autohit: true,
 	details: {
 		flavor: "'modify to greatly increase size';'block incoming attacks and weaken blows of attackers'",
-		onUse: "ALLIES: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
+		onUse: "ALLy: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
 	},
 	stats: {
 		status: {
@@ -5115,14 +5115,16 @@ env.ACTIONS.life_intimidating = {
 		}
 	},
 	exec: function(user, target) {
-		env.GENERIC_ACTIONS.teamWave({
-			team: user.team,
-			exec: (actor, i) => {
-				if (actor != user) {
-					addStatus({target: actor, status: "redirection", length: 2})
-				} else {
-					addStatus({target: user, status: "shattering_carapace", length: 2})
-				}
+		env.GENERIC_ACTIONS.singletarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: "redirection",
+				length: 2,
+			},
+			hitExec: ()=> {
+				addStatus({target: user, status: "shattering_carapace", length: 2})
 			}
 		})
 	}
