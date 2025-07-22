@@ -5102,11 +5102,11 @@ env.ACTIONS.life_tuvazu = {
 env.ACTIONS.life_intimidating = {
 	slug: "life_intimidating",
 	name: "Intimidating Stance",
-	type: "support+self+autohit+target",
+	type: "support+self+autohit",
 	autohit: true,
 	details: {
 		flavor: "'modify to greatly increase size';'block incoming attacks and weaken blows of attackers'",
-		onUse: "ALLy: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
+		onUse: "ALLIES: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
 	},
 	stats: {
 		status: {
@@ -5115,16 +5115,14 @@ env.ACTIONS.life_intimidating = {
 		}
 	},
 	exec: function(user, target) {
-		env.GENERIC_ACTIONS.singletarget({
-			action: this,
-			user,
-			target,
-			hitStatus: {
-				name: "redirection",
-				length: 2,
-			},
-			hitExec: ()=> {
-				addStatus({target: user, status: "shattering_carapace", length: 2})
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i) => {
+				if(actor != user) {
+					useAction(user, "guard", actor, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "we need redirection"})
+				} else {
+					addStatus({target: user, status: "shattering_carapace", length: 2})
+				}
 			}
 		})
 	}
@@ -5217,7 +5215,7 @@ env.ACTIONS.graceful_beacon = {
 env.ACTIONS.graceful_heed = {
 	slug: "graceful_heed",
 	name: "Heed",
-	type: "support+self+autohit",
+	type: "support+self+autohit+target",
 	autohit: true,
 	details: {
 		flavor: "Please... look away... I don't want you to look at me",
@@ -5233,11 +5231,11 @@ env.ACTIONS.graceful_heed = {
 		}
 	},
 	exec: function(user, target) {
-		env.GENERIC_ACTIONS.teamWave({
+		env.GENERIC_ACTIONS.single({
 			team: user.team,
 			exec: (actor, i) => {
 				if (actor != user) {
-					addStatus({target: actor, status: "redirection", length: 2})
+					useAction(user, "guard", actor, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "we need redirection"})
 					addStatus({target: actor, status: "regen", length: 2})
 				}
 			}
