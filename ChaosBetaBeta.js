@@ -2535,9 +2535,12 @@ env.STATUS_EFFECTS.parry = {
 			if (this.status.lastTeam == "undefined") {
 				this.status.lastTeam = "ally"
 			}
-			if (env.rpg.allyTeam.includes(env.rpg.currentActor.name)) {
+			let nameOfCurrentTurn = env.rpg.currentActor.name
+			if (env.rpg.allyTeam.includes(nameOfCurrentTurn)) {
+				this.status.lastTeam = this.status.currentTeam
 				this.status.currentTeam = "ally"
 			} else {
+				this.status.lastTeam = this.status.currentTeam
 				this.status.currentTeam = "enemy"
 			}
 			if (this.status.lastTeam != this.status.currentTeam) {
