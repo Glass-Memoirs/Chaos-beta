@@ -5286,6 +5286,30 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.life = {
       receive_repairs: ["mmm… feels safe-!"],
       receive_fear: ["e-eek-!","w-why are you so… big…?","i- I didn’t do anything!!!"],
       receive_redirection: ["r-really…?","t… thank you so much...", "you are really doing this…?","I will make sure you are all healthy for this!"],
+},
+
+env.COMBAT_ACTORS.generic.reactionPersonalities.Graceful= {
+      evade: ["ah…","no… not you…","no…"],
+    crit: ["let the silence consume you, taint...","your punishment is nigh…","for His glory…"],
+      crit_buff: ["end this taint, for Him...","leave nothing…","careful that you do not waste it…"],
+      miss: ["delayed…","it is all in His hands…"],
+      dead: ["let His glory shine on…"],
+      puncture: ["…pitiful…","let me show you His glory…"],
+      regen: ["His blessing…","His glory…","to you…"],
+      destabilized: ["see His light…","His glory shall guide you…"],
+      stun: ["shhh… He is guiding me","this will not go unforgiven…"],
+      laugh: ["…", "…","…","…I can hear His voice"],
+      sacrifice: ["it is His blessing he wishes for me to bestow upon you…"],
+      receive_hit: ["disregard yourself, taint…","i will not let your taint slip into my gift from Him…"],
+      receive_crit: ["He will punish you for this","you will pay for that…","your words shall not make me falter…"],
+      receive_puncture: ["nothing His light cannot fix…","His light shall fix this…"],
+      receive_buff: ["like His blessing to me…","His light shall shine upon you too…"],
+      receive_destabilized: ["He is…?","is… is that…?","He…? it cannot be…?"],
+      receive_rez: ["like a blessing from Him…"],
+      receive_carapace: ["He protects me, just as you do…", "like a gift from Him…"],
+      receive_repairs: ["He shall rebuilt your faith in him…"],
+      receive_fear: ["h…He will not falter…","i… i will not falter from His blessing","f-foul taint…"],
+      receive_redirection: ["He seems to have different plans for us, it seems…"],
 }
 
 //10. Combat Actors
