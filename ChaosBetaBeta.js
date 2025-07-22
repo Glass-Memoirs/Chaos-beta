@@ -2537,7 +2537,7 @@ env.STATUS_EFFECTS.parry = {
 			} else {
 				this.status.lastTeam = this.status.currentTeam
 			}
-			if (env.rpg.currentActor == env.rpg.allyTeam) {
+			if (env.rpg.currentActor.team == env.rpg.allyTeam) {
 				this.status.currentTeam = "ally"
 			} else {
 				this.status.currentTeam = "enemy"
