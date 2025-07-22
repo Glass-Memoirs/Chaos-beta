@@ -971,6 +971,16 @@ env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, 
 	component: ["primary", "life"],
 	cost: 2
 }
+
+env.ACTOR_AUGMENTS.generic.life_intimidating = {
+	slug: "life_intimidating",
+	name: "Intimidating Stance",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'Modify your stance';'tower over your foes'",
+	alterations: [["life_veilkstrider", "life_intimidating"]],
+	component: ["secondary", "life"],
+	cost: 2
+}
 //END OF AUGMENTS
 
 //COMBAT MODIFIERS
