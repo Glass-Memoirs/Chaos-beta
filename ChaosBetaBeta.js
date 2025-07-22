@@ -2544,13 +2544,13 @@ env.STATUS_EFFECTS.parry = {
 			}
 			if (this.status.lastTeam != this.status.currentTeam) {
 				if (this.status.lastTeam == "ally") {
-					env.rpg.enemyTeam.forEach((actor, i) =>{
+					env.rpg.enemyTeam.members.forEach((actor, i) =>{
 						if (hasStatus(actor, "parry")) {
 							removeStatus(actor, "parry")
 						}
 					})
 				} else {
-					env.rpg.allyTeam.forEach((actor, i) =>{
+					env.rpg.allyTeam.members.forEach((actor, i) =>{
 						if (hasStatus(actor, "parry")) {
 							removeStatus(actor, "parry")
 						}
