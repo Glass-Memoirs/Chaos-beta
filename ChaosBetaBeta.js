@@ -787,7 +787,7 @@ env.COMBAT_COMPONENTS.graceful = {
 		}
 	}
 }
-
+//END OF HUMORS
 //AUGMENTS
 /*
 + Yknow, you dont really need to look at these, they all do the same layout and are generally hard to break.
@@ -962,6 +962,17 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, seeing colors that science cant see. im on that ekivik shit, seeing a ton of fucking shapes (in the voice of they forgot i'm him guy)
+	slug: "life_tuvazu",
+	name: "Tuvazu imports",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'imported corrucystic sprouts directly from tuvazu';'melt away foes minds'",
+	alterations: [["life_seeding","life_tuvazu"]],
+	component: ["primary", "life"],
+	cost: 2
+}
+//END OF AUGMENTS
+
 //COMBAT MODIFIERS
 env.MODIFIERS.entropy_eternal = {
 	name: "Eternal Decay",
@@ -1028,6 +1039,7 @@ env.MODIFIERS.surging_second = {
 	}
 }
 
+//stupidhorrible
 env.MODIFIERS.stupidhorrible_bad = {
 	name: "GHATSHRGSGH BAD",
 	getHelp: ()=> {return env.STATUS_EFFECTS.stupidhorrible_bad.help},
@@ -1060,6 +1072,7 @@ env.MODIFIERS.stupidhorrible_hard ={
 	}
 }
 
+//smog
 env.MODIFIERS.smog_cut = {
 	name: "Cut Lungs",
 	getHelp: ()=> {return env.STATUS_EFFECTS.smog_cut.help},
@@ -1084,6 +1097,7 @@ env.MODIFIERS.maddening_apathy = {
 	}
 }
 
+//steel
 env.MODIFIERS.steel_false = {
 	name: "False-skin",
 	getHelp: ()=> {return env.STATUS_EFFECTS.steel_false.help},
@@ -1108,6 +1122,7 @@ env.MODIFIERS.maddening_ignorance = {
 	}
 }
 
+//life
 env.MODIFIERS.life_healing = {
 	name: "Healing Grounds",
 	getHelp:()=> {return env.STATUS_EFFECTS.life_healing.help},
@@ -1131,6 +1146,9 @@ env.MODIFIERS.life_transfer = {
 		all: [["STATUS", "life_social"]]
 	}
 }*/
+
+//END OF MODIFIERS
+
 //STATUS EFFECTS
 /*
 + Yeah these needed doccumenting
@@ -2499,6 +2517,27 @@ env.STATUS_EFFECTS.dulled_senses = {
 	}
 },
 
+env.STATUS_EFFECTS.life_amalgamate = {
+	slug: "life_amalgamate",
+	name: "Amalgamate",
+	benefcial: false,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "apply PUNCTURE equal to twice the turns of ROT",
+	events: {
+		onTurn: () => {
+			if(hasStatus(this.status.affecting, "rot")) {
+				addStatus({target: this.status.affecting, status: "puncture", length: 2*Math.floor(hasStatus(this.statusbar.affecting, "rot"))})
+			}
+		},
+		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
+			if(subject == this.status.affecting && removingStatusName == "rot") {
+				removeStatus(this.status.affecting, "life_amalgamate")
+			}
+		}
+	}
+}
+
 env.STATUS_EFFECTS.predation = {
 	slug: "predation",
 	name: "Predation",
@@ -2676,6 +2715,7 @@ env.STATUS_EFFECTS.tetration_shock = { //This was what spurred this entire idea.
 	},
 	help: "on next active targeted action, gain 4T:STUN and 5T:VULNERABLE, and use across the entire target team\nif beneficial, action used on all allies\nif offensive, action used on all foes"
 }
+//END OF STATUS EFFECTS
 
 //COMBAT ACTIONS
 //ENTROPY
@@ -4995,6 +5035,38 @@ env.ACTIONS.life_repairs = {
 	}
 },
 
+env.ACTIONS.life_tuvazu = {
+	slug: "life_tuvazu",
+	name: "Tuvazu Imports",
+	type: "target", //look this is done just to not run an autohit thing ok.
+	details: {
+		flavor: "'new plants that rot out anything';'make your foes rot'",
+		onHit: "ALL FOES: [STATS::amt], 60%[STATUS::fear], 10% chance for [STATUS::rot], [STATUS::life_amalgamate]",
+	},
+	stats: {
+		amt: 1,
+		status: {
+			rot: {name: "rot", length: 2},
+			fear: {name: "fear", length: 2},
+			life_amalgamate: {name: "life_amalgamate", length: 2}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.enemyTeam,
+			exec: (actor, i) => {
+				if (Math.random() < 0.6) {
+					addStatus({target: actor, status: "fear", length: 2})
+				}
+				if (Math.random() < 0.1) {
+					addStatus({target: actor, status: "rot", length: 2})
+					addStatus({target: actor, status: "life_amalgamate", length: 2})
+				}
+			}
+		})
+	}
+}
+
 env.ACTIONS.parry = {
 	slug: "parry",
 	name: "Parry",
@@ -5142,6 +5214,8 @@ env.ACTIONS.energizer = {
 		})
 	}
 },
+
+//END OF ACTIONS
 
 //Personality
 
@@ -5311,6 +5385,7 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.Graceful= {
       receive_fear: ["h…He will not falter…","i… i will not falter from His blessing","f-foul taint…"],
       receive_redirection: ["He seems to have different plans for us, it seems…"],
 }
+//END OF PERSONALITIES
 
 //10. Combat Actors
 
@@ -5463,6 +5538,7 @@ env.COMBAT_ACTORS.threat_bubble = {
 		`,
 	reactions: {} //SILENT CREATURE
 }*/
+//END OF ACTORS
 
 //Items
 env.ITEM_LIST.odd_battery = {
@@ -5491,7 +5567,7 @@ FishingMinigame.fishies.odd_battery = {
 		adjustMod: 1.1,
 	}
 }
-
+//END OF ITEMS
 //Merchant code
 for (const componentName of ["entropy"]) { // this probably isn't a function but i don't know where else to put it
      const component = env.COMBAT_COMPONENTS[componentName]
