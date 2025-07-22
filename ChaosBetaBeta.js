@@ -5115,7 +5115,7 @@ env.ACTIONS.life_intimidating = {
 		}
 	},
 	exec: function(user, target) {
-		env.GENERIC_ACTONS.teamWave({
+		env.GENERIC_ACTIONS.teamWave({
 			team: user.team,
 			exec: (actor, i) => {
 				if (actor != user) {
