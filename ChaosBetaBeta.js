@@ -5126,7 +5126,7 @@ env.ACTIONS.life_intimidating = {
 			}
 		})
 	}
-}
+},
 
 env.ACTIONS.parry = {
 	slug: "parry",
