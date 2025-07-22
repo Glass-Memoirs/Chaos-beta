@@ -2527,7 +2527,7 @@ env.STATUS_EFFECTS.life_amalgamate = {
 	events: {
 		onTurn: () => {
 			if(hasStatus(this.status.affecting, "rot")) {
-				addStatus({target: this.status.affecting, status: "puncture", length: 2*Math.floor(hasStatus(this.statusbar.affecting, "rot"))})
+				addStatus({target: this.status.affecting, status: "puncture", length: 2*Math.floor(hasStatus(this.status.affecting, "rot"))})
 			}
 		},
 		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
