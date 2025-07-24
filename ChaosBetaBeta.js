@@ -5135,8 +5135,8 @@ env.ACTIONS.life_entomb = {
 			target,
 			hitExec: (user,target) => {
 				addStatus({target: target, status: "million_teeth", length: 1})
-				target.bp = target.bp + 2
-				user.bp = user.bp + 2
+				target.bp = 2
+				user.bp = 2
 			}
 		}
 	}
