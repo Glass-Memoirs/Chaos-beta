@@ -4752,7 +4752,7 @@ env.ACTIONS.steel_strong_harmony = {
 	type: "target",
 	verb: "harmonize at",
 	details: {
-		flavor: "'Strike the notes';'the ranges ring out'",
+		flavor: "'Strike the notes';'the ranges ring out longer yet stronger'",
 		onUse: "'Randomize Action between: ALTO, SOPRANO, TENOR, HEAD-VOICE'"
 	},
 	stats: {
