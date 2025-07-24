@@ -4936,7 +4936,7 @@ env.ACTIONS.life_seeding = {
 	stats: {
 		accuracy: 0.75,
 		crit: 0.25,
-		amt: 1,
+		amt: 2,
 		status: {
 			madness: {name: "madness", showReference: true},
 			fear: {name: "fear", length: 4}
@@ -4973,10 +4973,10 @@ env.ACTIONS.life_ensnare = {
 	stats: {
 		accuracy: 0.9,
 		crit: 0.25,
-		amt: 1,
+		amt: 2,
 		status: {
-			vulnerable: {name: "vulnerable", length: 2},
-			stun: {name: "stun", showReference: true}
+			vulnerable: {name: "vulnerable", length: 3},
+			stun: {name: "stun", length: 2}
 		}
 	},
 	exec: function(user,target) {
@@ -4985,11 +4985,11 @@ env.ACTIONS.life_ensnare = {
 			user,
 			target,
 			hitExec: ()=> {
-				addStatus({target: target, status: "vulnerable", length: 2})
+				addStatus({target: target, status: "vulnerable", length: 3})
 			},
 			critExec: ()=> {
-				addStatus({target: target, status: "vulnerable", length: 2})
-				addStatus({target: target, status: "stun", length: 1})
+				addStatus({target: target, status: "vulnerable", length: 3})
+				addStatus({target: target, status: "stun", length: 2})
 			}
 		})
 	}
@@ -5048,7 +5048,7 @@ env.ACTIONS.life_repairs = {
 		amt: 0,
 		crit: 0,
 		status: {
-			regen: {name: "regen", length: 2}
+			regen: {name: "regen", length: 4}
 		}
 	},
 	exec: function(user,target) {
@@ -5058,7 +5058,7 @@ env.ACTIONS.life_repairs = {
 			target,
 			hitStatus: {
 				name: "regen",
-				length: 2
+				length: 4
 			}
 		})
 	}
