@@ -741,6 +741,7 @@ env.COMBAT_COMPONENTS.life = {
 	},
 	combatModifiers: ["life_healing", "life_transfer", /*"life_social"*/]
 }
+//END OF HUMORS
 
 //AUGMENTS
 /*
@@ -916,6 +917,37 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, seeing colors that science cant see. im on that ekivik shit, seeing a ton of fucking shapes (in the voice of they forgot i'm him guy)
+	slug: "life_tuvazu",
+	name: "Tuvazu imports",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'imported corrucystic sprouts directly from tuvazu';'melt away foes minds'",
+	alterations: [["life_seeding","life_tuvazu"]],
+	component: ["primary", "life"],
+	cost: 2
+}
+
+env.ACTOR_AUGMENTS.generic.life_entomb = {
+	slug: "life_entomb",
+	name: "Entomb",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	descrption: "'teach the roots how to overtake';'let them rip into the shell'",
+	alterations: [["life_ensnare","life_entomb"]],
+	component: ["secondary", "life"],
+	cost: 2
+}
+
+env.ACTOR_AUGMENTS.generic.life_intimidating = {
+	slug: "life_intimidating",
+	name: "Intimidating Stance",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'Modify your stance';'tower over your foes'",
+	alterations: [["life_veilkstrider", "life_intimidating"]],
+	component: ["utility", "life"],
+	cost: 2
+}
+//END OF AUGMENTS
+
 //COMBAT MODIFIERS
 env.MODIFIERS.entropy_eternal = {
 	name: "Eternal Decay",
@@ -1085,6 +1117,8 @@ env.MODIFIERS.life_transfer = {
 		all: [["STATUS", "life_social"]]
 	}
 }*/
+//END OF MODIFIERS
+
 //STATUS EFFECTS
 /*
 + Yeah these needed doccumenting
@@ -2578,6 +2612,7 @@ env.STATUS_EFFECTS.tetration_shock = { //This was what spurred this entire idea.
 	},
 	help: "on next active targeted action, gain 4T:STUN and 5T:VULNERABLE, and use across the entire target team\nif beneficial, action used on all allies\nif offensive, action used on all foes"
 }
+//END OF STATUS EFFECTS
 
 //COMBAT ACTIONS
 //ENTROPY
@@ -4902,6 +4937,100 @@ env.ACTIONS.life_repairs = {
 	}
 },
 
+env.ACTIONS.life_tuvazu = {
+	slug: "life_tuvazu",
+	name: "Tuvazu Imports",
+	type: "target", //look this is done just to not run an autohit thing ok.
+	details: {
+		flavor: "'new plants that rot out anything';'make your foes rot'",
+		onHit: "ALL FOES: [STATS::amt], 60%[STATUS::fear], 10% chance for [STATUS::rot], [STATUS::life_amalgamate]",
+	},
+	stats: {
+		amt: 1,
+		status: {
+			rot: {name: "rot", length: 2},
+			fear: {name: "fear", length: 2},
+			life_amalgamate: {name: "life_amalgamate", length: 2}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.enemyTeam,
+			exec: (actor, i) => {
+				if (Math.random() < 0.6) {
+					addStatus({target: actor, status: "fear", length: 2})
+				}
+				if (Math.random() < 0.1) {
+					addStatus({target: actor, status: "rot", length: 2})
+					addStatus({target: actor, status: "life_amalgamate", length: 2})
+				}
+			}
+		})
+	}
+},
+
+env.ACTIONS.life_entomb = {
+	slug: "life_entomb",
+	name: "Entomb",
+	type: "target",
+	details: {
+		flavor: "'strengthen vines to withold foes';'tear into them with the roots';'IMPORTANT: theres no crit'",
+		onhit: "[STATS::amt], [STATUS::million_teeth], FOE+USER: [STATS:amtBP]"
+	},
+	stats: {
+		amt: 4,
+		amtBP: 2,
+		crit: 0,
+		accuracy: 0.6,
+		status: {
+			million_teeth: {name: "million_teeth", length: 1}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget = {
+			action: this,
+			user,
+			target,
+			hitExec: (user,target) => {
+				addStatus({target: target, status: "million_teeth", length: 1})
+				target.bp = target.bp + 2
+				user.bp = user.bp + 2
+			}
+		}
+	}
+},
+
+env.ACTIONS.life_intimidating = {
+	slug: "life_intimidating",
+	name: "Intimidating Stance",
+	type: "support+self+autohit",
+	autohit: true,
+	details: {
+		flavor: "'modify to greatly increase size';'block incoming attacks and weaken blows of attackers'",
+		onUse: "ALLIES: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
+	},
+	stats: {
+		status: {
+			redirection: {name: "redirection", length: 2},
+			shattering_carapace: {name: "shattering_carapace", length: 2},
+		}
+	},
+	exec: function(user, target, beingUsedAsync) {
+
+		addStatus({target: user, status: "shattering_carapace", length: 2, noReact: true})
+
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.team,
+			exec: (actor, i) => {
+				if(actor.slug == user.slug) return
+				addStatus({target: actor, origin: user, status: "redirection", length: 2}) 
+				play('guard', 2, 0.75)
+			},
+			advanceAfterExec: true, beingUsedAsync, user,
+		})
+	}
+},
+
 env.ACTIONS.parry = {
 	slug: "parry",
 	name: "Parry",
@@ -4953,9 +5082,9 @@ env.ACTIONS.energizer = {
 		})
 	}
 },
+//END OF ACTIONS
 
 //Personality
-
 env.COMBAT_ACTORS.generic.reactionPersonalities.entropy = {
 	evade: ["..."],
     crit: [ "get bent", "time ever winds, but yours shall be cut short"],
@@ -5098,9 +5227,9 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.life = {
       receive_fear: ["e-eek-!","w-why are you so… big…?","i- I didn’t do anything!!!"],
       receive_redirection: ["r-really…?","t… thank you so much...", "you are really doing this…?","I will make sure you are all healthy for this!"],
 }
+//END OF PERSONALITY
 
 //10. Combat Actors
-
 env.COMBAT_ACTORS.immobile_actor = {
 	name: "immobile critta",
 	maxhp: 15,
@@ -5250,6 +5379,7 @@ env.COMBAT_ACTORS.threat_bubble = {
 		`,
 	reactions: {} //SILENT CREATURE
 }*/
+//END OF ACTORS
 
 //Items
 env.ITEM_LIST.odd_battery = {
@@ -5278,6 +5408,7 @@ FishingMinigame.fishies.odd_battery = {
 		adjustMod: 1.1,
 	}
 }
+//END OF ITEMS
 
 //Merchant code
 for (const componentName of ["entropy"]) { // this probably isn't a function but i don't know where else to put it

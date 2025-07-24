@@ -972,6 +972,16 @@ env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, 
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.life_entomb = {
+	slug: "life_entomb",
+	name: "Entomb",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	descrption: "'teach the roots how to overtake';'let them rip into the shell'",
+	alterations: [["life_ensnare","life_entomb"]],
+	component: ["secondary", "life"],
+	cost: 2
+}
+
 env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	slug: "life_intimidating",
 	name: "Intimidating Stance",
@@ -5101,10 +5111,36 @@ env.ACTIONS.life_tuvazu = {
 	}
 },
 
-/*env.ACTIONS.life_entomb = {
+env.ACTIONS.life_entomb = {
 	slug: "life_entomb",
-	name: "Entomb"
-},*/
+	name: "Entomb",
+	type: "target",
+	details: {
+		flavor: "'strengthen vines to withold foes';'tear into them with the roots';'IMPORTANT: theres no crit'",
+		onhit: "[STATS::amt], [STATUS::million_teeth], FOE+USER: [STATS:amtBP]"
+	},
+	stats: {
+		amt: 4,
+		amtBP: 2,
+		crit: 0,
+		accuracy: 0.6,
+		status: {
+			million_teeth: {name: "million_teeth", length: 1}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget = {
+			action: this,
+			user,
+			target,
+			hitExec: (user,target) => {
+				addStatus({target: target, status: "million_teeth", length: 1})
+				target.bp = target.bp + 2
+				user.bp = user.bp + 2
+			}
+		}
+	}
+},
 
 env.ACTIONS.life_intimidating = {
 	slug: "life_intimidating",
