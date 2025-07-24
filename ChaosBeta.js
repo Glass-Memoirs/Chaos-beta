@@ -931,7 +931,7 @@ env.ACTOR_AUGMENTS.generic.life_entomb = {
 	slug: "life_entomb",
 	name: "Entomb",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	descrption: "'teach the roots how to overtake';'let them rip into the shell'",
+	description: "'teach the roots how to overtake';'let them rip into the shell'",
 	alterations: [["life_ensnare","life_entomb"]],
 	component: ["secondary", "life"],
 	cost: 2
