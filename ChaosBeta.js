@@ -3691,7 +3691,7 @@ env.ACTIONS.stupidhorrible_claymore = {
 	details: {
 		flavor: "'Lets do it!';'Not one of yas gonna survive this!'",
 		onHit: "'[STAT::amt]'",
-		onCrit: "'[STATUS::puncture]'",
+		onCrit: "USER+TARGET:'[STATUS::puncture]'",
 	},
 	stats:{
 		amt: 3,
@@ -3708,8 +3708,9 @@ env.ACTIONS.stupidhorrible_claymore = {
 			target,
 			hitSfx: { name: "shot4"},
 			critSfx: { name: "shot4" },
-			critExec: ({user}) => {
+			critExec: ({user,target}) => {
 				addStatus({target: user, status: "puncture", length: 5})
+				addStatus({target: target, status: "puncture", length: 5})
 			}
 		})
 	}
