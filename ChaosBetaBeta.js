@@ -4899,6 +4899,7 @@ env.ACTIONS.steel_strong_harmony = {
 env.ACTIONS.shiny_reflection = {
 	slug: "shiny_reflection",
 	name: "Shiny Reflection",
+	type: "target",
 	details: {
 		flavor: "'a bright day';'it feels freeing'",
 		onUse: "[STATUS::glow]",
