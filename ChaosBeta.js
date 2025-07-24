@@ -4987,7 +4987,7 @@ env.ACTIONS.life_entomb = {
 		}
 	},
 	exec: function(user, target) {
-		env.GENERIC_ACTIONS.singleTarget = {
+		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
 			target,
@@ -4996,7 +4996,7 @@ env.ACTIONS.life_entomb = {
 				target.bp = target.bp + 2
 				user.bp = user.bp + 2
 			}
-		}
+		})
 	}
 },
 
