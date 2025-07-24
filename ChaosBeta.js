@@ -2041,7 +2041,7 @@ env.STATUS_EFFECTS.muted = {
 	events: {
 		onBeforeAction: function(context) {
 			if (Math.random() < 0.23) {
-				context.settings.action = env.ACTIONS["nothing"]
+				advanceTurn()
 			}
 		} 
 	},
