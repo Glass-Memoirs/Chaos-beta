@@ -3962,8 +3962,9 @@ env.ACTIONS.smog_minute = {
 		amt: 2
 	},
 	exec: function(user,target) {
-		if (target.name.includes("Elsen")) {
+		if (["elsen","Elsen","ELsen","ELSEN"].includes(target.name)) {
 			addStatus({target: user, status: "regen", length: 2})
+			console.log("Elsen was struck lmao")
 		}
 		env.GENERIC_ACTIONS.singleTarget({
 			action:this,
@@ -3997,7 +3998,6 @@ env.ACTIONS.smog_hour = {
 		}
 	},
 	exec: function(user,target) {
-		let NameCheck = target
 		if (["elsen","Elsen","ELsen","ELSEN"].includes(target.name)) {
 			addStatus({target: user, status: "regen", length: 3})
 			console.log("Elsen was struck lmao")
