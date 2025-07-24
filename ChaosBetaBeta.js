@@ -3915,7 +3915,7 @@ env.ACTIONS.stupidhorrible_taunt = {
 	details: {
 		flavor: "'So Tall you fine dandies so proud, so cocksure!';'Prancin aboot with your heads full of eyeballs!';'Come and get me I say!'",
 		onUse: "'-[STATUS::windup]'",
-		onHit: "'[STAT::amt]'",
+		onHit: "'[STAT::amt], [STATUS::focused]'",
 		onCrit: "'[STATUS::empowered]'",
 	},
 	stats:{
@@ -3923,7 +3923,8 @@ env.ACTIONS.stupidhorrible_taunt = {
 		crit: 0.1,
 		status: {
 			windup: {name: "windup", showReference: true},
-			empowered: {name: "empowered", length: 3},
+			empowered: {name: "empowered", length: 5},
+			focused: {name: "focused", length: 4}
 		},
 	},
 	exec: function(user,target) {
@@ -3932,8 +3933,11 @@ env.ACTIONS.stupidhorrible_taunt = {
 			action: this,
 			user,
 			target,
-			critexec: ({target}) => {
-				addStatus({target: user, status: "empowered", length: 3})
+			hitExec: ({user}) => {
+				addStatus({target: user, status: "focused", length: 4})
+			},
+			critexec: ({user}) => {
+				addStatus({target: user, status: "empowered", length: 5})
 			},
 		})
 	}
