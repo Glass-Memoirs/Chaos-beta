@@ -2488,6 +2488,44 @@ env.STATUS_EFFECTS.dulled_senses = {
 	}
 },
 
+env.STATUS_EFFECTS.life_amalgamate = {
+	slug: "life_amalgamate",
+	name: "Amalgamate",
+	beneficial: false,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "apply PUNCTURE equal to twice the turns of ROT",
+	events: {
+		onTurn: () => {
+			if(hasStatus(this.status.affecting, "rot")) {
+				addStatus({target: this.status.affecting, status: "puncture", length: 2*Math.floor(hasStatus(this.status.affecting, "rot"))})
+			}
+		},
+		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
+			if(subject == this.status.affecting && removingStatusName == "rot") {
+				removeStatus(this.status.affecting, "life_amalgamate")
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.shattering_carapace = {
+	slug: "shattering_carapace",
+	name: "Shattering Carapace",
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "Half all incoming damage and healing, attackers gain +2T WEAKENED and -2HP",
+	incomingMult: -0.5,
+	events: {
+		onStruck: function({subject, beneficial}) {
+			if(!beneficial) {
+				addStatus({target: subject, status: "weakened", length: 2})
+				combatHit(subject, {amt: 1, autohit: true, redirectable: false})
+			}
+		}
+	}
+},
+
 env.STATUS_EFFECTS.predation = {
 	slug: "predation",
 	name: "Predation",
