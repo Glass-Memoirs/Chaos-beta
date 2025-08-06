@@ -785,7 +785,8 @@ env.COMBAT_COMPONENTS.graceful = {
 		stats: {
 			maxhp: 3
 		}
-	}
+	},
+	combatModifiers: ["graceful_safezone"]
 }
 //END OF HUMORS
 //AUGMENTS
@@ -1166,6 +1167,14 @@ env.MODIFIERS.life_transfer = {
 		all: [["STATUS", "life_social"]]
 	}
 }*/
+//graceful
+env.MODIFIERS.graceful_safezone = {
+	name: "Graceful Safezone",
+	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_safezone.help},
+	alterations: {
+		all: [["STATUS", "graceful_safezone"],["ADD","parry"]]
+	}
+}
 
 //END OF MODIFIERS
 
@@ -2648,6 +2657,32 @@ env.STATUS_EFFECTS.deflective_stance = {
 	grantsActions: ["parry"],
 	help: "gives move PARRY, nullifies all incoming damage while PARRY is active",
 	impulse: {type: "common", component: "graceful"},
+	events: { //god this code prolly is bad, unfortunately i think it has to be like this to make the checks work
+		onAddStatus: function({statusObj}) {
+			if(statusObj.slug == "parry") {
+				this.status.incomingFlat = -9999999999999999999
+			} else {
+				this.status.incomingFlat = 0
+			}
+		},
+		GLOABAL_onTurn: function() {
+			if (hasStatus(this.status.affecting, "parry")) {
+				this.status.incomingFlat = -9999999999999999999
+			} else {
+				this.status.incomingFlat = 0
+			}
+		}
+	}
+},
+
+env.STATUS_EFFECTS.graceful_safezone = {
+	slug: "graceful_safezone",
+	name: "Safezone",
+	beneficial: true,
+	infinite: true,
+	passive: "modifier",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "Grant all actors PARRY", //im so not sorry about this, if you get your shit wrecked by a parry i will laugh.
 	events: { //god this code prolly is bad, unfortunately i think it has to be like this to make the checks work
 		onAddStatus: function({statusObj}) {
 			if(statusObj.slug == "parry") {
