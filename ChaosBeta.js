@@ -920,7 +920,7 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, seeing colors that science cant see. im on that ekivik shit, seeing a ton of fucking shapes (in the voice of they forgot i'm him guy)
 	slug: "life_tuvazu",
 	name: "Tuvazu imports",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
 	description: "'imported corrucystic sprouts directly from tuvazu';'melt away foes minds'",
 	alterations: [["life_seeding","life_tuvazu"]],
 	component: ["primary", "life"],
@@ -930,7 +930,7 @@ env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, 
 env.ACTOR_AUGMENTS.generic.life_entomb = {
 	slug: "life_entomb",
 	name: "Entomb",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeBramble.gif",
 	description: "'teach the roots how to overtake';'let them rip into the shell'",
 	alterations: [["life_ensnare","life_entomb"]],
 	component: ["secondary", "life"],
@@ -940,7 +940,7 @@ env.ACTOR_AUGMENTS.generic.life_entomb = {
 env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	slug: "life_intimidating",
 	name: "Intimidating Stance",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/life/lifeVeilk.gif",
 	description: "'Modify your stance';'tower over your foes'",
 	alterations: [["life_veilkstrider", "life_intimidating"]],
 	component: ["utility", "life"],
@@ -1956,7 +1956,7 @@ env.STATUS_EFFECTS.clouded_lungs = {
 			}
 		}
 	},
-	help: "'actions have a chance to become COUGH, the chance scales with the ammount applied'"
+	help: "'actions have a chance to become COUGH, chance scales with ammount applied'"
 },
 
 env.STATUS_EFFECTS.ashen_hands = {
@@ -2312,7 +2312,7 @@ env.STATUS_EFFECTS.life_healing = {
 	name: "Healing Grounds",
 	beneficial: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeHands.gif",
 	help: "Makes Regen permanent, and gives Bash",
 	events: {
 		onAddStatus: function({statusObj}) {
@@ -2352,7 +2352,7 @@ env.STATUS_EFFECTS.life_transfer = {
 	name: "Transfered Lifeforce",
 	beneficial: false,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTransfer.gif",
 	help: "when ally dies, revive random actor",
 	inUse: false,
 	events: {
@@ -2425,7 +2425,7 @@ env.STATUS_EFFECTS.deft = {
 	slug: "deft",
 	name: "Deft",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeVeilk.gif",
 	infinite: true,
 	help: "-50% IN:HIT & IN:CRIT, +%50% OUT:CRIT;REMOVED BY FOE CRIT",
 	incomingToHit: -0.5,
@@ -2446,7 +2446,7 @@ env.STATUS_EFFECTS.life_herb = {
 	name: "Herbal Aid",
 	beneficial: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
 	help: "'Grants the action FIELD REPAIRS'",
 	grantsActions: ["life_repairs"],
 	impulse: {type: "common", component: "life"}
@@ -2457,7 +2457,7 @@ env.STATUS_EFFECTS.vicious_senses = {
 	name: "Vicious Senses",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeParasite.gif",
 	opposite: "dulled_senses", //YPOOO HOLY SHIT ITS THE DULL
 	help: "outgoing damage increased by 50%, removed when focused is removed",
 	outgoingMult: 0.5,
@@ -2513,7 +2513,7 @@ env.STATUS_EFFECTS.shattering_carapace = {
 	slug: "shattering_carapace",
 	name: "Shattering Carapace",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeVeilk.gif",
 	help: "Half all incoming damage and healing, attackers gain +2T WEAKENED and -2HP",
 	incomingMult: -0.5,
 	events: {
@@ -2531,7 +2531,7 @@ env.STATUS_EFFECTS.predation = {
 	name: "Predation",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeParasite",
 	impulse: {type: "common", component: "life"},
 	help: "when focus is put on this shell, apply VICIOUS SENSES",
 	events: {
@@ -3160,8 +3160,8 @@ env.ACTIONS.back_to_stage = {
 	beneficial: true,
 	details: {
 		flavor: "'oh not just yet!';'you cannot be unable to dance now!';'far too important for you to leave so early!'",
-		onHit: "'[STAT::amt]';'If [STATUS::stun] then +1-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if no [STATUS::stun] then 1T:[STATUS::evasion]'",
-		onCrit: "'if [STATUS::stun] then +2-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if no [STATUS::stun] then 3T:[STATUS::evasion]'",
+		onHit: "'[STAT::amt]';'If target has [STATUS::stun], then apply +1-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if target has no [STATUS::stun] then give 1T:[STATUS::evasion]'",
+		onCrit: "'if target has [STATUS::stun], then apply 2-3T:[STATUS::rot]/[STATUS::destabilized]/[STATUS::vulnerable]/[STATUS::puncture]';'if target has no [STATUS::stun] then give 3T:[STATUS::evasion]'",
 	},
 	usage: {
 		act: "%USER FORCES %TARGET TO KEEP ACTING",
@@ -3280,7 +3280,7 @@ env.ACTIONS.velnits_lament = {
 	//help: "IF TEAMMATE: -SURGE +WILD SURGE\nIF SELF: -SURGE +WILDSURGE +1T STUN +2T VULNERABLE",
 	details: {
 		flavor: "'O, so my act come to an end';'a well earned break from this play!';'for you however';'must pick up the pace!'",
-		onHit: "'TEAMMATE: -[STATUS::surge] +[STATUS::wild_surge]';'SELF: -[STATUS::surge] +[STATUS::stun] +[STATUS::vulnerable] +[STATUS::wild_surge]'",
+		onHit: "'TEAMMATE: -[STATUS::surge] +[STATUS::wild_surge]';'SELF: +[STATUS::stun] +[STATUS::vulnerable] +[STATUS::wild_surge]'",
 	},
 	usage: {
 		act: "%USER SACRIFICES A BIT OF THEIRSELF",
@@ -3991,7 +3991,7 @@ env.ACTIONS.btgothwar = {
 	},
 	usage: {
 		act: "%USER READIES THE ROCK",
-		crit: "%TARGET GETS FUCKING BLUDGEONED",
+		crit: "%TARGET GETS FUCKING BLUDGEONED AS %USER RELEASES THEIR INNER CAIN",
 		hit: "%TARGET GETS BONKED",
 		miss: "%USER FUCKING FUMBLES AND FALLS BACKWARDS"
 	},
@@ -5248,7 +5248,7 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.life = {
       crit_buff: ["try not to hurt them too much-!","dont hurts them badly!","careful with that!"],
       miss: ["y-your welcome!!","cant we just be friends-?"],
       dead: ["o-oh…"],
-      puncture: ["ah-","ill have to patch this up…"],
+      puncture: ["ah-","ill have to patch you up…"],
       regen: ["here you are!","try not to get hurt next time-!"],
       destabilized: ["w… why can’t we be friends…?","im trying to help-!!"],
       stun: ["whoops… sorry-!","please stop hurting eachother-!!"],
@@ -5614,3 +5614,4 @@ for (const componentName of ["life"]) {
 console.log("LOADED::CHAOS+ 'go forth and kill bestie'")
 }
 //Hi yeah if you scrolled all the way down here nice lmao.
+//hi! I (:3) am also here lol
