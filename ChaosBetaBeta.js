@@ -2743,9 +2743,9 @@ env.STATUS_EFFECTS.consequence_spread = {
 	events: {
 		onStruck: function({subject, beneficial}) {
 			if(!beneficial) {
-				this.status.affecting.team.forEach((members, i) => {
-					if(i.state == "living") {
-						addStatus({target: i, status: "rot", length: 1})
+				this.status.affecting.team.forEach((member, i) => {
+					if(member.state == "living") {
+						addStatus({target: member, status: "rot", length: 1})
 					}
 				})
 			}
