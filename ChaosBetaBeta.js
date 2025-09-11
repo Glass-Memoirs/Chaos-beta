@@ -2701,6 +2701,57 @@ env.STATUS_EFFECTS.graceful_safezone = {
 	}
 },
 
+env.STATUS_EFFECTS.spraying = {
+	slug: "spraying",
+	name: "Spraying",
+	beneficial: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onAddStatus: function({statusObj}) {
+			if(statusObj.slug == "spraying") {
+				this.status.incomingMult = 0.5
+				this.status.outgoingMult = 0.5
+			} else {
+				this.status.incomingMult = 0
+				this.status.outgoingMult = 0
+			}
+		},
+		GLOBAL_onTurn: function() {
+			if (hasStatus(this.status.affecting, "spraying")) {
+				this.status.incomingMult = 0.5
+				this.status.outgoingMult = 0.5
+			} else {
+				this.status.incomingMult = 0
+				this.status.outgoingMult = 0
+			}
+		},
+		GLOBAL_onAction: function({user, action, target, originalEventTarget}) {
+			if(user == this.status.affecting){
+				removeStatus(user, "spraying")
+			}
+		}
+	},
+	help: "+50% incoming/outgoing damage, lost when another action is used"
+},
+
+env.STATUS_EFFECTS.consequence_spread = {
+	slug: "consequence_spread",
+	name: "Consequence Spread",
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onStruck: function({subject, beneficial}) {
+			if(!beneficial) {
+				this.status.affecting.team.forEach((members, i) => {
+					addStatus({target: i, status: "rot", length: 1})
+				})
+			}
+		}
+	},
+	help: "When affected actor struck, give 1T:ROT to actor's team"
+},
+
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
