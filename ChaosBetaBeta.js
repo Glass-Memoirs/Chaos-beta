@@ -483,6 +483,16 @@ if (page.path == '/local/beneath/embassy/') {
     	--accent-color: var(--neutral-color);
     	--font-color: var(--fundfriend-color);
 	}
+	[component="kivcria"] {
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/Kivcria.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumorr.gif);
+    	--background-size: auto;
+    	--background-position: center;
+    	--background-color: var(--dark-color);
+    	--accent-color: var(--bastard-color);
+    	--font-color: var(--bastard-color);
+	}
 	</style>`);
 
 //FUNCTIONS
@@ -788,6 +798,33 @@ env.COMBAT_COMPONENTS.graceful = {
 	},
 	combatModifiers: ["graceful_safezone"]
 }
+
+env.COMBAT_COMPONENTS.kivcria = {
+     name: "Kivcria",
+     slug: "kivcria",
+     description: "'Protection and safety';'well-meaning but paranoid'",
+     help: "'sheer force';'devastation';'clearing sweeps'",
+
+     primary: {
+          alterations: [["primary","kivcria_claw"]], //rending claw
+          stats: {
+               maxhp: 5
+          }
+     },
+     secondary: {
+          alterations: [["secondary","kivcria_lure"]], //rotten lure
+          stats: {
+               maxhp: 5
+          }
+     },
+     utility: {
+          alterations: [["evade","kivcria_cyurtil"]], //same
+          stats: {
+               maxhp: 7
+          }
+     },
+     combatModifiers: ["kivcria_wallrot", "kivcria_rot", "kivcria_decay"] //wall-rot, rotten wounds, tendrils decay
+}
 //END OF HUMORS
 //AUGMENTS
 /*
@@ -992,6 +1029,36 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	component: ["utility", "life"],
 	cost: 2
 }
+env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
+	slug: "kivcria_fairylight",
+	name: "Fairylight",
+	image: "/img/sprites/combat/augs/cripple.gif",
+	description: "'barrel into foes with great energy';'half beneficial effects for power'",
+	alterations: [["kivcria_claw", "kivcria_fairylight"]],
+	component: ["primary", "kivcria"],
+	cost: 2
+}
+
+env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
+	slug: "kivcria_sopre",
+	name: "Sporeburst",
+	image: "/img/sprites/combat/augs/barrier.gif",
+	description: "'Use stored secri-containing bulbs to seed enviroment','rot through friend and foe allike'",
+	alterations: [["kivcria_lure", "kivcria_spore"]],
+	component: ["secondary", "kivcria"],
+	cost: 2
+}
+
+env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
+    slug: "kivcria_cavernclear",
+    name: "Cavern-clear",
+    image: "/img/sprites/combat/augs/cripple.gif",
+    description: "'Experimental dull-pulse augmented sprayer';'used in an attempt to reclaim parts of Tuvazu from extreme parasite infection';'did not work'",
+    alterations: [["kivcria_cyurtil", "kivcria_cavernclear"]],
+    component: ["utility", "kivcria"],
+    cost: 2
+}
+
 //END OF AUGMENTS
 
 //COMBAT MODIFIERS
