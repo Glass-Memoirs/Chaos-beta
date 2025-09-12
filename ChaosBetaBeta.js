@@ -154,7 +154,10 @@ humors
         surging<+>loop
             EXEC::change("e3a2_newcomp", "surging")
             HIDEREAD::
-
+        kivcria<+>loop
+            EXEC::change("e3a2_newcomp", "kivcria")
+            HIDEREAD::
+			
 fish
     basterminal
         select fish spawn rate
@@ -248,6 +251,14 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 			"hideRead":true
 		})
 		}
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("kivcria")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"kivcria",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","kivcria")'),
+			"hideRead":true
+		})
+		}
 	if(!env.dialogues["dreammod"].sfer.responses[0].replies.includes("mod tester's delight (999)")) {
 	env.dialogues["dreammod"].sfer.responses[0].replies.push({
 		"name":"mod tester's delight (999)",
@@ -277,6 +288,7 @@ if(page.party){
 			page.flags.components.steel = 30
 			page.flags.components.life = 30
 			page.flags.components.graceful = 30
+			page.flags.components.kivcria = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -308,6 +320,7 @@ if(page.party){
 			page.flags.components.steel = 3
 			page.flags.components.life = 3
 			page.flags.components.graceful = 3
+			page.flags.components.kivcria = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -388,6 +401,15 @@ if(page.party){
 				member.components["utility"]="graceful"
 			})
 		}
+		case "kivcria":
+			page.flags.components = { kivcria: 12 }
+
+			page.party.forEach(member=>{
+				member.components["primary"] = "kivcria"
+				member.components["secondary"] = "kivcria"
+				member.components["utility"] = "kivcria"
+			})
+			break
 
 	}
 if (page.path == '/local/beneath/embassy/') {
