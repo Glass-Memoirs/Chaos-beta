@@ -16,7 +16,7 @@ CREATORS:
  - Mewo for helping with StupidHorrible text, and for making that humor's personality (thx so much mewo u tha goat :3)
  - Luna from the sunset system for the updated battery image!
  PLAYTESTERS:
-I - JUNE, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME), MOTH_GELI
+I - THE FACTORY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME), MOTH_GELI
  SECTIONS:
  1. Dialogue changing
  2. CSS
