@@ -4333,6 +4333,7 @@ env.ACTIONS.smog_minute = {
 			hitExec: ({target}) => {
 				if (this.minute = 4) {
 					amt = this.status.amt + 4
+					this.minute = 0
 				}
 				this.minute = this.minute + 1
 			}
