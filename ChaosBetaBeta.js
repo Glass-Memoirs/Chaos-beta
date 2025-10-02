@@ -4332,8 +4332,8 @@ env.ACTIONS.smog_minute = {
 			target,
 			hitExec: ({target}) => {
 				if (this.minute = 4) {
-					amt = this.status.amt + 4
-					this.minute = 0
+					amt = this.stats.amt + 4
+					this.minute = 1
 				}
 				this.minute = this.minute + 1
 			}
@@ -4346,6 +4346,10 @@ env.ACTIONS.smog_hour = {
 	name: "Winking Hand",
 	type: "target",
 	verb: "time",
+	minute: 1,
+	hour: 1,
+	meridian: 1,
+	second: 1,
 	details: {
 		flavor: "'Much stronger';'has a chance to stun now'",
 		onHit: "'[STAT::amt]'",
@@ -4369,6 +4373,7 @@ env.ACTIONS.smog_hour = {
 			addStatus({target: user, status: "regen", length: 3})
 			console.log("Elsen was struck lmao")
 		}
+		amt = this.stats.amt
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4378,6 +4383,23 @@ env.ACTIONS.smog_hour = {
 				if (target.name.includes("Elsen")) {
 					addStatus({target: user, status: "regen", length: 1})
 				}
+				if (this.second = 3) {
+					this.second = 1
+				}
+				if (this.minute = 4) {
+					this.minute = 1
+					amt = this.stats.amt + 4
+				}
+				if (this.hour = 6) {
+					this.hour = 1
+				}
+				if (this.meridian = 12) {
+					this.meridian = 1
+				}
+				this.minute = this.minute + 1
+				this.hour = this.hour + 1
+				this.meridian = this.meridian + 1
+				this.second = this.second + 1
 			},
 			critExec: ({target}) => {
 				if (target.name.includes("Elsen")) {
