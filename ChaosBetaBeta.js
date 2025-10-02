@@ -4305,6 +4305,7 @@ env.ACTIONS.smog_minute = {
 	name: "Blinking Hand",
 	type: "target",
 	verb: "time",
+	minute: 1,
 	details: {
 		flavor: "'A mediocre impact';'but still a timely one'",
 		onHit: "'[STAT::amt]'",
@@ -4324,10 +4325,17 @@ env.ACTIONS.smog_minute = {
 			addStatus({target: user, status: "regen", length: 2})
 			console.log("Elsen was struck lmao")
 		}
+		amt = this.status.amt 
 		env.GENERIC_ACTIONS.singleTarget({
 			action:this,
 			user,
 			target,
+			hitExec: ({target}) => {
+				if (this.minute = 4) {
+					amt = this.status.amt + 4
+				}
+				this.minute = this.minute + 1
+			}
 		})
 	}
 },
