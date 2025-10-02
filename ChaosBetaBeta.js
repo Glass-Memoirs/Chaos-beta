@@ -154,7 +154,10 @@ humors
         surging<+>loop
             EXEC::change("e3a2_newcomp", "surging")
             HIDEREAD::
-
+        kivcria<+>loop
+            EXEC::change("e3a2_newcomp", "kivcria")
+            HIDEREAD::
+			
 fish
     basterminal
         select fish spawn rate
@@ -248,6 +251,14 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 			"hideRead":true
 		})
 		}
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("kivcria")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"kivcria",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","kivcria")'),
+			"hideRead":true
+		})
+		}
 	if(!env.dialogues["dreammod"].sfer.responses[0].replies.includes("mod tester's delight (999)")) {
 	env.dialogues["dreammod"].sfer.responses[0].replies.push({
 		"name":"mod tester's delight (999)",
@@ -277,6 +288,7 @@ if(page.party){
 			page.flags.components.steel = 30
 			page.flags.components.life = 30
 			page.flags.components.graceful = 30
+			page.flags.components.kivcria = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -308,6 +320,7 @@ if(page.party){
 			page.flags.components.steel = 3
 			page.flags.components.life = 3
 			page.flags.components.graceful = 3
+			page.flags.components.kivcria = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -387,8 +400,16 @@ if(page.party){
 				member.components["secondary"]="graceful"
 				member.components["utility"]="graceful"
 			})
-		}
+		case "kivcria":
+			page.flags.components = { kivcria: 12 }
 
+			page.party.forEach(member=>{
+				member.components["primary"] = "kivcria"
+				member.components["secondary"] = "kivcria"
+				member.components["utility"] = "kivcria"
+			})
+			break
+		}
 	}
 if (page.path == '/local/beneath/embassy/') {
 	//CSS
@@ -482,6 +503,16 @@ if (page.path == '/local/beneath/embassy/') {
     	--background-color: var(--dark-color);
     	--accent-color: var(--neutral-color);
     	--font-color: var(--fundfriend-color);
+	}
+	[component="kivcria"] {
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumor.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumorr.gif);
+    	--background-size: auto;
+    	--background-position: center;
+    	--background-color: var(--dark-color);
+    	--accent-color: var(--bastard-color);
+    	--font-color: var(--bastard-color);
 	}
 	</style>`);
 
@@ -788,6 +819,33 @@ env.COMBAT_COMPONENTS.graceful = {
 	},
 	combatModifiers: ["graceful_safezone"]
 }
+
+env.COMBAT_COMPONENTS.kivcria = {
+     name: "Kivcria",
+     slug: "kivcria",
+     description: "'Protection and safety';'well-meaning but paranoid'",
+     help: "'sheer force';'devastation';'clearing sweeps'",
+
+     primary: {
+          alterations: [["primary","kivcria_claw"]], //rending claw
+          stats: {
+               maxhp: 5
+          }
+     },
+     secondary: {
+          alterations: [["secondary","kivcria_lure"]], //rotten lure
+          stats: {
+               maxhp: 5
+          }
+     },
+     utility: {
+          alterations: [["evade","kivcria_cyurtil"]], //same
+          stats: {
+               maxhp: 7
+          }
+     },
+     //combatModifiers: ["kivcria_wallrot", "kivcria_rot", "kivcria_decay"] //wall-rot, rotten wounds, tendrils decay
+}
 //END OF HUMORS
 //AUGMENTS
 /*
@@ -992,6 +1050,37 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	component: ["utility", "life"],
 	cost: 2
 }
+
+/*env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
+	slug: "kivcria_fairylight",
+	name: "Fairylight",
+	image: "/img/sprites/combat/augs/cripple.gif",
+	description: "'barrel into foes with great energy';'half beneficial effects for power'",
+	alterations: [["kivcria_claw", "kivcria_fairylight"]],
+	component: ["primary", "kivcria"],
+	cost: 2
+}
+
+env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
+	slug: "kivcria_sopre",
+	name: "Sporeburst",
+	image: "/img/sprites/combat/augs/barrier.gif",
+	description: "'Use stored secri-containing bulbs to seed enviroment','rot through friend and foe allike'",
+	alterations: [["kivcria_lure", "kivcria_spore"]],
+	component: ["secondary", "kivcria"],
+	cost: 2
+}
+
+env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
+    slug: "kivcria_cavernclear",
+    name: "Cavern-clear",
+    image: "/img/sprites/combat/augs/cripple.gif",
+    description: "'Experimental dull-pulse augmented sprayer';'used in an attempt to reclaim parts of Tuvazu from extreme parasite infection';'did not work'",
+    alterations: [["kivcria_cyurtil", "kivcria_cavernclear"]],
+    component: ["utility", "kivcria"],
+    cost: 2
+}*/
+
 //END OF AUGMENTS
 
 //COMBAT MODIFIERS
@@ -5378,6 +5467,184 @@ env.ACTIONS.graceful_heed = {
 	}
 },
 
+env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i have no experience coding with js frowny face emoji -:3
+	slug: "kivcria_claw",
+	name: "Rending Claw",
+	type: 'target',
+	anim: "basic-attack",
+	autohit: true,
+	details: {
+		flavor: "'Claw fitted with dull nodes for splitting flesh';'used to eviscerate flesh and bone of any remaining infected'",
+		onHit: "[STATUS::amt] [STATUS::stun]",
+        onCrit: "[STATUS::destablized]",
+        conditional: `<em>VS DESTABLIZED::</em>'additional [STAT::amt]' <em>MISS::<em>'hit user'`               
+	},
+	usage: {
+		act: "%USER READIES TO STRIKE %TARGET",
+		hit: "%TARGET IS WOUNDED",
+        crit: "%TARGET IN RENT APART",
+        miss: "%USER MISSES THEIR STRIKE",
+	},
+	stats: {
+        accuracy: 0.3,
+		crit: 0.2,
+		amt: 3,
+		status: {
+			stun: {name: "stun", length: 1},
+            destabilized: {name: "destablized", length: 2}
+		}
+	},
+	exec: function(user, target) { //note to CC: okay action stuff here needs to be changed to actually be the attack, probably just borrow the miss stuff from HH and the extra damage from combatactions' miltza_attack
+		amt = this.stats.amt
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {
+				name: 'stab', //keep this the same
+				rate: 1.5 //this too
+			},
+			critStatus: this.stats.status.stun,
+			hitExec: ({target}) => {
+				if(hasStatus(target, "destabilized")) {
+					amt = this.stats.amt + 3
+				}
+				if (Math.random() < 0.32) {
+					addStatus({target: target, status: "destabilized", length: 2})
+				}
+			},
+			critExec: ({target}) => {
+				if (Math.random() < 0.32) {
+					addStatus({target: target, status: "stun", length: 1})
+				}
+			},
+			missExec: ({target}) => {
+				if(user.hp > 0 && user.state != "lastStand" && hasStatus(target, "destabilized")) {
+					env.setTimeout(()=>{
+						useAction(user, this, user, {beingUsedAsync: true, reason: "wild claw miss"})
+					}, 400)
+				}
+			}
+		})
+	}
+},
+
+env.ACIONS.kivcria_lure = { //wee lure time. CC made the status effect for it, aka consequence_spread
+	slug: "kivcria_lure",
+	name: "Lure",
+	type: 'target',
+	anim: "basic-attack",
+	usage: {
+		act: "%USER REACHES AT %TARGET",
+		hit: "%TARGET'S BODY IS INFESTED",
+		miss: "%USER'S BAIT EXPIRES"
+	},
+	details: {
+		flavor: "'bait targets to split face and reveal teeth'open opportunity to farthing infection';'a common practice of cavern-cleaners'",
+		onHit: "'[STAT::amt] [STATUS::consequence_spread]'",
+	},
+	stats: {
+		autohit: true,
+		amt: 1,
+		status: {
+			consequence_spread: {
+				name: 'consequence_spread',
+				length: 2,
+			}
+		}
+	},   
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {
+				name: 'chomp',
+				rate: 0.75
+			},
+			hitExec: ({target}) => {
+				addStatus({target: target, status: this.stats.status.consequence_spread.name, length: this.stats.status.consequence_spread.length})
+			}//pray i removed the right shit hands praying emoji -:3
+		})
+	}
+},
+
+env.ACTIONS.kivcria_cyurtil = {
+	slug: "kivcria_cyurtil",
+	name: "Cyurtil",
+	type: 'special',
+	anim: "",
+	usage: {  //pray this actually works once and not per-target and spams the screen -:3
+		act: "%USER READIES THE CYURTIL",
+		hit: "%TARGET'S LIMBS ARE SHEERED AWAY",
+		crit: "NOTHING REMAINS OF %TARGET",
+		miss: "%USER'S AIM WAIVERS"
+	},
+	details: {
+		flavor: "'focused dull-projector used in clearing of infected areas';'mishandling often results in major harm'",
+		onUse: `'[STATUS::spraying]';'HIT all foes'`,
+		onHit: `'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::venerable]'`,
+		onCrit: `'target foe 3 additional times'`,
+	},
+	stats: {
+    	accuracy: 0.3,
+    	crit: 0.2,
+		amt: 3,
+		status: {
+			spraying: {
+				name: 'spraying',
+				length: 2
+			},
+			destabilized: {
+				name: 'destabilized',
+				length: 2
+			},
+			puncture: {
+				name: 'puncture',
+				length: 3
+			},
+			fear: {
+				name: 'fear',
+				length: 2
+			},
+			vulnerable: {
+				name: 'vulnerable',
+				length: 2
+			},
+		},
+	},
+	exec: function(user, target, beingUsedAsync) {
+			play("dull", 0.5)
+            addStatus({target: user, status: "spraying", length: 2});
+
+            env.GENERIC_ACTIONS.teamWave({
+                team: user.enemyTeam,
+                exec: (actor, i)=>{
+                    let rand = Math.random() //okay non crit here. now to figure out how to make it hit multiple times. update: i do not know how to do that. sorry forwny face emoji -:3
+                    if(rand < 0.25) {
+                        play("dull", 0.5)
+                        addStatus({target: actor, origin: user, status: "destabilized", length: 2});
+                       
+                    } else if(rand < 0.25) {
+						play("dull", 0.5)
+
+                        addStatus({target: actor, origin: user, status: "puncture", length: 3});
+
+                    } else if(rand < 0.25) {
+                        play("dull", 0.5)
+                        addStatus({target: actor, origin: user, status: "fear", length: 2});
+
+                    } else {
+                        play("dull", 0.5)
+                        addStatus({target: actor, origin: user, status: "fear", length: 2});
+                    }
+                },
+            advanceAfterExec: true, beingUsedAsync, user,
+			endCallback: ()=>{console.log('just called advance')}
+		})
+	}
+},
+
 env.ACTIONS.energizer = {
 	slug: "energizer",
 	name: "Energizer",
@@ -5928,6 +6195,33 @@ for (const componentName of ["life"]) {
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
 for (const componentName of ["graceful"]) {
+	const component = env.COMBAT_COMPONENTS[componentName]
+	let commerceObject = ({
+		 type: "humor",
+		 name: `${component.name.replace("Humor of ", "")}`,
+		 subject: component,
+		 value: 1,
+
+		 showSellIf: ()=> env.e3a2.mTotals[componentName].available > 0,
+		 sellExec: ()=>{
+			  addItem("sfer_cube")
+			  page.flags.components[componentName]--
+			  env.e3a2.mTotals = CrittaMenu.getTotals()
+			  env.commerceNotice = `exchanged ${component.name} for 1 ${env.ITEM_LIST['sfer_cube'].name}`
+		 },
+	})
+	env.e3a2.merchant.sellResponses.replies.push({
+		 name: `${commerceObject.name}::${commerceObject.value}S`,
+		 destination: "sell",
+		 hideRead: true,
+		 showIf: commerceObject.showSellIf,
+		 class: `commerce-${commerceObject.type}`,
+		 definition: `NOTE::'exchange for ${commerceObject.value} ${env.ITEM_LIST['sfer_cube'].name}'`,
+		 exec: ()=> {commerceObject.sellExec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
+	})
+	env.e3a2.merchant.commerce.push(commerceObject)
+}
+for (const componentName of ["kivcria"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
 		 type: "humor",
