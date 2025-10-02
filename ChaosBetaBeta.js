@@ -16,7 +16,7 @@ CREATORS:
  - Mewo for helping with StupidHorrible text, and for making that humor's personality (thx so much mewo u tha goat :3)
  - Luna from the sunset system for the updated battery image!
  PLAYTESTERS:
-I - JUNE, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME), MOTH_GELI
+I - THE FACTORY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME), MOTH_GELI
  SECTIONS:
  1. Dialogue changing
  2. CSS
@@ -400,7 +400,6 @@ if(page.party){
 				member.components["secondary"]="graceful"
 				member.components["utility"]="graceful"
 			})
-		}
 		case "kivcria":
 			page.flags.components = { kivcria: 12 }
 
@@ -410,7 +409,7 @@ if(page.party){
 				member.components["utility"] = "kivcria"
 			})
 			break
-
+		}
 	}
 if (page.path == '/local/beneath/embassy/') {
 	//CSS
@@ -845,7 +844,7 @@ env.COMBAT_COMPONENTS.kivcria = {
                maxhp: 7
           }
      },
-     combatModifiers: ["kivcria_wallrot", "kivcria_rot", "kivcria_decay"] //wall-rot, rotten wounds, tendrils decay
+     //combatModifiers: ["kivcria_wallrot", "kivcria_rot", "kivcria_decay"] //wall-rot, rotten wounds, tendrils decay
 }
 //END OF HUMORS
 //AUGMENTS
@@ -1051,7 +1050,8 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	component: ["utility", "life"],
 	cost: 2
 }
-env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
+
+/*env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
 	slug: "kivcria_fairylight",
 	name: "Fairylight",
 	image: "/img/sprites/combat/augs/cripple.gif",
@@ -1079,7 +1079,7 @@ env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
     alterations: [["kivcria_cyurtil", "kivcria_cavernclear"]],
     component: ["utility", "kivcria"],
     cost: 2
-}
+}*/
 
 //END OF AUGMENTS
 
@@ -5463,6 +5463,184 @@ env.ACTIONS.graceful_heed = {
 				play('guard', 2, 0.75);
 			},
 			advanceAfterExec: true, beingUsedAsync, user,
+		})
+	}
+},
+
+env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i have no experience coding with js frowny face emoji -:3
+	slug: "kivcria_claw",
+	name: "Rending Claw",
+	type: 'target',
+	anim: "basic-attack",
+	autohit: true,
+	details: {
+		flavor: "'Claw fitted with dull nodes for splitting flesh';'used to eviscerate flesh and bone of any remaining infected'",
+		onHit: "[STATUS::amt] [STATUS::stun]",
+        onCrit: "[STATUS::destablized]",
+        conditional: `<em>VS DESTABLIZED::</em>'additional [STAT::amt]' <em>MISS::<em>'hit user'`               
+	},
+	usage: {
+		act: "%USER READIES TO STRIKE %TARGET",
+		hit: "%TARGET IS WOUNDED",
+        crit: "%TARGET IN RENT APART",
+        miss: "%USER MISSES THEIR STRIKE",
+	},
+	stats: {
+        accuracy: 0.3,
+		crit: 0.2,
+		amt: 3,
+		status: {
+			stun: {name: "stun", length: 1},
+            destabilized: {name: "destablized", length: 2}
+		}
+	},
+	exec: function(user, target) { //note to CC: okay action stuff here needs to be changed to actually be the attack, probably just borrow the miss stuff from HH and the extra damage from combatactions' miltza_attack
+		amt = this.stats.amt
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {
+				name: 'stab', //keep this the same
+				rate: 1.5 //this too
+			},
+			critStatus: this.stats.status.stun,
+			hitExec: ({target}) => {
+				if(hasStatus(target, "destabilized")) {
+					amt = this.stats.amt + 3
+				}
+				if (Math.random() < 0.32) {
+					addStatus({target: target, status: "destabilized", length: 2})
+				}
+			},
+			critExec: ({target}) => {
+				if (Math.random() < 0.32) {
+					addStatus({target: target, status: "stun", length: 1})
+				}
+			},
+			missExec: ({target}) => {
+				if(user.hp > 0 && user.state != "lastStand" && hasStatus(target, "destabilized")) {
+					env.setTimeout(()=>{
+						useAction(user, this, user, {beingUsedAsync: true, reason: "wild claw miss"})
+					}, 400)
+				}
+			}
+		})
+	}
+},
+
+env.ACIONS.kivcria_lure = { //wee lure time. CC made the status effect for it, aka consequence_spread
+	slug: "kivcria_lure",
+	name: "Lure",
+	type: 'target',
+	anim: "basic-attack",
+	usage: {
+		act: "%USER REACHES AT %TARGET",
+		hit: "%TARGET'S BODY IS INFESTED",
+		miss: "%USER'S BAIT EXPIRES"
+	},
+	details: {
+		flavor: "'bait targets to split face and reveal teeth'open opportunity to farthing infection';'a common practice of cavern-cleaners'",
+		onHit: "'[STAT::amt] [STATUS::consequence_spread]'",
+	},
+	stats: {
+		autohit: true,
+		amt: 1,
+		status: {
+			consequence_spread: {
+				name: 'consequence_spread',
+				length: 2,
+			}
+		}
+	},   
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {
+				name: 'chomp',
+				rate: 0.75
+			},
+			hitExec: ({target}) => {
+				addStatus({target: target, status: this.stats.status.consequence_spread.name, length: this.stats.status.consequence_spread.length})
+			}//pray i removed the right shit hands praying emoji -:3
+		})
+	}
+},
+
+env.ACTIONS.kivcria_cyurtil = {
+	slug: "kivcria_cyurtil",
+	name: "Cyurtil",
+	type: 'special',
+	anim: "",
+	usage: {  //pray this actually works once and not per-target and spams the screen -:3
+		act: "%USER READIES THE CYURTIL",
+		hit: "%TARGET'S LIMBS ARE SHEERED AWAY",
+		crit: "NOTHING REMAINS OF %TARGET",
+		miss: "%USER'S AIM WAIVERS"
+	},
+	details: {
+		flavor: "'focused dull-projector used in clearing of infected areas';'mishandling often results in major harm'",
+		onUse: `'[STATUS::spraying]';'HIT all foes'`,
+		onHit: `'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::venerable]'`,
+		onCrit: `'target foe 3 additional times'`,
+	},
+	stats: {
+    	accuracy: 0.3,
+    	crit: 0.2,
+		amt: 3,
+		status: {
+			spraying: {
+				name: 'spraying',
+				length: 2
+			},
+			destabilized: {
+				name: 'destabilized',
+				length: 2
+			},
+			puncture: {
+				name: 'puncture',
+				length: 3
+			},
+			fear: {
+				name: 'fear',
+				length: 2
+			},
+			vulnerable: {
+				name: 'vulnerable',
+				length: 2
+			},
+		},
+	},
+	exec: function(user, target, beingUsedAsync) {
+			play("dull", 0.5)
+            addStatus({target: user, status: "spraying", length: 2});
+
+            env.GENERIC_ACTIONS.teamWave({
+                team: user.enemyTeam,
+                exec: (actor, i)=>{
+                    let rand = Math.random() //okay non crit here. now to figure out how to make it hit multiple times. update: i do not know how to do that. sorry forwny face emoji -:3
+                    if(rand < 0.25) {
+                        play("dull", 0.5)
+                        addStatus({target: actor, origin: user, status: "destabilized", length: 2});
+                       
+                    } else if(rand < 0.25) {
+						play("dull", 0.5)
+
+                        addStatus({target: actor, origin: user, status: "puncture", length: 3});
+
+                    } else if(rand < 0.25) {
+                        play("dull", 0.5)
+                        addStatus({target: actor, origin: user, status: "fear", length: 2});
+
+                    } else {
+                        play("dull", 0.5)
+                        addStatus({target: actor, origin: user, status: "fear", length: 2});
+                    }
+                },
+            advanceAfterExec: true, beingUsedAsync, user,
+			endCallback: ()=>{console.log('just called advance')}
 		})
 	}
 },
