@@ -5530,7 +5530,7 @@ env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i h
 		amt: 3,
 		status: {
 			stun: {name: "stun", length: 1},
-            destabilized: {name: "destablized", length: 2}
+            destabilized: {name: "destabilized", length: 2}
 		}
 	},
 	exec: function(user, target) { //note to CC: okay action stuff here needs to be changed to actually be the attack, probably just borrow the miss stuff from HH and the extra damage from combatactions' miltza_attack
