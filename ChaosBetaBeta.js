@@ -4386,6 +4386,7 @@ env.ACTIONS.smog_hour = {
 				}
 				if (this.second = 3) {
 					this.second = 1
+					addStatus(user, "focused")
 				} else {
 					this.second = this.second + 1
 				}
@@ -4397,11 +4398,13 @@ env.ACTIONS.smog_hour = {
 				}
 				if (this.hour = 6) {
 					this.hour = 1
+					addStatus({target: user, status: "empowered", length: 2})
 				} else {
 					this.hour = this.hour + 1
 				}
 				if (this.meridian = 12) {
 					this.meridian = 1
+					addStatus(user, "surge")
 				} else {
 					this.meridian = this.meridian + 1
 				}
