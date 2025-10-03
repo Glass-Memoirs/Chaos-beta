@@ -5567,7 +5567,7 @@ env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i h
 	}
 },
 
-env.ACIONS.kivcria_lure = { //wee lure time. CC made the status effect for it, aka consequence_spread
+env.ACTIONS.kivcria_lure = { //wee lure time. CC made the status effect for it, aka consequence_spread
 	slug: "kivcria_lure",
 	name: "Lure",
 	type: 'target',
@@ -5714,7 +5714,7 @@ env.ACTIONS.energizer = {
 			}
 		})
 	}
-},
+}
 
 //END OF ACTIONS
 
