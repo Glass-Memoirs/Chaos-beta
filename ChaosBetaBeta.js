@@ -5511,7 +5511,6 @@ env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i h
 	name: "Rending Claw",
 	type: 'target',
 	anim: "basic-attack",
-	autohit: true,
 	details: {
 		flavor: "'Claw fitted with dull nodes for splitting flesh';'used to eviscerate flesh and bone of any remaining infected'",
 		onHit: "[STAT::amt] [STATUS::stun]",
@@ -5525,7 +5524,7 @@ env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i h
         miss: "%USER MISSES THEIR STRIKE",
 	},
 	stats: {
-        accuracy: 0.3,
+        accuracy: 0.4,
 		crit: 0.2,
 		amt: 3,
 		status: {
