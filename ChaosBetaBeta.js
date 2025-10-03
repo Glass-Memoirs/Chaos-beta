@@ -5516,7 +5516,7 @@ env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i h
 		flavor: "'Claw fitted with dull nodes for splitting flesh';'used to eviscerate flesh and bone of any remaining infected'",
 		onHit: "[STATUS::amt] [STATUS::stun]",
         onCrit: "[STATUS::destablized]",
-        conditional: `<em>VS DESTABLIZED::</em>'additional [STAT::amt]' <em>MISS::<em>'hit user'`               
+        //conditional: "<em>VS DESTABLIZED::</em>'additional [STAT::amt]' <em>MISS::<em>'hit user'"
 	},
 	usage: {
 		act: "%USER READIES TO STRIKE %TARGET",
@@ -5613,17 +5613,17 @@ env.ACTIONS.kivcria_cyurtil = {
 	name: "Cyurtil",
 	type: 'special',
 	anim: "",
+	details: {
+		flavor: "'focused dull-projector used in clearing of infected areas';'mishandling often results in major harm'",
+		onUse: "'[STATUS::spraying]';'HIT all foes'",
+		onHit: "'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::venerable]'",
+		onCrit: "'target foe 3 additional times'",
+	},
 	usage: {  //pray this actually works once and not per-target and spams the screen -:3
 		act: "%USER READIES THE CYURTIL",
 		hit: "%TARGET'S LIMBS ARE SHEERED AWAY",
 		crit: "NOTHING REMAINS OF %TARGET",
 		miss: "%USER'S AIM WAIVERS"
-	},
-	details: {
-		flavor: "'focused dull-projector used in clearing of infected areas';'mishandling often results in major harm'",
-		onUse: `'[STATUS::spraying]';'HIT all foes'`,
-		onHit: `'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::venerable]'`,
-		onCrit: `'target foe 3 additional times'`,
 	},
 	stats: {
     	accuracy: 0.3,
