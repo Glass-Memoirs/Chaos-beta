@@ -4334,8 +4334,9 @@ env.ACTIONS.smog_minute = {
 				if (this.minute = 4) {
 					amt = this.stats.amt + 4
 					this.minute = 1
+				} else {
+					this.minute = this.minute + 1
 				}
-				this.minute = this.minute + 1
 			}
 		})
 	}
@@ -4385,21 +4386,25 @@ env.ACTIONS.smog_hour = {
 				}
 				if (this.second = 3) {
 					this.second = 1
+				} else {
+					this.second = this.second + 1
 				}
 				if (this.minute = 4) {
 					this.minute = 1
 					amt = this.stats.amt + 4
+				} else {
+					this.minute = this.minute + 1
 				}
 				if (this.hour = 6) {
 					this.hour = 1
+				} else {
+					this.hour = this.hour + 1
 				}
 				if (this.meridian = 12) {
 					this.meridian = 1
+				} else {
+					this.meridian = this.meridian + 1
 				}
-				this.minute = this.minute + 1
-				this.hour = this.hour + 1
-				this.meridian = this.meridian + 1
-				this.second = this.second + 1
 			},
 			critExec: ({target}) => {
 				if (target.name.includes("Elsen")) {
