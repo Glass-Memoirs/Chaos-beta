@@ -507,7 +507,7 @@ if (page.path == '/local/beneath/embassy/') {
 	[component="kivcria"] {
 		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumor.gif);
 		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumor.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumorr.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/KivcriaHumor.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
