@@ -5615,7 +5615,7 @@ env.ACTIONS.kivcria_cyurtil = {
 	details: {
 		flavor: "'focused dull-projector used in clearing of infected areas';'mishandling often results in major harm'",
 		onUse: "'[STATUS::spraying]';'HIT all foes'",
-		onHit: "'[STATS::amt]';'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::venerable]'",
+		onHit: "'[STATS::amt]';'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::vulnerable]'",
 		onCrit: "'target foe 3 additional times'",
 	},
 	usage: {  //pray this actually works once and not per-target and spams the screen -:3
