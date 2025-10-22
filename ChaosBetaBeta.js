@@ -1051,7 +1051,7 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	cost: 2
 }
 
-/*env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
+env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
 	slug: "kivcria_fairylight",
 	name: "Fairylight",
 	image: "/img/sprites/combat/augs/cripple.gif",
@@ -1061,7 +1061,7 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	cost: 2
 }
 
-env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
+/*env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
 	slug: "kivcria_sopre",
 	name: "Sporeburst",
 	image: "/img/sprites/combat/augs/barrier.gif",
@@ -5615,7 +5615,7 @@ env.ACTIONS.kivcria_cyurtil = {
 	details: {
 		flavor: "'focused dull-projector used in clearing of infected areas';'mishandling often results in major harm'",
 		onUse: "'[STATUS::spraying]';'HIT all foes'",
-		onHit: "'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::venerable]'",
+		onHit: "'[STATS::amt]';'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::venerable]'",
 		onCrit: "'target foe 3 additional times'",
 	},
 	usage: {  //pray this actually works once and not per-target and spams the screen -:3
@@ -5679,6 +5679,83 @@ env.ACTIONS.kivcria_cyurtil = {
                 },
             advanceAfterExec: true, beingUsedAsync, user,
 			endCallback: ()=>{console.log('just called advance')}
+		})
+	}
+},
+
+env.ACTIONS.kivcria_bigswing = {
+	slug: "kivcria_bigswing",
+	name: "bigswing",
+	verb: "swing",
+	type: "target",
+	stats: {
+		accuracy: 0.4,
+		crit: 0.7,
+		amt: 1,
+		status: {
+			destabilized: {name: "destabilized", length: 1},
+			puncture: {name: "puncture", length: 1}
+		}
+	},
+	exec: (user, target) => {
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.enemyTeam,
+			exec: (actor, i) => {
+				addStatus(actor, "destabilized")
+				addStatus(actor, "puncture")
+			}
+		})
+	}
+},
+
+env.ACTIONS.kivcria_fairylight = {
+	slug: "kivcria_fairylight",
+	name: "Fairylight",
+	type: "target",
+	verb: "cut",
+	details: {
+		flavor: "'Device used in the cutting of stone and alloy';'mounted fairy-vissage blade that sends scraps flying';'effective at both single and broad improvised attacks'",
+		onHit: "8x[STATS::amt], [STATUS::puncture]",
+		onCrit: "[STATS::amt],[STATUS::destabilized],[STATUS::puncture]"
+	},
+	stats: {
+		accuracy: 0.3,
+		crit: 0.3,
+		amt: 1,
+		status: {
+			puncture: {
+				name: "puncture",
+				length: 1
+			},
+			destabilized: {
+				name: "destabilized",
+				length: 1
+			}
+		}
+	},
+	exec: (user, target)=> {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {
+				name: "chomp",
+				rate: 3
+			},
+			hitExec: () => {
+				for (let i = 0; i == 7; i++) {
+					if (Math.random() < 0.4) {
+						addStatus({target: target, origin: user, status: "puncture", length: 1})
+					}
+				}
+			},
+			critExec: () => {
+				addStatus(target, "destabilized")
+				addStatus(target, "puncture")
+				env.setTimeout(()=>{
+					useAction(user, env.ACTIONS["kivcria_bigswing"], target, {beingUsedAsync: true, reason: "fairylight Crit"})
+				}, 400)
+			}
 		})
 	}
 },
