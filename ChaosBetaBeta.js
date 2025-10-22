@@ -5515,7 +5515,7 @@ env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i h
 		flavor: "'Claw fitted with dull nodes for splitting flesh';'used to eviscerate flesh and bone of any remaining infected'",
 		onHit: "[STAT::amt] [STATUS::stun]",
         onCrit: "[STATUS::destablized]",
-        //conditional: "<em>VS DESTABLIZED::</em>'additional [STAT::amt]' <em>MISS::<em>'hit user'"
+        conditional: "<em>VS DESTABLIZED::</em>'additional [STAT::amt]' <em>MISS::<em>'hit user'"
 	},
 	usage: {
 		act: "%USER READIES TO STRIKE %TARGET",
