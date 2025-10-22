@@ -15,6 +15,7 @@ CREATORS:
  - And also with showing me ([]^[]) how to format the description for the recent update, pointing out enegrgy, and overall helping with fixing the code.
  - Mewo for helping with StupidHorrible text, and for making that humor's personality (thx so much mewo u tha goat :3)
  - Luna from the sunset system for the updated battery image!
+ - Narra for completely re-writing fairylight
  PLAYTESTERS:
 I - THE FACTORY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME), MOTH_GELI
  SECTIONS:
@@ -61,163 +62,22 @@ I - THE FACTORY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS 
 */
 
 //Dialogue changing
-    if( page.path == '/local/ozo/' || page.path == '/local/beneath/embassy') {
-		/*env.dialogues["dreammod"] = generateDialogueObject(`
-loop
-    basterminal
-        ALTERED
-        TEXEC::\`STARTING TENSION::'\${check("e3a2_tension") || 1}'\`
-            AUTOADVANCE::
-        TEXEC::\`STARTING HUMORS::'\${check("e3a2_newcomp") || "normal"}'\`
-            AUTOADVANCE::
-        TEXEC::\`STARTING SFER::'\${check("e3a2_sfer") || "0"}'\`
-            AUTOADVANCE::
-        TEXEC::\`FISH SPAWN RATE::'\${check("e3a2_fishchance") ? \`\${Number(check("e3a2_fishchance")) * 100}%\`: '10%'}'\`
-            AUTOADVANCE::
-            SHOWIF::"e3a2__fishy"
-
-    RESPOBJ::basterminalResp
-
-start
-    sourceless
-        the terminal displays various controls and settings for the dream.
-    
-    basterminal
-        hi :b
-        CURRENT SETTINGS
-        TEXEC::\`STARTING TENSION::'\${check("e3a2_tension") || 1}'\`
-        TEXEC::\`STARTING HUMORS::'\${check("e3a2_newcomp") || "normal"}'\`
-        TEXEC::\`STARTING SFER::'\${check("e3a2_sfer") || "0"}'\`
-        TEXEC::\`FISH SPAWN RATE::'\${check("e3a2_fishchance") ? \`\${Number(check("e3a2_fishchance")) * 100}%\`: '10%'}'\`
-            SHOWIF::"e3a2__fishy"
-    
-    RESPOBJ::basterminalResp
-
-tension
-    basterminal
-        select starting tension
-        1 is default
-    
-    RESPONSES::self
-        1<+>loop
-            EXEC::change("e3a2_tension", 1)
-            HIDEREAD::
-        2<+>loop
-            EXEC::change("e3a2_tension", 2)
-            HIDEREAD::
-        3<+>loop
-            EXEC::change("e3a2_tension", 3)
-            HIDEREAD::
-        4<+>loop
-            EXEC::change("e3a2_tension", 4)
-            HIDEREAD::
-        5<+>loop
-            EXEC::change("e3a2_tension", 5)
-            HIDEREAD::
-        6<+>loop
-            EXEC::change("e3a2_tension", 6)
-            HIDEREAD::
-
-humors
-    basterminal
-        select starting <span class="code">humor</span> set
-        normal is default
-    
-    RESPONSES::self
-        normal<+>loop
-            EXEC::change("e3a2_newcomp", "normal")
-            HIDEREAD::
-        abundant<+>loop
-            EXEC::change("e3a2_newcomp", "abundant")
-            HIDEREAD::
-        too many<+>loop
-            EXEC::change("e3a2_newcomp", "too many")
-            HIDEREAD::
-        claws<+>loop
-            EXEC::change("e3a2_newcomp", "claws")
-            HIDEREAD::
-        eyes<+>loop
-            EXEC::change("e3a2_newcomp", "eyes")
-            HIDEREAD::
-        ichor<+>loop
-            EXEC::change("e3a2_newcomp", "ichor")
-            HIDEREAD::
-        light<+>loop
-            EXEC::change("e3a2_newcomp", "light")
-            HIDEREAD::
-        bone<+>loop
-            EXEC::change("e3a2_newcomp", "bone")
-            HIDEREAD::
-        entropy<+>loop
-            EXEC::change("e3a2_newcomp", "entropy")
-            HIDEREAD::
-        surging<+>loop
-            EXEC::change("e3a2_newcomp", "surging")
-            HIDEREAD::
-        kivcria<+>loop
-            EXEC::change("e3a2_newcomp", "kivcria")
-            HIDEREAD::
-			
-fish
-    basterminal
-        select fish spawn rate
-        10% is default
-    
-    RESPONSES::self
-        normal (10%)<+>loop
-            EXEC::change("e3a2_fishchance", "0.1")
-            HIDEREAD::
-        foolish (25%)<+>loop
-            EXEC::change("e3a2_fishchance", "0.25")
-            HIDEREAD::
-        likely (50%)<+>loop
-            EXEC::change("e3a2_fishchance", "0.5")
-            HIDEREAD::
-        guaranteed (100%)<+>loop
-            EXEC::change("e3a2_fishchance", "1")
-            HIDEREAD::
-
-sfer
-    basterminal
-        select starting sfer
-        none is default
-    
-    RESPONSES::self
-        none (0)<+>loop
-            EXEC::change("e3a2_sfer", "DELETE")
-            HIDEREAD::
-
-        some (20)<+>loop
-            EXEC::change("e3a2_sfer", 20)
-            HIDEREAD::
-
-        abundant(40)<+>loop
-            EXEC::change("e3a2_sfer", 40)
-            HIDEREAD::
-
-        a lot (99)<+>loop
-            EXEC::change("e3a2_sfer", 99)
-            HIDEREAD::
-
-        mod tester's delight(999)<+>loop
-            EXEC::change("e3a2_sfer", 999)
-            HIDEREAD::
-`)*/
-if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
-	env.dialogues["dreammod"].humors.responses[0].replies.push({
-		"name":"entropy",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","entropy")'),
-		"hideRead":true
-	})
+if( page.path == '/local/ozo/' || page.path == '/local/beneath/embassy') {
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"entropy",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","entropy")'),
+			"hideRead":true
+		})
 	}
 	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("surge")) {
-	env.dialogues["dreammod"].humors.responses[0].replies.push({
-		"name":"surge",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","surge")'),
-		"hideRead":true
-	})
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"surge",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","surge")'),
+			"hideRead":true
+		})
 	}
 	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("stupidhorrible")) {
 		env.dialogues["dreammod"].humors.responses[0].replies.push({
@@ -260,17 +120,17 @@ if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("entropy")) {
 		})
 		}
 	if(!env.dialogues["dreammod"].sfer.responses[0].replies.includes("mod tester's delight (999)")) {
-	env.dialogues["dreammod"].sfer.responses[0].replies.push({
-		"name":"mod tester's delight (999)",
-		"destination":"loop",
-		"exec": Function('change("e3a2_sfer",999)'),
-		"hideRead":true
-	})
+		env.dialogues["dreammod"].sfer.responses[0].replies.push({
+			"name":"mod tester's delight (999)",
+			"destination":"loop",
+			"exec": Function('change("e3a2_sfer",999)'),
+			"hideRead":true
+		})
 	}
-	}
+}
 
 if(page.party){
-		switch(check("e3a2_newcomp")) {
+	switch(check("e3a2_newcomp")) {
 		case "too many":
 			if (typeof page.flags.components == undefined){
                 page.flags.components = {
@@ -400,6 +260,7 @@ if(page.party){
 				member.components["secondary"]="graceful"
 				member.components["utility"]="graceful"
 			})
+		break
 		case "kivcria":
 			page.flags.components = { kivcria: 12 }
 
@@ -408,9 +269,9 @@ if(page.party){
 				member.components["secondary"] = "kivcria"
 				member.components["utility"] = "kivcria"
 			})
-			break
-		}
+		break
 	}
+}
 if (page.path == '/local/beneath/embassy/') {
 	//CSS
 	content.insertAdjacentHTML('beforeend', `<style>
@@ -979,7 +840,7 @@ env.ACTOR_AUGMENTS.generic.smog_shout = {
 	component: ["utility", "smog"],
 	cost: 2
 }
-
+//steel
 env.ACTOR_AUGMENTS.generic.steel_scale = {
 	slug: "steel_scale",
 	name: "Scale",
@@ -1020,7 +881,7 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 	//showIf: "editingMember.augments|steel_songbird",
 	cost: 2
 }
-
+//life
 env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, seeing colors that science cant see. im on that ekivik shit, seeing a ton of fucking shapes (in the voice of they forgot i'm him guy)
 	slug: "life_tuvazu",
 	name: "Tuvazu imports",
@@ -1050,7 +911,7 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	component: ["utility", "life"],
 	cost: 2
 }
-
+//kivkria
 env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
 	slug: "kivcria_fairylight",
 	name: "Fairylight",
@@ -1084,6 +945,7 @@ env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
 //END OF AUGMENTS
 
 //COMBAT MODIFIERS
+//entropy
 env.MODIFIERS.entropy_eternal = {
 	name: "Eternal Decay",
 	getHelp: ()=> { return env.STATUS_EFFECTS.entropy_eternal.help },
@@ -1264,7 +1126,7 @@ env.MODIFIERS.graceful_safezone = {
 		all: [["STATUS", "graceful_safezone"],["ADD","parry"]]
 	}
 }
-
+//kivcria
 //END OF MODIFIERS
 
 //STATUS EFFECTS
@@ -1815,7 +1677,7 @@ env.STATUS_EFFECTS.fated_surging = {
 	},
 	help: "'per humor of SURGE on this shell: 15% chance to remove stun, 9% chance to add wild surge'"
 },
-
+//stupidhorrible
 env.STATUS_EFFECTS.stupidhorrible_bad = {
 	slug: "stupidhorrible_bad",
 	name: "GHATSHRGSGH BAD",
@@ -1977,7 +1839,7 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 	},
 	help: "Per humor of stupidhorrible on this shell: reduce crit chance, but increase power'"
 },
-
+//smog
 env.STATUS_EFFECTS.smog_scream = {
 	slug: "smog_scream",
 	name: "Scream",
@@ -2180,7 +2042,7 @@ env.STATUS_EFFECTS.fated_smog = {
 	},
 	help: "'per humor of SMOG on this shell: 9% chance to gain 2T:regen'"
 },
-
+//steel
 env.STATUS_EFFECTS.muted = {
 	slug: "muted",
 	name: "Muted",
@@ -2455,23 +2317,6 @@ env.STATUS_EFFECTS.rebel = { //might change this up a bit later, feels a bit wea
 	}
 },
 
-env.STATUS_EFFECTS.life_healing = {
-	slug: "life_healing",
-	name: "Healing Grounds",
-	beneficial: true,
-	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
-	help: "Makes Regen permanent, and gives Bash",
-	events: {
-		onAddStatus: function({statusObj}) {
-        	if(!statusObj.infinite && statusObj.slug == "regen"){
-            	statusObj.duration = 1;
-            	statusObj.infinite = true;
-        	}
-        },
-	}
-},
-
 env.STATUS_EFFECTS.sunny_day = {
 	slug: "sunny_day",
 	name: "Sunny Day",
@@ -2493,6 +2338,24 @@ env.STATUS_EFFECTS.glow = {
 	incomingToHit: -0.1,
 	outgoingMult: 0.15,
 	outgoingCrit: 3,
+},
+
+//life
+env.STATUS_EFFECTS.life_healing = {
+	slug: "life_healing",
+	name: "Healing Grounds",
+	beneficial: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
+	help: "Makes Regen permanent, and gives Bash",
+	events: {
+		onAddStatus: function({statusObj}) {
+        	if(!statusObj.infinite && statusObj.slug == "regen"){
+            	statusObj.duration = 1;
+            	statusObj.infinite = true;
+        	}
+        },
+	}
 },
 
 env.STATUS_EFFECTS.life_transfer = {
@@ -2691,7 +2554,7 @@ env.STATUS_EFFECTS.predation = {
 		}
 	}
 },
-
+//graceful
 env.STATUS_EFFECTS.parry = {
 	slug: "parry",
 	name: "Parry",
@@ -2789,7 +2652,7 @@ env.STATUS_EFFECTS.graceful_safezone = {
 		}
 	}
 },
-
+//kivcria
 env.STATUS_EFFECTS.spraying = {
 	slug: "spraying",
 	name: "Spraying",
@@ -2842,7 +2705,7 @@ env.STATUS_EFFECTS.consequence_spread = {
 	},
 	help: "When affected actor struck, give 1T:ROT to actor's team"
 },
-
+//misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
 	slug: "minor_concussion",
@@ -3974,6 +3837,9 @@ env.ACTIONS.puncture_bomb = {
 		onUse: "'+5T:[STATUS::puncture] to everyone'",
 		onHit: "'[STAT::amt]'",
 	},
+	usage: {
+		act: "%USER throws bombs everywhere"
+	},
 	stats: {
 		amt: 1,
 		crit: 0,
@@ -4019,6 +3885,11 @@ env.ACTIONS.stupidhorrible_kaber = {
 		flavor: "'What makes me a good Demoman?';'If I were a bad Demoman,';'I wouldn't be sittin' here, discussin' it with you now would I?'",
 		onHit: "'[STAT::amt] to taget and user'",
 	},
+	usage: {
+		act: "%USER runs at %TARGET with a bomb",
+		hit: "%TARGET and %USER explode",
+		crit: "%TARGET and %USER are blown to pieces"
+	},
 	stats: {
 		amt: 5,
 	},
@@ -4045,6 +3916,12 @@ env.ACTIONS.stupidhorrible_claymore = {
 		flavor: "'Lets do it!';'Not one of yas gonna survive this!'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'USER+TARGET: [STATUS::puncture]'",
+	},
+	usage: {
+		act: "%USER aims their gun",
+		hit: "%TARGET is shot",
+		crit: "%TARGET is pierced by the bullet",
+		miss: "%USER's aim was way off"
 	},
 	stats:{
 		amt: 3,
@@ -4077,6 +3954,9 @@ env.ACTIONS.stupidhorrible_charge = {
 		flavor: "'One crossed wire, one wayward pinch of potassium chlorate, one errant twitch... and kablooie!'",
 		onUse: "'[STATUS::windup] [STATUS::focused]'",
 	},
+	usage: {
+		act: "%USER prepares a bomb"
+	},
 	stats: {
 		status: {
 			windup: {
@@ -4098,12 +3978,17 @@ env.ACTIONS.stupidhorrible_charge = {
 env.ACTIONS.stupidhorrible_taunt = {
 	slug: "stupidhorrible_taunt",
 	name: "Taunt Kill",
-	type: "target",
+	type: "laugh at",
 	details: {
 		flavor: "'So Tall you fine dandies so proud, so cocksure!';'Prancin aboot with your heads full of eyeballs!';'Come and get me I say!'",
 		onUse: "'-[STATUS::windup]'",
 		onHit: "'[STAT::amt], [STATUS::focused]'",
 		onCrit: "'[STATUS::empowered]'",
+	},
+	usage: {
+		act: "%USER laughs at %TARGET",
+		hit: "%TARGET collapses",
+		crit: "%TARGET explodes"
 	},
 	stats:{
 		amt: 6,
@@ -4139,6 +4024,12 @@ env.ACTIONS.stupidhorrible_blood = {
 		onHit: "'[STAT::amt] [STATUS::windup]'",
 		onCrit: "'[STATUS::focused] [STATUS::empowered]'",
 	},
+	usage: {
+		act: "%USER runs at %TARGET with a sword?",
+		hit: "%TARGET is slashed",
+		crit: "%TARGET is heavily wounded",
+		miss: "%USER trips on a rock"
+	},
 	stats: {
 		amt: 6,
 		crit: 0.15,
@@ -4167,12 +4058,16 @@ env.ACTIONS.stupidhorrible_blood = {
 env.ACTIONS.stupidhorrible_colonthree = { //somehow githubs pushing broke.
 	slug: "stupidhorrible_colonthree",
 	name: "Realistic MP5",
+	verb: "target",
 	type: "autohit",
 	details: {
 		flavor: "Oh boy waht a nice GUN';'i love GUNs'",
 		onUse: "'75% to target 30 random actors'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::empowered]'"
+	},
+	usage: {
+		act: "%USER lets a rain of bullets fly"
 	},
 	stats: {
 		accuracy: 0.75,
@@ -4218,10 +4113,14 @@ env.ACTIONS.stupidhorrible_colonthree = { //somehow githubs pushing broke.
 env.ACTIONS.stupidhorrible_buncture ={
 	slug: "stupidhorrible_buncture",
 	name: "Buncture Beam",
+	verb: "Beam blast",
 	type: "autohit",
 	details: {
 		flavor: "'You may have gotten this far';'but its time for you to witness just a fraction of my power!'",
 		onUse: "'[STATUS::puncture] to everyone';'[STATUS::rot] to allies'"
+	},
+	usage: {
+		act: "%USER unleashes their BUNCTURE BEAM"
 	},
 	stats: {
 		status:{
@@ -4299,7 +4198,7 @@ env.ACTIONS.btgothwar = {
 		})
 	}
 },
-
+//smog
 env.ACTIONS.smog_minute = {
 	slug: "smog_minute",
 	name: "Blinking Hand",
@@ -4313,7 +4212,8 @@ env.ACTIONS.smog_minute = {
 	usage: {
 		act: "%USER TAKES A SWING",
 		hit: "%TARGET IS HIT IN TIME",
-		crit: "%TARGET IS STRUCK ON THE MINUTE"
+		crit: "%TARGET IS STRUCK ON THE MINUTE",
+		miss: "%USER misses the mark"
 	},
 	stats: {
 		accuracy: 0.8,
@@ -4360,6 +4260,7 @@ env.ACTIONS.smog_hour = {
 		act: "%USER TAKES A SWING",
 		hit: "%TARGET GETS HIT ON THE HOUR",
 		crit: "%TARGET GET STRUCK AS THE BELL RINGS",
+		miss: "%TARGET is distracted by the bell"
 	},
 	stats: {
 		accuracy: 0.15,
@@ -4591,6 +4492,9 @@ env.ACTIONS.cough = {
 		flavor: "'you just cough. thats it.'",
 		onUse: "'REMOVE 1-3T:[STATUS::clouded_lungs]'"
 	},
+	usage: {
+		act: "%USER coughs weakly"
+	},
 	stats: {
 		status: {
 			clouded_lungs: {name: "clouded_lungs", showReference: true},
@@ -4612,6 +4516,12 @@ env.ACTIONS.harsh_noise = {
 		flavor: "'Emit a painful sound','has a chance to silence foes'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::muted]'",
+	},
+	usage: {
+		act: "%USER emits a painful noise",
+		hit: "%TARGET's head hurts",
+		crit: "%TARGET's thoughts are derailed",
+		miss: "%USER's voice cuts out"
 	},
 	stats: {
 		accuracy: 0.82,
@@ -4641,6 +4551,9 @@ env.ACTIONS.mockery = {
 		flavor: "taunt your foes",
 		onUse: "'USER [STATUS::focused] [STATUS::vulnerable]';'FOE [STATUS::destabilized] [STATUS::critical_flaw]'"
 	},
+	usage: {
+		act: "%USER taunts %TARGET"
+	},
 	stats: {
 		status: {
 			destabilized : {name: "destabilized", length: 3},
@@ -4656,7 +4569,7 @@ env.ACTIONS.mockery = {
 		addStatus({target: user, status: "focused", length: 3})
 	}
 },
-
+//steel
 env.ACTIONS.steel_scold = { //remember to make this give the status effect that causes damage on action and removes one turn from the action (check tick type i think)
 	slug: "steel_scold",
 	name: "Scold",
@@ -4665,6 +4578,12 @@ env.ACTIONS.steel_scold = { //remember to make this give the status effect that 
 		flavor: "'Scold target';'instill fear into them'",
 		onHit: "'[STAT::amt]'",
 		onCrit: "'[STATUS::discipline]"
+	},
+	usage: {
+		act: "%USER scolds %TARGET",
+		hit: "%TARGET is nervous",
+		crit: "%TARGET is fearful",
+		miss: "%TARGET ignores %USER"
 	},
 	stats: {
 		accuracy: 0.9,
@@ -4697,6 +4616,12 @@ env.ACTIONS.steel_punish = {
 		onHit: "[STAT::amt]",
 		onCrit: "[STATUS::discipline] [STATUS::weakened]"
 	},
+	usage: {
+		act: "%USER claws at %TARGET",
+		hit: "%TARGET is lightly scratched",
+		crit: "%TARGET is slashed",
+		miss: "%USER misses their swing"
+	},
 	stats: {
 		amt: 1,
 		crit: 0.2,
@@ -4727,6 +4652,9 @@ env.ACTIONS.steel_stand = { //This should be a defensive buff, most likely using
 		flavor: "'Hold your ground';'Protect your subjects'",
 		onUse: "'Gain [STATUS::carapace]'"
 	},
+	usage: {
+		act: "%USER readies theirself"
+	},
 	stats: {
 		status: {
 			carapace: {name: "carapace",length: 2},
@@ -4750,6 +4678,9 @@ env.ACTIONS.steel_songbird = {
 	details: {
 		flavor: "'songbird, oh songbird, what truly is wrong?';'do they not give you the destruction of those who oppose?'",
 		onUse: "ALLIES: -2HP USER: [STATUS::carapace] [STATUS::empowered] per Ally"
+	},
+	usage: {
+		act: "%USER siphons from their allies"
 	},
 	stats: {
 		amt: 0,
@@ -4792,6 +4723,9 @@ env.ACTIONS.steel_angel = {
 	details: {
 		flavor: "'sacrifice a part of yourself to protect others'",
 		onUse: "ALLIES [STATUS::carapace], USER -2HP"
+	},
+	usage: {
+		act: "%USER sacrifices a bit of thierself"
 	},
 	stats: {
 		status: {
@@ -5089,6 +5023,9 @@ env.ACTIONS.steel_harmony = {
 		flavor: "'tune your weapon';'use one of the 4 ranges to harm';'chance of a unique status for each'",
 		onUse: "'Randomize Action betwee: ALTO, SOPRANO, TENOR, HEAD-VOICE'"
 	},
+	usage: {
+		act: "%USER sings a little tune"
+	},
 	stats: {
 		accuracy: 1,
 		crit: 0,
@@ -5112,6 +5049,9 @@ env.ACTIONS.steel_strong_harmony = {
 	details: {
 		flavor: "'Strike the notes';'the ranges ring out longer yet stronger'",
 		onUse: "'Randomize Action between: ALTO, SOPRANO, TENOR, HEAD-VOICE'"
+	},
+	usage: {
+		act: "%USER sings a loud tune"
 	},
 	stats: {
 		accuracy: 1,
@@ -5137,6 +5077,12 @@ env.ACTIONS.shiny_reflection = {
 		onUse: "[STATUS::glow]",
 		onHit: "[STAT::amt]"
 	},
+	usage: {
+		act: "%USER reflects light at %TARGET",
+		hit: "%TARGET covers their eyes",
+		crit: "%TARGET is blinded",
+		miss: "the light makes a funny pattern on the wall"
+	},
 	stats: {
 		amt: 2,
 		crit: 0.2,
@@ -5154,7 +5100,7 @@ env.ACTIONS.shiny_reflection = {
 		})
 	}
 },
-
+//life
 env.ACTIONS.life_seeding = {
 	slug: "life_seeding",
 	name: "Seeding",
@@ -5229,6 +5175,7 @@ env.ACTIONS.life_ensnare = {
 env.ACTIONS.life_veilkstrider = {
 	slug: "life_veilkstrider",
 	name: "Veilkstrider",
+	verb: "modify",
 	type: "self+support+autohit",
 	details: {
 		flavor: "'modify body with spindly limbs reminiscent of young veilk';'enables passive evasion'",
@@ -5269,6 +5216,7 @@ env.ACTIONS.bash = {
 env.ACTIONS.life_repairs = {
 	slug: "life_repairs",
 	name: "Field Repairs",
+	verb: "repair",
 	type: "support+autohit+target+self",
 	autohit: true,
 	details: {
@@ -5298,6 +5246,7 @@ env.ACTIONS.life_repairs = {
 env.ACTIONS.life_tuvazu = {
 	slug: "life_tuvazu",
 	name: "Tuvazu Imports",
+	verb: "seed",
 	type: "target", //look this is done just to not run an autohit thing ok.
 	details: {
 		flavor: "'new plants that rot out anything';'make your foes rot'",
@@ -5388,7 +5337,7 @@ env.ACTIONS.life_intimidating = {
 		})
 	}
 },
-
+//graceful
 env.ACTIONS.parry = {
 	slug: "parry",
 	name: "Parry",
@@ -5505,7 +5454,7 @@ env.ACTIONS.graceful_heed = {
 		})
 	}
 },
-
+//kivcria
 env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i have no experience coding with js frowny face emoji -:3
 	slug: "kivcria_claw",
 	name: "Rending Claw",
