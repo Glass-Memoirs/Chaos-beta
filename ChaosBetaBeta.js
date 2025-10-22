@@ -5755,9 +5755,11 @@ env.ACTIONS.kivcria_fairylight = {
 			critExec: ({target}) => {
 				addStatus(target, "destabilized")
 				addStatus(target, "puncture")
-				env.setTimeout(()=>{
-					useAction(user, env.ACTIONS["kivcria_bigswing"], target, {beingUsedAsync: true, reason: "fairylight Crit"})
-				}, 400)
+				if(target.hp > 0 && target.state != "lastStand") {
+					env.setTimeout(()=>{
+						useAction(user, env.ACTIONS["kivcria_bigswing"], target, {beingUsedAsync: true, reason: "fairylight Crit"})
+					}, 400)
+				}
 			}
 		})
 	}
