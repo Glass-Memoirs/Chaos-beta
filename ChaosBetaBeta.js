@@ -5684,43 +5684,20 @@ env.ACTIONS.kivcria_cyurtil = {
 	}
 },
 
-env.ACTIONS.kivcria_bigswing = {
-	slug: "kivcria_bigswing",
-	name: "bigswing",
-	verb: "swing",
-	type: "target",
-	details: {
-		flavor: "this wont even be read i think"
-	},
-	stats: {
-		accuracy: 0.4,
-		crit: 0.7,
-		amt: 1,
-		status: {
-			destabilized: {name: "destabilized", length: 1},
-			puncture: {name: "puncture", length: 1}
-		}
-	},
-	exec: (user, target) => {
-		env.GENERIC_ACTIONS.teamWave({
-			team: user.enemyTeam,
-			exec: (actor, i) => {
-				addStatus({target: actor, origin: user, status: "destabilized", length: 1})
-				addStatus({target: actor, origin: user, status: "puncture", length: 1})
-			}
-		})
-	}
-},
-
 env.ACTIONS.kivcria_fairylight = {
 	slug: "kivcria_fairylight",
 	name: "Fairylight",
-	type: "target",
+	type: 'target',
+	anim: "",
 	verb: "cut",
-	details: {
-		flavor: "'Device used in the cutting of stone and alloy';'mounted fairy-vissage blade that sends scraps flying';'effective at both single and broad improvised attacks'",
-		onHit: "8x[STAT::amt], [STATUS::puncture]",
-		onCrit: "[STAT::amt],[STATUS::destabilized],[STATUS::puncture]"
+	usage: {
+		act: "%USER CUTS INTO %TARGET",
+	},
+	details: { // i also made the details stuff clearer and fixed some stylistic errors
+		flavor: "'device used in the cutting of stone and alloy';'mounted fairy-vissage blade that sends scraps flying';'effective at both targeted and broad attacks'",
+		onUse: "'HIT target 8 times'",
+		onHit: "'[STAT::amt] [STATUS::puncture]'",
+		onCrit: "'additional ';'HIT all foes for additional [STAT::amt] [STATUS::puncture] [STATUS::destabilized]';'additional hits trigger on-hit effects';'additional hits have 40% ACC and 70% CRT'"
 	},
 	stats: {
 		accuracy: 0.3,
@@ -5737,34 +5714,55 @@ env.ACTIONS.kivcria_fairylight = {
 			}
 		}
 	},
-	exec: (user, target)=> {
-		env.GENERIC_ACTIONS.singleTarget({
-			action: this,
-			user,
-			target,
-			hitSfx: {
-				name: "chomp",
-				rate: 3
-			},
-			hitExec: ({target}) => {
-				for (let i = 0; i == 7; i++) {
-					if (Math.random() < 0.4) {
-						addStatus({target: target, origin: user, status: "puncture", length: 1})
+	exec: function(user, target, beingUsedAsync) {
+		let animElement = user.sprite || user.box
+		let initialRate = env.bgm.rate()
+
+		//animElement.classList.add('aiming')
+		//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, initialRate + 0.5)
+		//play('click1')
+
+		let anim = env.COMBAT_ANIMS.shoot
+
+		if(target) for (let i = 0; i < 8; i++) {
+			let baseDelay = ((env.ADVANCE_RATE * 0.2) * i)
+			let animDelay = baseDelay + anim.duration; // you can probably just remove the combat anim stuff if it wouldn't fit with the attack :P it would require a bit of re-tooling on your part but it is an option
+
+			setTimeout(()=>anim.exec(this, user, target), baseDelay)
+			setTimeout(()=>{
+				env.GENERIC_ACTIONS.singleTarget({
+					action: this, 
+					user, 
+					target,
+					hitSfx: { name: "chomp", rate: 3 },
+					hitStatus: this.stats.status.puncture,
+					critExec: ({target})=> {
+						addStatus({target: target, origin: user, status: "puncture", length: 1});
+						addStatus({target: target, origin: user, status: "destabilized", length: 1});
+						env.GENERIC_ACTIONS.teamWave({ // if this doesn't work, slap a return before it and see if that works
+							team: user.enemyTeam,
+							exec: (actor, i)=>{
+								combatHit(actor, {amt: 1, crit: 0.7, accuracy: 0.4, origin: user});
+								addStatus({target: actor, origin: user, status: "puncture", length: 1});
+								addStatus({target: actor, origin: user, status: "destabilized", length: 1});
+								play("shot", 1.25) // change this if you so desire
+							}
+						})
 					}
-				}
-			},
-			critExec: ({target}) => {
-				addStatus({target:target, origin: user, status: "destabilized", length: 1})
-				addStatus({target: target, origin: user, status: "puncture", length: 1})
-				if(target.hp > 0 && target.state != "lastStand") {
-					env.setTimeout(()=>{
-						useAction(user, env.ACTIONS["kivcria_bigswing"], target, {beingUsedAsync: true, reason: "fairylight Crit"})
-					}, 400)
-				}
-			}
-		})
+				})
+
+				animElement.classList.add('scramble')
+				setTimeout(()=>animElement.classList.remove('scramble'), 100)
+			}, animDelay)
+		}
+
+		setTimeout(()=>{
+			//animElement.classList.remove('aiming')                
+			if(!beingUsedAsync) advanceTurn(user)
+			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
+		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
-},
+}
 
 env.ACTIONS.energizer = {
 	slug: "energizer",
