@@ -5704,8 +5704,8 @@ env.ACTIONS.kivcria_bigswing = {
 		env.GENERIC_ACTIONS.teamWave({
 			team: user.enemyTeam,
 			exec: (actor, i) => {
-				addStatus(actor, "destabilized")
-				addStatus(actor, "puncture")
+				addStatus({target: actor, origin: user, status: "destabilized", length: 1})
+				addStatus({target: actor, origin: user, status: "puncture", length: 1})
 			}
 		})
 	}
@@ -5753,8 +5753,8 @@ env.ACTIONS.kivcria_fairylight = {
 				}
 			},
 			critExec: ({target}) => {
-				addStatus(target, "destabilized")
-				addStatus(target, "puncture")
+				addStatus({target:target, origin: user, status: "destabilized", length: 1})
+				addStatus({target: target, origin: user, status: "puncture", length: 1})
 				if(target.hp > 0 && target.state != "lastStand") {
 					env.setTimeout(()=>{
 						useAction(user, env.ACTIONS["kivcria_bigswing"], target, {beingUsedAsync: true, reason: "fairylight Crit"})
