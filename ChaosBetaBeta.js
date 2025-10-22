@@ -5110,6 +5110,12 @@ env.ACTIONS.life_seeding = {
 		onHit: "[STAT::amt] [STATUS::madness] [STATUS::fear]",
 		onCrit: "ALL [STAT::amt] [STATUS::fear]",
 	},
+	usage: {
+		act: "%USER throws strange seeds at %TARGET",
+		hit: "%TARGET is swarmed by bugs",
+		crit: "%TARGET and their team are swarmed",
+		miss: "the seeds fall on the ground"
+	},
 	stats: {
 		accuracy: 0.75,
 		crit: 0.25,
@@ -5147,6 +5153,12 @@ env.ACTIONS.life_ensnare = {
 		onHit: "[STAT::amt] [STATUS::vulnerable]",
 		onCrit: "[STATUS::vulnerable] [STATUS::stun]"
 	},
+	usage: {
+		act: "%USER calls vines from the ground",
+		hit: "%TARGET is bound lightly",
+		crit: "%TARGET is tightly bound",
+		miss: "the vines wither before they can reach"
+	},
 	stats: {
 		accuracy: 0.9,
 		crit: 0.25,
@@ -5181,6 +5193,9 @@ env.ACTIONS.life_veilkstrider = {
 		flavor: "'modify body with spindly limbs reminiscent of young veilk';'enables passive evasion'",
 		onUse: "[STATUS::deft]"
 	},
+	usage: {
+		act: "%USER modifies their body"
+	},
 	stats:{
 		status: {
 			deft: {name: "deft", showReference: true}
@@ -5199,9 +5214,13 @@ env.ACTIONS.bash = {
 		flavor: "'Bash your foes, Does not deal much damage'",
 		onHit: "[STAT::amt]"
 	},
+	usage: {
+		act: "%USER swings at %TARGET's head",
+		hit: "%TARGET is bashed"
+	},
 	stats: {
 		accuracy: 0.9,
-		cirt: 0,
+		crit: 0,
 		amt: 2
 	},
 	exec: function(user, target){
@@ -5222,6 +5241,9 @@ env.ACTIONS.life_repairs = {
 	details: {
 		flavor: "'Make quick repairs to an ally''",
 		onUse: "[STATUS::regen] to target"
+	},
+	usage: {
+		act: "%USER patches up %TARGET fast"
 	},
 	stats: {
 		amt: 0,
@@ -5252,6 +5274,10 @@ env.ACTIONS.life_tuvazu = {
 		flavor: "'new plants that rot out anything';'make your foes rot'",
 		onHit: "ALL FOES: [STATS::amt], 60%[STATUS::fear], 10% chance for [STATUS::rot], [STATUS::life_amalgamate]",
 	},
+	usage: {
+		act: "%USER call forth native tuvazu plants",
+		hit: "the plants root into %TARGET and their team"
+	},
 	stats: {
 		amt: 1,
 		status: {
@@ -5281,8 +5307,13 @@ env.ACTIONS.life_entomb = {
 	name: "Entomb",
 	type: "target",
 	details: {
-		flavor: "'strengthen vines to withold foes';'tear into them with the roots';'IMPORTANT: theres no crit'",
+		flavor: "'strengthened vines to withold foes';'tear into them with the roots';'IMPORTANT: theres no crit'",
 		onhit: "[STATS::amt], [STATUS::million_teeth], FOE+USER: [STATS:amtBP]"
+	},
+	usage: {
+		act: "%USER calls forth stronger vines",
+		hit: "the thorns brrow into %TARGET",
+		miss: "the vines rot"
 	},
 	stats: {
 		amt: 4,
@@ -5316,6 +5347,9 @@ env.ACTIONS.life_intimidating = {
 		flavor: "'modify to greatly increase size';'block incoming attacks and weaken blows of attackers'",
 		onUse: "ALLIES: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
 	},
+	usage: {
+		act: "%USER's body gets bigger"
+	},
 	stats: {
 		status: {
 			redirection: {name: "redirection", length: 2},
@@ -5347,6 +5381,9 @@ env.ACTIONS.parry = {
 		flavor: "Hit the attack back",
 		onUse: "[STATUS::parry]",
 	},
+	usage: {
+		act: "%USER prepares theirself"
+	},
 	stats: {
 		status: {
 			parry: {name: "parry", showReference: true}
@@ -5364,6 +5401,12 @@ env.ACTIONS.graceful_taint = {
 	details: {
 		flavor: "led astray by the smell of flowers and a false promise...",
 		onHit: "[STAT::amt] [STATUS::fear]"
+	},
+	usage: {
+		act: "%USER lures %TARGET with a flowery scent",
+		hit: "%TARGET follows along",
+		crit: "%TARGET falls for the lie",
+		miss: "%TARGET stays back"	
 	},
 	stats: {
 		amt: 2,
@@ -5394,6 +5437,12 @@ env.ACTIONS.graceful_beacon = {
 		flavor: "Shine bright my little star, Shine bright with His light and love",
 		onUse: "x1~3 [STAT::amt]",
 		onCrit: "x1~3 [STATUS::regen] or [STATUS::carapace]"
+	},
+	usage: {
+		act: "%USER radiates light",
+		hit: "%TARGET is blinded",
+		crit: "%USER is blessed",
+		miss: "the light fades"
 	},
 	stats: {
 		amt: 1,
@@ -5430,6 +5479,9 @@ env.ACTIONS.graceful_heed = {
 	details: {
 		flavor: "Please... look away... I don't want you to look at me",
 		onUse: "ALLIES: [STATUS::redirection] [STATUS::regen]"
+	},
+	usage: {
+		act: "%USER cowers from view, the foes look at them"
 	},
 	stats: {
 		amt: 0,
