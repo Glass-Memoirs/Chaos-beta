@@ -1024,7 +1024,7 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, seeing colors that science cant see. im on that ekivik shit, seeing a ton of fucking shapes (in the voice of they forgot i'm him guy)
 	slug: "life_tuvazu",
 	name: "Tuvazu imports",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
 	description: "'imported corrucystic sprouts directly from tuvazu';'melt away foes minds'",
 	alterations: [["life_seeding","life_tuvazu"]],
 	component: ["primary", "life"],
@@ -2460,7 +2460,7 @@ env.STATUS_EFFECTS.life_healing = {
 	name: "Healing Grounds",
 	beneficial: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
 	help: "Makes Regen permanent, and gives Bash",
 	events: {
 		onAddStatus: function({statusObj}) {
@@ -2500,7 +2500,7 @@ env.STATUS_EFFECTS.life_transfer = {
 	name: "Transfered Lifeforce",
 	beneficial: false,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTransfer.gif",
 	help: "when ally dies, revive random actor",
 	inUse: false,
 	events: {
@@ -2594,7 +2594,7 @@ env.STATUS_EFFECTS.life_herb = {
 	name: "Herbal Aid",
 	beneficial: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTransfer.gif",
 	help: "'Grants the action FIELD REPAIRS'",
 	grantsActions: ["life_repairs"],
 	impulse: {type: "common", component: "life"}
@@ -2605,7 +2605,7 @@ env.STATUS_EFFECTS.vicious_senses = {
 	name: "Vicious Senses",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeBramble.gif",
 	opposite: "dulled_senses", //YPOOO HOLY SHIT ITS THE DULL
 	help: "outgoing damage increased by 50%, removed when focused is removed",
 	outgoingMult: 0.5,
@@ -2641,7 +2641,7 @@ env.STATUS_EFFECTS.life_amalgamate = {
 	name: "Amalgamate",
 	beneficial: false,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeParasite.gif",
 	help: "apply PUNCTURE equal to twice the turns of ROT",
 	events: {
 		onTurn: () => {
@@ -2680,7 +2680,7 @@ env.STATUS_EFFECTS.predation = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeMirrorSmall.gif",
 	impulse: {type: "common", component: "life"},
 	help: "when focus is put on this shell, apply VICIOUS SENSES",
 	events: {
