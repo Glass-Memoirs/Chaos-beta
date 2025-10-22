@@ -5718,8 +5718,8 @@ env.ACTIONS.kivcria_fairylight = {
 	verb: "cut",
 	details: {
 		flavor: "'Device used in the cutting of stone and alloy';'mounted fairy-vissage blade that sends scraps flying';'effective at both single and broad improvised attacks'",
-		onHit: "8x[STATS::amt], [STATUS::puncture]",
-		onCrit: "[STATS::amt],[STATUS::destabilized],[STATUS::puncture]"
+		onHit: "8x[STAT::amt], [STATUS::puncture]",
+		onCrit: "[STAT::amt],[STATUS::destabilized],[STATUS::puncture]"
 	},
 	stats: {
 		accuracy: 0.3,
