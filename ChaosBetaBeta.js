@@ -5688,6 +5688,9 @@ env.ACTIONS.kivcria_bigswing = {
 	name: "bigswing",
 	verb: "swing",
 	type: "target",
+	details: {
+		flavor: "this wont even be read i think"
+	},
 	stats: {
 		accuracy: 0.4,
 		crit: 0.7,
@@ -5742,14 +5745,14 @@ env.ACTIONS.kivcria_fairylight = {
 				name: "chomp",
 				rate: 3
 			},
-			hitExec: () => {
+			hitExec: ({target}) => {
 				for (let i = 0; i == 7; i++) {
 					if (Math.random() < 0.4) {
 						addStatus({target: target, origin: user, status: "puncture", length: 1})
 					}
 				}
 			},
-			critExec: () => {
+			critExec: ({target}) => {
 				addStatus(target, "destabilized")
 				addStatus(target, "puncture")
 				env.setTimeout(()=>{
