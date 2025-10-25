@@ -1775,13 +1775,13 @@ env.STATUS_EFFECTS.stupidhorrible_hard = {
 
 env.STATUS_EFFECTS.stupidhorrible_death = {
 	slug: "stupidhorrible_death",
-	name: "ACTION::DEATH SENTENCE",
+	name: "ACTION::SWAWS",
 	passive: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/death_sentence.gif",
 	impulse: {type: "action", component: "stupidhorrible"},
 	events: {
-		GLOBAL_onDeath: function({originalEventTarget}) {
+		/*GLOBAL_onDeath: function({originalEventTarget}) {
 			let subject = originalEventTarget
             let user = this.status.affecting
 			if (user.team.name == subject.team.name) {
@@ -1803,9 +1803,89 @@ env.STATUS_EFFECTS.stupidhorrible_death = {
 				if (!utility.type.includes("special")) return;
 				useAction(user, utility, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
 			}
+		}*/
+		GLOBAL_onEvade: function({subject, target, attack, originalEventTarget}) {
+			let user = this.status.affecting
+			if(
+				!user.enemyTeam.members.includes(subject) || 
+				subject.state == "dead" ||
+				user.state == "dead" ||
+				target == !user ||
+				hasStatus(user, "fear")
+			) return;
+
+			let stolenAction = actionSettings.action.slug //stole this from narra. because there was no way id figure this shit out
+			newAction = env.ACTIONS[stolenAction]
+			if(this.status.affecting.team.name == "ally" && this.status.affecting.actions.includes(stolenAction)) return // ally action piling safeguard
+			else this.status.affecting.actions.push(stolenAction) // we let enemies collect multiple of the same action for the funny
+
+			let primary = env.ACTIONS[user.actions[0]]
+
+			setTimeout(()=>{
+				useAction(this.status.affecting, primary, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "retaliation"})
+            
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: `REMIX::${primary.name.toUpperCase()}`,
+					size: 1.5,
+				})
+
+				readoutAdd({
+					message: `${user.name} mirrors ${subject.name}'s voice! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)
+		},
+		GLOBAL_onAction: function({target, user, hit, reason, action, beingUsedAsync, originalEventTarget}) {
+			if(
+				hit != "crit" ||
+				this.status.affecting.state == "dead" || 
+				target == !this.status.affecting || 
+				originalEventTarget == this.status.affecting ||
+				this.status.affecting.enemyTeam.members.includes(target) || 
+				this.status.affecting.team.members.includes(user) || 
+				target.state == "dead" ||
+				this.status.turnUsage ||
+				!this.status.affecting.actions[1] ||
+				hasStatus(target, "fear")
+			) return;
+
+			let stolenAction = actionSettings.action.slug
+                newAction = env.ACTIONS[stolenAction]
+				if(this.status.affecting.team.name == "ally" && this.status.affecting.actions.includes(stolenAction)) return // ally action piling safeguard
+				else this.status.affecting.actions.push(stolenAction) // we let enemies collect multiple of the same action for the funny
+
+
+			this.status.turnUsage = true
+			let secondary = env.ACTIONS[this.status.affecting.actions[0]]
+
+			setTimeout(()=>{
+				useAction(this.status.affecting, secondary, secondary.beneficial ? target : user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "support"})
+
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: `REMIX::${primarry.name.toUpperCase()}`,
+					size: 1.5,
+				})
+                
+				readoutAdd({
+					message: `${this.status.affecting.name} mirrors ${user.name}'s voice! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail",
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.5)
 		}
 	},
-	help: "when ally fucking dies, use primary on all foes and then the utility once."
+	help: "on evade or recieving a crit, steal the attack and retaliate with primary"
 },
 
 env.STATUS_EFFECTS.fated_stupidhorrible = {
