@@ -5857,19 +5857,19 @@ env.ACTIONS.energizer = {
 		amt: 0,
 	},
 	exec: function(user, target) {
-		let choice = Math.random()
 		env.GENERIC_ACTIONS.singleTarget({
 			action:this,
 			user,
 			target,
 			genExec: ({target}) => {
-				if (choice < 0.5) {
 					addStatus({target: target, status: "surge", length: 1})
-				} else if (choice > 0.5 && choice < 0.8) {
+				if (Math.random() < 0.75) {
 					addStatus({target: target, status: "wild_surge", length:1 })
-				} else if (choice > 0.8 && choice < 0.99) {
+				}
+				if (Math.random() < 0.4) {
 					addStatus({target: target, status: "exp_overload", length: 1})
-				} else {
+				}
+				if (Math.random() < 0.1) {
 					addStatus({target: target, status: "tetration_shock", length: 1})
 				}
 			}
