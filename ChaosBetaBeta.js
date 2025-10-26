@@ -2634,6 +2634,57 @@ env.STATUS_EFFECTS.predation = {
 		}
 	}
 },
+
+env.STATUS_EFFECTS.life_resourceful = {
+	slug: "life_reourceful",
+	name: "ACTION::resourceful",
+	beneficial: true,
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "action", component: "life"},
+	help: "when foe dies, use utility and primary",
+	events: {
+		GLOBAL_onDeath: function({originalEventTarget}) {
+			let subject = originalEventTarget
+			let user = this.status.affecting
+
+			if(
+				user.state == "dead" ||
+				user == subject || 
+				user.team.name == subject.team.name || 
+				subject.state != "dead"
+			) return;
+			
+			let primaryHit = env.ACTIONS[user.actions[0]]
+			let utilitiyHit = env.ACTIONS[user.actions[2]]
+			let foeTarget = sample().subject.team
+			while (foeTarget == "dead") {
+				foeTarget = sample().subject.team
+			}
+
+			setTimeout(()=>{
+				useAction(user, primaryHit, foeTarget, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "life"})
+            
+				sendFloater({
+					target: subject,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: "RESOURCEFUL",
+					size: 1.5,
+				})
+                
+				readoutAdd({
+					message: `${user.name} takes advantage of ${subject.name}'s death! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)
+		}
+	}
+},
 //graceful
 env.STATUS_EFFECTS.parry = {
 	slug: "parry",
