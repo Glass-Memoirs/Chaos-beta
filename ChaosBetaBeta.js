@@ -2528,16 +2528,8 @@ env.STATUS_EFFECTS.life_shared = {
 					target: subject,
 					type: "arbitrary",
 					specialClass: "action",
-					arbitraryString: "LAST STAND!",
+					arbitraryString: "CONSUMPTION",
 					size: 1.5,
-				})
-                
-				readoutAdd({
-					message: `${user.name} inspires ${subject.name} to keep going! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
-					name: "sourceless", 
-					type: "sourceless combat minordetail", 
-					show: false,
-					sfx: false
 				})
 			}, env.ADVANCE_RATE * 0.2)	
 		}
