@@ -2536,6 +2536,32 @@ env.STATUS_EFFECTS.life_shared = {
 	}
 },
 
+env.STATUS_EFFECTS.life_predatorBless = {
+	slug: "life_predatorBless",
+	name: "Predator's Blessing",
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	infinite: true,
+	passive: true,
+	impulse: {type: "common", component: "life"},
+	events: {
+		GLOBAL_onDeath: ({originalEventTarget}) => {
+			let subject = originalEventTarget
+			let user = this.status.affecting
+
+			if(
+				user.state == "dead" ||
+				user == subject || 
+				user.team.name == subject.team.name || 
+				subject.state != "dead"
+			) return;
+
+			addStatus(this.status.affecting, "wild_surge")
+		}
+	},
+	help: "on Foe down, gain wild surge"
+},
+
 env.STATUS_EFFECTS.deft = {
 	slug: "deft",
 	name: "Deft",
