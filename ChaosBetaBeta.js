@@ -652,7 +652,7 @@ env.COMBAT_COMPONENTS.life = {
 			maxhp: 2
 		}
 	},
-	combatModifiers: ["life_healing", "life_transfer", /*"life_social"*/]
+	combatModifiers: ["life_healing", "life_transfer", "life_shared"]
 }
 
 env.COMBAT_COMPONENTS.graceful = {
