@@ -2665,6 +2665,7 @@ env.STATUS_EFFECTS.life_resourceful = {
 
 			setTimeout(()=>{
 				useAction(user, primaryHit, foeTarget, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "life"})
+				useAction(user, utility, user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "life", force: true})
             
 				sendFloater({
 					target: subject,
