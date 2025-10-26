@@ -2503,14 +2503,46 @@ env.STATUS_EFFECTS.life_transfer = {
 	}
 },
 
-/*env.STATUS_EFFECTS.life_social = {
-	slug: "life_social",
-	name: "Social Parasite",
+env.STATUS_EFFECTS.life_shared = {
+	slug: "life_shared",
+	name: "Shared Prey",
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	help: "All actors have MIMIC",
-	grantsActions: [""]
-},*/
+	help: "on actor down, all actors gain wild surge",
+	events: {
+		GLOBAL_onDeath: ({originalEventTarget}) => {
+			let subject = originalEventTarget
+			let user = this.status.affecting
+
+			if(
+				user.state == "dead" ||
+				user == subject ||  
+				subject.state != "dead"
+			) return;
+
+			setTimeout(()=>{
+
+				addStatus(this.status.affecting, "wild_surge")
+            
+				sendFloater({
+					target: subject,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: "LAST STAND!",
+					size: 1.5,
+				})
+                
+				readoutAdd({
+					message: `${user.name} inspires ${subject.name} to keep going! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)	
+		}
+	}
+},
 
 env.STATUS_EFFECTS.deft = {
 	slug: "deft",
