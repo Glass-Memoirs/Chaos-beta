@@ -2771,6 +2771,86 @@ env.STATUS_EFFECTS.life_resourceful = {
 		}
 	}
 },
+// per humor of LIFE: +2 bp per bp, +2 hp per hp
+env.STATUS_EFFECTS.fated_life = {
+	slug: "fated_life",
+	name: "FATED::LIFE",
+	beneficial: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "fated", component: "life"},
+	help: "per humor of LIFE on this shell: +2 bp per bp, +2 hp per hp",
+	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			
+			this.status.power = 0
+			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
+				if(slotContents == "life") this.status.power++
+			}
+
+			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
+				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+				if(augment?.component) if(augment.component[1] == "life") this.status.power += 2
+			}
+			this.status.boostpower = this.status.power * -2
+		},
+		GLOBAL_onBeforeCombatHit: function(context) {
+			if(!this.status.power || context.amt > 0 || !this.status.affecting.team.members.includes(context.origin) || context.target.state == "dead" ) return;
+			if(context.amt < 0 && context.type == 'hp') {
+				context.type = 'hp'
+				context.amt = context.amt + this.status.boostpower
+			} else {
+				context.type = "barrier"
+				context.amt = context.amt + this.status.boostpower
+			}
+			setTimeout(()=>{                
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					specialClass: "fate",
+					arbitraryString: "FATE::LIFE",
+				})
+
+				/*readoutAdd({
+					message: `${originalEventTarget.name} gains a barrier! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.affecting.name}'s ${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})*/
+			}, env.ADVANCE_RATE * 0.2)
+		},
+		/*GLOBAL_onCombatHit: function({subject, origin, attack, beneficial, originalEventTarget}) {
+                if(
+                    !this.status.power || 
+                    !beneficial || 
+                    !this.status.affecting.team.members.includes(originalEventTarget) || 
+                    originalEventTarget.state == "dead" ||
+                    attack >= 0
+                ) return;
+
+                combatHit(originalEventTarget, {amt: this.status.boostpower, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+                                
+                setTimeout(()=>{                
+                    sendFloater({
+                        target: this.status.affecting,
+                        type: "arbitrary",
+                        specialClass: "fate",
+                        arbitraryString: "FATE::ICHOR",
+                    })
+
+                    readoutAdd({
+                        message: `${originalEventTarget.name} gains a barrier! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.affecting.name}'s ${this.status.name}</span>)`, 
+                        name: "sourceless", 
+                        type: "sourceless combat minordetail", 
+                        show: false,
+                        sfx: false
+                    })
+                }, env.ADVANCE_RATE * 0.2)
+		}*/
+	}
+},
 //graceful
 env.STATUS_EFFECTS.parry = {
 	slug: "parry",
