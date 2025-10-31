@@ -2419,6 +2419,41 @@ env.STATUS_EFFECTS.glow = {
 	outgoingMult: 0.15,
 	outgoingCrit: 3,
 },
+//per steel: -10% incoming damage, +100% outgoing with empowered or carapace
+env.STATUS_EFFECTS.fated_steel = {
+	slug: "fated_steel",
+	name: "FATED::STEEL",
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "fated", component: "steel"},
+	outgoingMult: 0,
+	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			
+			this.status.power = 0
+			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
+				if(slotContents == "steel") this.status.power++
+			}
+
+			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
+				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+				if(augment?.component) if(augment.component[1] == "steel") this.status.power += 2
+			}
+			this.status.incomingMult = this.status.power * -0.1
+		},
+		onAddStatus: ({statusObj}) => {
+			if(statusObj.slug == "empowered" || statusObj.slug == "carapace") {
+				this.status.outgoingMult = 1
+			}
+			if (!hasStatus(this.status.affecting, "empowered") || !hasStatus(this.status.affecting, "carapace")) {
+				this.status.outgoingMult = 0
+			}
+		}
+	},
+	help: "per humor of STEEL on this shell: -10% incoming damage, +100% outgoing with empowered or carapace"
+},
 
 //life
 env.STATUS_EFFECTS.life_healing = {
