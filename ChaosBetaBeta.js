@@ -1804,7 +1804,7 @@ env.STATUS_EFFECTS.stupidhorrible_death = {
 				useAction(user, utility, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "death sentence"})
 			}
 		}*/
-		GLOBAL_onEvade: function({subject, target, attack, originalEventTarget}) {
+		onEvade: function({subject, target, attack, originalEventTarget}) {
 			let user = this.status.affecting
 			if(
 				!user.enemyTeam.members.includes(subject) || 
@@ -2796,7 +2796,7 @@ env.STATUS_EFFECTS.fated_life = {
 			this.status.boostpower = this.status.power * -2
 		},
 		GLOBAL_onBeforeCombatHit: function(context) {
-			if(!this.status.power || context.amt > 0 || !this.status.affecting.team.members.includes(context.origin) || context.target.state == "dead" ) return;
+			if(!this.status.power || context.amt > 0 || !this.status.affecting.team.members.includes(context.origin)) return;
 			if(context.amt < 0 && context.type == 'hp') {
 				context.type = 'hp'
 				context.amt = context.amt + this.status.boostpower
