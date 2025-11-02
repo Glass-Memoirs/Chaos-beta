@@ -2549,7 +2549,23 @@ env.STATUS_EFFECTS.life_shared = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "on actor down, all actors gain wild surge",
 	events: {
-		GLOBAL_onDeath: ({originalEventTarget}) => {
+		GLOBAL_onDeath: function({originalEventTarget}) {
+			if(
+				this.status.affecting.state == "dead" ||
+				this.status.affecting.team.name == originalEventTarget.team.name
+			) return;
+                    
+            sendFloater({
+				target: subject,
+				type: "arbitrary",
+				specialClass: "action",
+				arbitraryString: "CONSUMPTION",
+				size: 1.5,
+			})
+
+			addStatus({target: this.status.affecting, origin: false, status: "wild_surge", length: 3})                
+		}
+		/*GLOBAL_onDeath: ({originalEventTarget}) => {
 			let subject = originalEventTarget
 			let user = this.status.affecting
 
@@ -2571,7 +2587,7 @@ env.STATUS_EFFECTS.life_shared = {
 					size: 1.5,
 				})
 			}, env.ADVANCE_RATE * 0.2)	
-		}
+		}*/
 	}
 },
 
@@ -2584,19 +2600,28 @@ env.STATUS_EFFECTS.life_predatorBless = {
 	passive: true,
 	impulse: {type: "common", component: "life"},
 	events: {
-		GLOBAL_onDeath: ({originalEventTarget}) => {
-			let subject = originalEventTarget
-			let user = this.status.affecting
+		GGLOBAL_onDeath: function({originalEventTarget}) {
+                if(
+                    this.status.affecting.state == "dead" ||
+                    this.status.affecting.team.name == originalEventTarget.team.name
+                ) return;
+                    
+                sendFloater({
+                    target: this.status.affecting,
+                    type: "arbitrary",
+                    arbitraryString: "FINISHER!",
+                })
+                                
+                readoutAdd({
+                    message: `${this.status.affecting.name} is boosted! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+                    name: "sourceless", 
+                    type: "sourceless combat minordetail", 
+                    show: false,
+                    sfx: false
+                })
 
-			if(
-				user.state == "dead" ||
-				user == subject || 
-				user.team.name == subject.team.name || 
-				subject.state != "dead"
-			) return;
-
-			addStatus(this.status.affecting, "wild_surge")
-		}
+                addStatus({target: this.status.affecting, origin: false, status: "wild_surge", length: 3})                
+            }
 	},
 	help: "on Foe down, gain wild surge"
 },
