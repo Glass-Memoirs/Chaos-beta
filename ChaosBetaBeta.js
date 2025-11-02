@@ -919,20 +919,20 @@ env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
 	description: "'barrel into foes with great energy';'half beneficial effects for power'",
 	alterations: [["kivcria_claw", "kivcria_fairylight"]],
 	component: ["primary", "kivcria"],
-	cost: 2
+	cost: 3
 }
 
-/*env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
-	slug: "kivcria_sopre",
+env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
+	slug: "kivcria_sopreburst",
 	name: "Sporeburst",
 	image: "/img/sprites/combat/augs/barrier.gif",
 	description: "'Use stored secri-containing bulbs to seed enviroment','rot through friend and foe allike'",
-	alterations: [["kivcria_lure", "kivcria_spore"]],
+	alterations: [["kivcria_lure", "kivcria_sporeburst"]],
 	component: ["secondary", "kivcria"],
 	cost: 2
 }
 
-env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
+/*env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
     slug: "kivcria_cavernclear",
     name: "Cavern-clear",
     image: "/img/sprites/combat/augs/cripple.gif",
@@ -6068,8 +6068,57 @@ env.ACTIONS.kivcria_fairylight = {
 			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
 		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
-}
+},
 
+//Kivcria Secondary: Sporeburst
+//use secri-containing bulbs to seed environment, rot through friend and foe alike
+//on foes: 5t rot, +amalgamate (add puncture for amount of rot. check with embassy if it should be an after turn or additive thing)
+//on allies: 3t rot
+//type is special
+env.ACTIONS.kivcria_sporeburst = {
+	slug: "kivcria_sporeburst",
+	name: "Sporeburst",
+	type: "special",
+	anim: "",
+	usage: {
+		act: "%USER THROWS BULBS EVERYWHERE"
+	},
+	details: {
+		flavor: "'use secri-containing bulbs to seed environment';'rot through friend and foe alike'",
+		onUse: "'[STATUS::rot]';'Hit everyone'",
+		conditional: `<em>ON FOE::</em>'[STATUS::amalgamate]`
+	},
+	stats: {
+		status: {
+			rot: {name: "rot", length: 5},
+			amalgamate: {name: "life_amalgamate", showReference: true}
+		}
+	},
+	autohit: true,
+	exec: (user, target, beingUsedAsync) => {
+		env.GENERIC_ACTIONS.teamwave({
+			team: user.enemyTeam,
+			exec: (actor, i) => {
+				addStatus({target: actor, origin: user, status: "fear", length: 5})
+				addStatus({target: actor, origin: user, status: "life_amalgamate", length: 1})
+			}
+		})
+		env.GENERIC_ACTIONS.teamwave({
+			team: user.allyTeam,
+			exec: (actor, i) => {
+				addStatus({target: actor, origin: user, status: "fear", length: 5})
+			}
+		})
+	}
+},
+//Kivcria Utility: Cavern Clear
+//Experimentl dull-pulse augmented sprayer. used in an attempt to reclaim parts of tuvazu from extreme parasite infection, it did not work
+//tzuvil
+//on Foes: -1hp, 50% per to remove up to an aditional 3. on crit 25% per 5 (-1hp and 2t destabilized)
+//on self: +2 dull cleansing (more outgoing damage per dull cleansing)
+//80 hit 20 crit
+
+//misc
 env.ACTIONS.energizer = {
 	slug: "energizer",
 	name: "Energizer",
