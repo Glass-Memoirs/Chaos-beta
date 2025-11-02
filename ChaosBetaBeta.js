@@ -2992,11 +2992,20 @@ env.STATUS_EFFECTS.consequence_spread = {
 	events: {
 		onStruck: function({subject, beneficial}) {
 			if(!beneficial) {
-				this.status.affecting.team.forEach((member, i) => {
+				this.status.affecting.team.members.forEach((member, i) => {
 					if(member.state == "living") {
 						addStatus({target: member, status: "rot", length: 1})
 					}
 				})
+				/*if (this.status.affecting.team == "enemy") {
+					env.rpg.enemyTeam.members.forEach((actor, i) =>{
+						addStatus({target: member, status: "rot", length: 1})
+					})
+				} else if (this.status.affecting.team == "ally") {
+					env.rpg.allyTeam.members.forEach((actor, i) =>{
+						addStatus({target: member, status: "rot", length: 1})
+					})
+				}*/
 			}
 		}
 	},
