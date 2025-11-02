@@ -3020,7 +3020,7 @@ env.STATUS_EFFECTS.kivcria_dull ={
 	slug: "kivcria_dull",
 	name: "dull blessing",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/concussion.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	events: {
 		GLOBAL_onBeforeCombatHit: function(context) {
 			if(context.origin == this.status.affecting) {
@@ -3038,6 +3038,112 @@ env.STATUS_EFFECTS.kivcria_dull ={
 	},
 	help: "outgoing damage is increased per turn of dull blessing present"
 },
+//Impulses
+//Rot-spread - all attacks apply rot equal to user's turns of rot
+//Rotten wounds - 10% outgoing damage per Trot
+//Exposure's blessing - half the effects of rot
+
+//Action::clean and clear
+//On foe evade or recive crit, use utility and gain +2bp
+env.STATUS_EFFECTS.kivcria_clean = {
+	slug: "kivcria_clean",
+	name: "ACTION::CLEAN AND CLEAR",
+	beneficial: true,
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "action", component: "kivcria"},
+	help: "on foe evade or when this shell is crit, use utility and gain +2BP",
+	events: {
+		GLOBAL_onBeforeAction: function({user, reason, beingUsedAsync, action}) { 
+			if(user != this.status.affecting && (user.team.name == this.status.affecting.team.name) && !reason && !beingUsedAsync) {
+				this.status.turnUsage = false 
+			}
+		},
+		GLOBAL_onAction: function({target, user, hit, reason, action, beingUsedAsync, originalEventTarget}) {
+			if(
+				hit != "crit" ||
+				this.status.affecting.state == "dead" || 
+				user == this.status.affecting || 
+				originalEventTarget == this.status.affecting ||
+				!this.status.affecting.enemyTeam.members.includes(user) || 
+				!this.status.affecting.team.members.includes(target) || 
+				target.state == "dead" ||
+				this.status.turnUsage ||
+				!this.status.affecting.actions[2] ||
+				hasStatus(user, "fear") ||
+				target != this.status.affecting
+			) return;
+
+			this.status.turnUsage = true
+			let utility = env.ACTIONS[this.status.affecting.actions[2]]
+
+			setTimeout(()=>{
+				useAction(this.status.affecting, utility, utility.beneficial ? user : target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "CleanAndClear"})
+				combatHit(this.status.affecting, {amt: 2, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: `CLEAN AND CLEAR::${utility.name.toUpperCase()}`,
+					size: 1.5,
+				})
+                
+				/*readoutAdd({
+					message: `${this.status.affecting.name} provides support alongside ${user.name}'s attack on ${target.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail",
+					show: false,
+					sfx: false
+				})*/
+			}, env.ADVANCE_RATE * 0.5)
+		},
+		GLOBAL_onEvade: function({subject, target, attack, originalEventTarget}) {
+			let user = this.status.affecting
+			if(
+				user.enemyTeam.members.includes(subject) || 
+				subject.state == "dead" ||
+				user.state == "dead" ||
+				target == user ||
+				hasStatus(user, "fear") ||
+				!this.status.affecting.actions[2]
+			) return;
+
+			let utility = env.ACTIONS[user.actions[2]]
+			
+			setTimeout(()=>{
+				useAction(this.status.affecting, utility, utility.beneficial ? subject : target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "CleanAndClear"})
+				combatHit(this.status.affecting, {amt: 2, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: `CLEAN AND CLEAR::${utility.name.toUpperCase()}`,
+					size: 1.5,
+				})
+
+				/*readoutAdd({
+					message: `${user.name} retaliates against ${subject.name} as they miss! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})*/
+			}, env.ADVANCE_RATE * 0.2)
+		}
+	}
+}
+
+//Fated::Kivcria
+//Per hunor of kivcri
+//+1T rot when reciving/applying rot
+//+5% damage per Trot
+
+//Stage modifiers 
+//Wall-rot - all actions have a 20% chance to become rotten jab (-1hp, +3T rot) [70% hit chance, no crit]
+//Rotten wounds - 100% outgoing damage per Trot
+//Tendril's decay - on actor death, summon enemy rot-bearer (10hp, ethereal, only action is decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate))
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
