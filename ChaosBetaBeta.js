@@ -6270,11 +6270,11 @@ env.ACTIONS.kivcria_cavernclear = {
 		crit: 0.2,
 		status: {
 			destabilized: {name: "destabilized", length: 2},
-			dull_cleansing: {name: "dull_cleansing", lenght: 2}
+			dull_cleansing: {name: "kivcria_dull", lenght: 2}
 		}
 	},
 	exec: (user,target) => {
-		addStatus({target: user, status: "dull_cleansing", length: 2})
+		addStatus({target: user, status: "kivcria_dull", length: 2})
 
 		env.GENERIC_ACTIONS.teamwave({
 			team: user.enemyTeam,
