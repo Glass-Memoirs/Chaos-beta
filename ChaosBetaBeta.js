@@ -2781,6 +2781,7 @@ env.STATUS_EFFECTS.fated_life = {
 	name: "FATED::LIFE",
 	beneficial: true,
 	infinite: true,
+	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "fated", component: "life"},
 	help: "per humor of LIFE on this shell: +2 bp per bp, +2 hp per hp",
