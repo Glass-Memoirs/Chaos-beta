@@ -410,6 +410,10 @@ function TempIconChoice() {
 	return IconChoice
 }
 
+function randomInt(min, max) { // min and max included <---- thank you, random stackoverflow user
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 //HUMORS
 env.COMBAT_COMPONENTS.entropy = {
      name: "Entropy",
@@ -922,8 +926,8 @@ env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
 	cost: 3
 }
 
-env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
-	slug: "kivcria_sopreburst",
+env.ACTOR_AUGMENTS.generic.kivcria_sporeburst = { //sporeburst
+	slug: "kivcria_sporeburst",
 	name: "Sporeburst",
 	image: "/img/sprites/combat/augs/barrier.gif",
 	description: "'Use stored secri-containing bulbs to seed enviroment','rot through friend and foe allike'",
@@ -932,7 +936,7 @@ env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
 	cost: 2
 }
 
-/*env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
+env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
     slug: "kivcria_cavernclear",
     name: "Cavern-clear",
     image: "/img/sprites/combat/augs/cripple.gif",
@@ -940,7 +944,7 @@ env.ACTOR_AUGMENTS.generic.kivcria_spore = { //sporeburst
     alterations: [["kivcria_cyurtil", "kivcria_cavernclear"]],
     component: ["utility", "kivcria"],
     cost: 2
-}*/
+}
 
 //END OF AUGMENTS
 
@@ -3010,6 +3014,29 @@ env.STATUS_EFFECTS.consequence_spread = {
 		}
 	},
 	help: "When affected actor struck, give 1T:ROT to actor's team"
+},
+//outgoing damage is incresed per dull blessing
+env.STATUS_EFFECTS.kivcria_dull ={
+	slug: "kivcria_dull",
+	name: "dull blessing",
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Stupidhorrible/concussion.gif",
+	events: {
+		GLOBAL_onBeforeCombatHit: function(context) {
+			if(context.origin == this.status.affecting) {
+				let punctureCount = hasStatus(context.originalEventTarget, "dull_blessing")
+
+				if(context.amt > 0 && punctureCount && !context.beneficial) {
+					this.status.outgoingMult = 0.2 * punctureCount
+				} else {
+					this.status.outgoingMult = 0
+				}
+			}
+
+			updateStats({actor: this.status.affecting})
+		},
+	},
+	help: "outgoing damage is increased per turn of dull blessing present"
 },
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
@@ -6070,7 +6097,7 @@ env.ACTIONS.kivcria_fairylight = {
 	}
 },
 
-//Kivcria Secondary: Sporeburst
+//Kivcria Secondary augment: Sporeburst
 //use secri-containing bulbs to seed environment, rot through friend and foe alike
 //on foes: 5t rot, +amalgamate (add puncture for amount of rot. check with embassy if it should be an after turn or additive thing)
 //on allies: 3t rot
@@ -6111,13 +6138,65 @@ env.ACTIONS.kivcria_sporeburst = {
 		})
 	}
 },
-//Kivcria Utility: Cavern Clear
+//Kivcria Utility augment: Cavern Clear
 //Experimentl dull-pulse augmented sprayer. used in an attempt to reclaim parts of tuvazu from extreme parasite infection, it did not work
 //tzuvil
 //on Foes: -1hp, 50% per to remove up to an aditional 3. on crit 25% per 5 (-1hp and 2t destabilized)
 //on self: +2 dull cleansing (more outgoing damage per dull cleansing)
 //80 hit 20 crit
+env.ACTIONS.kivcria_cavernclear = {
+	slug: "kivcria_cavernclear",
+	name: "Cavern Clear",
+	type: "special",
+	anim: "",
+	usage: {
+		act: "%USER SPRAYS DULL BEAMS"
+	},
+	details: {
+		flavor: "'Experimentl dull-pulse augmented sprayer';'used in an attempt to reclaim parts of tuvazu from extreme parasite infection';'it did not work'",
+		onUse: "'[STATUS::dull_cleansing]';'HIT all foes'",
+		onHit: "'[STAT::amt]';'50% per additional [STAT::amt] up to 3'",
+		onCrit: "'25% per [STAT::amt] and [STATUS::destabilized]",
+	},
+	stats: {
+		amt: 1,
+		accuracy: 0.8,
+		crit: 0.2,
+		status: {
+			destabilized: {name: "destabilized", length: 2},
+			dull_cleansing: {name: "dull_cleansing", lenght: 2}
+		}
+	},
+	exec: (user,target) => {
+		addStatus({target: user, status: "dull_cleansing", length: 2})
 
+		env.GENERIC_ACTIONS.teamwave({
+			team: user.enemyTeam,
+			exec: (actor, i) => {
+				env.GENERIC_ACTIONS.singleTarget({
+					action: this,
+					user,
+					target: actor,
+					hitExec: ({target}) => {
+						if (Math.random() < 0.5) {
+							for (let i = 1; randomInt(1, 3); i++){
+								combatHit(target, {amt: 1, acc: 1, crit: 0, origin: user})
+							}
+						}
+					},
+					critExec: ({target}) => {
+						if (Math.random() < 0.25) {
+							for (let i = 1; randomInt(1, 5); i++){
+								combatHit(target, {amt: 1, acc: 1, crit: 0, origin: user})
+								addStatus({target: target, origin: user, status: "destabilized", length: 2})
+							}
+						}
+					}
+				})
+			}
+		})
+	}
+},
 //misc
 env.ACTIONS.energizer = {
 	slug: "energizer",
