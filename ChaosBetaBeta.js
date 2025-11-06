@@ -4578,8 +4578,9 @@ env.ACTIONS.stupidhorrible_colonthree = { //somehow githubs pushing broke.
 env.ACTIONS.stupidhorrible_buncture ={
 	slug: "stupidhorrible_buncture",
 	name: "Buncture Beam",
-	verb: "Beam blast",
-	type: "autohit",
+	verb: "blast",
+	type: "special",
+	autohit: true,
 	details: {
 		flavor: "'You may have gotten this far';'but its time for you to witness just a fraction of my power!'",
 		onUse: "'[STATUS::puncture] to everyone';'[STATUS::rot] to allies'"
