@@ -2081,23 +2081,45 @@ env.STATUS_EFFECTS.forte = {
 				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
 			let LoopCount = Math.floor(hasStatus(this.status.affecting, "forte"))
 			removeStatus(this.status.affecting, "forte")
-			for (i = 0; i < LoopCount; i++) {
-				setTimeout(()=>{
-					sendFloater({
-						target: user,
-						type: "arbitrary",
-						arbitraryString: "FORTE",
-						size: 1.5,
-					})
-					readoutAdd({
-						message: `${user.name} goes again! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
-						name: "sourceless", 
-						type: "sourceless combat minordetail", 
-						show: false,
-						sfx: false
-					})
-					useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
-				}, 500)
+			if (action.slug != "steel_strong_harmony") {
+				for (i = 0; i < LoopCount; i++) {
+					setTimeout(()=>{
+						sendFloater({
+							target: user,
+							type: "arbitrary",
+							arbitraryString: "FORTE",
+							size: 1.5,
+						})
+						readoutAdd({
+							message: `${user.name} goes again! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+							name: "sourceless", 
+							type: "sourceless combat minordetail", 
+							show: false,
+							sfx: false
+						})
+						useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
+					}, 500)
+				}
+			} else {
+				addStatus({target: this.status.affecting, status: "forte", lenght: (LoopCount-8)})
+				for (i = 0; i < 8; i++) {
+					setTimeout(()=>{
+						sendFloater({
+							target: user,
+							type: "arbitrary",
+							arbitraryString: "FORTE",
+							size: 1.5,
+						})
+						readoutAdd({
+							message: `${user.name} goes again! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+							name: "sourceless", 
+							type: "sourceless combat minordetail", 
+							show: false,
+							sfx: false
+						})
+						useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
+					}, 500)
+				}
 			}
 		},
 		onCreated: function({statusObj}) {
