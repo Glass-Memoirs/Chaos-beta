@@ -2164,12 +2164,12 @@ env.STATUS_EFFECTS.forte = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalForte.gif",
 	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'", //[]^[] < reading this what the fuck was i on
 	events: {
-		onTurn: function() { 
+		onTurn: function() { //this only fires once its the shells turn again, so maybe no errors here?
 			reactDialogue(this.status.affecting, 'surge') 
 			delete this.status.justGotSurge
 		},
-		onAction: function({user,target, action}) {
-			if(this.status.justGotSurge || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
+		onAction: function({user, action, target, beingUsedAsync}) { //somehow something is missing from this part to stop it when summoned
+			if(this.status.justGotSurge || beingUsedAsync || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
 				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
 			for (i = 0; i < Math.floor(hasStatus(this.status.affecting, "forte")); i++) {
 				setTimeout(()=>{
@@ -2191,7 +2191,7 @@ env.STATUS_EFFECTS.forte = {
 			}
 			removeStatus(this.status.affecting, "forte")
 		},
-		onCreated: function({statusObj}) {
+		onCreated: function({statusObj}) { //this fires when forte is added so there shouldnt be errors here
                 if(statusObj.slug == this.status.slug) this.status.justGotSurge = true
 		},
 	}
