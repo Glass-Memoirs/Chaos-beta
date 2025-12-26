@@ -2171,8 +2171,9 @@ env.STATUS_EFFECTS.forte = {
 		onAction: function({user, action, target, beingUsedAsync}) { //somehow something is missing from this part to stop it when summoned
 			if(this.status.justGotSurge || beingUsedAsync || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
 				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
-			for (i = 0; i < Math.floor(hasStatus(this.status.affecting, "forte")); i++) {
-				removeStatus(this.status.affecting, "forte")
+			let LoopCount = Math.floor(hasStatus(this.status.affecting, "forte"))
+			removeStatus(this.status.affecting, "forte")
+			for (i = 0; i < LoopCount; i++) {
 				setTimeout(()=>{
 					sendFloater({
 						target: user,
