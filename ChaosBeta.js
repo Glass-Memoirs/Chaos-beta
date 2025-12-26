@@ -4561,7 +4561,7 @@ env.ACTIONS.strong_alto = {
 			user,
 			target,
 			hitExec: ({user}) => {
-				addStatus({target: user, status: "vibrato", length: 3})
+				addStatus({target: user, status: "vibrato", length: 5})
 			}
 		})
 	}

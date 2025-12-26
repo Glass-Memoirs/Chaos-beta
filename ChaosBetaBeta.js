@@ -2172,6 +2172,7 @@ env.STATUS_EFFECTS.forte = {
 			if(this.status.justGotSurge || beingUsedAsync || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
 				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
 			for (i = 0; i < Math.floor(hasStatus(this.status.affecting, "forte")); i++) {
+				removeStatus(this.status.affecting, "forte")
 				setTimeout(()=>{
 					sendFloater({
 						target: user,
@@ -2189,7 +2190,6 @@ env.STATUS_EFFECTS.forte = {
 					useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "forte"})
 				}, 500)
 			}
-			removeStatus(this.status.affecting, "forte")
 		},
 		onCreated: function({statusObj}) { //this fires when forte is added so there shouldnt be errors here
                 if(statusObj.slug == this.status.slug) this.status.justGotSurge = true
@@ -5279,7 +5279,7 @@ env.ACTIONS.strong_alto = {
 			user,
 			target,
 			hitExec: ({user}) => {
-				addStatus({target: user, status: "vibrato", length: 3})
+				addStatus({target: user, status: "vibrato", length: 5})
 			}
 		})
 	}
