@@ -2574,10 +2574,9 @@ env.STATUS_EFFECTS.life_shared = {
 	events: {
 		GLOBAL_onDeath: function({originalEventTarget}) {
 			if(
-				this.status.affecting.state == "dead" ||
-				this.status.affecting.team.name == originalEventTarget.team.name
+				this.status.affecting.state == "dead"
 			) return;
-                    
+			let subject = originalEventTarget
             sendFloater({
 				target: subject,
 				type: "arbitrary",
@@ -3073,7 +3072,7 @@ env.STATUS_EFFECTS.kivcria_dull ={
 	events: {
 		GLOBAL_onBeforeCombatHit: function(context) {
 			if(context.origin == this.status.affecting) {
-				let punctureCount = hasStatus(context.originalEventTarget, "dull_blessing")
+				let punctureCount = hasStatus(context.originalEventTarget, "kivcria_dull")
 
 				if(context.amt > 0 && punctureCount && !context.beneficial) {
 					this.status.outgoingMult = 0.2 * punctureCount
