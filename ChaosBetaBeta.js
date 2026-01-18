@@ -1137,6 +1137,21 @@ env.MODIFIERS.graceful_safezone = {
 /*
 + Yeah these needed doccumenting
 */
+//FFUCKING BASE GAME MODIFICATIONS
+env.STATUS_EFFECTS.rot.events = {
+	
+	onTurn: function() {
+		let percentage = Math.min(this.status.duration, 90) * 0.01
+		let amt = Math.max(Math.floor(percentage * this.status.affecting.hp), 1 + (hasStatus(this.status.affecting, "global_escalation") ? env.crittaMap.getModQty("global_escalation") || 0 : 0))
+		if(hasStatus(this.status.affecting, "kivcria_exposure")) {
+			amt = amt / 2
+		}
+		console.log(percentage, "rotting for", amt)
+		reactDialogue(this.status.affecting, 'puncture');
+		combatHit(this.status.affecting, {amt, autohit: true, redirectable: false, runEvents: false});
+		play('status', 0.75, 0.5);
+	},
+},
 //entropy
 env.STATUS_EFFECTS.entropy_eternal = {//THIS WAS THE HARDEST
 	slug: "entropy_eternal",
@@ -3149,7 +3164,16 @@ env.STATUS_EFFECTS.kivcria_wounds = {
 	},
 }
 //Exposure's blessing - half the effects of rot
-
+env.STATUS_EFFECTS.kivcria_exposure = {
+	slug: "kivcria_exposure",
+	name: "Exposure's Blessing",
+	beneficial: true,
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "kivcria"},
+	help: "halve the effects of ROT"
+}
 //Action::clean and clear
 //On foe evade or recive crit, use utility and gain +2bp
 env.STATUS_EFFECTS.kivcria_clean = {
