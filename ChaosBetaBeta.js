@@ -2787,7 +2787,7 @@ env.STATUS_EFFECTS.predation = {
 },
 
 env.STATUS_EFFECTS.life_resourceful = {
-	slug: "life_reourceful",
+	slug: "life_resourceful",
 	name: "ACTION::resourceful",
 	beneficial: true,
 	infinite: true,
