@@ -3088,6 +3088,40 @@ env.STATUS_EFFECTS.kivcria_dull ={
 },
 //Impulses
 //Rot-spread - all attacks apply rot equal to user's turns of rot
+env.STATUS_EFFECTS.kivcria_rot = {
+	slug: "kivcria_rot",
+	name: "Rot-spread",
+	beneficial: true,
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "kivcria"},
+	help: "When attacking foe, apply ROT equal to the amount of ROT on this actor",
+	events: {
+            onHit: function({subject, origin, attack, beneficial}) {
+			if(beneficial || origin.team.members.includes(subject) || origin.state == "dead" || subject.state == "dead" || hasStatus(origin, "rot") == 0 ) return;
+			addStatus({target: subject, origin, status: "rot", length: hasStatus(origin, "rot")}); 
+
+			setTimeout(()=>{
+				play("stab", 0.5, 0.5)
+                    
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					arbitraryString: "SPREAD!",
+				})
+                                    
+				readoutAdd({
+					message: `${this.status.affecting.name}'s strike leaves spores! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail",
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)
+		}
+	},
+},
 //Rotten wounds - 10% outgoing damage per Trot
 //Exposure's blessing - half the effects of rot
 
