@@ -2846,7 +2846,7 @@ env.STATUS_EFFECTS.fated_life = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "fated", component: "life"},
-	help: "per humor of LIFE on this shell: +2 bp per bp, +2 hp per hp",
+	help: "When healing: per humor of LIFE on this shell add +2 bp per bp and +2 hp per hp",
 	events: {
 		onCreated: function({statusObj}) {
 			if(statusObj.slug != this.status.slug) return;
