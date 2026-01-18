@@ -3123,6 +3123,31 @@ env.STATUS_EFFECTS.kivcria_rot = {
 	},
 },
 //Rotten wounds - 10% outgoing damage per Trot
+env.STATUS_EFFECTS.kivcria_wounds = {
+	slug: "kivcria_wounds",
+	name: "Rotten Wounds",
+	beneficial: true,
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "kivcria"},
+	help: "10% outgoing damage per turn of ROT on this actor",
+	events: {
+		GLOBAL_onBeforeCombatHit: function(context) {
+			if(context.origin == this.status.affecting) {
+				let punctureCount = hasStatus(context.originalEventTarget, "rot")
+
+				if(context.amt > 0 && punctureCount && !context.beneficial) {
+					this.status.outgoingMult = 0.2 * punctureCount
+				} else {
+					this.status.outgoingMult = 0
+				}
+			}
+
+			updateStats({actor: this.status.affecting})
+		},
+	},
+}
 //Exposure's blessing - half the effects of rot
 
 //Action::clean and clear
