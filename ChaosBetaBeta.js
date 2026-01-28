@@ -1341,7 +1341,7 @@ env.STATUS_EFFECTS.entropy_heat = {
 
 env.STATUS_EFFECTS.entropy_reaction = {
 	slug: "entropy_reaction",
-	name: "ACTION:: REACT",
+	name: "ACTION::REACT",
 	passive: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/eyew.gif",
@@ -2809,14 +2809,14 @@ env.STATUS_EFFECTS.life_resourceful = {
 			
 			let primaryHit = env.ACTIONS[user.actions[0]]
 			let utilitiyHit = env.ACTIONS[user.actions[2]]
-			let foeTarget = subject.team.sample()
+			let foeTarget = subject.enemyTeam.sample()
 			while (foeTarget == "dead") {
-				foeTarget = subject.team.sample()
+				foeTarget = subject.enemyTeam.sample()
 			}
 
 			setTimeout(()=>{
 				useAction(user, primaryHit, foeTarget, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "life"})
-				useAction(user, utility, user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "life", force: true})
+				useAction(user, utilityHit, user, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "life", force: true})
             
 				sendFloater({
 					target: subject,
