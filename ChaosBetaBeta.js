@@ -2788,7 +2788,7 @@ env.STATUS_EFFECTS.predation = {
 
 env.STATUS_EFFECTS.life_resourceful = {
 	slug: "life_resourceful",
-	name: "ACTION::resourceful",
+	name: "ACTION::RESOURCEFUL",
 	beneficial: true,
 	infinite: true,
 	passive: true,
@@ -2809,9 +2809,9 @@ env.STATUS_EFFECTS.life_resourceful = {
 			
 			let primaryHit = env.ACTIONS[user.actions[0]]
 			let utilitiyHit = env.ACTIONS[user.actions[2]]
-			let foeTarget = sample().subject.team
+			let foeTarget = subject.team.sample()
 			while (foeTarget == "dead") {
-				foeTarget = sample().subject.team
+				foeTarget = subject.team.sample()
 			}
 
 			setTimeout(()=>{
