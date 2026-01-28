@@ -2485,7 +2485,7 @@ env.STATUS_EFFECTS.fated_steel = {
 			}
 			this.status.incomingMult = this.status.power * -0.1
 		},
-		onAddStatus: ({statusObj}) => {
+		onAddStatus: function ({statusObj}) {
 			if(statusObj.slug == "empowered" || statusObj.slug == "carapace") {
 				this.status.outgoingMult = 1
 			}
