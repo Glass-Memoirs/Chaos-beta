@@ -2489,7 +2489,7 @@ env.STATUS_EFFECTS.fated_steel = {
 			if(statusObj.slug == "empowered" || statusObj.slug == "carapace") {
 				this.status.outgoingMult = 1
 			}
-			if (!hasStatus(this.status.affecting, "empowered") || !hasStatus(this.status.affecting, "carapace")) {
+			if (!(hasStatus(this.status.affecting, "empowered") || hasStatus(this.status.affecting, "carapace"))) {
 				this.status.outgoingMult = 0
 			}
 		}
