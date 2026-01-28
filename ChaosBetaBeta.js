@@ -4925,7 +4925,7 @@ env.ACTIONS.smog_haze = {
 			},
 			critExec: ({target}) => {
 				addStatus({target: target, status: "regen", length: 2})
-				addStatus({target: target, Status: "evasion", length: 3})
+				addStatus({target: target, status: "evasion", length: 3})
 			}
 		})
 	}
