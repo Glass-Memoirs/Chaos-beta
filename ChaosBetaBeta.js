@@ -2639,7 +2639,7 @@ env.STATUS_EFFECTS.life_predatorBless = {
 	passive: true,
 	impulse: {type: "common", component: "life"},
 	events: {
-		GGLOBAL_onDeath: function({originalEventTarget}) {
+		GLOBAL_onDeath: function({originalEventTarget}) {
                 if(
                     this.status.affecting.state == "dead" ||
                     this.status.affecting.team.name == originalEventTarget.team.name
