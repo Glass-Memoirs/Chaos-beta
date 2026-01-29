@@ -1275,12 +1275,37 @@ env.STATUS_EFFECTS.entropy_clock = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/BrokenClock.gif",
 	events: {
 		onTurn: function() {
+			target = this.status.affecting
+			let statusPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = true
+				if(statusData.infinite) {usable = false}
+				if(statusData.passive) {usable = false}
+				if(i.includes("global_")) {usable = false}
+				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
+				if(i == "imperfect_reset") {usable = false}
+				if(i == "redirection") {usable = false}
+				if(i == "entropy_eternal") {usable = false}
+				if(i == "channeling_flat"|| i == "coiling_flat"|| i == "rocket_bearer") {usable=false}
+				//console.log(i, usable)
+				if(usable) statusPool.push(i)
+			}
+			target.statusEffects.forEach((Deciding) => {
+				let ChangeValue = randomInt(-2, 2)
+				if((!Deciding.infinite || !Deciding.passive) && (statusPool.includes(Deciding.slug))) {
+					if(Math.floor(hasStatus(target, Deciding.slug)) + ChangeValue < 0 ) {
+						removeStatus(target, Deciding)
+					} else {
+						addStatus({target: target, status: Deciding.slug, length: ChangeValue})
+					}
+				}
+			})
 			reactDialogue(this.status.affecting, 'rot');
-			combatHit(this.status.affecting, {amt: 2, autohit: true, redirectable: false, runEvents: false});
 			play('status', 0.75, 0.5);
 		},
 	},
-	help: "Each turn loose 2hp"
+	help: "Each turn status effects can either increase or decreases from a range of -2 to 2 turns"
 },
 
 env.STATUS_EFFECTS.entropy_heat = {
