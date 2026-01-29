@@ -709,7 +709,7 @@ env.COMBAT_COMPONENTS.kivcria = {
                maxhp: 7
           }
      },
-     //combatModifiers: ["kivcria_wallrot", "kivcria_rot", "kivcria_decay"] //wall-rot, rotten wounds, tendrils decay
+     combatModifiers: ["kivcria_wallrot", /*"kivcria_rot", "kivcria_decay"*/] //wall-rot, rotten wounds, tendrils decay
 }
 //END OF HUMORS
 //AUGMENTS
@@ -1131,6 +1131,13 @@ env.MODIFIERS.graceful_safezone = {
 	}
 }
 //kivcria
+env.MODIFIERS.kivcria_wall = {
+	name: "Wall Rot",
+	getHelp: ()=> {return env.STATUS_EFFECTS.kivcria_wall.help},
+	alterations: {
+		all: [["STATUS", "kivcria_wall"]]
+	}
+}
 //END OF MODIFIERS
 
 //STATUS EFFECTS
@@ -3298,6 +3305,23 @@ env.STATUS_EFFECTS.kivcria_clean = {
 
 //Stage modifiers 
 //Wall-rot - all actions have a 20% chance to become rotten jab (-1hp, +3T rot) [70% hit chance, no crit]
+//me when i wipe the Yucky Finger on you
+env.STATUS_EFFECTS.kivcria_wall = {
+	slug: "kivcria_wall",
+	name: "Wall Rot",
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	passive: true,
+	infinite: true,
+	events: {
+		onBeforeAction: function(context) {
+			if (Math.random() < (0.2)) {
+				context.settings.action = env.ACTIONS["kivcria_jab"]
+			}
+		}
+	},
+	help: "All actions have a 20% chance to become ROTTEN JAB"
+}
 //Rotten wounds - 100% outgoing damage per Trot
 //Tendril's decay - on actor death, summon enemy rot-bearer (10hp, ethereal, only action is decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate))
 //misc
@@ -6427,7 +6451,7 @@ env.ACTIONS.kivcria_cavernclear = {
 		crit: 0.2,
 		status: {
 			destabilized: {name: "destabilized", length: 2},
-			dull_cleansing: {name: "kivcria_dull", lenght: 2}
+			dull_cleansing: {name: "kivcria_dull", length: 2}
 		}
 	},
 	exec: (user,target) => {
@@ -6457,6 +6481,37 @@ env.ACTIONS.kivcria_cavernclear = {
 					}
 				})
 			}
+		})
+	}
+},
+
+env.ACTIONS.kivcria_jab = {
+	slug: "kivcria_jab",
+	name: "Rotten Jab",
+	type: "target",
+	anim: "",
+	verb: "Jab",
+	usage: {
+		act: "%USER JABS %TARGET"
+	},
+	details: {
+		flavor: "yucky fingerrrrrrrrrrr"
+	},
+	stats: {
+		amt: 1,
+		accuracy: 0.7,
+		crit: 0,
+		status: {
+			rot: {name: "rot", length: 3}
+		}
+	},
+	exec: (user, target) => {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: { name: "status", rate: 3 },
+			hitStatus: this.stats.status.rot
 		})
 	}
 },
