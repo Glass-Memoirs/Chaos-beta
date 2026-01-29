@@ -709,7 +709,7 @@ env.COMBAT_COMPONENTS.kivcria = {
                maxhp: 7
           }
      },
-     combatModifiers: ["kivcria_wallrot", /*"kivcria_rot", "kivcria_decay"*/] //wall-rot, rotten wounds, tendrils decay
+     combatModifiers: ["kivcria_wall", /*"kivcria_rot", "kivcria_decay"*/] //wall-rot, rotten wounds, tendrils decay
 }
 //END OF HUMORS
 //AUGMENTS
