@@ -6200,6 +6200,7 @@ env.ACTIONS.kivcria_lure = { //wee lure time. CC made the status effect for it, 
 	},
 	details: {
 		flavor: "'bait targets to split face and reveal teeth'open opportunity to farthing infection';'a common practice of cavern-cleaners'",
+		onUse: "'[STATUS::rot] ON SELF",
 		onHit: "'[STAT::amt] [STATUS::consequence_spread]'",
 	},
 	stats: {
@@ -6209,6 +6210,9 @@ env.ACTIONS.kivcria_lure = { //wee lure time. CC made the status effect for it, 
 			consequence_spread: {
 				name: 'consequence_spread',
 				length: 2,
+			},
+			rot : {
+				name: 'rot', length: 2
 			}
 		}
 	},   
@@ -6223,6 +6227,7 @@ env.ACTIONS.kivcria_lure = { //wee lure time. CC made the status effect for it, 
 			},
 			hitExec: ({target}) => {
 				addStatus({target: target, status: this.stats.status.consequence_spread.name, length: this.stats.status.consequence_spread.length})
+				addStatus({target: user, status: this.stats.status.rot.name, length: this.stats.status.rot.length})
 			}//pray i removed the right shit hands praying emoji -:3
 		})
 	}
