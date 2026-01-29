@@ -709,7 +709,7 @@ env.COMBAT_COMPONENTS.kivcria = {
                maxhp: 7
           }
      },
-     combatModifiers: ["kivcria_wall", /*"kivcria_rot", "kivcria_decay"*/] //wall-rot, rotten wounds, tendrils decay
+     combatModifiers: ["kivcria_wall", "kivcria_festering"/*, "kivcria_decay"*/] //wall-rot, rotten wounds, tendrils decay
 }
 //END OF HUMORS
 //AUGMENTS
@@ -1136,6 +1136,13 @@ env.MODIFIERS.kivcria_wall = {
 	getHelp: ()=> {return env.STATUS_EFFECTS.kivcria_wall.help},
 	alterations: {
 		all: [["STATUS", "kivcria_wall"]]
+	}
+}
+env.MODIFIERS.kivcria_festering = {
+	name: "Rotting Wound",
+	getHelp: ()=> {return env.STATUS_EFFECTS.kivcria_festering.help},
+	alterations: {
+		all: [["STATUS", "kivcria_festering"]]
 	}
 }
 //END OF MODIFIERS
@@ -2770,7 +2777,7 @@ env.STATUS_EFFECTS.life_amalgamate = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeParasite.gif",
 	help: "apply PUNCTURE equal to twice the turns of ROT",
 	events: {
-		onTurn: () => {
+		onTurn: function() {
 			if(hasStatus(this.status.affecting, "rot")) {
 				addStatus({target: this.status.affecting, status: "puncture", length: 2*Math.floor(hasStatus(this.status.affecting, "rot"))})
 			}
@@ -3055,6 +3062,8 @@ env.STATUS_EFFECTS.spraying = {
 	beneficial: true,
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	outgoingMult: 0,
+	incomingMult: 0,
 	events: {
 		onAddStatus: function({statusObj}) {
 			if(statusObj.slug == "spraying") {
@@ -3116,6 +3125,7 @@ env.STATUS_EFFECTS.kivcria_dull ={
 	name: "dull blessing",
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	outgoingMult: 0,
 	events: {
 		GLOBAL_onBeforeCombatHit: function(context) {
 			if(context.origin == this.status.affecting) {
@@ -3179,6 +3189,7 @@ env.STATUS_EFFECTS.kivcria_wounds = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "common", component: "kivcria"},
 	help: "10% outgoing damage per turn of ROT on this actor",
+	outgoingMult: 0,
 	events: {
 		GLOBAL_onBeforeCombatHit: function(context) {
 			if(context.origin == this.status.affecting) {
@@ -3322,7 +3333,41 @@ env.STATUS_EFFECTS.kivcria_wall = {
 	},
 	help: "All actions have a 20% chance to become ROTTEN JAB"
 }
-//Rotten wounds - 100% outgoing damage per Trot
+//Rotten wounds - 100% outgoing and 20% incoming damage per Trot, random chance to turn status effects into rot
+env.STATUS_EFFECTS.kivcria_festering = {
+	slug: "kivcria_festering",
+	name: "Rotten Wounds",
+	beneficial: true,
+	passive: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	outgoingMult: 0,
+	incomingMult: 0,
+	help: "100% outgoing damage and 20% incoming damage increase per turn of ROT, 12.5% chance to turn applied status effects into ROT",
+	impulse: {type: "common", component: "kivcria"},
+	events: {
+		GLOBAL_onBeforeCombatHit: function(context) {
+			if(context.origin == this.status.affecting) {
+				let rotCount = hasStatus(context.originalEventTarget, "rot")
+
+				if(context.amt > 0 && rotCount && !context.beneficial) {
+					this.status.outgoingMult = 1 * rotCount
+					this.status.incomingMult = 0.2 * rotCount
+				} else {
+					this.status.outgoingMult = 0
+					this.status.incomingMult = 0
+				}
+			}
+
+			updateStats({actor: this.status.affecting})
+		},
+		onBeforeAddStatus: function(context) {
+			if (Math.random() < 0.125) {
+				context.status = "rot"
+			}
+		},
+	}
+}
 //Tendril's decay - on actor death, summon enemy rot-bearer (10hp, ethereal, only action is decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate))
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
