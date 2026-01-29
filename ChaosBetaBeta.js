@@ -6425,7 +6425,7 @@ env.ACTIONS.kivcria_sporeburst = {
 		env.GENERIC_ACTIONS.teamwave({
 			team: user.allyTeam,
 			exec: (actor, i) => {
-				addStatus({target: actor, origin: user, status: "fear", length: 5})
+				addStatus({target: actor, origin: user, status: "rot", length: 3})
 			}
 		})
 	}
