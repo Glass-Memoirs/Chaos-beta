@@ -1909,7 +1909,7 @@ env.STATUS_EFFECTS.stupidhorrible_death = {
 
 env.STATUS_EFFECTS.fated_stupidhorrible = {
 	slug: "fated_stupidhorrible",
-	name: "FATE::STUPIDHORRIBLE",
+	name: "FATED::STUPIDHORRIBLE",
 	passive: true,
 	beneficial: true,
 	outgoingCrit: 0,
@@ -1933,7 +1933,7 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 				if(augment?.component) if(augment.component[1] == "stupidhorrible") this.status.power += 2
 			}
 			this.status.outgoingCrit = -0.2 * this.status.power
-			this.status.outgoingMult = floor(0.2*this.status.power)
+			this.status.outgoingMult = Math.floor(0.2*this.status.power)
 		},
 	},
 	help: "Per humor of stupidhorrible on this shell: reduce crit chance, but increase power'"
