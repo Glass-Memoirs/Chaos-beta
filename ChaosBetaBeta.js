@@ -3370,7 +3370,7 @@ env.STATUS_EFFECTS.kivcria_festering = {
 }
 //Tendril's decay - on actor death, summon enemy rot-bearer (10hp, ethereal, only action is decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate))
 //Stealing from narra for this. sorgy but also nah you already did it
-env.STATUS_EFFECTS.kivcria_tendril = {
+/*env.STATUS_EFFECTS.kivcria_tendril = {
 	slug: "kivcria_tendril",
 	slug: "Tendril's decay",
 	beneficial: true,
@@ -3427,7 +3427,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 			}, env.ADVANCE_RATE * 0.2)
 		},
 	},
-}
+}*/
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
