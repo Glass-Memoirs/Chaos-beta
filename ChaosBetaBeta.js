@@ -7021,7 +7021,7 @@ env.COMBAT_ACTORS.threat_bubble = {
 		receive_redirection: ["笑"],
 	}
 }
-
+// putting in the incoherence took so long tbh
 env.COMBAT_ACTORS.rot_bearer_foe = {
 	name: "rot-bearer",
 	maxhp: 10,
