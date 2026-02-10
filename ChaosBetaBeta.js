@@ -6624,6 +6624,60 @@ env.ACTIONS.kivcria_jab = {
 		})
 	}
 },
+
+//decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate)
+env.ACTIONS.kivcria_frenzy = {
+	slug: "kivcria_frenzy",
+	name: "Decayed Frenzy",
+	type: "target",
+	anim: "",
+	verb: "claw",
+	usage: {
+		act: "%USER CLAWS AT %TARGET",
+		hit: "%TARGET IS HURT"
+	},
+	details: {
+		flavor: "actor swipes their rotting claws at a target",
+
+	},
+	stats: {
+		amt: 1,
+		accuracy: 0.8,
+		crit: 0.25,
+		status: {
+			rot: {name: "rot", length: 3}
+		}
+	},
+	exec: function(user, target, beingUsedAsync, {actionMessageIndex} = {}) {
+		let action = this
+		return env.GENERIC_ACTIONS.singleTarget({
+			action, 
+			user, 
+			target,
+			hitSfx: {
+				name: 'stab',
+				rate: 1
+			},
+			critSfx: {
+				name: 'stab',
+				rate: 1.75
+			},
+
+			hitExec: ({target}) => {
+				addStatus({target, status: "rot", length: 3});
+			},
+
+			critExec: ({target})=> {
+				if(target.hp > 0 && target.state != "lastStand") {
+					env.setTimeout(()=>{
+						useAction(user, this, target, {beingUsedAsync: true, reason: "decaying frenzy", actionMessageIndex})
+					}, 400)
+				}
+			}
+		})
+	}
+},
+
 //misc
 env.ACTIONS.energizer = {
 	slug: "energizer",
@@ -6972,6 +7026,31 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	name: "rot-bearer",
 	maxhp: 10,
 	hp: 10,
+	actions: ["kivcria_frenzy"],
+	graphics: ``,
+	reactions: {
+		evade: ["no  no  n.o   n o  ~ Õ|”|ô Vî + Si s w®i ±± í n g  6 t Ý urt s", "m®ÙÔ/*IŸÓ®", "‰æÐV„®QT”f", "Q¿á~¢0åÊÆº", "å&Ÿfam¬£„C", "éËÝŸé¾¼¬aÙ"],
+		crit: ["”|„ & orr y", "B¾E*0µS +  I NS¡ D Ë. #3|", "”|„ & orr y", "ûàt¼½àMÚ¯-", "ûàt¼½àMÚ¯-", "dMKšF0ðÔúÅ", "dMKšF0ðÔúÅ", "-Ý£QŠÎ¶ûy\\", "-Ý£QŠÎ¶ûy\\", "ïÓ¾~ÂB4b00", "ïÓ¾~ÂB4b00", "uÙ‰úFËÐå¶t", "uÙ‰úFËÐå¶t", "U¿¯÷¤mMÜðÕ", "ü¶z©ÓÎÙ®áQ", "M¼ffiÕ4Üj®", "YÓ~+jÜU6æÛ", "&º‰TYSá5Lß"],
+		crit_buff: ["Ô eCt   i.t  ” o ÷  sp®Êa|d f.u r t hed ."],
+		miss: ["i.Ú.|is| .Šeny.e|l®s s  ±.hÆ  šh in|9  ß „Šide o f  me  «~Š nn ot .s ee", "ÛbKxLÆÎ”yx", "ÊMððÓíQj#4", "°žõÙÕLæ¡Yp", "°\\Iõj”¿å°š", "dbŠíß~5Iíú"],
+		dead: ["s o   b eg.i n s6 |t y  ©t e ¬ œi &lÆ.-.ï fe", "”ÉÓŸ„Ÿyý½º", "ìúpÂáÛ¶¯*„", "TïÔTçu4xÆÕ", "Vô”öSý¡¿¼w", "Éu«Ta¾õÝ¯4"],
+		puncture: ["i m   š|o.rry .i m  s|or r ÿ ¿p    i Õ  ”.i¬1   s p re a9  Ænd|  i t  „.il l  é Ê  m y. |f|4Óu l|Cü", "ÓFwôƒÓÔì~z", "é5ú£ÜÎ#ŠiÄ", "#tºj”üI½çm", "fðœààÆ#¾°Ÿ", "¼ÚýdîéÚ6Cá"],
+		regen: ["it  ¡ð  |i n féc t ed - ||9 o „Ó+  tMa.¼e  ìt   Ÿ i+   s|d e Î s  onlÐ|to.. s pš ead   \\ Ë š e1fÛ", "úûÆåŸ¾Qæšµ", "µT6I¢6íå°ž", "a°©ÚƒLC£Ý+", "ÊB®mCB4¶¡+", "œ¶Kà¡ßp©ŸÎ"],
+		destabilized: ["î t #r.ît he s  ì.wsidæ|„Ÿ   ski n®lï t . wÅ n t|s  ° ì+", "ì¿©Ý¾lFŠç¤", "ÎÐæÛ6û¤±~û", "VîŸYU„Éua¢", "ÕÅLüŠ¶tÊpƒ", "ã¢#u±¶~¯Ô÷"],
+		stun: ["pa.r t  mÝ .&®9y öà n d ér î w  Kit.oÚ|÷ o f   m e  p 1ËÔa.s Ÿ. i  ”e e d  ì+  i  ¡ e e ð  |ì t", "œV#ÉÊ¬ý”~Ú", "xmì½aImIBã", "š6µ¡º¯ð-iS", "46wÜƒyKw¡í", "ôŠ„öéTšÜúŠ"],
+		laugh: ["5*”úwõKËŠÊ", "åµÆÄtjx¬¡ú", "aŠœb¡Ê4ÛåT", "Ÿÿtöº±j¡&ç", "¡Iîf÷aìi¯ü"],
+		sacrifice: ["huh"],
+		recieve_hit: ["rip|.ì+¼® ut .öf   mf      #Årde.r ne|x t ti ÷ÅÊ Â ga in", "õÜÎï#TßÅœŸ", "a°LúdiéæQV", "ãT±-¼„Q*¾T", "öbíBÅ&á«åÆ", "”½Õtáàã+œ£"],
+		recieve_crit: ["tear  i ÷  ou+ o.ƒ  m£  ¡  .b Æ gKi  be9 .Vi   ¼e.gì|.i îƒ eg..î| be g", "áÎ÷¬ß÷ý±0ã", "ÿ½\\ËdVÄaÔš", "ƒKÕL¶ÄúÄ4º", "S°ÅLà0©6÷d", "m¶úUpÐi6œã"],
+		receive_puncture: ["œ l éed .Ît .o ut á÷o.f  |š.e. i .¤x G  ïð±6 -G‰ ì.  9 E& ..I  .té G", "½©éÉÚbœ¼¶Ë", "ÄB¬xyçæåjÂ", "wå~Ôbw¼0jp", "aÙ‰LCxdCIÂ", "0š„œæåp”5¤"],
+		receive_buff: ["i tLÚusÚr.9& me| ±Mr| y.oûF  b l es.s|5ngs", "~FüËI££Ééß", "#½w+¯a«6Km", "õ#d¾6ºmžŠÊ", "µß-Y£„žzÄ4", "ÕiU£Ðmì½õï"],
+		receive_destabilized: ["i±Ô wš iLThe.sT in 2 i9e", "Š¿ÎYÿ&¼0yC", "yåšFVßm6ý6", "5°Fu©°uÕÙV", "+Cu¼°6®ôå¾", "©f+µ&¯wiÿý"],
+		recieve_rez: ["fuckers brought me back wrong", "dude what the fuck"],
+		receive_carapace: ["s+ e - d 6 æt we e”   ±l÷s h  Ä nð .ìt     b a rr|ed fro m |w oa-d Ù¾ÿ .g ¬ æat +h a nks|", "ãõü¢«ï¯S£ã", "¶B\\õSpÔÉÉð", "ßµÚ¶tÊ0áÿî", "ôŸ¬ûIdjz¿b", "œôj¿à„fÔ„”"],
+		receive_repairs: ["„ ©u n|ds  |fi.¼žd  . . .?   i±| ¯s  ¡  sti ll i.„&\\de", "öæfl°Ô±îy~", "MöÐ”CïbÅ&~", "ðœµ¡æp°fßž", "BÕi£úaßzLÿ", "µ#*5Ô0Û£áY"],
+		receive_fear: ["IT   Iœ S4 .TA¾ IN& O «|Væ®.   ¬K.I  L1  MÉ   P ã  L EA £&E-", "î5ý¼Td‰ÅK‰", "içÆüÕÆº½5‰", "ižš°éiŠŸÜÓ", "M¢mûÆ¿*Vx”", "¾«úÂwíõºaQ"],
+		receive_redirection: ["wh y  ¶r o tec t .me Â.. .?", "Æ«Åº÷aìàÚš", "ÉQï*Îö#Mûº", "YétËÎý°+UÆ", "Æ6tm+Ëyßõb", "zç¢ÜÚð6bÙÙ"]
+	}
 }
 
 env.COMBAT_ACTORS.rot_bearer_ally = {
@@ -6981,7 +7060,31 @@ env.COMBAT_ACTORS.rot_bearer_ally = {
 	actions: ["kivcria_frenzy"],
 	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif">`,
 	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif',
+	reactions: {
+		evade: ["no  no  n.o   n o  ~ Õ|”|ô Vî + Si s w®i ±± í n g  6 t Ý urt s", "m®ÙÔ/*IŸÓ®", "‰æÐV„®QT”f", "Q¿á~¢0åÊÆº", "å&Ÿfam¬£„C", "éËÝŸé¾¼¬aÙ"],
+		crit: ["”|„ & orr y", "B¾E*0µS +  I NS¡ D Ë. #3|", "”|„ & orr y", "ûàt¼½àMÚ¯-", "ûàt¼½àMÚ¯-", "dMKšF0ðÔúÅ", "dMKšF0ðÔúÅ", "-Ý£QŠÎ¶ûy\\", "-Ý£QŠÎ¶ûy\\", "ïÓ¾~ÂB4b00", "ïÓ¾~ÂB4b00", "uÙ‰úFËÐå¶t", "uÙ‰úFËÐå¶t", "U¿¯÷¤mMÜðÕ", "ü¶z©ÓÎÙ®áQ", "M¼ffiÕ4Üj®", "YÓ~+jÜU6æÛ", "&º‰TYSá5Lß"],
+		crit_buff: ["Ô eCt   i.t  ” o ÷  sp®Êa|d f.u r t hed ."],
+		miss: ["i.Ú.|is| .Šeny.e|l®s s  ±.hÆ  šh in|9  ß „Šide o f  me  «~Š nn ot .s ee", "ÛbKxLÆÎ”yx", "ÊMððÓíQj#4", "°žõÙÕLæ¡Yp", "°\\Iõj”¿å°š", "dbŠíß~5Iíú"],
+		dead: ["s o   b eg.i n s6 |t y  ©t e ¬ œi &lÆ.-.ï fe", "”ÉÓŸ„Ÿyý½º", "ìúpÂáÛ¶¯*„", "TïÔTçu4xÆÕ", "Vô”öSý¡¿¼w", "Éu«Ta¾õÝ¯4"],
+		puncture: ["i m   š|o.rry .i m  s|or r ÿ ¿p    i Õ  ”.i¬1   s p re a9  Ænd|  i t  „.il l  é Ê  m y. |f|4Óu l|Cü", "ÓFwôƒÓÔì~z", "é5ú£ÜÎ#ŠiÄ", "#tºj”üI½çm", "fðœààÆ#¾°Ÿ", "¼ÚýdîéÚ6Cá"],
+		regen: ["it  ¡ð  |i n féc t ed - ||9 o „Ó+  tMa.¼e  ìt   Ÿ i+   s|d e Î s  onlÐ|to.. s pš ead   \\ Ë š e1fÛ", "úûÆåŸ¾Qæšµ", "µT6I¢6íå°ž", "a°©ÚƒLC£Ý+", "ÊB®mCB4¶¡+", "œ¶Kà¡ßp©ŸÎ"],
+		destabilized: ["î t #r.ît he s  ì.wsidæ|„Ÿ   ski n®lï t . wÅ n t|s  ° ì+", "ì¿©Ý¾lFŠç¤", "ÎÐæÛ6û¤±~û", "VîŸYU„Éua¢", "ÕÅLüŠ¶tÊpƒ", "ã¢#u±¶~¯Ô÷"],
+		stun: ["pa.r t  mÝ .&®9y öà n d ér î w  Kit.oÚ|÷ o f   m e  p 1ËÔa.s Ÿ. i  ”e e d  ì+  i  ¡ e e ð  |ì t", "œV#ÉÊ¬ý”~Ú", "xmì½aImIBã", "š6µ¡º¯ð-iS", "46wÜƒyKw¡í", "ôŠ„öéTšÜúŠ"],
+		laugh: ["5*”úwõKËŠÊ", "åµÆÄtjx¬¡ú", "aŠœb¡Ê4ÛåT", "Ÿÿtöº±j¡&ç", "¡Iîf÷aìi¯ü"],
+		sacrifice: ["huh"],
+		recieve_hit: ["rip|.ì+¼® ut .öf   mf      #Årde.r ne|x t ti ÷ÅÊ Â ga in", "õÜÎï#TßÅœŸ", "a°LúdiéæQV", "ãT±-¼„Q*¾T", "öbíBÅ&á«åÆ", "”½Õtáàã+œ£"],
+		recieve_crit: ["tear  i ÷  ou+ o.ƒ  m£  ¡  .b Æ gKi  be9 .Vi   ¼e.gì|.i îƒ eg..î| be g", "áÎ÷¬ß÷ý±0ã", "ÿ½\\ËdVÄaÔš", "ƒKÕL¶ÄúÄ4º", "S°ÅLà0©6÷d", "m¶úUpÐi6œã"],
+		receive_puncture: ["œ l éed .Ît .o ut á÷o.f  |š.e. i .¤x G  ïð±6 -G‰ ì.  9 E& ..I  .té G", "½©éÉÚbœ¼¶Ë", "ÄB¬xyçæåjÂ", "wå~Ôbw¼0jp", "aÙ‰LCxdCIÂ", "0š„œæåp”5¤"],
+		receive_buff: ["i tLÚusÚr.9& me| ±Mr| y.oûF  b l es.s|5ngs", "~FüËI££Ééß", "#½w+¯a«6Km", "õ#d¾6ºmžŠÊ", "µß-Y£„žzÄ4", "ÕiU£Ðmì½õï"],
+		receive_destabilized: ["i±Ô wš iLThe.sT in 2 i9e", "Š¿ÎYÿ&¼0yC", "yåšFVßm6ý6", "5°Fu©°uÕÙV", "+Cu¼°6®ôå¾", "©f+µ&¯wiÿý"],
+		recieve_rez: ["fuckers brought me back wrong", "dude what the fuck"],
+		receive_carapace: ["s+ e - d 6 æt we e”   ±l÷s h  Ä nð .ìt     b a rr|ed fro m |w oa-d Ù¾ÿ .g ¬ æat +h a nks|", "ãõü¢«ï¯S£ã", "¶B\\õSpÔÉÉð", "ßµÚ¶tÊ0áÿî", "ôŸ¬ûIdjz¿b", "œôj¿à„fÔ„”"],
+		receive_repairs: ["„ ©u n|ds  |fi.¼žd  . . .?   i±| ¯s  ¡  sti ll i.„&\\de", "öæfl°Ô±îy~", "MöÐ”CïbÅ&~", "ðœµ¡æp°fßž", "BÕi£úaßzLÿ", "µ#*5Ô0Û£áY"],
+		receive_fear: ["IT   Iœ S4 .TA¾ IN& O «|Væ®.   ¬K.I  L1  MÉ   P ã  L EA £&E-", "î5ý¼Td‰ÅK‰", "içÆüÕÆº½5‰", "ižš°éiŠŸÜÓ", "M¢mûÆ¿*Vx”", "¾«úÂwíõºaQ"],
+		receive_redirection: ["wh y  ¶r o tec t .me Â.. .?", "Æ«Åº÷aìàÚš", "ÉQï*Îö#Mûº", "YétËÎý°+UÆ", "Æ6tm+Ëyßõb", "zç¢ÜÚð6bÙÙ"]
+	}
 }
+
 /*env.COMBAT_ACTORS.bstrdcoin = {
 	name: "Coin",
 	maxhp: 1,
