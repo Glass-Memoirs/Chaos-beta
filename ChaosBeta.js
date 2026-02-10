@@ -4689,7 +4689,7 @@ env.ACTIONS.tenor = {
 	type: "autohit",
 	details: {
 		flavor: "'Wind up your voice for a burst';'show em whos boss'",
-		onUse: "'[STAT::amt]';'[STATUS::windup] and [STATUS::forte]'",
+		onUse: "'[STAT::amt]';'[STATUS::forte]'",
 	},
 	stats: {
 		amt: 2,

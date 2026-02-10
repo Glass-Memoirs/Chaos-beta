@@ -3369,6 +3369,65 @@ env.STATUS_EFFECTS.kivcria_festering = {
 	}
 }
 //Tendril's decay - on actor death, summon enemy rot-bearer (10hp, ethereal, only action is decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate))
+//Stealing from narra for this. sorgy but also nah you already did it
+env.STATUS_EFFECTS.kivcria_tendril = {
+	slug: "kivcria_tendril",
+	slug: "Tendril's decay",
+	beneficial: true,
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "on death, summon rot-bearer\nif dead actor is an ally, summon as ally\nif dead actor is a foe, summon as foe",
+	events: {
+		onDeath: function() {
+			let user = this.status.affecting
+			if(user.initialStatusEffects && user.initialStatusEffects.includes("ethereal")) return;
+			else if(user.slug.includes("rot")) return;
+			else if(user.team.members.includes("critta_jester")) return;
+			else if(user.team.members.includes("critta_spawner")) return;
+			else if(user.team.name == "enemy") {
+				if(this.status.lastSide) {
+					midCombatEnemyAdd('rot_bearer_for', 'left') 
+					play('stab', 0.5)
+					this.status.lastSide = 0
+				} else {
+					midCombatEnemyAdd('rot_bearer_foe', 'right')
+					play('stab', 0.5)
+					this.status.lastSide = 1
+				}
+			} else {
+				if(this.status.lastSide) {
+					midCombatAllyAdd('rot_bearer_ally', 'left')
+					play('stab', 0.5)
+					this.status.lastSide = 0
+				} else {
+					midCombatAllyAdd('rot_bearer_ally', 'right')
+					play('stab', 0.5)
+					this.status.lastSide = 1
+				}
+			}
+				
+			sendFloater({
+				target: user,
+				type: "arbitrary",
+				arbitraryString: "ROTTING!",
+				size: 1.5,
+			})
+			
+			readoutAdd({
+				message: `an infested thoughtform is drawn in by the commotion! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+				name: "sourceless", 
+				type: "sourceless combat minordetail", 
+				show: false,
+				sfx: false
+			})
+
+			setTimeout(()=>{
+				removeStatus(this.status.affecting, 'kivcria_tendril', {forceRemoveStatus: true})
+			}, env.ADVANCE_RATE * 0.2)
+		},
+	},
+}
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
@@ -5558,7 +5617,7 @@ env.ACTIONS.tenor = {
 	type: "autohit",
 	details: {
 		flavor: "'Wind up your voice for a burst';'show em whos boss'",
-		onUse: "'[STAT::amt]';'[STATUS::windup] and [STATUS::forte]'",
+		onUse: "'[STAT::amt]';[STATUS::forte]'",
 	},
 	stats: {
 		amt: 2,
@@ -6907,6 +6966,21 @@ env.COMBAT_ACTORS.threat_bubble = {
 		receive_fear: ["笑"],
 		receive_redirection: ["笑"],
 	}
+}
+
+env.COMBAT_ACTORS.rot_bearer_foe = {
+	name: "rot-bearer",
+	maxhp: 10,
+	hp: 10,
+}
+
+env.COMBAT_ACTORS.rot_bearer_ally = {
+	name: "rot-bearer",
+	maxhp: 10,
+	hp: 10,
+	actions: ["kivcria_frenzy"],
+	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif',
 }
 /*env.COMBAT_ACTORS.bstrdcoin = {
 	name: "Coin",
