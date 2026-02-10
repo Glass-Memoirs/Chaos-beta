@@ -7027,6 +7027,7 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	maxhp: 10,
 	hp: 10,
 	actions: ["kivcria_frenzy"],
+	initialStatusEffects: [["ethereal", 1]],
 	graphics: ``,
 	reactions: {
 		evade: ["no  no  n.o   n o  ~ Õ|”|ô Vî + Si s w®i ±± í n g  6 t Ý urt s", "m®ÙÔ/*IŸÓ®", "‰æÐV„®QT”f", "Q¿á~¢0åÊÆº", "å&Ÿfam¬£„C", "éËÝŸé¾¼¬aÙ"],
@@ -7058,6 +7059,7 @@ env.COMBAT_ACTORS.rot_bearer_ally = {
 	maxhp: 10,
 	hp: 10,
 	actions: ["kivcria_frenzy"],
+	initialStatusEffects: [["ethereal", 1]],
 	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif">`,
 	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif',
 	reactions: {
