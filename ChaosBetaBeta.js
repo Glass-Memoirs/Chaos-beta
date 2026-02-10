@@ -5622,7 +5622,7 @@ env.ACTIONS.tenor = {
 	stats: {
 		amt: 2,
 		status: {
-			windup: {name: "windup", showReference: true},
+			forte: {name: "forte", length: 5},
 		},
 	},
 	exec: function(user,target) {
@@ -5655,7 +5655,7 @@ env.ACTIONS.strong_tenor = {
 	stats: {
 		amt: 3,
 		status: {
-			windup: {name: "windup", showReference: true},
+			forte: {name: "forte", length: 9},
 		},
 	},
 	exec: function(user,target) {
