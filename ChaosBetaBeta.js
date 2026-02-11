@@ -6634,11 +6634,13 @@ env.ACTIONS.kivcria_frenzy = {
 	verb: "claw",
 	usage: {
 		act: "%USER CLAWS AT %TARGET",
-		hit: "%TARGET IS HURT"
+		hit: "%TARGET IS HURT, THEIR WOUNDS FESTER",
+		crit: "IT HAS FOUND ITS TARGET, IT WANTS INSIDE"
 	},
 	details: {
-		flavor: "actor swipes their rotting claws at a target",
-
+		flavor: "'actor swipes their rotting claws at a target.';'it wants to spread.'",
+		onHit: "'[STATUS::ROT], [STAT::amt]'",
+		onCrit: "'use this action again'"
 	},
 	stats: {
 		amt: 1,
@@ -6676,6 +6678,68 @@ env.ACTIONS.kivcria_frenzy = {
 			}
 		})
 	}
+},
+
+env.ACTIONS.kivcria_viral = {
+	slug: "kivcria_viral",
+	name: "Virality Increase",
+	type: "target+self+enemyrandom",
+	usage: {
+		act: "%USER(?) EMITS SPORES FROM THEIR BODY",
+		hit: "THE SPORES SEEP INTO %TARGET",
+		crit: "THE SPORES WRITHE INSIDE %TARGET",
+		miss: "THE SPORES CLING TO %USER"
+	},
+	details: {
+		flavor: "'it writhes inside, pupetteering the shell",
+		onHit: "'[STATUS::destabilized], [STATUS::rot] on foes, [STATUS::rot] -1T on allies'",
+		onCrit: "'additional [STATUS::destabilized]'",
+		conditional: "MISS INFESTS THE USER WITH [STATUS::rot]"
+	},
+	stats: {
+		range: 3,
+		accuracy: 0.8,
+		crit: 0.1,
+		status: {
+			destabilized: {
+				name: 'destabilized',
+				length: 3
+			},
+			rot: {
+				name: 'rot',
+				length: 3
+			},
+		}
+	},
+        
+	ignoresBlocks: true,
+	ignoresLOS: true,
+	aoe: { 
+		size: 1, 
+		canHit: (actor) => { return true } 
+	},
+	exec: function(user, target) {
+		return env.GENERIC_ACTIONS.singleTarget({
+			action: this, 
+			user, 
+			target,
+			hitSfx: { name: 'destabilize' },
+			critSfx: { name: 'destabilize' },
+			critStatus: this.stats.status.destabilized,
+			hitStatus: this.stats.status.destabilized,
+			beneficial: user.team.name == target.team.name, // per @brightcousinkuvi, bypasses redirection only if used intra-team
+			hitExec: ({target}) => {
+				if(target.team.name != user.team.name) {
+					addStatus({target, status: this.stats.status.vulnerable.name, length: this.stats.status.rot.length})
+				} else {
+					addStatus({target, status: this.stats.status.evasion.name, length: this.stats.status.rot.length - 1})
+				}
+			},
+			missExec: ({user}) => {
+				addStatus({user, status: this.stats.status.rot.name, length: this.stats.status.rot.length})
+			}
+		})
+	},
 },
 
 //misc
@@ -7026,9 +7090,24 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	name: "rot-bearer",
 	maxhp: 10,
 	hp: 10,
-	actions: ["kivcria_frenzy"],
+	actions: ["kivcria_frenzy", "kivcria_viral"],
 	initialStatusEffects: [["ethereal", 1]],
-	graphics: ``,
+	graphics: `
+		<div class="sprite-wrapper archival-golem golemsprite" id="%SLUG-sprite-wrapper">
+			<div class="sprite-overflow spritestack">
+				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1body.png" id="%SLUG-golemsprite-base" class="sprite golemsprite-base">
+                    
+				<div class="sprite golemsprite-head">
+					<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1head.png" id="%SLUG-golemsprite-head">
+					<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.png" id="%SLUG-golemsprite-face">
+				</div>
+				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1body.png" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
+				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1arm.png" id="%SLUG-golemsprite-arms" class="sprite golemsprite-arms">
+			</div>
+
+			<div class="target" entity="rot-bearer"></div>
+		</div>
+	`,
 	reactions: {
 		evade: ["no  no  n.o   n o  ~ Õ|”|ô Vî + Si s w®i ±± í n g  6 t Ý urt s", "m®ÙÔ/*IŸÓ®", "‰æÐV„®QT”f", "Q¿á~¢0åÊÆº", "å&Ÿfam¬£„C", "éËÝŸé¾¼¬aÙ"],
 		crit: ["”|„ & orr y", "B¾E*0µS +  I NS¡ D Ë. #3|", "”|„ & orr y", "ûàt¼½àMÚ¯-", "ûàt¼½àMÚ¯-", "dMKšF0ðÔúÅ", "dMKšF0ðÔúÅ", "-Ý£QŠÎ¶ûy\\", "-Ý£QŠÎ¶ûy\\", "ïÓ¾~ÂB4b00", "ïÓ¾~ÂB4b00", "uÙ‰úFËÐå¶t", "uÙ‰úFËÐå¶t", "U¿¯÷¤mMÜðÕ", "ü¶z©ÓÎÙ®áQ", "M¼ffiÕ4Üj®", "YÓ~+jÜU6æÛ", "&º‰TYSá5Lß"],
@@ -7058,7 +7137,7 @@ env.COMBAT_ACTORS.rot_bearer_ally = {
 	name: "rot-bearer",
 	maxhp: 10,
 	hp: 10,
-	actions: ["kivcria_frenzy"],
+	actions: ["kivcria_frenzy", "kivcria_viral"],
 	initialStatusEffects: [["ethereal", 1]],
 	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif">`,
 	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/rot-bearer-icon.gif',
