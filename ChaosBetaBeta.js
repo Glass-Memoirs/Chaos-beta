@@ -709,7 +709,7 @@ env.COMBAT_COMPONENTS.kivcria = {
                maxhp: 7
           }
      },
-     combatModifiers: ["kivcria_wall", "kivcria_festering"/*, "kivcria_decay"*/] //wall-rot, rotten wounds, tendrils decay
+     combatModifiers: ["kivcria_wall", "kivcria_festering", "kivcria_tendril"] //wall-rot, rotten wounds, tendrils decay
 }
 //END OF HUMORS
 //AUGMENTS
@@ -1143,6 +1143,14 @@ env.MODIFIERS.kivcria_festering = {
 	getHelp: ()=> {return env.STATUS_EFFECTS.kivcria_festering.help},
 	alterations: {
 		all: [["STATUS", "kivcria_festering"]]
+	}
+}
+
+env.MODIFIERS.kivcria_tendril = {
+	name: "Tendril Decay",
+	getHelp: ()=> {return env.STATUS_EFFECTS.kivcria_tendril.help},
+	alterations: {
+		all: [["STATUS", "kivcria_tendril"]]
 	}
 }
 //END OF MODIFIERS
@@ -3370,7 +3378,7 @@ env.STATUS_EFFECTS.kivcria_festering = {
 }
 //Tendril's decay - on actor death, summon enemy rot-bearer (10hp, ethereal, only action is decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate))
 //Stealing from narra for this. sorgy but also nah you already did it
-/*env.STATUS_EFFECTS.kivcria_tendril = {
+env.STATUS_EFFECTS.kivcria_tendril = {
 	slug: "kivcria_tendril",
 	slug: "Tendril's decay",
 	beneficial: true,
@@ -3378,6 +3386,7 @@ env.STATUS_EFFECTS.kivcria_festering = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	help: "on death, summon rot-bearer\nif dead actor is an ally, summon as ally\nif dead actor is a foe, summon as foe",
+	impulse: {type: "common", component: "kivcria"},
 	events: {
 		onDeath: function() {
 			let user = this.status.affecting
@@ -3427,7 +3436,7 @@ env.STATUS_EFFECTS.kivcria_festering = {
 			}, env.ADVANCE_RATE * 0.2)
 		},
 	},
-}*/
+}
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
