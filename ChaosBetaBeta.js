@@ -7115,8 +7115,6 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1body.png" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
 				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1arm.png" id="%SLUG-golemsprite-arms" class="sprite golemsprite-arms">
 			</div>
-
-			<div class="target" entity="rot bearer"></div>
 		</div>
 	`,
 	reactions: {
