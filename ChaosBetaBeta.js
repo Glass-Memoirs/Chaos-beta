@@ -3388,7 +3388,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 	help: "on death, summon rot-bearer\nif dead actor is an ally, summon as ally\nif dead actor is a foe, summon as foe",
 	impulse: {type: "common", component: "kivcria"},
 	events: {
-		GLOBAL_onDeath: function() {
+		onDeath: function() {
 			let user = this.status.affecting
 			if(user.initialStatusEffects && user.initialStatusEffects.includes("ethereal")) return;
 			else if(user.slug.includes("rot")) return;
@@ -3396,7 +3396,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 			else if(user.team.members.includes("critta_spawner")) return;
 			else if(user.team.name == "enemy") {
 				if(this.status.lastSide) {
-					midCombatEnemyAdd('rot_bearer_for', 'left') 
+					midCombatEnemyAdd('rot_bearer_foe', 'left') 
 					play('stab', 0.5)
 					this.status.lastSide = 0
 				} else {
