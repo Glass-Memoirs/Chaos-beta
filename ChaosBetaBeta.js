@@ -7102,7 +7102,7 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	actions: ["kivcria_frenzy", "kivcria_viral"],
 	initialStatusEffects: [["ethereal", 1]],
 	graphics: `
-		<div class="sprite-wrapper archival-golem golemsprite" id="%SLUG-sprite-wrapper">
+		<div class="sprite-wrapper golemsprite" id="%SLUG-sprite-wrapper">
 			<div class="sprite-overflow spritestack">
 				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1body.png" id="%SLUG-golemsprite-base" class="sprite golemsprite-base">
                     
