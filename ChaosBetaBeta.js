@@ -7098,8 +7098,8 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	hp: 10,
 	actions: ["kivcria_frenzy", "kivcria_viral"],
 	initialStatusEffects: [["ethereal", 1]],
-	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.gif">`,
-	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.gif',
+	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif',
 	graphics: `
 		<div class="sprite-wrapper golemsprite bossgolem" id="%SLUG-sprite-wrapper">
                 <div class="sprite-overflow spritestack">
@@ -7108,7 +7108,7 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
                     <div class="sprite golemsprite-head">
                         <img src="/img/sprites/combat/foes/golemboss-head.gif" id="%SLUG-golemsprite-head">
                     </div>
-                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
+                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
                     <img src="/img/sprites/combat/foes/golemboss-arms.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-arms">
                 </div>
             </div>
