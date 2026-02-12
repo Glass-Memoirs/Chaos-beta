@@ -3396,21 +3396,21 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 			else if(user.team.members.includes("critta_spawner")) return;
 			else if(user.team.name == "enemy") {
 				if(this.status.lastSide) {
-					midCombatEnemyAdd('rot_bearer_foe', 'left') 
+					midCombatActorAdd(env.rpg.enemyTeam, 'rot_bearer_foe', 'left')
 					play('stab', 0.5)
 					this.status.lastSide = 0
 				} else {
-					midCombatEnemyAdd('rot_bearer_foe', 'right')
+					midCombatActorAdd(env.rpg.enemyTeam, 'rot_bearer_foe', 'right')
 					play('stab', 0.5)
 					this.status.lastSide = 1
 				}
 			} else {
 				if(this.status.lastSide) {
-					midCombatAllyAdd('rot_bearer_ally', 'left')
+					midCombatActorAdd(env.rpg.allyTeam, 'rot_bearer_ally', 'left')
 					play('stab', 0.5)
 					this.status.lastSide = 0
 				} else {
-					midCombatAllyAdd('rot_bearer_ally', 'right')
+					midCombatActorAdd(env.rpg.allyTeam, 'rot_bearer_ally', 'left')
 					play('stab', 0.5)
 					this.status.lastSide = 1
 				}
