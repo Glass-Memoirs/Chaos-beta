@@ -3380,7 +3380,7 @@ env.STATUS_EFFECTS.kivcria_festering = {
 //Stealing from narra for this. sorgy but also nah you already did it
 env.STATUS_EFFECTS.kivcria_tendril = {
 	slug: "kivcria_tendril",
-	slug: "Tendril's decay",
+	name: "Tendril's decay",
 	beneficial: true,
 	infinite: true,
 	passive: true,
