@@ -6991,7 +6991,6 @@ env.COMBAT_ACTORS.speech_bubble_weak = {
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif" id="%SLUG-sprite">
-			<div class="target" entity="Speech Bubble"></div>
 		</div>
 		`,
 	reactions: {
@@ -7029,7 +7028,6 @@ env.COMBAT_ACTORS.speech_bubble_strong = {
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif" id="%SLUG-sprite">
-			<div class="target" entity="Speech Bubble"></div>
 		</div>
 		`,
 	reactions: {
@@ -7067,7 +7065,6 @@ env.COMBAT_ACTORS.threat_bubble = {
 	graphic: `
 		<div class="sprite-wrapper dulltainer" id="%SLUG-sprite-wrapper">
 			<img class="sprite" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Smile.gif" id="%SLUG-sprite">
-			<div class="target" entity="Speech Bubble"></div>
 		</div>
 		`,
 	reactions: {
