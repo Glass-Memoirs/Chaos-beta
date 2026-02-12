@@ -7110,7 +7110,7 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
                         <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif" id="%SLUG-golemsprite-face">
                     </div>
                     <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-body1.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
-                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-arm1.gif" id="%SLUG-golemsprite-arms" class="sprite golemsprite-arms gunlower">
+                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-arm1.gif" id="%SLUG-golemsprite-arms" class="sprite golemsprite-arms">
                 </div>
 		</div>
 	`,
