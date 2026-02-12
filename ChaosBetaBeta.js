@@ -7101,18 +7101,17 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.gif">`,
 	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.gif',
 	graphics: `
-		<div class="sprite-wrapper golemsprite" id="%SLUG-sprite-wrapper">
-			<div class="sprite-overflow spritestack">
-				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1body.png" id="%SLUG-golemsprite-base" class="sprite golemsprite-base">
+		<div class="sprite-wrapper golemsprite bossgolem" id="%SLUG-sprite-wrapper">
+                <div class="sprite-overflow spritestack">
+                    <img src="/img/sprites/combat/foes/golemboss.gif" id="%SLUG-golemsprite-base" class="sprite golemsprite-base">
                     
-				<div class="sprite golemsprite-head">
-					<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1head.png" id="%SLUG-golemsprite-head">
-					<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.png" id="%SLUG-golemsprite-face">
-				</div>
-				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1body.png" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
-				<img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1arm.png" id="%SLUG-golemsprite-arms" class="sprite golemsprite-arms">
-			</div>
-		</div>
+                    <div class="sprite golemsprite-head">
+                        <img src="/img/sprites/combat/foes/golemboss-head.gif" id="%SLUG-golemsprite-head">
+                    </div>
+                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak1face.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
+                    <img src="/img/sprites/combat/foes/golemboss-arms.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-arms">
+                </div>
+            </div>
 	`,
 	reactions: {
 		evade: ["no  no  n.o   n o  ~ Õ|”|ô Vî + Si s w®i ±± í n g  6 t Ý urt s", "m®ÙÔ/*IŸÓ®", "‰æÐV„®QT”f", "Q¿á~¢0åÊÆº", "å&Ÿfam¬£„C", "éËÝŸé¾¼¬aÙ"],
