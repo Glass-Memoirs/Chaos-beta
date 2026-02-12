@@ -7098,8 +7098,8 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	hp: 10,
 	actions: ["kivcria_frenzy", "kivcria_viral"],
 	initialStatusEffects: [["ethereal", 1]],
-	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif">`,
-	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif',
+	portrait: `<img class="portrait" src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1_mimic.gif">`,
+	portraitUrl: 'https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1_mimic.gif',
 	graphic: `
 		<div class="sprite-wrapper archival-golem golemsprite" id="%SLUG-sprite-wrapper">
                 <div class="sprite-overflow spritestack">
