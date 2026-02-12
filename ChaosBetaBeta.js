@@ -6739,9 +6739,9 @@ env.ACTIONS.kivcria_viral = {
 			beneficial: user.team.name == target.team.name, // per @brightcousinkuvi, bypasses redirection only if used intra-team
 			hitExec: ({target}) => {
 				if(target.team.name != user.team.name) {
-					addStatus({target, status: this.stats.status.vulnerable.name, length: this.stats.status.rot.length})
+					addStatus({target, status: this.stats.status.rot.name, length: this.stats.status.rot.length})
 				} else {
-					addStatus({target, status: this.stats.status.evasion.name, length: this.stats.status.rot.length - 1})
+					addStatus({target, status: this.stats.status.rot.name, length: this.stats.status.rot.length - 1})
 				}
 			},
 			missExec: ({user}) => {
