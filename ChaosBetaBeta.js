@@ -7103,14 +7103,14 @@ env.COMBAT_ACTORS.rot_bearer_foe = {
 	graphic: `
 		<div class="sprite-wrapper archival-golem golemsprite daemonsprite" id="%SLUG-sprite-wrapper">
                 <div class="sprite-overflow spritestack">
-                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-body1.gif" id="%SLUG-golemsprite-base" class="sprite golemsprite-base">
+                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-body1.gif" id="%SLUG-golemsprite-base" class="sprite golemsprite-base" style="height: 400px">
                     
                     <div class="sprite golemsprite-head">
                         <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-head1.gif" id="%SLUG-golemsprite-head">
-                        <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif" id="%SLUG-golemsprite-face">
+                        <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-face1.gif" id="%SLUG-golemsprite-face" style="height: 400px">
                     </div>
-                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-body1.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-body">
-                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-arm1.gif" id="%SLUG-golemsprite-arms" class="sprite golemsprite-arms">
+                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-body1.gif" id="%SLUG-golemsprite-body" class="sprite golemsprite-body" style="height: 400px">
+                    <img src="https://glass-memoirs.github.io/Chaos-beta/Images/Actors/Freak-arm1.gif" id="%SLUG-golemsprite-arms" class="sprite golemsprite-arms" style="height: 400px">
                 </div>
 		</div>
 	`,
