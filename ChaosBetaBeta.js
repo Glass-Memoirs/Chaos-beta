@@ -3388,7 +3388,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 	help: "on death, summon rot-bearer\nif dead actor is an ally, summon as ally\nif dead actor is a foe, summon as foe",
 	impulse: {type: "common", component: "kivcria"},
 	events: {
-		onDeath: function() {
+		GLOBAL_onDeath: function() {
 			let user = this.status.affecting
 			if(user.initialStatusEffects && user.initialStatusEffects.includes("ethereal")) return;
 			else if(user.slug.includes("rot")) return;
