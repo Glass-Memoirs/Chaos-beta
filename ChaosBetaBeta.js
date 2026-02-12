@@ -2855,10 +2855,10 @@ env.STATUS_EFFECTS.life_resourceful = {
 			) return;
 			
 			let primaryHit = env.ACTIONS[user.actions[0]]
-			let utilitiyHit = env.ACTIONS[user.actions[2]]
-			let foeTarget = subject.enemyTeam.sample()
+			let utilityHit = env.ACTIONS[user.actions[2]]
+			let foeTarget = subject.enemyTeam.members.sample()
 			while (foeTarget == "dead") {
-				foeTarget = subject.enemyTeam.sample()
+				foeTarget = subject.enemyTeam.members.sample()
 			}
 
 			setTimeout(()=>{
