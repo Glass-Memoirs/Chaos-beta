@@ -1673,9 +1673,9 @@ env.STATUS_EFFECTS.surging_second = {
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
 	events: {
-		GLOBAL_onDeath: function({attack}) {
+		GLOBAL_onStruck: function({subject, attack}) {
             let hitpow = Math.floor(attack / 2)
-            if(hitpow > 0) {
+            if(hitpow > 0 && subject.state == "dead" && !attack.beneficial) {
                 let validTargets = env.rpg.turnOrder.filter(actor => (actor != this.status.affecting) && (actor.state != "dead"))
                 setTimeout(()=>{
                     play("chomp")
