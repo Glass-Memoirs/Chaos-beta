@@ -1115,13 +1115,13 @@ env.MODIFIERS.life_transfer = {
 	}
 }
 
-/*env.MODIFIERS.life_social = {
-	name: "Social Parasite",
-	getHelp: ()=> {return env.STATUS_EFFECTS.life_social.help},
+env.MODIFIERS.life_shared = {
+	name: "Shared Prey",
+	getHelp: ()=> {return env.STATUS_EFFECTS.life_shared.help},
 	alterations: {
-		all: [["STATUS", "life_social"]]
+		all: [["STATUS", "life_shared"]]
 	}
-}*/
+}
 //graceful
 env.MODIFIERS.graceful_safezone = {
 	name: "Graceful Safezone",
@@ -3064,6 +3064,8 @@ env.STATUS_EFFECTS.graceful_safezone = {
 		}
 	}
 },
+//for Him
+//on Death, come back once with 1hp and hit enemy team with primary and secondary
 //kivcria
 env.STATUS_EFFECTS.spraying = {
 	slug: "spraying",
