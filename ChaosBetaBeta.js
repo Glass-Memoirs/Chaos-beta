@@ -2552,6 +2552,7 @@ env.STATUS_EFFECTS.life_healing = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
 	help: "Makes Regen permanent, and gives Bash",
+	grantsActions: ["bash"],
 	events: {
 		onAddStatus: function({statusObj}) {
         	if(!statusObj.infinite && statusObj.slug == "regen"){
@@ -3321,7 +3322,68 @@ env.STATUS_EFFECTS.kivcria_clean = {
 //Per hunor of kivcri
 //+1T rot when reciving/applying rot
 //+5% damage per Trot
+env.STATUS_EFFECTS.fated_kivcria = {
+	slug: "fated_kivcria",
+	name: "FATED::KIVCRIA",
+	beneficial: true,
+	passive: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "fated", component: "kivcria"},
+	help: "Per humor of kivcria on this shell, +1T when applying/recieving ROT, +5% damage per turn of ROT",
+	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			
+			this.status.power = 0
+			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
+				if(slotContents == "kivcria") this.status.power++
+			}
 
+			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
+				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+				if(augment?.component) if(augment.component[1] == "kivcria") this.status.power += 2
+			}
+		},
+		GLOBAL_onBeforeCombatHit: function(context) {
+			if(!this.status.power || context.amt > 0 || !this.status.affecting.team.members.includes(context.origin)) return;
+			if(context.origin == this.status.affecting) {
+				let rotCount = hasStatus(context.originalEventTarget, "rot")
+
+				if(context.amt > 0 && rotCount && !context.beneficial) {
+					this.status.outgoingMult = (0.05 * this.status.power) * rotCount 
+				} else {
+					this.status.outgoingMult = 0
+				}
+			}
+
+			updateStats({actor: this.status.affecting})
+		},
+		GLOBAL_onBeforeAddStatus: function(context) {
+			if(!this.status.power || context.amt > 0 || !this.status.affecting.team.members.includes(context.origin)) return;
+			if (context.status == "rot" && (context.target == this.status.affecting || context.origin == this.status.affecting)) {
+				context.length += 1 * this.status.power
+					setTimeout(()=>{                
+						sendFloater({
+							target: this.status.affecting,
+							type: "arbitrary",
+							specialClass: "fate",
+							arbitraryString: "FATE::KIVCRIA",
+						})
+
+						/*readoutAdd({
+							message: `${originalEventTarget.name} gains a barrier! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.affecting.name}'s ${this.status.name}</span>)`, 
+							name: "sourceless", 
+							type: "sourceless combat minordetail", 
+							show: false,
+							sfx: false
+						})*/
+					}, env.ADVANCE_RATE * 0.2)
+				}
+			}
+		}
+	}
+}
 //Stage modifiers 
 //Wall-rot - all actions have a 20% chance to become rotten jab (-1hp, +3T rot) [70% hit chance, no crit]
 //me when i wipe the Yucky Finger on you
