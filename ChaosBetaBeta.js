@@ -6537,7 +6537,7 @@ env.ACTIONS.kivcria_fairylight = {
 					user, 
 					target,
 					hitSfx: { name: "chomp", rate: 3 },
-					hitStatus: this.stats.status.puncture,
+					hitStatus: {name: this.stats.status.puncture.name, length: this.stats.status.puncture.length},
 					critExec: ({target})=> {
 						addStatus({target: target, origin: user, status: "puncture", length: 1});
 						addStatus({target: target, origin: user, status: "destabilized", length: 1});
@@ -6692,8 +6692,8 @@ env.ACTIONS.kivcria_jab = {
 			action: this,
 			user,
 			target,
-			hitSfx: { name: "status", rate: 3 },
-			hitStatus: this.stats.status.rot
+			hitSfx: {name: "status", rate: 3},
+			hitStatus: {name: this.stats.status.rot.name, length: this.stats.status.rot.length}
 		})
 	}
 },
@@ -6798,8 +6798,8 @@ env.ACTIONS.kivcria_viral = {
 			target,
 			hitSfx: { name: 'destabilize' },
 			critSfx: { name: 'destabilize' },
-			critStatus: this.stats.status.destabilized,
-			hitStatus: this.stats.status.destabilized,
+			critStatus: {name: this.stats.status.destabilized.name, length: this.stats.status.destablized.length},
+			hitStatus: {name: this.stats.status.destabilized.name, length: this.stats.status.destabilized.length},
 			beneficial: user.team.name == target.team.name, // per @brightcousinkuvi, bypasses redirection only if used intra-team
 			hitExec: ({target}) => {
 				if(target.team.name != user.team.name) {
