@@ -3366,6 +3366,7 @@ env.STATUS_EFFECTS.fated_graceful = {
 		}
 	}
 },
+//Taint - remove an impulse each turn, removed when fear is lost
 //Solent - on crit recieve a random negative status effect
 env.STATUS_EFFECTS.graceful_solent = {
 	slug: "graceful_solent",
