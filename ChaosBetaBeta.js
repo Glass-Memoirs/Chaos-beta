@@ -3151,6 +3151,25 @@ env.STATUS_EFFECTS.graceful_ten = {
 	help: `+100% outgoing damage/heal at 100% HP`
 },
 //Honk - laugh whenever a foe misses, +10% base evasion chance
+env.STATUS_EFFECTS.graceful_honk = { 
+	slug: "graceful_honk",
+	name: "Honk",
+	passive: true,
+	beneficial: true,
+	incomingtoHit: -0.1,
+	incomingCrit: -0.1,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "graceful"},
+        
+	events: {
+		onEvade: function({subject, target, attack, beneficial}) {
+			if(beneficial || subject.team.members.includes(target)) return;
+			reactDialogue(subject, "laugh")
+		}
+	},
+
+	help: `when hitting a foe, laugh\n-10% IN:HIT & IN:CRIT`
+},
 
 //ACTION::kind spirit - on ally hit, use secondary
 
