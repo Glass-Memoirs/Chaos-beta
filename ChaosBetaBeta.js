@@ -682,7 +682,7 @@ env.COMBAT_COMPONENTS.graceful = {
 			maxhp: 3
 		}
 	},
-	combatModifiers: ["graceful_safezone"]
+	combatModifiers: ["graceful_safezone", "graceful_solent", "graceful_toginco"]
 }
 
 env.COMBAT_COMPONENTS.kivcria = {
@@ -1128,6 +1128,22 @@ env.MODIFIERS.graceful_safezone = {
 	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_safezone.help},
 	alterations: {
 		all: [["STATUS", "graceful_safezone"],["ADD","parry"]]
+	}
+}
+
+env.MODIFIERS.graceful_solent = {
+	name: "Solent",
+	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_solent.help},
+	alterations: {
+		all: [["STATUS", "graceful_solent"]]
+	}
+}
+
+env.MODIFIERS.graceful_toginco = {
+	name: "Tognico",
+	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_toginco.help},
+	alterations: {
+		all: [["STATUS", "graceful_toginco"]]
 	}
 }
 //kivcria
@@ -3064,8 +3080,136 @@ env.STATUS_EFFECTS.graceful_safezone = {
 		}
 	}
 },
-//for Him
-//on Death, come back once with 1hp and hit enemy team with primary and secondary
+//Rosary Ring - recieve random beneficial effect on crit
+env.STATUS_EFFECTS.graceful_rosary = {
+	slug: "graceful_rosary",
+	name: "Rosary Ring",
+	beneficial: true,
+	passive: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "common", component: "graceful"},
+	help: "recieve a random beneficial status when critting a foe",
+	events: {
+		onCrit: function({subject, origin, attack, beneficial}) {
+			let user = this.status.affecting
+			if (user.team.members.includes(subject) || beneficial || origin != user ) return;
+			let modifierPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = true
+				if(statusData.passive) {usable = false}
+				if(statusData.infinite || (statusData.slug == "windup")) {usable = false}
+				if(statusData.slug.includes("global_")||statusData.slug.includes("malware_")||statusData.slug.includes("fish_")) {usable = false}
+				if(statusData.slug == "misalign_weaken" || statusData.slug == "misalign_stun" || statusData.slug == "realign" || statusData.slug == "realign_stun") {usable = false}
+				if(statusData.slug == "imperfect_reset") {usable = false}
+				if(statusData.slug == "unnatural_carapace") {usable = false}
+				if(statusData.slug == "redirection" || statusData.slug == "ethereal" || statusData.slug == "immobile" || statusData.slug == "conjoined" || statusData.slug == "permanent_hp") {usable = false}
+				if(!statusData.beneficial) {usable = false}
+				if(statusData.slug == 'tuned') {usable = false}
+				if(statusData.slug == "undefined") {usable = false}
+				console.log(statusData, usable)
+				if(usable) modifierPool.push(statusData.slug)
+			}
+			let AddedStat = modifierPool.sample()
+			addStatus({target: user, status: AddedStat, length: 3})
+		}
+	}
+},
+//Dome-head - when struck at, retaliate (50% -1hp, 10% 1T stun)
+env.STATUS_EFFECTS.graceful_dome = {
+	slug: "graceful_dome",
+	name: "Dome-Head",
+	passive: true,
+	beneficial: true,
+	impulse: {type: "common", component: "graceful"},
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onStruck: function({subject, target, beneficial}) {
+			let user = this.status.affecting
+			if (subject == user || user.team.members.includes(subject) || user != target || beneficial) return;
+			useAction(user, graceful_retaliate, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful-retaliation"})
+		}
+	},
+	help: "when struck, RETALIATE\nRETALIATE:: (50% -1HP, 10% +1T:STUN)"
+},
+
+//ten-point crampons - +100% outgoing damage when at full health
+env.STATUS_EFFECTS.graceful_ten = { 
+	slug: "graceful_ten",
+	name: "Ten-Point Crampons",
+	passive: true,
+	beneficial: true,
+	impulse: {type: "common", component: "graceful"},
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	events: {
+		onTurn: function() {
+			if(this.status.affecting.hp >= this.status.affecting.maxhp * 1) this.status.outgoingMult = 1
+			else this.status.outgoingMult = 0
+		},
+	},
+	help: `+100% outgoing damage/heal at 100% HP`
+},
+//Honk - laugh whenever a foe misses, +10% base evasion chance
+
+//ACTION::kind spirit - on ally hit, use secondary
+
+//FATED::Graceful - +1% base crit chance per Graceful, +1hp when regaining or giving hp
+
+//Solent - on crit recieve a random negative status effect
+env.STATUS_EFFECTS.graceful_solent = {
+	slug: "graceful_solent",
+	name: "Solent",
+	beneficial: false,
+	passive: "modifier",
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "recieve a random negative status when critting a foe",
+	events: {
+		onCrit: function({subject, origin, attack, beneficial}) {
+			let user = this.status.affecting
+			if (user.team.members.includes(subject) || beneficial || origin != user ) return;
+			let modifierPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = true
+				if(statusData.passive) {usable = false}
+				if(statusData.infinite || (statusData.slug == "windup")) {usable = false}
+				if(statusData.slug.includes("global_")||statusData.slug.includes("malware_")||statusData.slug.includes("fish_")) {usable = false}
+				if(statusData.slug == "misalign_weaken" || statusData.slug == "misalign_stun" || statusData.slug == "realign" || statusData.slug == "realign_stun") {usable = false}
+				if(statusData.slug == "imperfect_reset") {usable = false}
+				if(statusData.slug == "unnatural_carapace") {usable = false}
+				if(statusData.slug == "redirection" || statusData.slug == "ethereal" || statusData.slug == "immobile" || statusData.slug == "conjoined" || statusData.slug == "permanent_hp") {usable = false}
+				if(statusData.beneficial) {usable = false}
+				if(statusData.slug == 'tuned') {usable = false}
+				if(statusData.slug == "undefined") {usable = false}
+				console.log(statusData, usable)
+				if(usable) modifierPool.push(statusData.slug)
+			}
+			let AddedStat = modifierPool.sample()
+			addStatus({target: user, status: AddedStat, length: 3})
+		}
+	}
+},
+//Toginco - lose 10hp when missing a foe
+env.STATUS_EFFECTS.graceful_toginco = {
+	slug: "graceful_toginco",
+	name: "toginco",
+	beneficial: false,
+	passive: "modifier",
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "when missing a foe, lose 10HP",
+	events: {
+		onMiss: function({subject, target, beneficial}) {
+			let user = this.status.affecting
+			if (subject != user || beneficial || user.team.members.includes(target)) return;
+			combatHit(user, {amt: 10, redirectable: false})
+		}
+	}
+},
+//deggur - replace all effects with stun when crit
+
 //kivcria
 env.STATUS_EFFECTS.spraying = {
 	slug: "spraying",
@@ -3394,7 +3538,7 @@ env.STATUS_EFFECTS.kivcria_wall = {
 	name: "Wall Rot",
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	passive: true,
+	passive: "modifier",
 	infinite: true,
 	events: {
 		onBeforeAction: function(context) {
@@ -3410,7 +3554,7 @@ env.STATUS_EFFECTS.kivcria_festering = {
 	slug: "kivcria_festering",
 	name: "Rotten Wounds",
 	beneficial: true,
-	passive: true,
+	passive: "modifier",
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	outgoingMult: 0,
@@ -6303,6 +6447,44 @@ env.ACTIONS.graceful_heed = {
 		})
 	}
 },
+
+env.ACTIONS.graceful_retaliate = {
+	slug: "graceful_retaliate",
+	name: "Retaliate",
+	type: "target",
+	anim: "basic-attack",
+	details: {
+		flavor: "blargle",
+		onHit: "'[STAT::amt]'",
+		onCrit: "'[STATUS::stun]'"
+	},
+	usage: {
+		act: "%USER LUNGES BACK AT %TARGET",
+		hit: "%TARGET IS HURT",
+		crit: "%TARGET WAS UNPREPARED FOR THE ATTACK",
+		miss: "%USER BARELY MISSES %TARGET"
+	},
+	stats: {
+		accuracy: 0.5,
+		crit: 0.1,
+		amt: 1,
+		status: {
+			stun: {name: "stun", length: 1}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {
+				name: "stab",
+				rate: 0.8
+			},
+			critStatus: {name: this.stats.status.stun.name, length: this.stats.status.stun.length}
+		})
+	}
+}
 //kivcria
 env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i have no experience coding with js frowny face emoji -:3
 	slug: "kivcria_claw",
@@ -6340,7 +6522,7 @@ env.ACTIONS.kivcria_claw = { //rending claw, forgive me if this shit is ass- i h
 				name: 'stab', //keep this the same
 				rate: 1.5 //this too
 			},
-			critStatus: this.stats.status.stun,
+			critStatus: {name: this.stats.status.stun.name, length: this.stats.status.stun.length},
 			hitExec: ({target}) => {
 				if(hasStatus(target, "destabilized")) {
 					amt = this.stats.amt + 3
