@@ -3011,6 +3011,7 @@ env.STATUS_EFFECTS.parry = {
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/GracefulParry.gif",
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
+	incomingFlat: -9999999999999999999,
 	events: {
 		GLOBAL_onAction: function({user, action, target, originalEventTarget}) { 
 			if(action.beneficial || target != this.status.affecting || !action.type.includes("target")) return;
