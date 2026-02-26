@@ -6715,7 +6715,7 @@ env.ACTIONS.graceful_gleam = {
 					target,
 					hitSfx: { name: "chomp", rate: 3 },
 					critExec: ({target})=> {
-						addStatus({target: user.team.members.sample(), origin: user, status: this.stats.status.sample().name, length: 1});
+						addStatus({target: user.team.members.sample(), origin: user, status: this.stats.status[randomInt(0,2)].name, length: 1});
 					}
 				})
 
