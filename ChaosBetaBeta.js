@@ -1755,7 +1755,7 @@ env.STATUS_EFFECTS.fated_surging = {
 			}
 		}
 	},
-	help: "'per humor of SURGE on this shell: 15% chance to remove stun, 9% chance to add wild surge'"
+	help: "'per humor of SURGE on this shell::\n15% chance to remove stun\n9% chance to add WILD SURGE'"
 },
 //stupidhorrible
 env.STATUS_EFFECTS.stupidhorrible_bad = {
@@ -1997,7 +1997,7 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 			this.status.outgoingMult = Math.floor(0.2*this.status.power)
 		},
 	},
-	help: "Per humor of stupidhorrible on this shell: reduce crit chance, but increase power'"
+	help: "Per humor of stupidhorrible on this shell::\nreduce crit chance, but increase power'"
 },
 //smog
 env.STATUS_EFFECTS.smog_scream = {
@@ -2200,7 +2200,7 @@ env.STATUS_EFFECTS.fated_smog = {
 			}
 		}
 	},
-	help: "'per humor of SMOG on this shell: 9% chance to gain 2T:regen'"
+	help: "'per humor of SMOG on this shell::\n9% chance to gain 2T:REGEN'"
 },
 //steel
 env.STATUS_EFFECTS.muted = {
@@ -2557,7 +2557,7 @@ env.STATUS_EFFECTS.fated_steel = {
 			}
 		}
 	},
-	help: "per humor of STEEL on this shell: -10% incoming damage, +100% outgoing with empowered or carapace"
+	help: "per humor of STEEL on this shell::\n-10% incoming damage\n+100% outgoing with EMPOWERED or CARAPACE"
 },
 
 //life
@@ -3552,7 +3552,7 @@ env.STATUS_EFFECTS.fated_kivcria = {
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "fated", component: "kivcria"},
-	help: "Per humor of kivcria on this shell, +1T when applying/recieving ROT, +5% damage per turn of ROT",
+	help: "Per humor of kivcria on this shell::\n+1T when applying/recieving ROT\n+5% damage per turn of ROT",
 	events: {
 		onCreated: function({statusObj}) {
 			if(statusObj.slug != this.status.slug) return;
