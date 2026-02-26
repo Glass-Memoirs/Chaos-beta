@@ -922,7 +922,7 @@ env.ACTOR_AUGMENTS.generic.graceful_gleam = {
 	name: "Gleam",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "`Strengthen your light`",
-	alterations: [["graceful_beacond", "graceful_gleam"]],
+	alterations: [["graceful_beacon", "graceful_gleam"]],
 	component: ["secondary", "graceful"],
 	cost: 2
 }
