@@ -1648,7 +1648,7 @@ env.STATUS_EFFECTS.surging_story = {
 
 env.STATUS_EFFECTS.surging_improvised = {
 	slug: "surging_improvised",
-	name: "ACTION:: IMPROVISED SCRIPTWRITING",
+	name: "ACTION::IMPROVISED SCRIPTWRITING",
 	passive: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/eyew.gif",
@@ -3181,6 +3181,118 @@ env.STATUS_EFFECTS.graceful_honk = {
 },
 
 //ACTION::kind spirit - on ally hit, use secondary
+//if shell dies, revive with 1 hp and utilize primary and secondary teamwaved. only functions once
+env.STATUS_EFFECTS.graceful_kind = {
+	slug: "graceful_kind",
+	name: "ACTION::KIND SPIRIT",
+	beneficial: true,
+	passive: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "action", component: "graceful"},
+	help: "if alive, when another ally crits a foe, use secondary\nif secondary is beneficial, used on ally\nif secondary is offensive, used on foe\nunknown additional effect",
+	events: {
+		GLOBAL_onBeforeAction: function({user, reason, beingUsedAsync, action}) { 
+			if(user != this.status.affecting && (user.team.name == this.status.affecting.team.name) && !reason && !beingUsedAsync) {
+				this.status.turnUsage = false 
+			}
+		},
+		GLOBAL_onAction: function({target, user, hit, reason, action, beingUsedAsync, originalEventTarget}) {
+			if(
+				hit != "crit" ||
+				this.status.affecting.state == "dead" || 
+				user == this.status.affecting || 
+				originalEventTarget == this.status.affecting ||
+				this.status.affecting.enemyTeam.members.includes(user) || 
+				this.status.affecting.team.members.includes(target) || 
+				target.state == "dead" ||
+				this.status.turnUsage ||
+				!this.status.affecting.actions[1] ||
+				hasStatus(user, "fear")
+			) return;
+
+			this.status.turnUsage = true
+			let secondary = env.ACTIONS[this.status.affecting.actions[1]]
+
+			setTimeout(()=>{
+				useAction(this.status.affecting, secondary, secondary.beneficial ? user : target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "support"})
+
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: `SUPPORT::${secondary.name.toUpperCase()}`,
+					size: 1.5,
+				})
+                
+				readoutAdd({
+					message: `${this.status.affecting.name} provides support alongside ${user.name}'s attack on ${target.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail",
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.5)
+		},
+		GLOBAL_onDeath: function({originalEventTarget}) {
+			let subject = originalEventTarget
+			let user = this.status.affecting
+
+			if(
+				user.state == "dead" ||
+				user != subject || 
+				user.team.name != subject.team.name || 
+				subject.state != "dead"
+			) return;
+			let primary = env.ACTIONS[this.status.affecting.actions[0]]
+			let secondary = env.ACTIONS[this.status.affecting.actions[1]]
+			if(!subject.revivedByIchor) subject.revivedByIchor = {}
+			if(subject.revivedByIchor[user.slug]) return;
+			subject.revivedByIchor[user.slug] = true
+
+			//temp set ahead of the actual action in order to stop combat from ending, also other instances from triggering
+			subject.state = "living"
+
+			setTimeout(()=>{
+				subject.hp = 0.1 // hack to avoid extra updatestats
+				useAction(user, env.ACTIONS.ichor_passive_restore, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+
+				setTimeout(()=>{
+					if(subject.hp != 0) combatRevive(subject)
+				}, 310)
+
+				for (let i in user.enemyTeam.member) {
+					useAction(user, primary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+				}
+				if (secondary.beneficial) {
+					for (let i in user.team.member) {
+						useAction(user, secondary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+					}
+				} else {
+					for (let i in user.enemyTeam.member) {
+						useAction(user, secondary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+					}
+				}
+
+				sendFloater({
+					target: subject,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: "FORGIVEN!",
+					size: 1.5,
+				})
+                
+				readoutAdd({
+					message: `${user.name} is brought back! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)
+		}
+	}
+},
 
 //FATED::Graceful - +1% base crit chance and +1hp when regaining or giving hp per graceful
 env.STATUS_EFFECTS.fated_graceful = {
@@ -3595,7 +3707,7 @@ env.STATUS_EFFECTS.kivcria_clean = {
 			}, env.ADVANCE_RATE * 0.2)
 		}
 	}
-}
+},
 
 //Fated::Kivcria
 //Per hunor of kivcri
@@ -3661,7 +3773,7 @@ env.STATUS_EFFECTS.fated_kivcria = {
 			}
 		}
 	}
-}
+},
 
 //Stage modifiers 
 //Wall-rot - all actions have a 20% chance to become rotten jab (-1hp, +3T rot) [70% hit chance, no crit]
@@ -3681,7 +3793,7 @@ env.STATUS_EFFECTS.kivcria_wall = {
 		}
 	},
 	help: "All actions have a 20% chance to become ROTTEN JAB"
-}
+},
 //Rotten wounds - 100% outgoing and 20% incoming damage per Trot, random chance to turn status effects into rot
 env.STATUS_EFFECTS.kivcria_festering = {
 	slug: "kivcria_festering",
@@ -3716,7 +3828,7 @@ env.STATUS_EFFECTS.kivcria_festering = {
 			}
 		},
 	}
-}
+},
 //Tendril's decay - on actor death, summon enemy rot-bearer (10hp, ethereal, only action is decayed fenzy (-1hp, on crit repeat, 80% hit chance, 100% crit rate))
 //Stealing from narra for this. sorgy but also nah you already did it
 env.STATUS_EFFECTS.kivcria_tendril = {
@@ -3777,7 +3889,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 			}, env.ADVANCE_RATE * 0.2)
 		},
 	},
-}
+},
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
