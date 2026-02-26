@@ -6696,7 +6696,7 @@ env.ACTIONS.graceful_gleam = {
 	exec: function(user, target, beingUsedAsync) {
 		let animElement = user.sprite || user.box
 		let initialRate = env.bgm.rate()
-
+		let statusTrio = ["surge", "regen", "carapace"]
 		//animElement.classList.add('aiming')
 		//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, initialRate + 0.5)
 		//play('click1')
@@ -6715,7 +6715,7 @@ env.ACTIONS.graceful_gleam = {
 					target,
 					hitSfx: { name: "chomp", rate: 3 },
 					critExec: ({target})=> {
-						addStatus({target: user.team.members.sample(), origin: user, status: env.STATUS_EFFECTS[this.stats.status[randomInt(0,2)].name], length: 1});
+						addStatus({target: user.team.members.sample(), origin: user, status: statusTrio.sample(), length: 1});
 					}
 				})
 
@@ -6759,7 +6759,7 @@ env.ACTIONS.graceful_heed = {
 			team: user.team,
 			exec: (actor, i) => {
 				addStatus({target: user, status: "regen", length: 2, noReact: true}); 
-				if(actor.slug == user.slug) return
+				if(actor.slug == user.slug) return;
 				addStatus({target: actor, origin: user, status: "redirection", length: 2}); 
 				play('guard', 2, 0.75);
 			},
