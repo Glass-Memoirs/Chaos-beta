@@ -682,7 +682,7 @@ env.COMBAT_COMPONENTS.graceful = {
 			maxhp: 3
 		}
 	},
-	combatModifiers: ["graceful_safezone", "graceful_solent", "graceful_toginco"]
+	combatModifiers: ["graceful_safezone", "graceful_solent", "graceful_toginco", "graceful_deggur"]
 }
 
 env.COMBAT_COMPONENTS.kivcria = {
@@ -1146,6 +1146,15 @@ env.MODIFIERS.graceful_toginco = {
 		all: [["STATUS", "graceful_toginco"]]
 	}
 }
+
+env.MODIFIERS.graceful_deggur = {
+	name: "Deggur",
+	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_deggur.help},
+	alterations: {
+		all: [["STATUS", "graceful_deggur"]]
+	}
+}
+
 //kivcria
 env.MODIFIERS.kivcria_wall = {
 	name: "Wall Rot",
@@ -3285,7 +3294,55 @@ env.STATUS_EFFECTS.graceful_toginco = {
 	}
 },
 //deggur - replace all effects with stun when crit
-
+//NOTE:: PLAYER INPUT NEEDED FOR THIS ONE
+env.STATUS_EFFECTS.graceful_deggur = {
+	slug: "graceful_deggur",
+	name: "Deggur",
+	beneficial: false,
+	passive: "modifier",
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "replace all status effects with stun when crit",
+	events: {
+		onCritStruck: function({subject, target, beneficial}) {
+			let user = this.status.affecting
+			if (target != user || user.team.members.includes(subject) || beneficial || subject == user) {
+				user = this.status.affecting
+				let statusPool = [] //List of valid status effects
+				for (let i in env.STATUS_EFFECTS) { //takes the entire list of status effects (including modded)
+					let statusData = env.STATUS_EFFECTS[i] //gives status to something comparable
+					let usable = true //assuming that we can use it
+					if(statusData.infinite) {usable = false} //in this case, moving infinite things could break something (glaring at windup)
+					if(statusData.passive) {usable = false} //in this case, we dont really wanna shuffle passives.
+					if(i.includes("global_")) {usable = false} //Globals are escalation and some fish modifiers.
+					if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false} //AbsurdFrame specific statuses
+					if(i == "imperfect_reset") {usable = false} //Firmament looping status. you already know
+					if(i == "redirection") {usable = false} //honestly i dont know if im unable to move redirection around. it has an origin so just exclude it already
+					if(i == "entropy_eternal") {usable = false} //yeah so, Passive: true and Passive: "modifier" dont equal the exact same thing
+					if(i == "unnatural_carapace") {usable = false}
+					if(i == "channeling_flat"|| i == "coiling_flat"|| i == "rocket_bearer") {usable = false}
+//              	console.log(i, usable)
+					if(usable) statusPool.push(i) //if that shit usable? add it to the list
+				}
+	        	let validEffects = [] //list for who the modifier is affecting on the current turn
+				user.statusEffects.forEach((status, i) => { //get their status list!
+//					console.log(status)
+					if((!status.infinite || !status.passive) && (statusPool.includes(status.slug))) { //ignore passive, infinite, or anything not in the pool
+                		validEffects.push(status.slug) //if upper part goes "yeah", put it in the list
+                	}
+            	})
+				for (let i in validEffects) {
+					if (hasStatus(user, i)) { //if the status didnt die or if it doesnt get rolled twice (i dunno if thats possible)
+                    //slap it onto another person
+		    	    	addStatus({target: user, origin: false, status: stun, length: Math.floor(hasStatus(user, i)), noReact: true})
+                    //and then remove it from you!
+			            removeStatus(user, i)
+		            }    
+				}
+			}
+		}
+	}
+},
 //kivcria
 env.STATUS_EFFECTS.spraying = {
 	slug: "spraying",
