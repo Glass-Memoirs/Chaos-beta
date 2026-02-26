@@ -915,6 +915,18 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	component: ["utility", "life"],
 	cost: 2
 }
+
+//Graceful
+env.ACTOR_AUGMENTS.generic.graceful_gleam = {
+	slug: "graceful_gleam",
+	name: "Gleam",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "`Strengthen your light`",
+	alterations: [["graceful_beacond", "graceful_gleam"]],
+	component: ["secondary", "graceful"],
+	cost: 2
+}
+
 //kivkria
 env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
 	slug: "kivcria_fairylight",
@@ -6621,7 +6633,7 @@ env.ACTIONS.graceful_beacon = {
 	type: "target",
 	details: {
 		flavor: "Shine bright my little star, Shine bright with His light and love",
-		onUse: "x1~3 [STAT::amt]",
+		onHit: "x1~3 [STATS::amt]",
 		onCrit: "x1~3 [STATUS::regen] or [STATUS::carapace]"
 	},
 	usage: {
@@ -6654,6 +6666,69 @@ env.ACTIONS.graceful_beacon = {
 				}
 			})
 		}
+	}
+},
+//Gleam: 10x -1HP, low hit/crit chance, give surge, regen, or carapace to random ally on crit
+env.ACTIONS.graceful_gleam = {
+	slug: "graceful_gleam",
+	name: "Gleam",
+	type: "target",
+	details: {
+		flavor: "`attack the foe 10 times`;`gain a boon for each crit`",
+		onHit: "`[STATS::amt]`",
+		onCrit: "`random ally gains one of three effects: [STATUS::surge], [STATUS::regen], or [STATUS::carapace]"
+	},
+	usage: {
+		act: "%USER DIRECTS THEIR LIGHT",
+		hit: "%TARGET IS SINGED",
+		crit: "%TARGET IS BURNT"
+	},
+	stats: {
+		amt: 1,
+		crit: 0.2,
+		accuracy: 0.2,
+		status: {
+			surge: {name: "surge", showReference: true},
+			regen: {name: "regen", length: 1},
+			carapace: {name: "carapace", length: 1}
+		}
+	},
+	exec: function(user, target, beingUsedAsync) {
+		let animElement = user.sprite || user.box
+		let initialRate = env.bgm.rate()
+
+		//animElement.classList.add('aiming')
+		//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, initialRate + 0.5)
+		//play('click1')
+
+		let anim = env.COMBAT_ANIMS.shoot
+
+		if(target) for (let i = 0; i < 10; i++) {
+			let baseDelay = ((env.ADVANCE_RATE * 0.2) * i)
+			let animDelay = baseDelay + anim.duration; // you can probably just remove the combat anim stuff if it wouldn't fit with the attack :P it would require a bit of re-tooling on your part but it is an option
+
+			setTimeout(()=>anim.exec(this, user, target), baseDelay)
+			setTimeout(()=>{
+				env.GENERIC_ACTIONS.singleTarget({
+					action: this, 
+					user, 
+					target,
+					hitSfx: { name: "chomp", rate: 3 },
+					critExec: ({target})=> {
+						addStatus({target: user.team.members.sample(), origin: user, status: this.stats.status.sample().name, length: 1});
+					}
+				})
+
+				animElement.classList.add('scramble')
+				setTimeout(()=>animElement.classList.remove('scramble'), 100)
+			}, animDelay)
+		}
+
+		setTimeout(()=>{
+			//animElement.classList.remove('aiming')                
+			if(!beingUsedAsync) advanceTurn(user)
+			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
+		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
 },
 
