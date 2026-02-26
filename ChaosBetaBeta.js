@@ -3047,7 +3047,7 @@ env.STATUS_EFFECTS.parry = {
 		}
 	}
 },
-
+//figure out how to get this into parry instead of it having to be its own. its most likely onCreated
 env.STATUS_EFFECTS.deflective_stance = {
 	slug: "deflective_stance",
 	name: "Deflective Stance",
