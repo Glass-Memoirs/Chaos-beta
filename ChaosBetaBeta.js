@@ -2910,7 +2910,7 @@ env.STATUS_EFFECTS.fated_life = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	impulse: {type: "fated", component: "life"},
-	help: "When healing: per humor of LIFE on this shell add +2 bp per bp and +2 hp per hp",
+	help: "per humor of LIFE on this shell::\n+2HP per bp and +2HP per hp",
 	events: {
 		onCreated: function({statusObj}) {
 			if(statusObj.slug != this.status.slug) return;
@@ -3173,8 +3173,65 @@ env.STATUS_EFFECTS.graceful_honk = {
 
 //ACTION::kind spirit - on ally hit, use secondary
 
-//FATED::Graceful - +1% base crit chance per Graceful, +1hp when regaining or giving hp
+//FATED::Graceful - +1% base crit chance and +1hp when regaining or giving hp per graceful
+env.STATUS_EFFECTS.fated_graceful = {
+	slug: "fated_graceful",
+	name: "FATED::GRACEFUL",
+	beneficial: true,
+	passive: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "fated", component: "graceful"},
+	help: "per humor of graceful on this shell::\n+1% base crit% (before bonuses)\n+1HP on incoming/outgoing heals",
+	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			
+			this.status.power = 0
+			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
+				if(slotContents == "graceful") this.status.power++
+			}
 
+			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
+				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+				if(augment?.component) if(augment.component[1] == "graceful") this.status.power += 2
+			}
+			this.status.outgoingFlatCrit = 0.01 * this.status.power
+		},
+		GLOBAL_onCombatHit: function({subject, origin, attack, beneficial, originalEventTarget}) {
+			if(
+				!this.status.power || 
+				!beneficial || 
+				!this.status.affecting.team.members.includes(originalEventTarget) || 
+				originalEventTarget.state == "dead" ||
+				attack >= 0
+			) return;
+
+			if (attack.type == "hp") {
+				combatHit(originalEventTarget, {amt: this.status.power, beneficial: true, type: "hp", origin: this.status.affecting, runEvents: false});
+			} else {
+				combatHit(originalEventTarget, {amt: this.status.power, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+			}
+
+			setTimeout(()=>{                
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					specialClass: "fate",
+					arbitraryString: "FATE::GRACEFUL",
+				})
+
+				readoutAdd({
+					message: `${originalEventTarget.name} recovers more! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.affecting.name}'s ${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)
+		}
+	}
+},
 //Solent - on crit recieve a random negative status effect
 env.STATUS_EFFECTS.graceful_solent = {
 	slug: "graceful_solent",
