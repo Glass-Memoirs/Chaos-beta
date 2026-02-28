@@ -7301,7 +7301,7 @@ env.ACTIONS.kivcria_viral = {
 			target,
 			hitSfx: { name: 'destabilize' },
 			critSfx: { name: 'destabilize' },
-			critStatus: {name: this.stats.status.destabilized.name, length: this.stats.status.destablized.length},
+			critStatus: {name: this.stats.status.destabilized.name, length: this.stats.status.destabilized.length},
 			hitStatus: {name: this.stats.status.destabilized.name, length: this.stats.status.destabilized.length},
 			beneficial: user.team.name == target.team.name, // per @brightcousinkuvi, bypasses redirection only if used intra-team
 			hitExec: ({target}) => {
