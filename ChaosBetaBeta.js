@@ -6472,7 +6472,7 @@ env.ACTIONS.life_tuvazu = {
 	type: "target", //look this is done just to not run an autohit thing ok.
 	details: {
 		flavor: "'new plants that rot out anything';'make your foes rot'",
-		onHit: "ALL FOES: [STATS::amt], 60%[STATUS::fear], 10% chance for [STATUS::rot], [STATUS::life_amalgamate]",
+		onHit: "ALL FOES: [STAT::amt], 60%[STATUS::fear], 10% chance for [STATUS::rot], [STATUS::life_amalgamate]",
 	},
 	usage: {
 		act: "%USER call forth native tuvazu plants",
@@ -6508,7 +6508,7 @@ env.ACTIONS.life_entomb = {
 	type: "target",
 	details: {
 		flavor: "'strengthened vines to withold foes';'tear into them with the roots';'IMPORTANT: theres no crit'",
-		onhit: "[STATS::amt], [STATUS::million_teeth], FOE+USER: [STATS:amtBP]"
+		onhit: "[STAT::amt], [STATUS::million_teeth], FOE+USER: [STAT:amtBP]"
 	},
 	usage: {
 		act: "%USER calls forth stronger vines",
@@ -6635,7 +6635,7 @@ env.ACTIONS.graceful_beacon = {
 	type: "target",
 	details: {
 		flavor: "Shine bright my little star, Shine bright with His light and love",
-		onHit: "x1~3 [STATS::amt]",
+		onHit: "x1~3 [STAT::amt]",
 		onCrit: "x1~3 [STATUS::regen] or [STATUS::carapace]"
 	},
 	usage: {
@@ -6677,7 +6677,7 @@ env.ACTIONS.graceful_gleam = {
 	type: "target",
 	details: {
 		flavor: "`attack the foe 10 times`;`gain a boon for each crit`",
-		onHit: "`[STATS::amt]`",
+		onHit: "`[STAT::amt]`",
 		onCrit: "`random ally gains one of three effects: [STATUS::surge], [STATUS::regen], or [STATUS::carapace]"
 	},
 	usage: {
@@ -6922,7 +6922,7 @@ env.ACTIONS.kivcria_cyurtil = {
 	details: {
 		flavor: "'focused dull-projector used in clearing of infected areas';'mishandling often results in major harm'",
 		onUse: "'[STATUS::spraying]';'HIT all foes'",
-		onHit: "'[STATS::amt]';'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::vulnerable]'",
+		onHit: "'[STAT::amt]';'chance to inflict several of the following';'[STATUS::destabilized]';'[STATUS::puncture]';'[STATUS::fear]';'[STATUS::vulnerable]'",
 		onCrit: "'target foe 3 additional times'",
 	},
 	usage: {  //pray this actually works once and not per-target and spams the screen -:3
