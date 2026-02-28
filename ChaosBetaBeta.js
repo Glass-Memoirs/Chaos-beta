@@ -7143,7 +7143,7 @@ env.ACTIONS.kivcria_cavernclear = {
 	exec: (user,target) => {
 		addStatus({target: user, status: "kivcria_dull", length: 2})
 
-		env.GENERIC_ACTIONS.teamwave({
+		env.GENERIC_ACTIONS.teamWave({
 			team: user.enemyTeam,
 			exec: (actor, i) => {
 				env.GENERIC_ACTIONS.singleTarget({
