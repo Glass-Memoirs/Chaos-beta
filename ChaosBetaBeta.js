@@ -3150,7 +3150,7 @@ env.STATUS_EFFECTS.graceful_dome = {
 		onStruck: function({subject, target, beneficial}) {
 			let user = this.status.affecting
 			if (subject == user || user.team.members.includes(subject) || user != target || beneficial) return;
-			useAction(user, graceful_retaliate, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful-retaliation"})
+			useAction(user, env.ACTIONS[graceful_retaliate], subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful-retaliation"})
 		}
 	},
 	help: "when struck, RETALIATE\nRETALIATE:: (50% -1HP, 10% +1T:STUN)"
