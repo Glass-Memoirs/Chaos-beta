@@ -7041,7 +7041,7 @@ env.ACTIONS.kivcria_fairylight = {
 					user, 
 					target,
 					hitSfx: { name: "chomp", rate: 3 },
-					hitStatus: {name: this.stats.status.puncture.name, length: this.stats.status.puncture.length},
+					hitStatus: {name: "puncture", length: 1},
 					critExec: ({target})=> {
 						addStatus({target: target, origin: user, status: "puncture", length: 1});
 						addStatus({target: target, origin: user, status: "destabilized", length: 1});
@@ -7197,7 +7197,7 @@ env.ACTIONS.kivcria_jab = {
 			user,
 			target,
 			hitSfx: {name: "status", rate: 3},
-			hitStatus: {name: this.stats.status.rot.name, length: this.stats.status.rot.length}
+			hitStatus: {name: "rot", length: 3}
 		})
 	}
 },
