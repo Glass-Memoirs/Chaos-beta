@@ -1609,6 +1609,68 @@ env.STATUS_EFFECTS.entropy_invert = {
 	help: "A corrupted memory of the call, maybe its still useful?"
 },
 
+env.STATUS_EFFECTS.fated_entropy = {
+	slug: "fated_entropy",
+	name: "FATED::ENTROPY",
+	beneficial: true,
+	passive: true,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "fated", component: "entropy"},
+	help: "per humor of ENTROPY on this shell::\n+1T to all positive statuses\n+1% chance to invert negative statuses",
+	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			
+			this.status.power = 0
+			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
+				if(slotContents == "entropy") this.status.power++
+			}
+
+			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
+				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+				if(augment?.component) if(augment.component[1] == "entropy") this.status.power += 2
+			}
+		},
+		onTurn: function() {
+			target = this.status.affecting
+			let chance = 0.1 + (this.status.power * 0.1)
+			let statusPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = true
+				if(statusData.infinite) {usable = false}
+				if(statusData.passive) {usable = false}
+				if(i.includes("global_")) {usable = false}
+				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
+				if(i == "imperfect_reset") {usable = false}
+				if(i == "redirection") {usable = false}
+				if(i == "entropy_eternal") {usable = false}
+				if(i == "channeling_flat"|| i == "coiling_flat"|| i == "rocket_bearer") {usable=false}
+				if(statusData.beneficial) {usable = false}
+				//console.log(i, usable)
+				if(usable) statusPool.push(i)
+			}
+			target.statusEffects.forEach((Deciding) => {
+				if((!Deciding.infinite || !Deciding.passive) && (statusPool.includes(Deciding.slug))) {
+					if(Math.random() < chance) {
+						addStatus({target: target, status: Deciding.opposite.slug, length: Deciding.length})
+						removeStatus(target, Deciding)
+						
+					}
+				}
+			})
+			reactDialogue(this.status.affecting, 'rot');
+			play('status', 0.75, 0.5);
+		},
+		onBeforeAddStatus: function(context) {
+			if (this.status.power && context.beneficial) {
+				context.length += this.status.power
+			}
+		}
+	}
+},
+
 //surging
 env.STATUS_EFFECTS.surging_two = {
 	slug: "surging_two",
