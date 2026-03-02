@@ -3085,7 +3085,7 @@ env.STATUS_EFFECTS.graceful_taintStatus = {
 				if(i == "channeling_flat"|| i == "coiling_flat"|| i == "rocket_bearer") {usable=false}
 				if(statusData.passive) {usable = true}
 				if(i == "imperfect_reset") {usable = false}
-				console.log(i, usable)
+				//console.log(i, usable)
 				if(usable) statusPool.push(i)
 			}
 			let targEffects = []
