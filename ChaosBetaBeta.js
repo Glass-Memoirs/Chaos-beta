@@ -6650,7 +6650,7 @@ env.ACTIONS.graceful_taint = {
 	type: "target",
 	details: {
 		flavor: "led astray by the smell of flowers and a false promise...",
-		onHit: "[STAT::amt] [STATUS::fear]"
+		onHit: "[STAT::amt] [STATUS::fear] [STATUS::taint]"
 	},
 	usage: {
 		act: "%USER lures %TARGET with a flowery scent",
@@ -6663,7 +6663,8 @@ env.ACTIONS.graceful_taint = {
 		crit: 0.23,
 		accuracy: 0.9,
 		status: {
-			fear: {name: "fear", length: 2}
+			fear: {name: "fear", length: 2},
+			taint: {name: "graceful_taintStatus", showReference: true}
 		}
 	},
 	exec: function(user,target) {
@@ -6674,6 +6675,10 @@ env.ACTIONS.graceful_taint = {
 			hitStatus: {
 				name: "fear",
 				length: 2,
+			},
+			critStatus: {
+				name: "graceful_taintStatus",
+				length: 1
 			}
 		})
 	}
