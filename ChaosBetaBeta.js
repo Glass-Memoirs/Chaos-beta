@@ -4157,6 +4157,7 @@ env.ACTIONS.momentum = { //couldnt figure out how to make this thing actually mu
 				action,
 				user,
 				target: target,
+				hitSfx: {name: "hit", rate: 1.2},
 				critExec: ({target}) => {
 					addStatus({target: target, status: 'stun', length: 1})
 				}
@@ -4206,6 +4207,7 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 			env.GENERIC_ACTIONS.singleTarget({
 				action: action, user,
 				target: target,
+				hitSfx: {name: "hit", rate: 1.2},
 				critExec: ({target}) => {
 					addStatus({target: target, status: 'stun', length: 1})
 					addStatus({target: target, status: 'vulnerable', length: 2})
@@ -4300,6 +4302,7 @@ env.ACTIONS.level_statuses ={ //this would not deal damage for me at all so i ma
 			action:this,
 			user,
 			target,
+			hitSfx: {name: "dull", rate: 0.8},
 			critExec: ()=> { //DOnt believe its lies this works jsut fine
 				if (targetEffects.includes("windup")) {
 					sendFloater({
@@ -4385,6 +4388,7 @@ env.ACTIONS.player_rig = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "dull", rate: 1},
 			critExec: (status) => {
 				if(!status.beneficial) addStatus({target:target, status: status.slug, length: Math.floor(hasStatus(target, status.slug))})
 				if(status == "windup") {
@@ -5469,6 +5473,7 @@ env.ACTIONS.stupidhorrible_buncture ={
 					action: this,
 					user,
 					target,
+					hitSfx: {name: "laser", rate: 0.8},
 					genExec: ()=> {
 						if(!env.rpg.enemyTeam.members.includes(target)){
 							addStatus({target: target, status: "rot", length: 5})
@@ -5511,6 +5516,7 @@ env.ACTIONS.btgothwar = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "hit", rate: 0.7},
 			critExec: ({target}) => {
 				addStatus({target: target, status: "stun", length: 1})
 				if (chancerolled < 0.3) {
@@ -5552,6 +5558,7 @@ env.ACTIONS.smog_minute = {
 			action:this,
 			user,
 			target,
+			hitSfx: {name: "click1"},
 			hitExec: ({target}) => {
 				if (this.minute = 4) {
 					amt = this.stats.amt + 4
@@ -5603,6 +5610,8 @@ env.ACTIONS.smog_hour = {
 			user,
 			target,
 			critStatus: this.stats.status.stun,
+			hitSfx: {name: "click1"},
+			critSfx: {name: "click2"},
 			hitExec: ({target}) => {
 				if (target.name.includes("Elsen")) {
 					addStatus({target: user, status: "regen", length: 1})
@@ -5670,6 +5679,7 @@ env.ACTIONS.smog_haze = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkchoir8"},
 			hitExec: ({target}) => {
 				addStatus({target: target, status: "regen", length: 2})
 				addStatus({target: target, status: "evasion", length: 2})
