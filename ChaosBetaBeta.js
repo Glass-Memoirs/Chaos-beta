@@ -663,7 +663,7 @@ env.COMBAT_COMPONENTS.graceful = {
 	name: "Graceful",
 	slug: "graceful",
 	description: "'Cousinly religion taken to an extreme';'like the most maddened worshippers of velzie'",
-	help: "",
+	help: "'corruption';'light of divine eyes';'protection in belief'",
 	primary: {
 		alterations: [["primary","graceful_taint"]],
 		stats: {
@@ -917,11 +917,21 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 }
 
 //Graceful
+env.ACTOR_AUGMENTS.generic.graceful_sin = {
+	slug: "graceful_sin",
+	name: "Sin",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'they are blind';'entwined in their close yet distant realm';'break them'",
+	alterations: [["graceful_taint", "graceful_sin"]],
+	component: ["primary", "graceful"],
+	cost: 2
+}
+
 env.ACTOR_AUGMENTS.generic.graceful_gleam = {
 	slug: "graceful_gleam",
 	name: "Gleam",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	description: "`Strengthen your light`",
+	description: "'Strengthen your light'",
 	alterations: [["graceful_beacon", "graceful_gleam"]],
 	component: ["secondary", "graceful"],
 	cost: 2
@@ -931,7 +941,7 @@ env.ACTOR_AUGMENTS.generic.graceful_repent = {
 	slug: "graceful_repent",
 	name: "Repent",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	description: "ERR: DATA MISSING for now",
+	description: "'hear His words';'His assurance'",
 	alterations: [["graceful_pray", "graceful_repent"]],
 	component: ["utility", "graceful"],
 	cost: 2
@@ -6648,9 +6658,11 @@ env.ACTIONS.graceful_taint = {
 	slug: "graceful_taint",
 	name: "Taint",
 	type: "target",
+	anim: "",
 	details: {
 		flavor: "led astray by the smell of flowers and a false promise...",
-		onHit: "[STAT::amt] [STATUS::fear] [STATUS::taint]"
+		onHit: "[STAT::amt] [STATUS::fear]",
+		onCrit: "[STATUS::taint]"
 	},
 	usage: {
 		act: "%USER lures %TARGET with a flowery scent",
@@ -6683,6 +6695,88 @@ env.ACTIONS.graceful_taint = {
 		})
 	}
 },
+
+//same as above but with 3 and teamwide taint
+env.ACTIONS.graceful_sin ={ 
+	slug: "graceful_sin",
+	name: "Sin",
+	type: "target",
+	anim: "",
+	verb: "tempt",
+	details: {
+		flavor: "'bring their eyes to the sins wrought to the bone';'their flowers decay, a thirst left untouched'",
+		onHit: "HIT all foes for [STAT::amt] [STATUS::fear]",
+		onCrit: "HIT all foes for [STATUS::taint]"
+	},
+	usage: {
+		act: "%USER TEMPTS %TARGET WITH TERRIBLE TRUTH",
+		hit: "%TARGET AND THEIR TEAM ARE AFRAID",
+		crit: "%TARGET AND THEIR TEAM ARE ENSNARED",
+		miss: "%TARGET IGNORES %USER"
+	},
+	stats: {
+		amt: 3,
+		accuracy: 0.5,
+		crit: 0.3,
+		status: {
+			taint: {name: "graceful_taintStatus", showReference: true},
+			fear: {name: "fear", length: 3}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.enemyTeam,
+			exec: (actor, i) => {
+				addStatus({target: actor, status: "fear", length: 3})
+				addStatus({target: actor, status: "graceful_taintStatus", length: 1})
+			}
+		})
+	}
+},
+
+env.ACTIONS.graceful_preparation = {
+	slug: "graceful_preparation",
+	name: "Preparation",
+	type: "target",
+	anim: "",
+	details: {
+		flavor: "'form a truth of the world in your claws';'prepare it for them to see'",
+		onHit: "[STAT::amt] [STATUS::fear] [STATUS::focused] [STATUS::windup]",
+		onCrit: "[STATUS::madness] [STATUS::focused]"
+	},
+	usage: {
+		act: "%USER PREPARES SOMETHING",
+		hit: "%TARGET IS CURIOUS",
+		crit: "%TARGET CATCHES A GLIMPSE THEY SHOULDNT HAVE SEEN"
+	},
+	stats: {
+		amt: 1,
+		accuracy: 1,
+		crit: 0.2,
+		status: {
+			windup: {name: "windup", showReference: true},
+			focused: {name: "focused", length: 2},
+			fear: {name: "fear", length: 3},
+			madness: {name: "madness", length: 1}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitExec: ({target}) => {
+				addStatus({target: target, status: "fear", length: 3})
+				addStatus({target: user, status: "focused", length: 2})
+				addStatus({target: user, status: "windup", length: 1})
+			},
+			critExec: ({target}) => {
+				addStatus({target: target, status: "madness", length: 1})
+				addStatus({target: user, status: "focused", length: 2})
+			}
+		})
+	}
+}
 
 env.ACTIONS.graceful_beacon = {
 	slug: "graceful_beacon",
@@ -6795,7 +6889,7 @@ env.ACTIONS.graceful_pray = {
 	type: "support+self+autohit",
 	details: {
 		onUse: "'gain [STATUS::parry] [STATUS::stun]'",
-		flavour: "ERR: DATA MISSING FOR NOW",
+		flavour: "'call for Him';'a sheild He provides'",
 	},
 	usage: {
 		act: "%USER STARTS TO PRAY"
