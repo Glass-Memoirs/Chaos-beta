@@ -927,6 +927,16 @@ env.ACTOR_AUGMENTS.generic.graceful_gleam = {
 	cost: 2
 }
 
+env.ACTOR_AUGMENTS.generic.graceful_repent = {
+	slug: "graceful_repent",
+	name: "Repent",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "ERR: DATA MISSING for now",
+	alterations: [["graceful_pray", "graceful_repent"]],
+	component: ["utility", "graceful"],
+	cost: 2
+}
+
 //kivkria
 env.ACTOR_AUGMENTS.generic.kivcria_fairylight = {
 	slug: "kivcria_fairylight",
@@ -6748,12 +6758,49 @@ env.ACTIONS.graceful_pray = {
 	stats: {
 		status: {
 			parry: {name: "parry", showReference: true},
-			stun: {name: "stun", length: 1}
+			stun: {name: "stun", length: 2}
 		}
 	},
 	exec: function(user,target) {
 		addStatus({target: user, status: "parry", length: 1, noReact: true})
 		addStatus({target: user, status: "stun", length: 1, noReact: true})
+		return `nothing`
+	}
+},
+//Repent - apply parry and vulnerable and give 4 bp
+env.ACTIONS.graceful_repent = {
+	slug: "graceful_repent",
+	name: "Repent",
+	type: "support+self+autohit",
+	details: {
+		onUse: "'gain [STATUS::parry] [STATUS::vulnerable]",
+		flavor: "ERR: DATA MISSING"
+	},
+	usage: {
+		act: "%USER'S PRAYERS ARE HEARD"
+	},
+	stats: {
+		amt: 0,
+		amtBP: 4,
+		status: {
+			parry: {name: "parry", showReference: true},
+			vulnerable: {name: "vulnerable", length: 1}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			beneficial: true,
+			type: 'barrier',
+			action: this, 
+			user, 
+			target,
+			hitSfx: {
+				name: 'mend',
+				rate: 1.5
+			},
+		})
+		addStatus({target: user, status: "parry", length: 1, noReact: true})
+		addStatus({target: user, status: "vulnerable", length: 1, noReact: true})
 		return `nothing`
 	}
 },
