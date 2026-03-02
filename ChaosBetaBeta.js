@@ -7382,6 +7382,7 @@ env.ACTIONS.kivcria_sporeburst = {
 		env.GENERIC_ACTIONS.teamwave({
 			team: user.enemyTeam,
 			exec: (actor, i) => {
+				play("talkrot7", 1.21)
 				addStatus({target: actor, origin: user, status: "fear", length: 5})
 				addStatus({target: actor, origin: user, status: "life_amalgamate", length: 1})
 			}
@@ -7389,6 +7390,7 @@ env.ACTIONS.kivcria_sporeburst = {
 		env.GENERIC_ACTIONS.teamwave({
 			team: user.allyTeam,
 			exec: (actor, i) => {
+				play("talkrot7", 1.21)
 				addStatus({target: actor, origin: user, status: "rot", length: 3})
 			}
 		})
@@ -7433,6 +7435,8 @@ env.ACTIONS.kivcria_cavernclear = {
 					action: this,
 					user,
 					target: actor,
+					hitSfx: {name: "laser", rate: 0.9},
+					critSfx: {name: "laser", rate: 1.3},
 					hitExec: ({target}) => {
 						if (Math.random() < 0.5) {
 							for (let i = 1; randomInt(1, 3); i++){
