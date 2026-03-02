@@ -682,7 +682,7 @@ env.COMBAT_COMPONENTS.graceful = {
 			maxhp: 3
 		}
 	},
-	combatModifiers: ["graceful_safezone", "graceful_solent", "graceful_toginco", "graceful_deggur"]
+	combatModifiers: ["graceful_solent", "graceful_toginco", "graceful_deggur"]
 }
 
 env.COMBAT_COMPONENTS.kivcria = {
@@ -1145,13 +1145,13 @@ env.MODIFIERS.life_shared = {
 	}
 }
 //graceful
-env.MODIFIERS.graceful_safezone = {
+/*env.MODIFIERS.graceful_safezone = {
 	name: "Graceful Safezone",
 	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_safezone.help},
 	alterations: {
 		all: [["STATUS", "graceful_safezone"],["ADD","parry"]]
 	}
-}
+}*/
 
 env.MODIFIERS.graceful_solent = {
 	name: "Solent",
@@ -3059,7 +3059,7 @@ env.STATUS_EFFECTS.parry = {
 	}
 },
 //figure out how to get this into parry instead of it having to be its own. its most likely onCreated
-env.STATUS_EFFECTS.deflective_stance = {
+/*env.STATUS_EFFECTS.deflective_stance = {
 	slug: "deflective_stance",
 	name: "Deflective Stance",
 	beneficial: true,
@@ -3111,7 +3111,8 @@ env.STATUS_EFFECTS.graceful_safezone = {
 			}
 		}
 	}
-},
+},*/
+
 //Rosary Ring - recieve random beneficial effect on crit
 env.STATUS_EFFECTS.graceful_rosary = {
 	slug: "graceful_rosary",
