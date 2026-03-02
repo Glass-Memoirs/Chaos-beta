@@ -3058,6 +3058,46 @@ env.STATUS_EFFECTS.parry = {
 		}
 	}
 },
+
+env.STATUS_EFFECTS.graceful_taintStatus = {
+	slug: "graceful_taintStatus",
+	name: "Taint",
+	beneficial: false,
+	infinite: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "Remove a random impulse each turn, removed on fear loss",
+	events: {
+		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
+			if(subject == this.status.affecting && removingStatusName == "fear") {
+				removeStatus(this.status.affecting, "graceful_taintStatus")
+			}
+		},
+		onTurn: function() {
+			target = this.status.affecting
+			let statusPool = []
+			for (let i in env.STATUS_EFFECTS) {
+				let statusData = env.STATUS_EFFECTS[i]
+				let usable = true
+				if(statusData.infinite) {usable = false}
+				if(i.includes("global_")) {usable = false}
+				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
+				if(i == "redirection") {usable = false}
+				if(i == "channeling_flat"|| i == "coiling_flat"|| i == "rocket_bearer") {usable=false}
+				if(statusData.passive) {usable = true}
+				if(i == "imperfect_reset") {usable = false}
+				//console.log(i, usable)
+				if(usable) statusPool.push(i)
+			}
+			let targEffects = []
+			target.statusEffects.forEach((status, i) => {
+				if(status.passive && statusPool.includes(status.slug)) {
+					targEffects.push(status.slug)
+				}
+			})
+			removeStatus(this.status.affecting, targEffects.sample())
+		}
+	}
+}
 //figure out how to get this into parry instead of it having to be its own. its most likely onCreated
 /*env.STATUS_EFFECTS.deflective_stance = {
 	slug: "deflective_stance",
@@ -3377,7 +3417,6 @@ env.STATUS_EFFECTS.fated_graceful = {
 		}
 	}
 },
-//Taint - remove an impulse each turn, removed when fear is lost
 //Solent - on crit recieve a random negative status effect
 env.STATUS_EFFECTS.graceful_solent = {
 	slug: "graceful_solent",
