@@ -6733,6 +6733,30 @@ env.ACTIONS.graceful_gleam = {
 		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
 },
+//Apply parry and a stun
+env.ACTIONS.graceful_pray = {
+	slug: "graceful_pray",
+	name: "Pray",
+	type: "support+self+autohit",
+	details: {
+		onUse: "'gain [STATUS::parry] [STATUS::stun]'",
+		flavour: "ERR: DATA MISSING FOR NOW",
+	},
+	usage: {
+		act: "%USER STARTS TO PRAY"
+	},
+	stats: {
+		status: {
+			parry: {name: "parry", showReference: true},
+			stun: {name: "stun", length: 1}
+		}
+	},
+	exec: function(user,target) {
+		addStatus({target: user, status: "parry", length: 1, noReact: true})
+		addStatus({target: user, status: "stun", length: 1, noReact: true})
+		return `nothing`
+	}
+},
 
 env.ACTIONS.graceful_heed = {
 	slug: "graceful_heed",
