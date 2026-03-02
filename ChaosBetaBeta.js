@@ -3094,7 +3094,7 @@ env.STATUS_EFFECTS.graceful_taintStatus = {
 					targEffects.push(status.slug)
 				}
 			})
-			removeStatus(this.status.affecting, targEffects.sample())
+			removeStatus(this.status.affecting, targEffects.sample(), {forceRemoveStatus: true})
 		}
 	}
 }
