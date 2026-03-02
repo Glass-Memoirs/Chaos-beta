@@ -6837,6 +6837,7 @@ env.ACTIONS.graceful_preparation = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "megastatus", rate: 1.5},
 			hitExec: ({target}) => {
 				addStatus({target: target, status: "fear", length: 3})
 				addStatus({target: user, status: "focused", length: 2})
@@ -6880,6 +6881,7 @@ env.ACTIONS.graceful_beacon = {
 				action: this,
 				user,
 				target,
+				hitSfx: {name: "talksignal5", rate: 2.4},
 				critExec: () => {
 					if (Math.random() < 0.5) {
 						addStatus({target: user, status: "regen", length: 3})
@@ -6936,7 +6938,7 @@ env.ACTIONS.graceful_gleam = {
 					action: this, 
 					user, 
 					target,
-					hitSfx: { name: "chomp", rate: 3 },
+					hitSfx: { name: "talksignal5", rate: 3 },
 					critExec: ({target})=> {
 						addStatus({target: user.team.members.sample(), origin: user, status: statusTrio.sample(), length: 1});
 					}
@@ -6973,6 +6975,7 @@ env.ACTIONS.graceful_pray = {
 		}
 	},
 	exec: function(user,target) {
+		play("mend", 1.5)
 		addStatus({target: user, status: "parry", length: 1, noReact: true})
 		addStatus({target: user, status: "stun", length: 1, noReact: true})
 		return `nothing`
