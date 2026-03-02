@@ -6772,6 +6772,7 @@ env.ACTIONS.graceful_repent = {
 	slug: "graceful_repent",
 	name: "Repent",
 	type: "support+self+autohit",
+	anim: "",
 	details: {
 		onUse: "'gain [STATUS::parry] [STATUS::vulnerable]",
 		flavor: "ERR: DATA MISSING"
@@ -6780,7 +6781,7 @@ env.ACTIONS.graceful_repent = {
 		act: "%USER'S PRAYERS ARE HEARD"
 	},
 	stats: {
-		amt: 0,
+		amt: 4,
 		amtBP: 4,
 		status: {
 			parry: {name: "parry", showReference: true},
