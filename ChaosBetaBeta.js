@@ -677,7 +677,7 @@ env.COMBAT_COMPONENTS.graceful = {
 		}
 	},
 	utility: {
-		alterations: [["evade","graceful_heed"]],
+		alterations: [["evade","graceful_pray"]],
 		stats: {
 			maxhp: 3
 		}
