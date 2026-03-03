@@ -3232,7 +3232,7 @@ env.STATUS_EFFECTS.graceful_rosary = {
 	beneficial: true,
 	passive: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Rosary_ring.gif",
 	impulse: {type: "common", component: "graceful"},
 	help: "recieve a random beneficial status when critting a foe",
 	events: {
@@ -3268,7 +3268,7 @@ env.STATUS_EFFECTS.graceful_dome = {
 	passive: true,
 	beneficial: true,
 	impulse: {type: "common", component: "graceful"},
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Domehead.gif",
 	events: {
 		onStruck: function({subject, target, beneficial}) {
 			let user = this.status.affecting
@@ -3286,7 +3286,7 @@ env.STATUS_EFFECTS.graceful_ten = {
 	passive: true,
 	beneficial: true,
 	impulse: {type: "common", component: "graceful"},
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/10-point_Crampons.gif",
 	events: {
 		onTurn: function() {
 			if(this.status.affecting.hp >= this.status.affecting.maxhp * 1) this.status.outgoingMult = 1
