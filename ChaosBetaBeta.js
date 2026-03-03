@@ -2598,7 +2598,7 @@ env.STATUS_EFFECTS.rebel = { //might change this up a bit later, feels a bit wea
 	opposite: "discipline",
 	events: {
 		onTurn: function() {
-			addStatus(this.status.affecting, "focused")
+			addStatus({target: this.status.affecting, status: "focused", length: 3})
 		}
 	}
 },
