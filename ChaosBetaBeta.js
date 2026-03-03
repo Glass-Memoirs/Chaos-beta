@@ -6505,6 +6505,7 @@ env.ACTIONS.life_ensnare = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "obeskToggle", rate: 1},
 			hitExec: ()=> {
 				addStatus({target: target, status: "vulnerable", length: 3})
 			},
@@ -6534,6 +6535,7 @@ env.ACTIONS.life_veilkstrider = {
 		}
 	},
 	exec: function(user) {
+		play('status', 1)
 		addStatus({target: user, status: "deft", length:1})
 	}
 },
@@ -6560,6 +6562,7 @@ env.ACTIONS.bash = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: 'hit', rate: 0.9}
 		})
 	}
 },
@@ -6589,6 +6592,7 @@ env.ACTIONS.life_repairs = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: 'mend', rate: 0.73},
 			hitStatus: {
 				name: "regen",
 				length: 4
@@ -6623,9 +6627,11 @@ env.ACTIONS.life_tuvazu = {
 			team: user.enemyTeam,
 			exec: (actor, i) => {
 				if (Math.random() < 0.6) {
+					play('fear', 1)
 					addStatus({target: actor, status: "fear", length: 2})
 				}
 				if (Math.random() < 0.1) {
+					play('weirdbuild', 0.9)
 					addStatus({target: actor, status: "rot", length: 2})
 					addStatus({target: actor, status: "life_amalgamate", length: 2})
 				}
