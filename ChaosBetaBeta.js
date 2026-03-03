@@ -764,7 +764,7 @@ env.ACTOR_AUGMENTS.generic.showmanship = {
 env.ACTOR_AUGMENTS.generic.method_acting = {
 	slug: "method_acting",
 	name: "Method Acting",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/Method_acting.gif",
 	description: "'STARVED THIN AND CHITTIN SCATTERED';'YOU MUST CONTINUE!';'VELZIE DEMANDS! VELZIE COMMANDS!'",
 	alterations: [["back_to_stage", "player_act"]],
 	component: ["secondary", "surging"],
@@ -774,7 +774,7 @@ env.ACTOR_AUGMENTS.generic.method_acting = {
 env.ACTOR_AUGMENTS.generic.sacrificial_act = {
 	slug: "sacrificial_act",
 	name: "Sacrifical Act",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/twotime.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Surge/sacrificial_act.gif",
 	description: "'LET THE SHOW GO FORTH! AGAIN!';'LET VELZIE VEIW OUR CRUDE IMMITATIONS';'FOR THAT WILL ONLY INSPIRE US MORE!'",
 	alterations: [["velnits_lament", "player_sacri"]],
 	component: ["utility", "surging"],
@@ -909,7 +909,7 @@ env.ACTOR_AUGMENTS.generic.life_entomb = {
 env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	slug: "life_intimidating",
 	name: "Intimidating Stance",
-	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/life_intimidating.gif",
 	description: "'Modify your stance';'tower over your foes'",
 	alterations: [["life_veilkstrider", "life_intimidating"]],
 	component: ["utility", "life"],
@@ -1615,7 +1615,7 @@ env.STATUS_EFFECTS.fated_entropy = {
 	beneficial: true,
 	passive: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/FatedEntropy.gif",
 	impulse: {type: "fated", component: "entropy"},
 	help: "per humor of ENTROPY on this shell::\n+1T to all positive statuses\n+1% chance to invert negative statuses",
 	events: {
@@ -2310,7 +2310,7 @@ env.STATUS_EFFECTS.muted = {
 	slug: "muted",
 	name: "Muted",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/muted.gif",
 	events: {
 		onBeforeAction: function(context) {
 			if (Math.random() < 0.23) {
@@ -3496,7 +3496,7 @@ env.STATUS_EFFECTS.graceful_solent = {
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Solent.gif",
 	help: "recieve a random negative status when critting a foe",
 	events: {
 		onCrit: function({subject, origin, attack, beneficial}) {
@@ -3531,7 +3531,7 @@ env.STATUS_EFFECTS.graceful_toginco = {
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Toginco.gif",
 	help: "when missing a foe, lose 10HP",
 	events: {
 		onMiss: function({subject, target, beneficial}) {
@@ -3549,7 +3549,7 @@ env.STATUS_EFFECTS.graceful_deggur = {
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Deggur.gif",
 	help: "replace all status effects with stun when crit",
 	events: {
 		onCritStruck: function({subject, target, beneficial}) {
