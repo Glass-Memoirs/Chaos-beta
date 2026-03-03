@@ -6722,6 +6722,7 @@ env.ACTIONS.parry = {
 		}
 	},
 	exec: function(user) {
+		play('guard',1)
 		addStatus({target: user, status: "parry", length: 1})
 	}
 },
@@ -6756,6 +6757,8 @@ env.ACTIONS.graceful_taint = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "fear", rate: 1},
+			critSfx: {name: "destablize", rate: 0.75},
 			hitStatus: {
 				name: "fear",
 				length: 2,
@@ -6799,6 +6802,7 @@ env.ACTIONS.graceful_sin ={
 		env.GENERIC_ACTIONS.teamWave({
 			team: user.enemyTeam,
 			exec: (actor, i) => {
+				play('destabilize', 0.75)
 				addStatus({target: actor, status: "fear", length: 3})
 				addStatus({target: actor, status: "graceful_taintStatus", length: 1})
 			}
