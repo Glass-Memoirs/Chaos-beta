@@ -3303,7 +3303,7 @@ env.STATUS_EFFECTS.graceful_honk = {
 	beneficial: true,
 	incomingtoHit: -0.1,
 	incomingCrit: -0.1,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Honk.gif",
 	impulse: {type: "common", component: "graceful"},
         
 	events: {
