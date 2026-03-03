@@ -2609,7 +2609,7 @@ env.STATUS_EFFECTS.sunny_day = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/Sunny_Day.gif",
 	impulse: {type: "common", component: "steel"},
 	help: "Grants move SHINY REFLECTION",
 	grantsActions: ["shiny_reflection"]
