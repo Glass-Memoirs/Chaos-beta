@@ -7316,7 +7316,7 @@ env.ACTIONS.kivcria_cyurtil = {
 						},
 						critExec: () => {
 							for (let i=0; i < 4; i++) {
-								combatHit(target, {amt: 1, crit: 0.7, accuracy: 0.4, origin: user});
+								combatHit(target, {amt: 3, crit: 0.2, accuracy: 0.3, origin: user});
 								if(Math.random() < 0.25) {
     		                    	play("dull", 0.5)
  	    	                   		addStatus({target: target, origin: user, status: "destabilized", length: 2});           
