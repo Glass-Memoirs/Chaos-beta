@@ -6189,10 +6189,12 @@ env.ACTIONS.soprano = {
 				action: this,
 				user,
 				target,
-				hitSfx: {name: "talkchoir", rate: 0.5*(i+1)}
+				hitSfx: {name: "talkchoir", rate: 0.5*(i+1)},
+				hitExec: ({user}) => {
+					addStatus({target: user, status: "high_note", length: 5})
+				}
 			})
 		}
-		addStatus({target: user, status: "high_note", length: 5})
 	}
 },
 
@@ -6224,10 +6226,12 @@ env.ACTIONS.strong_soprano = {
 				action: this,
 				user,
 				target,
-				hitSfx: {name: "talkchoir", rate: 0.5*(i+1)}
+				hitSfx: {name: "talkchoir", rate: 0.5*(i+1)},
+				hitExec: ({user}) => {
+					addStatus({target: user, status: "high_note", length: 5})
+				}
 			})
 		}
-		addStatus({target: user, status: "high_note", length: 5})
 	}
 },
 
@@ -7018,7 +7022,7 @@ env.ACTIONS.graceful_repent = {
 	anim: "",
 	details: {
 		onUse: "'gain [STATUS::parry] [STATUS::vulnerable]",
-		flavor: "ERR: DATA MISSING"
+		flavor: "'Call out to Him';'He shall listen'"
 	},
 	usage: {
 		act: "%USER'S PRAYERS ARE HEARD"
@@ -7313,6 +7317,8 @@ env.ACTIONS.kivcria_fairylight = {
 	verb: "cut",
 	usage: {
 		act: "%USER CUTS INTO %TARGET",
+		hit: "THE BLADE DIGS INTO %TARGET'S BODY",
+		crit: "SHARDS GO EVERYWHERE"
 	},
 	details: { // i also made the details stuff clearer and fixed some stylistic errors
 		flavor: "'device used in the cutting of stone and alloy';'mounted fairy-vissage blade that sends scraps flying';'effective at both targeted and broad attacks'",
@@ -7396,7 +7402,8 @@ env.ACTIONS.kivcria_sporeburst = {
 	type: "special",
 	anim: "",
 	usage: {
-		act: "%USER THROWS BULBS EVERYWHERE"
+		act: "%USER THROWS BULBS EVERYWHERE",
+		hit: "THE BULBS BURST"
 	},
 	details: {
 		flavor: "'use secri-containing bulbs to seed environment';'rot through friend and foe alike'",
@@ -7440,7 +7447,10 @@ env.ACTIONS.kivcria_cavernclear = {
 	type: "special",
 	anim: "",
 	usage: {
-		act: "%USER SPRAYS DULL BEAMS"
+		act: "%USER SPRAYS DULL BEAMS",
+		hit: "THE ENEMY TEAM IS STRUCK BY THE DULL",
+		crit: "THE FOES ARE SCRAMBLED BY THE DULL",
+		miss: "THE BEAMS DO NOT HIT ANYONE"
 	},
 	details: {
 		flavor: "'Experimentl dull-pulse augmented sprayer';'used in an attempt to reclaim parts of tuvazu from extreme parasite infection';'it did not work'",
@@ -7497,10 +7507,13 @@ env.ACTIONS.kivcria_jab = {
 	anim: "",
 	verb: "Jab",
 	usage: {
-		act: "%USER JABS %TARGET"
+		act: "%USER JABS %TARGET",
+		hit: "%TARGET IS SCRATCHED BY A ROTTING CLAW",
+		crit: "%TARGET FEELS IT STARTING TO BURROW"
 	},
 	details: {
-		flavor: "yucky fingerrrrrrrrrrr"
+		flavor: "yucky fingerrrrrrrrrrr",
+		onHit: "[STAT::amt] [STATUS::rot]"
 	},
 	stats: {
 		amt: 1,
