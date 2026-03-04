@@ -3620,12 +3620,12 @@ env.STATUS_EFFECTS.spraying = {
 			}
 		},
 		GLOBAL_onAction: function({user, action, target, originalEventTarget}) {
-			if(user == this.status.affecting){
+			if(user == this.status.affecting && action.slug != "kivcria_cyurtil"){
 				removeStatus(user, "spraying")
 			}
 		}
 	},
-	help: "+50% incoming/outgoing damage, lost when another action is used"
+	help: "+50% incoming/outgoing damage, lost when an action other than CYURTIL is used"
 },
 
 env.STATUS_EFFECTS.consequence_spread = {
