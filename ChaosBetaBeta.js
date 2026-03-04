@@ -5330,6 +5330,7 @@ env.ACTIONS.stupidhorrible_taunt = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkfairy4", rate: 1},
 			hitExec: ({user}) => {
 				addStatus({target: user, status: "focused", length: 4})
 			},
@@ -5369,6 +5370,7 @@ env.ACTIONS.stupidhorrible_blood = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "stab", rate: 1.25},
 			hitExec: ({target}) => {
 				addStatus({target: user, status: "windup", length: 1})
 			},
@@ -5806,6 +5808,7 @@ env.ACTIONS.directional_rain = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talksignal2", rate: 0.95},
 			hitExec: ({target})=> {
 				addStatus({target: target, status: "clouded_lungs", length: durationVal.sample()})
 			},
@@ -5835,6 +5838,7 @@ env.ACTIONS.cough = {
 	exec: function(user) {
 		if (hasStatus(user, "clouded_lungs")) {
 			let removeLength = [-1,-2,-3]
+			play("talkcroak", 0.2)
 			addStatus({target: user, status: "clouded_lungs", length: removeLength.sample()})
 		}
 	}
@@ -5868,6 +5872,7 @@ env.ACTIONS.harsh_noise = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "scarydoia", rate: 0.84},
 			critExec: ({target}) => {
 				addStatus({target: target, status: "muted", length: 3})
 			}
@@ -5895,6 +5900,7 @@ env.ACTIONS.mockery = {
 		}
 	},
 	exec: function(user,target) {
+		play("talkfairy", 0.9)
 		addStatus({target: target, status: "destabilized", length: 3})
 		addStatus({target: target, status: "critical_flaw", length: 1})
 		addStatus({target: user, status: "vulnerable", length: 2})
@@ -5931,6 +5937,7 @@ env.ACTIONS.steel_scold = { //remember to make this give the status effect that 
 			action:this,
 			user,
 			target,
+			hitSfx: {name: "fear", rate: 1.3},
 			critExec: () => {
 				addStatus({target: target, status: "discipline", length: 2})
 				addStatus({target: target, status: "fear", length: 2})
@@ -5968,6 +5975,7 @@ env.ACTIONS.steel_punish = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "stab", rate: 0.94},
 			critExec: () => {
 				addStatus({target: target, status: "discipline", length: 3})
 				addStatus({target: target, status: "weakened", length: 2})
@@ -6110,6 +6118,7 @@ env.ACTIONS.alto = { //poor section, it should be a move that maybe passively gi
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkchoir", rate: 1},
 			hitExec: ({user}) => {
 				addStatus({target: user, status: "vibrato", length: 3})
 			}
@@ -6144,6 +6153,7 @@ env.ACTIONS.strong_alto = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkchoir", rate: 1},
 			hitExec: ({user}) => {
 				addStatus({target: user, status: "vibrato", length: 5})
 			}
