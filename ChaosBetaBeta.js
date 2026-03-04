@@ -2751,7 +2751,7 @@ env.STATUS_EFFECTS.life_shared = {
 	slug: "life_shared",
 	name: "Shared Prey",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/LifeShared.gif",
 	help: "on actor down, all actors gain wild surge",
 	events: {
 		GLOBAL_onDeath: function({originalEventTarget}) {
@@ -2922,7 +2922,7 @@ env.STATUS_EFFECTS.shattering_carapace = {
 	slug: "shattering_carapace",
 	name: "Shattering Carapace",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/ShatteringCarapace.gif",
 	help: "Half all incoming damage and healing, attackers gain +2T WEAKENED and -2HP",
 	incomingMult: -0.5,
 	events: {
@@ -3011,7 +3011,7 @@ env.STATUS_EFFECTS.fated_life = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/FatedLife.gif",
 	impulse: {type: "fated", component: "life"},
 	help: "per humor of LIFE on this shell::\n+2HP per bp and +2HP per hp",
 	events: {
@@ -3855,7 +3855,7 @@ env.STATUS_EFFECTS.fated_kivcria = {
 	beneficial: true,
 	passive: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/FatedKivcria.gif",
 	impulse: {type: "fated", component: "kivcria"},
 	help: "Per humor of kivcria on this shell::\n+1T when applying/recieving ROT\n+5% damage per turn of ROT",
 	events: {
