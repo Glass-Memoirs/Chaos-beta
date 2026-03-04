@@ -4203,7 +4203,15 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 	},
 	exec: function(user, target) {
 		let action = this
-		for (let i = 1; i <= (Math.floor(hasStatus(user, 'focused')) + Math.floor(hasStatus(user, 'hyperfocus_flat')) + Math.floor(hasStatus(user, 'regen')) + Math.floor(hasStatus(user, 'evasion'))) + Math.floor(hasStatus(user, 'evasion_mega')); i++) {
+		let repeatCount = 1
+		repeatCount += Math.floor(hasStatus(user, 'focused'))
+		repeatCount += Math.floor(hasStatus(user, 'evasion'))
+		repeatCount += Math.floor(hasStatus(user, 'regen'))
+		if (check("modList").includes("narra_morehumors")) {
+			repeatCount += Math.floor(hasStatus(user, 'hyperfocus_flat'))
+			repeatCount += Math.floor(hasStatus(user, 'evasion_mega'))
+		}
+		for (let i = 1; i <= repeatCount; i++) {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: action, user,
 				target: target,
@@ -4218,10 +4226,7 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 			let half = 0 - Math.floor(hasStatus(user, 'focused') / 2)
 			addStatus({target: user, status: "focused", length: half, noReact: true})
 		}
-		if (hasStatus(user, 'hyperfocus_flat')) {
-			let half = 0 - Math.floor(hasStatus(user, 'hyperfocus_flat') / 2)
-			addStatus({target: user, status: "hyperfocus_flat", length: half, noReact: true})
-		}
+
 		if (hasStatus(user, 'regen')) {
 			let half = 0 - Math.floor(hasStatus(user, "regen") / 2)
 			addStatus({target: user, status: "regen", length: half, noReact: true})
@@ -4230,9 +4235,15 @@ env.ACTIONS.player_law = { //Funky little move, had to change it up just like mo
 			let half = 0 - Math.floor(hasStatus(user, 'evasion') / 2)
 			addStatus({target: user, status: "evasion", length: half, noReact: true})
 		}
-		if (hasStatus(user, 'evasion_mega')) {
-			let half = 0 - Math.floor(hasStatus(user, 'evasion_mega')/2)
-			addStatus({target: user, status: "evasion_mega", length: half, noReact: true})
+		if (check("modList").includes("narra_morehumors")) {
+			if (hasStatus(user, 'evasion_mega')) {
+				let half = 0 - Math.floor(hasStatus(user, 'evasion_mega')/2)
+				addStatus({target: user, status: "evasion_mega", length: half, noReact: true})
+			}
+			if (hasStatus(user, 'hyperfocus_flat')) {
+				let half = 0 - Math.floor(hasStatus(user, 'hyperfocus_flat') / 2)
+				addStatus({target: user, status: "hyperfocus_flat", length: half, noReact: true})
+			}
 		}
 	}
 },
