@@ -6188,7 +6188,8 @@ env.ACTIONS.soprano = {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: this,
 				user,
-				target
+				target,
+				hitSfx: {name: "talkchoir", rate: 0.5*(i+1)}
 			})
 		}
 		addStatus({target: user, status: "high_note", length: 5})
@@ -6222,7 +6223,8 @@ env.ACTIONS.strong_soprano = {
 			env.GENERIC_ACTIONS.singleTarget({
 				action: this,
 				user,
-				target
+				target,
+				hitSfx: {name: "talkchoir", rate: 0.5*(i+1)}
 			})
 		}
 		addStatus({target: user, status: "high_note", length: 5})
@@ -6254,6 +6256,7 @@ env.ACTIONS.tenor = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkchoir", rate: 1},
 			hitExec: ({user}) => {
 				//addStatus({target: user, status: "windup", length: 1})
 				addStatus({target: user, status: "forte", length: 5})
@@ -6287,6 +6290,7 @@ env.ACTIONS.strong_tenor = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkchoir", rate: 1},
 			hitExec: ({user}) => {
 				addStatus({target: user, status: "forte", length: 9})
 			}
@@ -6318,6 +6322,7 @@ env.ACTIONS.head_voice = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkchoir", rate: 0.87},
 			hitExec: ({user}) => {
 				addStatus({target: user, status: "tuned", length: 5})
 			}
@@ -6349,6 +6354,7 @@ env.ACTIONS.strong_head_voice = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkchoir", rate: 0.87},
 			hitExec: ({user}) => {
 				addStatus({target: user, status: "tuned", length: 7})
 			}
@@ -6438,7 +6444,8 @@ env.ACTIONS.shiny_reflection = {
 		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
-			target
+			target,
+			hitSfx: {name: "talkfloweralt", rate: 1}
 		})
 	}
 },
@@ -6472,6 +6479,7 @@ env.ACTIONS.life_seeding = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkrot", rate: 9.76},
 			hitExec: ()=>{
 				addStatus({target: target, status: "fear", length: 4})
 				addStatus({target: target, status: "madness", length: 1})
@@ -6677,6 +6685,7 @@ env.ACTIONS.life_entomb = {
 			action: this,
 			user,
 			target,
+			hitSfx: {name: "talkrot", rate: 0.73},
 			hitExec: ({user,target}) => {
 				addStatus({target: target, status: "million_teeth", length: 1})
 				target.bp = target.bp + 4
@@ -7647,7 +7656,8 @@ env.ACTIONS.energizer = {
 			user,
 			target,
 			genExec: ({target}) => {
-					addStatus({target: target, status: "surge", length: 1})
+				play('megastatus', 1)
+				addStatus({target: target, status: "surge", length: 1})
 				if (Math.random() < 0.75) {
 					addStatus({target: target, status: "wild_surge", length:1 })
 				}
