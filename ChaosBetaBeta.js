@@ -7295,24 +7295,44 @@ env.ACTIONS.kivcria_cyurtil = {
             env.GENERIC_ACTIONS.teamWave({
                 team: user.enemyTeam,
                 exec: (actor, i)=>{
-                    let rand = Math.random() //okay non crit here. now to figure out how to make it hit multiple times. update: i do not know how to do that. sorry forwny face emoji -:3
-                    if(rand < 0.25) {
-                        play("dull", 0.5)
-                        addStatus({target: actor, origin: user, status: "destabilized", length: 2});
-                       
-                    } else if(rand < 0.25) {
-						play("dull", 0.5)
-
-                        addStatus({target: actor, origin: user, status: "puncture", length: 3});
-
-                    } else if(rand < 0.25) {
-                        play("dull", 0.5)
-                        addStatus({target: actor, origin: user, status: "fear", length: 2});
-
-                    } else {
-                        play("dull", 0.5)
-                        addStatus({target: actor, origin: user, status: "fear", length: 2});
-                    }
+					env.GENERIC_ACTIONS.singleTarget({
+						action: this,
+						user,
+						target: actor,
+						hitExec: () => {
+            		        if(Math.random() < 0.25) {
+    		                    play("dull", 0.5)
+ 	    	                   	addStatus({target: target, origin: user, status: "destabilized", length: 2});           
+     		               	} else if(Math.random() < 0.25) {
+								play("dull", 0.5)
+    		                    addStatus({target: target, origin: user, status: "puncture", length: 3});
+        		            } else if(Math.random() < 0.25) {
+    		                    play("dull", 0.5)
+		                        addStatus({target: target, origin: user, status: "fear", length: 2});
+                    		} else {
+                        		play("dull", 0.5)
+                        		addStatus({target: target, origin: user, status: "vulnerable", length: 2});
+                    		}
+						},
+						critExec: () => {
+							for (let i=0; i < 4; i++) {
+								combatHit(target, {amt: 1, crit: 0.7, accuracy: 0.4, origin: user});
+								if(Math.random() < 0.25) {
+    		                    	play("dull", 0.5)
+ 	    	                   		addStatus({target: target, origin: user, status: "destabilized", length: 2});           
+     		               		} else if(Math.random() < 0.25) {
+									play("dull", 0.5)
+    		                    	addStatus({target: target, origin: user, status: "puncture", length: 3});
+        		            	} else if(Math.random() < 0.25) {
+    		                    	play("dull", 0.5)
+		                        	addStatus({target: target, origin: user, status: "fear", length: 2});
+                    			} else {
+                        			play("dull", 0.5)
+                        			addStatus({target: target, origin: user, status: "vulnerable", length: 2});
+                    			}
+							}
+						}
+					})
                 },
             advanceAfterExec: true, beingUsedAsync, user,
 			endCallback: ()=>{console.log('just called advance')}
