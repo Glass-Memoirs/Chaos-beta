@@ -16,6 +16,7 @@ CREATORS:
  - Mewo for helping with StupidHorrible text, and for making that humor's personality (thx so much mewo u tha goat :3)
  - Luna from the sunset system for the updated battery image!
  - Narra for completely re-writing fairylight
+ - Narra again for the patch for fixing windup shenanigans
  PLAYTESTERS:
 I - THE FACTORY, CARNAGE, FOOLFRIEND, ADRI, hi vekoa :3  (LOOK THE LOWERCASE IS IMPORTANT FOR THEIR NAME), MOTH_GELI
  SECTIONS:
@@ -8365,6 +8366,146 @@ for (const componentName of ["kivcria"]) {
 		 exec: ()=> {commerceObject.sellExec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
+}
+if (check("modList").includes("narra_morehumors")) {
+	CrittaMenu.generateStatHTMLObject = function(stats, {member, slotName, componentName, editingMember = {}} = {}) {
+	    let returnStats = {
+    	    core: "",
+	        in: "",
+    	    out: ""
+	    }
+
+    	let component = false
+	    if(componentName) component = env.COMBAT_COMPONENTS[componentName][slotName]
+
+    	//if a specific component is specified, we can also get a list of perma/auto statuses from it
+	    if(component?.alterations || member?.components) {
+	        function addStatusLine(statusObj) {
+    	        returnStats.core += `
+	                <div class="stat status" 
+            	        type="status" 
+        	            pretty="${statusObj.name}"
+    	                definition="${statusObj.impulse ? `IMPULSE::` : 'PASSIVE::'}'${statusObj.name}'\nEFFECT::${processHelp(statusObj, {caps: true})}"
+	                    good="${statusObj.beneficial ? String(statusObj.beneficial).replace("true", "good") : "bad"}"
+            	    >+ ${statusObj.name}</div>
+        	    `
+    	    }
+
+    	    function addActionLine(actionObj, override = "ADD") {
+    	        let effectiveOverride = override
+	            switch(effectiveOverride) {
+            	    case "ADD": break
+        	        case "ADD_WINDUP": break
+    	            default:
+	                    effectiveOverride = env.ACTIONS[override].name
+    	        }
+
+	            returnStats.core += `
+                	<div class="stat action" 
+                    	type="action"
+                    	override="${effectiveOverride}"
+                    	definition="ACTION++${actionObj.slug}"
+                	>${actionObj.name}</div>
+            	`
+        	}
+
+        	//for components, we also compile any used augments to display the proper end effect
+        	if(component?.alterations) {
+            	let effectiveAlterations = [... component.alterations]
+
+				//get all augments that...
+				// that AREN'T in pending remove AND are currently in use
+				// are in the pending add
+            	let effectiveAugments = []
+            	if(editingMember.augments) effectiveAugments = effectiveAugments.concat(editingMember.augments)
+            	if(editingMember.augmentChanges) {
+                	effectiveAugments = effectiveAugments.concat(editingMember.augmentChanges.add)
+                	effectiveAugments = effectiveAugments.filter(aug => !editingMember.augmentChanges.remove.includes(aug))
+            	}
+
+            	//combine the gathered augments with the effective alterations
+            	//filter down to just those for this specific component and slot
+            	for (const augmentSlug of effectiveAugments) {
+                	const augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
+                	if(augment.component[0] == slotName && augment.component[1] == componentName) effectiveAlterations = effectiveAlterations.concat(augment.alterations)
+            	}
+
+            	console.log('effective augments are', effectiveAugments, 'alts are', effectiveAlterations)
+            	for (const alteration of effectiveAlterations) {
+                	if(alteration[0] == "STATUS") addStatusLine(env.STATUS_EFFECTS[alteration[1]]);
+                	else switch(alteration[0]) {
+                    	case "ADD":
+                        	addActionLine(env.ACTIONS[alteration[1]])
+                    	break
+                    
+                    	default:
+							addActionLine(env.ACTIONS[alteration[1]], alteration[0])
+                	}
+            	}
+
+        	//otherwise, if a member is specified, we can get their collective statuses that way
+        	} else if(member?.components || member?.alterations || member?.augments) {
+            	for (const statusObj of getPassiveStatusesForPartyMember(member)) {
+                	addStatusLine(statusObj)
+            	}
+        	}
+    	}
+
+    	for (const statName in stats) {
+        	const statInfo = env.STATDATA[statName]
+
+        	if(statInfo) {
+            	var statValue = stats[statName]
+            	let goodClass = false
+
+            	//we show all HP if a member is specified
+            	if(statName == "maxhp" && member) {
+                	statValue += env.COMBAT_ACTORS[member.combatActor].maxhp
+            	}
+
+            	if(statValue > 0) {
+                	switch(statInfo.good) {
+                    	case "+":
+                        	goodClass = "good"
+                    	break
+                    	case "-":
+                        	goodClass = "bad"
+                    	break
+                	}
+            	} else if (statValue < 0) {
+                	switch(statInfo.good) {
+                    	case "+":
+                        	goodClass = "bad"
+                    	break
+                    	case "-":
+                        	goodClass = "good"
+                    	break
+                	}
+            	}
+            
+            	let list = "core"
+            	if(statName.includes("incoming")) list = "in"
+				else if(statName.includes("outgoing")) list = "out"
+
+            	returnStats[list] += `
+                	<div class="stat ${statName.includes("outgoing") ? "outgoing" : ""} ${statName.includes("incoming") ? "incoming" : ""}" 
+                    	type="${statName}" 
+                   		pretty="${statInfo ? statInfo.display : statName}"
+                    	definition="INFO::${statInfo ? statInfo.description : "'not found'"}"
+                    	${goodClass ? `good=${goodClass}` : ""}
+                	>${statValue > 0 && statName != "maxhp" ? "+" : ""}${statInfo.percentage ?
+                    	`${statValue * 100}%`
+                    	:
+                    	statValue
+                	}</div>
+            	`
+        	}
+    	}
+
+    	returnStats.all = returnStats.core + returnStats.in + returnStats.out
+    	if(returnStats.all == "") return false
+    	return returnStats
+	}
 }
 console.log("LOADED::CHAOS+ 'go forth and kill bestie'")
 }
