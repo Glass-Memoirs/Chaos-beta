@@ -7449,7 +7449,7 @@ env.ACTIONS.kivcria_sporeburst = {
 	},
 	autohit: true,
 	exec: (user, target, beingUsedAsync) => {
-		env.GENERIC_ACTIONS.teamwave({
+		env.GENERIC_ACTIONS.teamWave({
 			team: user.enemyTeam,
 			exec: (actor, i) => {
 				play("talkrot7", 1.21)
@@ -7457,7 +7457,7 @@ env.ACTIONS.kivcria_sporeburst = {
 				addStatus({target: actor, origin: user, status: "life_amalgamate", length: 1})
 			}
 		})
-		env.GENERIC_ACTIONS.teamwave({
+		env.GENERIC_ACTIONS.teamWave({
 			team: user.allyTeam,
 			exec: (actor, i) => {
 				play("talkrot7", 1.21)
