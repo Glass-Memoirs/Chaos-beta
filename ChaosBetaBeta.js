@@ -7526,7 +7526,9 @@ env.ACTIONS.kivcria_cavernclear = {
 						}
 					}
 				})
-			}
+			},
+			advanceAfterExec: true, beingUsedAsync, user,
+			endCallback: ()=>{console.log('just called advance')}
 		})
 	}
 },
