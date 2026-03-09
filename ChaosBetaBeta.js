@@ -8178,6 +8178,30 @@ for (const componentName of ["entropy"]) { // this probably isn't a function but
      })
      env.e3a2.merchant.commerce.push(commerceObject)
 }
+if(!env.HUMOR_ITEMS.includes("entropy")) {
+	env.HUMOR_ITEMS.push({
+		name: "Entropy",
+		value: 5,
+		showIf: ()=> checkItem("sfer_cube", 5) >=5,
+		hideRead: true,
+		type: "item", //we have to lie here so that these don't take up too much space in the UI
+		exec: ()=> {
+			CrittaReward.safeAdd(page.flags.components, "entropy", 1)
+			removeItem("sfer_cube", 5)
+		}
+	})
+	let humor = env.HUMOR_ITEMS["entropy"]
+	env.e3a2.merchant.buyResponses.replies.push({
+		name: `HUMOR::${humor.name}::${humor.value}S`,
+		destination: "buy",
+		hideRead: true,
+		showIf: ()=> checkItem("sfer_cube", 5) >=5,
+		class: `commerce-item`,
+		definition: `CONTENTS::1 humor of ${humor.name}`,
+		exec: ()=> {humor.exec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
+	})
+}
+
 for (const componentName of ["surging"]) {
      const component = env.COMBAT_COMPONENTS[componentName]
      let commerceObject = ({
