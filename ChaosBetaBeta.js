@@ -1596,7 +1596,7 @@ env.STATUS_EFFECTS.entropy_call = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/FragmentedCall.gif",
 	impulse: {type: "common", component: "entropy"},
 	grantsActions: ["entropy_call"],
-	help: "Allows shell to call forth new targets"
+	help: "Allows shell to call forth new targets\ngrants SEND SIGNAL"
 },
 
 env.STATUS_EFFECTS.entropy_invert = {
@@ -1607,7 +1607,7 @@ env.STATUS_EFFECTS.entropy_invert = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Entropy/CorruptedSignal.gif",
 	impulse: {type: "common", component: "entropy"},
 	grantsActions: ["special_inversion"],
-	help: "A corrupted memory of the call, maybe its still useful?"
+	help: "A corrupted memory of the call, maybe its still useful?\ngrants INVERSION"
 },
 
 env.STATUS_EFFECTS.fated_entropy = {
@@ -1738,7 +1738,7 @@ env.STATUS_EFFECTS.surging_story = {
 			}
 		}
 	},
-	help: "when using UTILITY ACTION gain SURGE"
+	help: "when using UTILITY ACTION, gain SURGE"
 },
 
 env.STATUS_EFFECTS.surging_improvised = {
@@ -2097,11 +2097,11 @@ env.STATUS_EFFECTS.fated_stupidhorrible = {
 				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
 				if(augment?.component) if(augment.component[1] == "stupidhorrible") this.status.power += 2
 			}
-			this.status.outgoingCrit = -0.2 * this.status.power
+			this.status.outgoingCrit = -0.02 * this.status.power
 			this.status.outgoingMult = Math.floor(0.2*this.status.power)
 		},
 	},
-	help: "Per humor of stupidhorrible on this shell::\nreduce crit chance, but increase power'"
+	help: "Per humor of stupidhorrible on this shell::\nreduce crit chance by 2%, but increase power by 20%'"
 },
 //smog
 env.STATUS_EFFECTS.smog_scream = {
@@ -2111,7 +2111,7 @@ env.STATUS_EFFECTS.smog_scream = {
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Smoke/SmokeShout.gif",
 	impulse: {type: "common", component: "smog"},
-	help: "Boosts shout, lets you call for a threatening voice"
+	help: "Boosts SHOUT, lets you call for a threatening voice"
 },
 
 env.STATUS_EFFECTS.smog_patch = {
@@ -2342,7 +2342,7 @@ env.STATUS_EFFECTS.forte = {
 	name: "Forte",
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Metal/MetalForte.gif",
-	help: "'repeat next action for the amount of Forte';'i know its supposed to be louder and thus whatever the speedup symbol is but fuck it'", //[]^[] < reading this what the fuck was i on
+	help: "'repeat next action for the amount of Forte'\n'if the action is either HARMONY or SCALE, repeat 8 times'", //[]^[] < reading this what the fuck was i on
 	events: {
 		onTurn: function() { //this only fires once its the shells turn again, so maybe no errors here?
 			reactDialogue(this.status.affecting, 'surge') 
@@ -2353,7 +2353,7 @@ env.STATUS_EFFECTS.forte = {
 				!action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
 			let LoopCount = Math.floor(hasStatus(this.status.affecting, "forte"))
 			removeStatus(this.status.affecting, "forte")
-			if (action.slug != "steel_strong_harmony") {
+			if (action.slug != "steel_strong_harmony" || action.slug != "steel_harmony") {
 				for (i = 0; i < LoopCount; i++) {
 					setTimeout(()=>{
 						sendFloater({
@@ -2595,7 +2595,7 @@ env.STATUS_EFFECTS.rebel = { //might change this up a bit later, feels a bit wea
 	name: "Rebel",
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	help: "'Gives actor FOCUSED'",
+	help: "'Gives actor FOCUSED each turn'",
 	opposite: "discipline",
 	events: {
 		onTurn: function() {
