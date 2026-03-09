@@ -8179,7 +8179,7 @@ for (const componentName of ["entropy"]) { // this probably isn't a function but
      env.e3a2.merchant.commerce.push(commerceObject)
 }
 if(env.HUMOR_ITEMS["entropy"] == "undefined") {
-	env.HUMOR_ITEMS.push({
+	env.HUMOR_ITEMS.entropy.push({
 		name: "Entropy",
 		value: 5,
 		showIf: ()=> checkItem("sfer_cube", 5) >=5,
