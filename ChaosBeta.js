@@ -1193,7 +1193,7 @@ env.STATUS_EFFECTS.entropy_eternal = {//THIS WAS THE HARDEST
             })
         }
      },
-     help: `most status effects have a 20% chance to become any other effects`
+     help: `most status effects have a 20% chance to become any other status`
 },
 
 env.STATUS_EFFECTS.entropy_eyes = {
