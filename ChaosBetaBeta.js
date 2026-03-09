@@ -8189,16 +8189,6 @@ env.HUMOR_ITEMS.entropy = {
 		removeItem("sfer_cube", 5)
 	}
 }
-let humor = env.HUMOR_ITEMS["entropy"]
-env.e3a2.merchant.buyResponses.replies.push({
-	name: `HUMOR::${humor.name}::${humor.value}S`,
-	destination: "buy",
-	hideRead: true,
-	showIf: ()=> checkItem("sfer_cube", 5) >=5,
-	class: `commerce-item`,
-	definition: `CONTENTS::1 humor of ${humor.name}`,
-	exec: ()=> {humor.exec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
-})
 
 for (const componentName of ["surging"]) {
      const component = env.COMBAT_COMPONENTS[componentName]
@@ -8227,6 +8217,18 @@ for (const componentName of ["surging"]) {
      })
      env.e3a2.merchant.commerce.push(commerceObject)
 }
+env.HUMOR_ITEMS.surging = {
+	name: "Surge",
+	value: 5,
+	showIf: ()=> checkItem("sfer_cube", 5) >=5,
+	hideRead: true,
+	type: "item", //we have to lie here so that these don't take up too much space in the UI
+	exec: ()=> {
+		CrittaReward.safeAdd(page.flags.components, "surging", 1)
+		removeItem("sfer_cube", 5)
+	}
+}
+
 for (const componentName of ["stupidhorrible"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
@@ -8254,6 +8256,18 @@ for (const componentName of ["stupidhorrible"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
+env.HUMOR_ITEMS.stupidhorrible = {
+	name: "StupidHorrible",
+	value: 5,
+	showIf: ()=> checkItem("sfer_cube", 5) >=5,
+	hideRead: true,
+	type: "item", //we have to lie here so that these don't take up too much space in the UI
+	exec: ()=> {
+		CrittaReward.safeAdd(page.flags.components, "stupidhorrible", 1)
+		removeItem("sfer_cube", 5)
+	}
+}
+
 for (const componentName of ["smog"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
@@ -8281,6 +8295,18 @@ for (const componentName of ["smog"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
+env.HUMOR_ITEMS.smog = {
+	name: "Smog",
+	value: 5,
+	showIf: ()=> checkItem("sfer_cube", 5) >=5,
+	hideRead: true,
+	type: "item", //we have to lie here so that these don't take up too much space in the UI
+	exec: ()=> {
+		CrittaReward.safeAdd(page.flags.components, "smog", 1)
+		removeItem("sfer_cube", 5)
+	}
+}
+
 for (const componentName of ["steel"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
@@ -8308,6 +8334,18 @@ for (const componentName of ["steel"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
+env.HUMOR_ITEMS.steel = {
+	name: "Steel",
+	value: 5,
+	showIf: ()=> checkItem("sfer_cube", 5) >=5,
+	hideRead: true,
+	type: "item", //we have to lie here so that these don't take up too much space in the UI
+	exec: ()=> {
+		CrittaReward.safeAdd(page.flags.components, "steel", 1)
+		removeItem("sfer_cube", 5)
+	}
+}
+
 for (const componentName of ["life"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
@@ -8335,6 +8373,18 @@ for (const componentName of ["life"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
+env.HUMOR_ITEMS.life = {
+	name: "Life",
+	value: 5,
+	showIf: ()=> checkItem("sfer_cube", 5) >=5,
+	hideRead: true,
+	type: "item", //we have to lie here so that these don't take up too much space in the UI
+	exec: ()=> {
+		CrittaReward.safeAdd(page.flags.components, "life", 1)
+		removeItem("sfer_cube", 5)
+	}
+}
+
 for (const componentName of ["graceful"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
@@ -8362,6 +8412,18 @@ for (const componentName of ["graceful"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
+env.HUMOR_ITEMS.graceful = {
+	name: "Graceful",
+	value: 5,
+	showIf: ()=> checkItem("sfer_cube", 5) >=5,
+	hideRead: true,
+	type: "item", //we have to lie here so that these don't take up too much space in the UI
+	exec: ()=> {
+		CrittaReward.safeAdd(page.flags.components, "graceful", 1)
+		removeItem("sfer_cube", 5)
+	}
+}
+
 for (const componentName of ["kivcria"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
@@ -8389,6 +8451,33 @@ for (const componentName of ["kivcria"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
+env.HUMOR_ITEMS.kivcria = {
+	name: "Kivcria",
+	value: 5,
+	showIf: ()=> checkItem("sfer_cube", 5) >=5,
+	hideRead: true,
+	type: "item", //we have to lie here so that these don't take up too much space in the UI
+	exec: ()=> {
+		CrittaReward.safeAdd(page.flags.components, "kivcria", 1)
+		removeItem("sfer_cube", 5)
+	}
+}
+
+
+let newShopHumors = ["entropy", "surging", "stupidhorrible", "smog", "steel", "life", "graceful", "kivcria"]
+for (let newHumor in newShopHumors) {
+	let humor = env.HUMOR_ITEMS[newHumor]
+	env.e3a2.merchant.buyResponses.replies.push({
+		name: `HUMOR::${humor.name}::${humor.value}S`,
+		destination: "buy",
+		hideRead: true,
+		showIf: ()=> checkItem("sfer_cube", 5) >=5,
+		class: `commerce-item`,
+		definition: `CONTENTS::1 humor of ${humor.name}`,
+		exec: ()=> {humor.exec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
+	})
+}
+
 if (check("modList").includes("narra_morehumors")) {
 	CrittaMenu.generateStatHTMLObject = function(stats, {member, slotName, componentName, editingMember = {}} = {}) {
 	    let returnStats = {
