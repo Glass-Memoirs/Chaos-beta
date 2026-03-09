@@ -8451,22 +8451,16 @@ for (const componentName of ["kivcria"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
-env.HUMOR_ITEMS.kivcria = {
-	name: "Kivcria",
-	value: 5,
-	showIf: ()=> checkItem("sfer_cube", 5) >=5,
-	hideRead: true,
-	type: "item", //we have to lie here so that these don't take up too much space in the UI
-	exec: ()=> {
-		CrittaReward.safeAdd(page.flags.components, "kivcria", 1)
-		removeItem("sfer_cube", 5)
-	}
-}
-
 
 for (let newHumor in env.HUMOR_ITEMS) {
 	let humor = env.HUMOR_ITEMS[newHumor]
-	if (env.e3a2.merchant.buyResponses.replies[4+newHumor] == "undefined") {
+	let presentReply = false
+	for (let i = 0; i < env.e3a2.merchant.buyResponses.replies.length; i ++) {
+		if (env.e3a2.merchant.buyResponses.replies[i].name.includes(humor.name)) {
+			presentReply = true
+		}
+	}
+	if (!presentReply) {
 		env.e3a2.merchant.buyResponses.replies.push({
 			name: `HUMOR::${humor.name}::${humor.value}S`,
 			destination: "buy",
