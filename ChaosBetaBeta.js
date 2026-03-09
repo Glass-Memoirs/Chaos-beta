@@ -8179,15 +8179,17 @@ for (const componentName of ["entropy"]) { // this probably isn't a function but
      env.e3a2.merchant.commerce.push(commerceObject)
 }
 if(env.HUMOR_ITEMS["entropy"] == "undefined") {
-	env.HUMOR_ITEMS.entropy.push({
-		name: "Entropy",
-		value: 5,
-		showIf: ()=> checkItem("sfer_cube", 5) >=5,
-		hideRead: true,
-		type: "item", //we have to lie here so that these don't take up too much space in the UI
-		exec: ()=> {
-			CrittaReward.safeAdd(page.flags.components, "entropy", 1)
-			removeItem("sfer_cube", 5)
+	env.HUMOR_ITEMS.push({
+		entropy: {
+			name: "Entropy",
+			value: 5,
+			showIf: ()=> checkItem("sfer_cube", 5) >=5,
+			hideRead: true,
+			type: "item", //we have to lie here so that these don't take up too much space in the UI
+			exec: ()=> {
+				CrittaReward.safeAdd(page.flags.components, "entropy", 1)
+				removeItem("sfer_cube", 5)
+			}
 		}
 	})
 	let humor = env.HUMOR_ITEMS["entropy"]
