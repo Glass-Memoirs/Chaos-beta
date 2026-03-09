@@ -8178,7 +8178,7 @@ for (const componentName of ["entropy"]) { // this probably isn't a function but
      })
      env.e3a2.merchant.commerce.push(commerceObject)
 }
-if(!env.HUMOR_ITEMS.includes("entropy")) {
+if(!env.HUMOR_ITEMS["entropy"] == "undefined") {
 	env.HUMOR_ITEMS.push({
 		name: "Entropy",
 		value: 5,
