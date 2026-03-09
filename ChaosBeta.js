@@ -5671,7 +5671,7 @@ for (const componentName of ["life"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
-if (check("modList").includes("narra_morehumors")) {
+if (!check("modList").includes("narra_morehumors")) {
 	CrittaMenu.generateStatHTMLObject = function(stats, {member, slotName, componentName, editingMember = {}} = {}) {
 	    let returnStats = {
     	    core: "",

@@ -8473,7 +8473,7 @@ for (let newHumor in env.HUMOR_ITEMS) {
 	}
 }
 
-if (check("modList").includes("narra_morehumors")) {
+if (!check("modList").includes("narra_morehumors")) {
 	CrittaMenu.generateStatHTMLObject = function(stats, {member, slotName, componentName, editingMember = {}} = {}) {
 	    let returnStats = {
     	    core: "",
