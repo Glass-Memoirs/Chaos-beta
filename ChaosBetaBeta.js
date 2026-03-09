@@ -8464,7 +8464,7 @@ env.HUMOR_ITEMS.kivcria = {
 }
 
 
-let newShopHumors = ["entropy", "surging", "stupidhorrible", "smog", "steel", "life", "graceful", "kivcria"]
+let newShopHumors = [env.HUMOR_ITEMS["entropy"], env.HUMOR_ITEMS["surging"], env.HUMOR_ITEMS["stupidhorrible"], env.HUMOR_ITEMS["smog"], env.HUMOR_ITEMS["steel"], env.HUMOR_ITEMS["life"], env.HUMOR_ITEMS["graceful"], env.HUMOR_ITEMS["kivcria"]]
 for (let newHumor in newShopHumors) {
 	let humor = env.HUMOR_ITEMS[newHumor]
 	env.e3a2.merchant.buyResponses.replies.push({
