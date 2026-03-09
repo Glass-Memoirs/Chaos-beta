@@ -1489,7 +1489,7 @@ env.STATUS_EFFECTS.entropy_reaction = {
 			}
 		}
 	},
-	help: '20% chance to remove random status or impulse'
+	help: '20% chance to remove random status or impulse from foes'
 },
 
 env.STATUS_EFFECTS.exp_over = { //This was what spurred this entire idea. The interaction between Bazruka and Wild Surge was interesting
