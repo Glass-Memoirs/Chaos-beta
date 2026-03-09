@@ -8464,18 +8464,19 @@ env.HUMOR_ITEMS.kivcria = {
 }
 
 
-let newShopHumors = [env.HUMOR_ITEMS["entropy"], env.HUMOR_ITEMS["surging"], env.HUMOR_ITEMS["stupidhorrible"], env.HUMOR_ITEMS["smog"], env.HUMOR_ITEMS["steel"], env.HUMOR_ITEMS["life"], env.HUMOR_ITEMS["graceful"], env.HUMOR_ITEMS["kivcria"]]
-for (let newHumor in newShopHumors) {
+for (let newHumor in env.HUMOR_ITEMS) {
 	let humor = env.HUMOR_ITEMS[newHumor]
-	env.e3a2.merchant.buyResponses.replies.push({
-		name: `HUMOR::${humor.name}::${humor.value}S`,
-		destination: "buy",
-		hideRead: true,
-		showIf: ()=> checkItem("sfer_cube", 5) >=5,
-		class: `commerce-item`,
-		definition: `CONTENTS::1 humor of ${humor.name}`,
-		exec: ()=> {humor.exec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
-	})
+	if (env.e3a2.merchant.buyResponses.replies[4+newHumor] == "undefined") {
+		env.e3a2.merchant.buyResponses.replies.push({
+			name: `HUMOR::${humor.name}::${humor.value}S`,
+			destination: "buy",
+			hideRead: true,
+			showIf: ()=> checkItem("sfer_cube", 5) >=5,
+			class: `commerce-item`,
+			definition: `CONTENTS::1 humor of ${humor.name}`,
+			exec: ()=> {humor.exec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
+		})
+	}
 }
 
 if (check("modList").includes("narra_morehumors")) {
