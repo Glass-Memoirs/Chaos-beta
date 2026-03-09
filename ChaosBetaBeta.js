@@ -1412,7 +1412,7 @@ env.STATUS_EFFECTS.entropy_clock = {
 			play('status', 0.75, 0.5);
 		},
 	},
-	help: "Each turn status effects can either increase or decreases from a range of -2 to 2 turns"
+	help: "Each turn status effects can either increase or decrease from a range of -2 to 2 turns"
 },
 
 env.STATUS_EFFECTS.entropy_heat = {
