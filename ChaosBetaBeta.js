@@ -3014,7 +3014,7 @@ env.STATUS_EFFECTS.fated_life = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/FatedLife.gif",
 	impulse: {type: "fated", component: "life"},
-	help: "per humor of LIFE on this shell::\n+2HP per bp and +2HP per hp",
+	help: "per humor of LIFE on this shell::\n+2HP per bp gained\n+2HP per hp healed",
 	events: {
 		onCreated: function({statusObj}) {
 			if(statusObj.slug != this.status.slug) return;
@@ -3631,7 +3631,7 @@ env.STATUS_EFFECTS.spraying = {
 
 env.STATUS_EFFECTS.consequence_spread = {
 	slug: "consequence_spread",
-	name: "Consequence Spread",
+	name: "Spreading Consequence",
 	beneficial: false,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	events: {
