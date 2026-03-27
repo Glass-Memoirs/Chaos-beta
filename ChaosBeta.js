@@ -3890,6 +3890,7 @@ env.ACTIONS.stupidhorrible_taunt = {
 		crit: 0.1,
 		status: {
 			windup: {name: "windup", showReference: true},
+			focused: {name: "focused", length: 4},
 			empowered: {name: "empowered", length: 3},
 		},
 	},
