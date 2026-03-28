@@ -3535,10 +3535,10 @@ env.STATUS_EFFECTS.graceful_toginco = {
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Toginco.gif",
 	help: "when missing a foe, lose 10HP",
 	events: {
-		onMiss: function({subject, target, beneficial}) {
+		onMiss: function({subject, origin, beneficial}) {
 			let user = this.status.affecting
-			if (subject != user || beneficial || user.team.members.includes(target)) return;
-			combatHit(user, {amt: 10, redirectable: false})
+			if (origin != user || beneficial || user.team.members.includes(subject)) return;
+			combatHit(this.status.affecting, {amt: 10, autohit:true, redirectable: false})
 		}
 	}
 },
