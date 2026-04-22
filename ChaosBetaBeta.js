@@ -2251,7 +2251,7 @@ env.STATUS_EFFECTS.ashen_hands = {
 			let pow = hasStatus(this.status.affecting, "regen")
 			let user = this.status.affecting
 			if(beneficial || user.team.members.includes(subject) || user.state == "dead" || !user.actions[2] || hasStatus(user, "fear")) return;
-			let action = env.ACTIONS[user.actions[2]]
+			let action = env.ACTIONS[user.actions[1]]
 			setTimeout(()=>{
 				sendFloater({
 					target: user,
