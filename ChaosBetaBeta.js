@@ -4538,7 +4538,7 @@ env.ACTIONS.entropy_burnout = {
 		}
 	},
 	exec: function(user, target) {
-		return env.GENERIC_ACTIONS.singleTarget({
+		env.GENERIC_ACTIONS.singleTarget({
 			action: this, 
 			user, 
 			target,
@@ -4608,7 +4608,7 @@ env.ACTIONS.tormenting_delight = {
 	exec: function(user, target, beingUsedAsync) {
 		let includeFocus = false
 		beingUsedAsync = true
-		return env.GENERIC_ACTIONS.singleTarget({
+		env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
 			target, //oohhhbestie i may fuck something up terribly but i may get the delicious knowledge too
