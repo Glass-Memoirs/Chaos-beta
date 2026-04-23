@@ -453,9 +453,7 @@ env.COMBAT_COMPONENTS.surging = {
      help: "'charge';'awaken';'overcharge'",
 
      primary: {
-          alterations: [["primary", "tormenting_delight"],
-			["STATUS", "surging_two"]
-		],
+          alterations: [["primary", "tormenting_delight"]],
           stats: {
                maxhp: 2
           }
