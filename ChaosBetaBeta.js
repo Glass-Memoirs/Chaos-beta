@@ -4627,6 +4627,7 @@ env.ACTIONS.tormenting_delight = {
 				}
 			}
 		})
+		advanceTurn(true)
 	}
 },
 
