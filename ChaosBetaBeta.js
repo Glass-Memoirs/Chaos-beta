@@ -4625,9 +4625,9 @@ env.ACTIONS.tormenting_delight = {
 					addStatus({target: target, status: "stun", length: 1})
 					if (includeFocus) {addStatus({target: user, status: "focused", length: 1})}
 				}
-			}
+			},
+			advanceAfterExec: false, beingUsedAsync
 		})
-		advanceAfterExec: false, beingUsedAsync
 	}
 },
 
