@@ -4605,13 +4605,12 @@ env.ACTIONS.tormenting_delight = {
 			focused: {name: "focused", showReference: true},
 		},
 	},
-	exec: function(user, target, {beingUsedAsync}) {
+	exec: function(user, target, beingUsedAsync) {
 		let includeFocus = false
 		return env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
 			target, //oohhhbestie i may fuck something up terribly but i may get the delicious knowledge too
-			beingUsedAsync: true,
 			hitSfx: {
 				name: 'chomp',
 				rate: 0.7
