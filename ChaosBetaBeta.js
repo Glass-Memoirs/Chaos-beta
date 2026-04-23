@@ -4607,6 +4607,7 @@ env.ACTIONS.tormenting_delight = {
 	},
 	exec: function(user, target, beingUsedAsync) {
 		let includeFocus = false
+		beingUsedAsync = true
 		return env.GENERIC_ACTIONS.singleTarget({
 			action: this,
 			user,
@@ -4626,8 +4627,12 @@ env.ACTIONS.tormenting_delight = {
 					if (includeFocus) {addStatus({target: user, status: "focused", length: 1})}
 				}
 			},
-			advanceAfterExec: false, beingUsedAsync
 		})
+		setTimeout(()=>{
+			//animElement.classList.remove('aiming')                
+			if(!beingUsedAsync) advanceTurn(user)
+			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
+		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
 },
 
