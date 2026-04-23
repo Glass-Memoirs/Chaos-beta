@@ -4627,6 +4627,7 @@ env.ACTIONS.tormenting_delight = {
 				}
 			}
 		})
+		advanceAfterExec: false, beingUsedAsync
 	}
 },
 
