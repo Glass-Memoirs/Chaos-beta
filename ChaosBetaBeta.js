@@ -549,7 +549,7 @@ env.COMBAT_COMPONENTS.steel = {
 	},
 	combatModifiers: ["maddening_ignorance", "steel_false", "steel_sharp"]
 }
-
+//silicon you wll be real once i figure out your gimmick properly (the everchanging impiulse)
 /*
 env.COMBAT_COMPONENTS.silicon = {
      name: "Silicon",
