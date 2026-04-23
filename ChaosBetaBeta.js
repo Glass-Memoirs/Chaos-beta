@@ -8374,6 +8374,10 @@ for (const componentName of ["kivcria"]) {
 	})
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
+
+//my ass nearly overcomplicated this not realizing i can just make a new fucking array lmao
+//im gonna explode someting if this breaks
+//FUUUUCKCKK FUCK FUCK FUCK I SET IT WRONG
 if(typeof env.CHAOSB_HUMORS == "undefined") {
 	env.CHAOSB_HUMORS = {
 		entropy: {
@@ -8467,7 +8471,8 @@ if(typeof env.CHAOSB_HUMORS == "undefined") {
 	} 
 }
 
-for (let humor in env.CHAOSB_HUMORS) {
+for (let key in env.CHAOSB_HUMORS) {
+	let humor = env.CHAOSB_HUMORS[key]
 	env.e3a2.merchant.buyResponses.replies.push({
 		name: `HUMOR::${humor.name}::${humor.value}S`,
 		destination: "buy",
