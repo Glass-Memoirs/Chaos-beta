@@ -4627,11 +4627,7 @@ env.ACTIONS.tormenting_delight = {
 				}
 			},
 		})
-		setTimeout(()=>{
-			//animElement.classList.remove('aiming')                
-			if(!beingUsedAsync) advanceTurn(false, {ignoreTime: true, clearActions: false})
-			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
-		}, (env.ADVANCE_RATE * 0.2) * 9)
+		advanceTurn(false, {ignoreTime: true, clearActions: false})
 	}
 },
 
