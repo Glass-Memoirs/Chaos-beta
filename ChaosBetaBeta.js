@@ -4627,7 +4627,8 @@ env.ACTIONS.tormenting_delight = {
 				}
 			},
 		})
-		advanceTurn(false, {ignoreTime: true, clearActions: false})
+		//motherfucker unlimited please let me get time stopped
+		advanceTurn(user, {ignoreTime: true, clearActions: false})
 	}
 },
 
