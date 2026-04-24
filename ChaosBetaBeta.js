@@ -4629,12 +4629,12 @@ env.ACTIONS.tormenting_delight = {
 		})
 		//motherfucker unlimited please let me get time stopped
 		//im goig to fucijng commit crime
-		setTimeout(()=>{
+		//setTimeout(()=>{
 			//animElement.classList.remove('aiming')    
-			env.rpg.currentActor = user        //potentially the crime     
+			//env.rpg.currentActor = user        //potentially the crime     
 			//if(!beingUsedAsync) advanceTurn(false, {ignoreTime: true, clearActions: false})
 			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
-		}, (env.ADVANCE_RATE * 0.2) * 7)
+		//}, (env.ADVANCE_RATE * 0.2) * 7)
 	}
 },
 
