@@ -4845,7 +4845,7 @@ env.ACTIONS.tormenting_delight = {
 		setTimeout(()=>{
 			//animElement.classList.remove('aiming')    
 			       //potentially the crime     
-			if(!beingUsedAsync) advanceTurn(false, {ignoreTime: true, clearActions: false, stopChange: true})
+			if(!beingUsedAsync) advanceTurn(false, {ignoreTime: true, clearActions: false})
 			//	env.rpg.currentActor = user 
 			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
 		}, (env.ADVANCE_RATE * 0.2) * 7) 
@@ -5691,7 +5691,7 @@ env.ACTIONS.stupidhorrible_buncture ={
 			rot: {name: "rot", length: 5},
 		}
 	},
-	exec: function(user,target) {
+	exec: function(user,target, beingUsedAsync) {
 		let AllTargets = []
 		env.rpg.enemyTeam.members.forEach((target) => {
 			if (target => target.state != "dead" && target.state != "lastStand") {
@@ -5720,6 +5720,11 @@ env.ACTIONS.stupidhorrible_buncture ={
 				})
 			}
 		}
+		setTimeout(()=>{
+			//animElement.classList.remove('aiming')                
+			if(!beingUsedAsync) advanceTurn(user)
+			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
+		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
 },
 
@@ -7688,6 +7693,11 @@ env.ACTIONS.kivcria_sporeburst = {
 				addStatus({target: actor, origin: user, status: "rot", length: 3})
 			}
 		})
+		setTimeout(()=>{
+			//animElement.classList.remove('aiming')                
+			if(!beingUsedAsync) advanceTurn(user)
+			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
+		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
 },
 //Kivcria Utility augment: Cavern Clear
