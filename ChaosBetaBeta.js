@@ -7699,7 +7699,7 @@ env.ACTIONS.kivcria_sporeburst = {
 env.ACTIONS.kivcria_cavernclear = {
 	slug: "kivcria_cavernclear",
 	name: "Cavern Clear",
-	type: "special",
+	type: 'special',
 	anim: "",
 	usage: {
 		act: "%USER SPRAYS DULL BEAMS",
