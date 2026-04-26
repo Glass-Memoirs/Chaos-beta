@@ -4841,13 +4841,13 @@ env.ACTIONS.tormenting_delight = {
 		})
 		//motherfucker unlimited please let me get time stopped
 		//im goig to fucijng commit crime
-		/*setTimeout(()=>{
+		setTimeout(()=>{
 			//animElement.classList.remove('aiming')    
 			       //potentially the crime     
-			if(!beingUsedAsync) advanceTurn(false, {ignoreTime: true, clearActions: false})
+			if(!beingUsedAsync) advanceTurn(false, {ignoreTime: true, clearActions: false, stopChange: true})
 			//	env.rpg.currentActor = user 
 			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
-		}, (env.ADVANCE_RATE * 0.2) * 7) */
+		}, (env.ADVANCE_RATE * 0.2) * 7) 
 	}
 },
 
@@ -7217,7 +7217,7 @@ env.ACTIONS.graceful_gleam = {
 
 		setTimeout(()=>{
 			//animElement.classList.remove('aiming')                
-			if(!beingUsedAsync) advanceTurn(user, {ignoreTime: true, clearActions: false, stopChange: true})
+			if(!beingUsedAsync) advanceTurn(user, {ignoreTime: true, clearActions: false})
 			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
 		}, (env.ADVANCE_RATE * 0.2) * 9)
 	}
