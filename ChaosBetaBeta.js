@@ -529,9 +529,10 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
     env.rpg.haltedByBufferTime = false
     env.rpg.lastRedirector = false
     env.rpg.lastActor = env.rpg.currentActor
-    
-    env.rpg.currentActorIndex = upcomingI
-    env.rpg.currentActor = upcomingActor
+    if (!stopChange) {
+    	env.rpg.currentActorIndex = upcomingI
+    	env.rpg.currentActor = upcomingActor
+	}
 
     //console.log("advance info is", env.rpg.lastActor, env.rpg.currentActor)
     
