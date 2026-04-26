@@ -4793,7 +4793,7 @@ env.ACTIONS.entropy_call = {
 env.ACTIONS.tormenting_delight = {
 	slug: "tormenting_delight",
 	name: "Tormenting delight",
-	type: 'target',
+	type: 'special+target',
 	//desc: "'Oh how crude!';'laugh at us more';'it only inspires us to keep hitting while you are on your last legs!'",
 	anim: "basic-attack",
 	verb: "Torment",
@@ -5537,7 +5537,8 @@ env.ACTIONS.stupidhorrible_charge = {
 env.ACTIONS.stupidhorrible_taunt = {
 	slug: "stupidhorrible_taunt",
 	name: "Taunt Kill",
-	type: "laugh at",
+	type: "target",
+	verb: "laugh at",
 	details: {
 		flavor: "'So Tall you fine dandies so proud, so cocksure!';'Prancin aboot with your heads full of eyeballs!';'Come and get me I say!'",
 		onUse: "'-[STATUS::windup]'",
