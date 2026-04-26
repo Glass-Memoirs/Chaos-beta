@@ -448,10 +448,11 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
     //combat-scene may run telegraphed actions for someone before their actual turn happens
 	if(!stopChange) {
     	let upcomingI = (env.rpg.currentActorIndex + 1) % env.rpg.turnOrder.length
-    	let upcomingActor = env.rpg.turnOrder[upcomingI]
 	} else {
 		return false
 	}
+	let upcomingActor = env.rpg.turnOrder[upcomingI]
+	
     //console.log("upcoming i is", upcomingI, "which means", upcomingActor)
 
     //hardskips will go to the next actor without changing anything
