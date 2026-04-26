@@ -416,7 +416,7 @@ function randomInt(min, max) { // min and max included <---- thank you, random s
 }
 //Sorry Mista Works. i need chronomancy
 //moves to the next actor and lets them act
-window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTime = false, clearActions = true, stopChange = false} = {}) {
+/*window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTime = false, clearActions = true, stopChange = false} = {}) {
     if(env.rpg.refresh && env.rpg.is2D) env.rpg.refresh()
 
     //bugout protection
@@ -448,6 +448,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
     //combat-scene may run telegraphed actions for someone before their actual turn happens
 	if(!stopChange) {
     	let upcomingI = (env.rpg.currentActorIndex + 1) % env.rpg.turnOrder.length
+		if (upcomingI == "undefined") {let upcomingI = (env.rpg.currentActorIndex + 1) % env.rpg.turnOrder.length}
 	} else {
 		return false
 	}
@@ -488,7 +489,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
     //combat-scene has some extra handling before we actually advance
     if(env.rpg.is2D) env.rpg.advanceMod("before")
         
-    /* handle statuses related to the previous actor if applicable */
+     handle statuses related to the previous actor if applicable 
     let prevActor = env.rpg.currentActor
     if(prevActor) if(prevActor.state != "dead") {
         if(prevActor.events?.onTurnEnd || env.rpg.globalListeners?.GLOBAL_onTurnEnd?.length) triggerStatusEvents({target: prevActor, eventName: "onTurnEnd"})
@@ -548,7 +549,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
     if(actor.state != "dead") {
         //console.log("statuscheck before", performance.now())
         //console.log(`CHECKING ACTOR ${actor.slug} STATUS`);
-        /* run status effects */
+        run status effects 
         var removingStatuses = []
         if(actor.events?.onTurn || env.rpg.globalListeners?.GLOBAL_onTurn?.length) triggerStatusEvents({target: actor, eventName: "onTurn"})
         actor.statusEffects.forEach((status, i) => {
@@ -573,7 +574,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
             if(status.duration <= 0) removingStatuses.push(status)
         });
 
-        /* after running effects, remove statuses that have expired */
+         after running effects, remove statuses that have expired 
         removingStatuses.forEach((status) => {
             if(!status.infinite && !status.passive) {
                 removeStatus(actor, status.slug, {from: "expire"})
@@ -624,7 +625,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
     //console.log("updatestats end", performance.now())
 
     if(env.rpg.is2D) env.rpg.advanceMod("after")
-}
+}*/
 
 //HUMORS
 env.COMBAT_COMPONENTS.entropy = {
@@ -7214,11 +7215,11 @@ env.ACTIONS.graceful_gleam = {
 			}, animDelay)
 		}
 
-		setTimeout(()=>{
+		/*setTimeout(()=>{
 			//animElement.classList.remove('aiming')                
-			if(!beingUsedAsync) advanceTurn(user, {ignoreTime: true, clearActions: false, stopChange: true})
+			//if(!beingUsedAsync) advanceTurn(user, {ignoreTime: true, clearActions: false, stopChange: true})
 			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
-		}, (env.ADVANCE_RATE * 0.2) * 9)
+		}, (env.ADVANCE_RATE * 0.2) * 9)*/
 	}
 },
 //Apply parry and a stun
