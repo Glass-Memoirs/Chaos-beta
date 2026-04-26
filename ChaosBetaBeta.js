@@ -416,7 +416,7 @@ function randomInt(min, max) { // min and max included <---- thank you, random s
 }
 //Sorry Mista Works. i need chronomancy
 //moves to the next actor and lets them act
-window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTime = false, clearActions = true, stopChange = false} = {}) {
+/*window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTime = false, clearActions = true, stopChange = false} = {}) {
     if(env.rpg.refresh && env.rpg.is2D) env.rpg.refresh()
 
     //bugout protection
@@ -626,7 +626,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
     //console.log("updatestats end", performance.now())
 
     if(env.rpg.is2D) env.rpg.advanceMod("after")
-}
+}*/
 
 //HUMORS
 env.COMBAT_COMPONENTS.entropy = {
