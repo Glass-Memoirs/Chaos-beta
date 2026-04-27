@@ -588,7 +588,7 @@ env.COMBAT_COMPONENTS.silicon = {
      help: "not here yet",
 
      primary: {
-          alterations: [["primary", "Silicon_turnStop"], ["STATUS", "silicon_turnStopStatus"]],
+          alterations: [["primary", "silicon_turnStop"], ["STATUS", "silicon_turnStopStatus"]],
           stats: {
                maxhp: 3
           }
