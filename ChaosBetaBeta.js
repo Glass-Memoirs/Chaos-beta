@@ -514,7 +514,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
         
     /* handle statuses related to the previous actor if applicable */
     let prevActor = env.rpg.currentActor
-    if(prevActor) if(prevActor.state != "dead" || !advanceStats) {
+    if(prevActor) if(prevActor.state != "dead" || advanceStats) {
         if(prevActor.events?.onTurnEnd || env.rpg.globalListeners?.GLOBAL_onTurnEnd?.length) triggerStatusEvents({target: prevActor, eventName: "onTurnEnd"})
         var removingStatuses = []
     
@@ -569,7 +569,7 @@ window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTim
 
     //apply actor's statuses
     var skipTurn = false
-    if(actor.state != "dead" || !advanceStats) {
+    if(actor.state != "dead" || advanceStats) {
         //console.log("statuscheck before", performance.now())
         //console.log(`CHECKING ACTOR ${actor.slug} STATUS`);
         /* run status effects */
