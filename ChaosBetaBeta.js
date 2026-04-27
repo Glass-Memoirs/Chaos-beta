@@ -2702,7 +2702,7 @@ env.STATUS_EFFECTS.silicon_turnStopStatus = {
 	help: "you shouldnt see this",
 	events: {
 		onBeforeAction: function(context) {
-			if (!context.settings.action == env.ACTIONS["silicon_turnStop"]) {
+			if (context.settings.action != env.ACTIONS["silicon_turnStop"]) {
 				 env.rpg.teams.forEach((team, i) => {
             		env.rpg.turnOrder = env.rpg.turnOrder.concat(team.members)
 				})
