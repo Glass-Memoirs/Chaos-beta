@@ -104,6 +104,14 @@ if( page.path == '/local/ozo/' || page.path == '/local/beneath/embassy') {
 			"hideRead":true
 		})
 		}
+	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("silicon")) {
+		env.dialogues["dreammod"].humors.responses[0].replies.push({
+			"name":"silicon",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","silicon")'),
+			"hideRead":true
+		})
+	}
 	if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("life")) {
 		env.dialogues["dreammod"].humors.responses[0].replies.push({
 			"name":"life",
@@ -147,6 +155,7 @@ if(page.party){
 			page.flags.components.stupidhorrible = 30 
 			page.flags.components.smog = 30
 			page.flags.components.steel = 30
+			page.flags.components.silicon = 30
 			page.flags.components.life = 30
 			page.flags.components.graceful = 30
 			page.flags.components.kivcria = 30
@@ -179,6 +188,7 @@ if(page.party){
 			page.flags.components.stupidhorrible = 3
 			page.flags.components.smog = 3
 			page.flags.components.steel = 3
+			page.flags.components.silicon = 3
 			page.flags.components.life = 3
 			page.flags.components.graceful = 3
 			page.flags.components.kivcria = 3
@@ -242,6 +252,15 @@ if(page.party){
 				member.components["primary"]="steel"
 				member.components["secondary"]="steel"
 				member.components["utility"]="steel"
+			})
+			break
+		case "silicon":
+			page.flags.components = {silicon :12}
+
+			page.party.forEach(member=>{
+				member.components["primary"]="silicon"
+				member.components["secondary"]="silicon"
+				member.components["utility"]="silicon"
 			})
 			break
 		case "life":
