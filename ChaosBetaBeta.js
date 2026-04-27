@@ -6524,7 +6524,7 @@ env.ACTIONS.shiny_reflection = {
 env.ACTIONS.silicon_turnStop = {
 	slug: "silicon_turnStop",
 	name: "turnstop",
-	type: "autohit+self+support+special",
+	type: "autohit+self+support",
 	details: {
 		flavor: "testing the turn addition idea",
 	},
