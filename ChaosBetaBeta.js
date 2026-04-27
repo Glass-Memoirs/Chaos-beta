@@ -6533,7 +6533,6 @@ env.ACTIONS.silicon_turnStop = {
 	},
 	exec: function(user,target) {
 		env.rpg.turnOrder.splice(env.rpg.currentActorIndex + 1, 0, env.rpg.currentActor)
-		advanceTurn(user)
 	}
 },
 
