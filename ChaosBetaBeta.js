@@ -444,6 +444,212 @@ function randomInt(min, max) { // min and max included <---- thank you, random s
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+//sorry mista works. gotta mutilate this (literally had not done much to it)
+window.advanceTurn = function advanceTurn(advanceIfItsThisActorsTurn, {ignoreTime = false, clearActions = true, advanceStats = true} = {}) {
+    if(env.rpg.refresh && env.rpg.is2D) env.rpg.refresh()
+
+    //bugout protection
+    //combatBugoutRefresh() no bugout protection for you lol get softlocked
+    // no but seriously we tried this and it sucked and kept getting false positives
+    // was more harmful to the experience to leave in than the chance of weird behavior
+    // will revisit later
+
+    //if an actor is passed, only advance the turn if it's still their turn
+    if(advanceIfItsThisActorsTurn) { 
+        if(env.rpg.currentActor != advanceIfItsThisActorsTurn) {
+            console.trace()
+            console.warn(`ADVANCETURN - attempted to advance turn for ${advanceIfItsThisActorsTurn?.slug} when it's ${env.rpg.currentActor?.slug}'s turn, so ignoring call. halt: ${env.rpg.halt}`)
+            return false
+        }
+    }
+
+    if(clearActions) clearActionsDisplay();
+    
+    //if we need some buffer time before actually advancing, we delay the call
+    //we don't set up delayed advances if we're in halt mode
+    if(!env.rpg.halt && !ignoreTime && ((Date.now() - env.rpg.lastUpdate) < env.ADVANCE_RATE * 0.8)) {
+        console.log("ADVANCETURN - setting a delayed advance for", advanceIfItsThisActorsTurn?.slug, env.rpg.halt)
+        setTimeout(()=>advanceTurn(advanceIfItsThisActorsTurn), env.ADVANCE_RATE)
+        env.rpg.haltedByBufferTime = true
+        return false
+    }
+
+    //combat-scene may run telegraphed actions for someone before their actual turn happens
+    let upcomingI = (env.rpg.currentActorIndex + 1) % env.rpg.turnOrder.length
+    let upcomingActor = env.rpg.turnOrder[upcomingI]
+    //console.log("upcoming i is", upcomingI, "which means", upcomingActor)
+
+    //hardskips will go to the next actor without changing anything
+    //this will lock up if everyone has hardskip, so don't do that
+    while(upcomingActor.hardSkip) {
+        upcomingI = (upcomingI + 1) % env.rpg.turnOrder.length
+        upcomingActor = env.rpg.turnOrder[upcomingI]
+    }
+
+    //scene will go here to run telegraphs
+    if(!env.rpg.halt && env.rpg.is2D) env.rpg.advanceMod("prehalt", {upcomingActor})
+
+    //if there's a previous action effect message, we wrap it up
+    if(!env.debug) {
+        switch(typeof env.rpg.combineTurns) {
+            case "string": // optional team-based combination used sparingly
+                if(
+                    (env.rpg.combineTurns == env.rpg.currentActor.team.name) &&
+                    (env.rpg.currentActor.team.name == upcomingActor?.team?.name)
+                ) break;
+
+            default: env.rpg.effectMessage.close()
+        }
+    } 
+
+    //sometimes we halt for various reasons
+    if(env.rpg.halt) {
+        env.rpg.haltedAttempt = true
+        if(env.rpg.is2D) env.rpg.advanceMod("halted", {upcomingActor})
+        return false
+    }
+
+    //combat-scene has some extra handling before we actually advance
+    if(env.rpg.is2D) env.rpg.advanceMod("before")
+        
+    /* handle statuses related to the previous actor if applicable */
+    let prevActor = env.rpg.currentActor
+    if(prevActor) if(prevActor.state != "dead" || !advanceStats) {
+        if(prevActor.events?.onTurnEnd || env.rpg.globalListeners?.GLOBAL_onTurnEnd?.length) triggerStatusEvents({target: prevActor, eventName: "onTurnEnd"})
+        var removingStatuses = []
+    
+        prevActor.statusEffects.forEach((status, i) => {       
+            if(status.tickType == "onTurnEnd" && !status.justCreated) {
+                if(!status.infinite && !status.passive) status.duration -= 1;
+                if(status.duration <= 0) removingStatuses.push(status)
+            } else if(status.justCreated) {
+                status.justCreated = false
+            }
+        });
+
+        removingStatuses.forEach((status) => { if(!status.infinite && !status.passive) removeStatus(prevActor, status.slug, {from: "expire"}) })
+        updateStats({actor: prevActor})
+    }
+
+    //turnCallback before the second haltcheck
+    if(env.rpg.settings.turnCallback) try { env.rpg.settings.turnCallback(upcomingActor, prevActor) } catch(e) { printError('turn callback failed'); printError(e) }
+
+    // one more halt check since global turn events might alter this
+    if(env.rpg.halt) {
+        env.rpg.haltedAttempt = true
+        if(env.rpg.is2D) env.rpg.advanceMod("halted", {upcomingActor})
+        return false
+    }
+
+    // set up new turn data
+    // turnData is an arbitrary object refreshed every turn for holding onto data as needed
+    // good for setting turn-specific flags
+    if(!env.rpg.turnData) env.rpg.turnData = { turn: 0 };
+    else env.rpg.turnData = { turn: env.rpg.turnData.turn + 1 };
+
+    // actual advance happens here
+    env.rpg.haltedAttempt = false
+    env.rpg.haltedByBufferTime = false
+    env.rpg.lastRedirector = false
+    env.rpg.lastActor = env.rpg.currentActor
+    
+    env.rpg.currentActorIndex = upcomingI
+    env.rpg.currentActor = upcomingActor
+
+    //console.log("advance info is", env.rpg.lastActor, env.rpg.currentActor)
+    
+    if(!env.rpg.currentActor) { env.rpg.currentActor = env.rpg.turnOrder[0]; console.log("error - no current actor") }
+    let actor = env.rpg.currentActor;
+    console.log(`ADVANCED TO ${actor.slug}`)
+
+    //check if either team is dead
+    //console.log("deadcheck before", performance.now())
+    if(endCombatIfTeamDead()) return
+    //console.log("deadcheck after", performance.now())
+
+    //apply actor's statuses
+    var skipTurn = false
+    if(actor.state != "dead" || !advanceStats) {
+        //console.log("statuscheck before", performance.now())
+        //console.log(`CHECKING ACTOR ${actor.slug} STATUS`);
+        /* run status effects */
+        var removingStatuses = []
+        if(actor.events?.onTurn || env.rpg.globalListeners?.GLOBAL_onTurn?.length) triggerStatusEvents({target: actor, eventName: "onTurn"})
+        actor.statusEffects.forEach((status, i) => {
+            if(status.tickType) return; // anything with a tickType should be specially controlled
+            //console.log(`    EYEBALLIN ${status.slug} - ${status.duration} (${i}) `);
+
+            if(status.skipTurn) skipTurn = true
+
+            //console.log(`        EXECUTING EFFECT`);
+            //console.log(actor, actor.statusEffects)
+            
+            if(!status.infinite && !status.passive) {
+                if(status.delayFirstTickForActorsOnTheRight && status.justCreated) {
+                    console.log()
+                    console.log(`        delayed first tick`);
+                } else {
+                    status.duration -= 1       
+                    //console.log(`        REDUCED LENGTH TO ${status.duration}`);
+                }
+            }
+
+            if(status.duration <= 0) removingStatuses.push(status)
+        });
+
+        /* after running effects, remove statuses that have expired */
+        removingStatuses.forEach((status) => {
+            if(!status.infinite && !status.passive) {
+                removeStatus(actor, status.slug, {from: "expire"})
+            }
+        })
+        //console.log("statuscheck after", performance.now())
+    }
+
+    //may be advanced by updateStats within status effects
+    if(env.rpg.currentActor != actor) {
+        console.log("ADVANCETURN - detected currentActor mismatch", env.rpg.currentActor, actor)
+        return;
+    }
+
+    //reset 'turnover' class - this is what hides the action menus
+    if(actor.team.name == "ally") actor.box.querySelector(".actions").classList.remove("turnover")
+
+    if(skipTurn && actor.state != "dead") {
+        console.log("ADVANCE - skipTurn")
+        if(env.rpg.is2D) env.rpg.advanceMod("after", {skipped: true})
+        advanceTurn(actor)
+        updateStats({actor})
+        return;
+    }
+
+    //enable actions if they didn't die from status effects (if they did, advance turn)
+    //if player controlled, show actions for that character
+    //console.log("updatestats", performance.now())
+    if(actor.state != "dead" && actor.team.name == "ally") {
+        if(!actor.npc) { // npc allies have their own calls in statuses. sounds insane but no time to update enemy turn
+            updateStats({actor})
+            showActions(actor)
+        }
+    } else if(actor.state != "dead" || actor.lastStand) { //if enemy, run enemy AI
+        try {
+            updateStats({actor})
+
+            //todo: this is a little bruteforce but it makes sure tile effects have a bit of time to go off before targeting begins
+            // ideally we just handle onActorAffected tileEffects actually before advanceTurn is called, like after using an action
+            if(env.rpg.is2D) setTimeout(()=>enemyTurn(actor), 50);
+            else enemyTurn(actor)
+        } catch(e) {printError(e); printError('proceeding to next turn', false); setTimeout(()=>advanceTurn(actor), env.ADVANCE_RATE); }
+    } else {
+        console.log("ADVANCE - dead", actor.slug)
+        if(env.rpg.is2D) env.rpg.advanceMod("after", {skipped: true})
+        advanceTurn(actor, {ignoreTime: true})
+    }
+    //console.log("updatestats end", performance.now())
+
+    if(env.rpg.is2D) env.rpg.advanceMod("after")
+}
+
 
 //HUMORS
 env.COMBAT_COMPONENTS.entropy = {
@@ -6526,7 +6732,7 @@ env.ACTIONS.shiny_reflection = {
 env.ACTIONS.silicon_turnStop = {
 	slug: "silicon_turnStop",
 	name: "turnstop",
-	type: "autohit+self+support",
+	type: "autohit+self+support+special",
 	details: {
 		flavor: "testing the turn addition idea",
 	},
@@ -6535,6 +6741,7 @@ env.ACTIONS.silicon_turnStop = {
 	},
 	exec: function(user,target) {
 		env.rpg.turnOrder.splice(env.rpg.currentActorIndex + 1, 0, env.rpg.currentActor)
+		advanceTurn(user, {ignoreTime: false, clearActions: true, advanceStats: false})
 	}
 },
 
