@@ -6739,9 +6739,13 @@ env.ACTIONS.silicon_turnStop = {
 	stats: {
 		amt: 0
 	},
-	exec: function(user,target) {
+	exec: function(user,target, beingUsedAsync) {
 		env.rpg.turnOrder.splice(env.rpg.currentActorIndex + 1, 0, env.rpg.currentActor)
-		advanceTurn(user, {ignoreTime: false, clearActions: true, advanceStats: false})
+		setTimeout(()=>{
+			//animElement.classList.remove('aiming')                
+                if(!beingUsedAsync) advanceTurn(user, {ignoreTime: false, clearActions: true, advanceStats: false})
+			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
+		}, (env.ADVANCE_RATE * 0.2) * 7)
 	}
 },
 
