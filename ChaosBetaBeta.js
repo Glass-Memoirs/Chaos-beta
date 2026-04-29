@@ -800,7 +800,7 @@ env.COMBAT_COMPONENTS.silicon = {
           }
      },
      secondary: {
-          alterations: [["secondary", "frenzy"]],
+          alterations: [["secondary", "silicon_Amber"], ["STATUS", "silicon_turnStopStatus"]],
           stats: {
                maxhp: 3
           }
@@ -6866,6 +6866,56 @@ env.ACTIONS.silicon_Unwanted = {
 	}
 },
 
+env.ACTOR_AUGMENTS.silicon_Amber = { //the sheild
+	slug: "silicon_Amber",
+	name: "Amber Transition",
+	type: 'target+support+autohit',
+	details: {
+		flavor: "warp yourself around the body of an ally",
+		onUse: "apply a protective effect depending on SHAPE",
+		onCrit: "double the effects",
+		conditional: "<em>SPIKY:</em> [STATUS::spikes]\n<em>FLAT:</em> [STAT::amtBP]\n<em>CURVED:</em> [STATUS::redirection]"
+	},
+	usage: {
+		act: "%USER'S BODY WRAPS AROUND %TARGET",
+		hit: "%TARGET IS GIVEN A LAYER OF DEFENSE BY %USER"
+	},
+	stats: {
+		amt: 0,
+		crit: 0.213,
+		amtBP: 3,
+		status: {
+			spikes: {name: "spikes", length: 3},
+			redirection: {name: "redirection", length: 3}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {name: "guard", rate: 0.84},
+			hitExec: () => {
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: "spikes", length: 3})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					combatHit(originalEventTarget, {amt: 3, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+				} else if (hasStatus(user, "silicon_mode3")) {
+					addStatus({target: target, status: "redirection", length: 3})
+				}
+			},
+			critExec: () => {
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: "spikes", length: 3})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					combatHit(originalEventTarget, {amt: 3, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+				} else if (hasStatus(user, "silicon_mode3")) {
+					addStatus({target: target, status: "redirection", length: 3})
+				}
+			}
+		})
+	}
+},
 //life
 env.ACTIONS.life_seeding = {
 	slug: "life_seeding",
