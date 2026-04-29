@@ -806,7 +806,7 @@ env.COMBAT_COMPONENTS.silicon = {
           }
      },
      utility: {
-          alterations: [["evade", "evade"], ["ADD", "silicon_turnStop"], ["STATUS", "silicon_turnStopStatus"]],
+          alterations: [["evade", "evade"], ["STATUS", "silicon_turnStopStatus"]],
           stats: {
                maxhp: 3
           }
@@ -2907,6 +2907,7 @@ env.STATUS_EFFECTS.silicon_turnStopStatus = {
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
 	help: "Sets your shape when the action RESHAPE is used",
+	grantsActions: ["silicon_turnStop"],
 	modeVal: 0,
 	events: {
 		onCreated: function({statusObj}) {
