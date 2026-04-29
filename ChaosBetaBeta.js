@@ -794,7 +794,7 @@ env.COMBAT_COMPONENTS.silicon = {
      help: "not here yet",
 
      primary: {
-          alterations: [["primary", "silicon_turnStop"], ["STATUS", "silicon_turnStopStatus"]],
+          alterations: [["primary", "silicon_Unwanted"], ["STATUS", "silicon_turnStopStatus"]],
           stats: {
                maxhp: 3
           }
@@ -806,7 +806,7 @@ env.COMBAT_COMPONENTS.silicon = {
           }
      },
      utility: {
-          alterations: [["evade", "evade"]],
+          alterations: [["evade", "silicon_turnStop"], ["STATUS", "silicon_turnStopStatus"]],
           stats: {
                maxhp: 3
           }
@@ -2903,10 +2903,10 @@ env.STATUS_EFFECTS.fated_steel = {
 //fuck it may actually be ready sometime soon
 env.STATUS_EFFECTS.silicon_turnStopStatus = {
 	slug: "silicon_turnStopStatus",
-	name: "TurnStop",
+	name: "MOLDED IDEAL",
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
-	help: "you shouldnt see this",
+	help: "Sets your shape when the action RESHAPE is used",
 	modeVal: 0,
 	events: {
 		onCreated: function({statusObj}) {
@@ -2955,29 +2955,29 @@ env.STATUS_EFFECTS.silicon_turnStopStatus = {
 
 env.STATUS_EFFECTS.silicon_mode1 = {
 	slug: "silicon_mode1",
-	name: "Test In Progress. Spiky",
+	name: /*"Test In Progress. Spiky"*/ "Spiky",
 	infinite: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	help: "yoru'e spiky now. my atttack "
+	help: /*"yoru'e spiky now. my atttack "*/ "CURRENT SHAPE IS SPIKY"
 },
 
 env.STATUS_EFFECTS.silicon_mode2 = {
 	slug: "silicon_mode2",
-	name: "gwagwagwagwa. flat",
+	name: /*"gwagwagwagwa. flat"*/ "Flat",
 	infinite: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	help: "bonk bonk bonk bonk . flatg mode"
+	help: /*"bonk bonk bonk bonk . flatg mode"*/ "CURRENT SHAPE IS FLAT"
 },
 
 env.STATUS_EFFECTS.silicon_mode3 = {
 	slug: "silicon_mode3",
-	name: "katamari if i fuckiing blulgeoned you. round",
+	name: /*"katamari if i fuckiing blulgeoned you. round"*/ "Curved",
 	infinite: true,
 	beneficial: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	help: "Na na~ nanananana~ na~ na~ na~, na~ na~ nana~ na~ katamari damaciiiiii"
+	help: /*"Na na~ nanananana~ na~ na~ na~, na~ na~ nana~ na~ katamari damaciiiiii"*/ "CURRENT SHAPE IS CURVED"
 },
 
 //life
@@ -6792,10 +6792,13 @@ env.ACTIONS.shiny_reflection = {
 //silicon
 env.ACTIONS.silicon_turnStop = {
 	slug: "silicon_turnStop",
-	name: "turnstop",
+	name: "Reshape",
 	type: "autohit+self+support+special",
 	details: {
-		flavor: "testing the turn addition idea",
+		flavor: /*"testing the turn addition idea",*/ "reform your body and weapons into a new shape"
+	},
+	usage: {
+		act: "%USER changes their body!"
 	},
 	stats: {
 		amt: 0
@@ -6807,6 +6810,58 @@ env.ACTIONS.silicon_turnStop = {
                 if(!beingUsedAsync) advanceTurn(user, {ignoreTime: false, clearActions: true, advanceStats: false})
 			//if(!env.rpg.classList.contains("standoff")) ratween(env.bgm, env.bgm.intendedRate)
 		}, (env.ADVANCE_RATE * 0.2) * 7)
+	}
+},
+
+env.ACTIONS.silicon_Unwanted = {
+	slug: "silicon_Unwanted",
+	name: "Unwanted Presence",
+	anim: "wobble",
+	verb: "strike",
+	type: 'target',
+	details: {
+		flavor: "swing at vital components of foe",
+		onHit: "[STAT::amt], %12.5 chance for [STATUS::focused]",
+		onCrit: "apply status depending on SHAPE",
+		conditional: "<em>SPIKY:</em> [STATUS::puncture]\n<em>FLAT:</em> [STATUS::stun]\n<em>CURVED:</em> [STATUS::vulnerable]"
+	},
+	usage: {
+		act: "%USER swings at %TARGET",
+		hit: "%TARGET is struck by the gauntlet of %USER",
+		crit: "%TARGET is left shaken as the gauntlet withdraws"
+	},
+	stats: {
+		accuracy: 0.867,
+		crit: 0.338,
+		amt: 2,
+		status: {
+			focused: {name: "focused", length: 2},
+			puncture: {name: "puncture", length: 4},
+			stun: {name: "stun", length: 1},
+			vulnerable: {name: "vulnerable", length: 3}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action:this,
+			user,
+			target,
+			hitSxf: {name: "click2", rate: 1},
+			hitExec: ()=> {
+				if (Math.random() < 0.125) {
+					addStatus({target: user, status: "focused", length: 2})
+				}
+			},
+			critExec: ()=> {
+				if (hasStatus(user, "silicon_spiky")) {
+					addStatus({target: target, status: "puncture", length: 4})
+				} else if (hasStatus(user, "silicon_flat")) {
+					addStatus({target: target, status: "stun", length: 1})
+				} else if (hasStatus(user, "silicon_curved")) {
+					addStatus({target: target, status: "vulnerable", length: 3})
+				}
+			}
+		})
 	}
 },
 
