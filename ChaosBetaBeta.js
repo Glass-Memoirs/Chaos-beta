@@ -806,7 +806,7 @@ env.COMBAT_COMPONENTS.silicon = {
           }
      },
      utility: {
-          alterations: [["evade", "silicon_turnStop"], ["STATUS", "silicon_turnStopStatus"]],
+          alterations: [["evade", "evade"], ["ADD", "silicon_turnStop"], ["STATUS", "silicon_turnStopStatus"]],
           stats: {
                maxhp: 3
           }
@@ -6853,11 +6853,11 @@ env.ACTIONS.silicon_Unwanted = {
 				}
 			},
 			critExec: ()=> {
-				if (hasStatus(user, "silicon_spiky")) {
+				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: "puncture", length: 4})
-				} else if (hasStatus(user, "silicon_flat")) {
+				} else if (hasStatus(user, "silicon_mode2")) {
 					addStatus({target: target, status: "stun", length: 1})
-				} else if (hasStatus(user, "silicon_curved")) {
+				} else if (hasStatus(user, "silicon_mode3")) {
 					addStatus({target: target, status: "vulnerable", length: 3})
 				}
 			}
