@@ -2972,7 +2972,7 @@ env.STATUS_EFFECTS.silicon_mode2 = {
 },
 
 env.STATUS_EFFECTS.silicon_mode3 = {
-	slug: "silicom_mode3",
+	slug: "silicon_mode3",
 	name: "katamari if i fuckiing blulgeoned you. round",
 	infinite: true,
 	beneficial: true,
