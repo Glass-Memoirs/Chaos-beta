@@ -2900,13 +2900,19 @@ env.STATUS_EFFECTS.fated_steel = {
 	help: "per humor of STEEL on this shell::\n-10% incoming damage\n+100% outgoing with EMPOWERED or CARAPACE"
 },
 //silicon
+//fuck it may actually be ready sometime soon
 env.STATUS_EFFECTS.silicon_turnStopStatus = {
 	slug: "silicon_turnStopStatus",
 	name: "TurnStop",
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Life/lifeTuvazu.gif",
 	help: "you shouldnt see this",
+	modeVal: 0,
 	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			addStatus({target: this.status.affecting, status: "silicon_mode1"})
+		},
 		onBeforeAction: function(context) {
 			if (context.settings.action != env.ACTIONS["silicon_turnStop"]) {
 				env.rpg.turnOrder = []
@@ -2914,9 +2920,64 @@ env.STATUS_EFFECTS.silicon_turnStopStatus = {
             		env.rpg.turnOrder = env.rpg.turnOrder.concat(team.members)
 				})
 				env.rpg.currentActorIndex = env.rpg.turnOrder.indexOf(env.rpg.currentActor)
+			} else {
+				if (this.status.modeVal != 2) { 
+					this.status.modeVal += 1
+				} else {
+					this.status.modeVal = 0
+				}
+			}
+		},
+		onAction: function({user}) {
+			switch (this.status.modeVal) {
+				case 0:
+					if (hasStatus(this.status.affecting, "silicon_mode3")) {
+						removeStatus(this.status.affecting, "silicon_mode3")
+						addStatus({target: this.status.affecting, status: "silicon_mode1"})
+					}
+					break;
+				case 1:
+					if (hasStatus(this.status.affecting, "silicon_mode1")) {
+						removeStatus(this.status.affecting, "silicon_mode1")
+						addStatus({target: this.status.affecting, status: "silicon_mode2"})
+					}
+					break;
+				case 2:
+					if (hasStatus(this.status.affecting, "silicon_mode2")) {
+						removeStatus(this.status.affecting, "silicon_mode2")
+						addStatus({target: this.status.affecting, status: "silicon_mode3"})
+					}
+					break;
 			}
 		}
 	}
+},
+
+env.STATUS_EFFECTS.silicon_mode1 = {
+	slug: "silicon_mode1",
+	name: "Test In Progress. Spiky",
+	infinite: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "yoru'e spiky now. my atttack "
+},
+
+env.STATUS_EFFECTS.silicon_mode2 = {
+	slug: "silicon_mode2",
+	name: "gwagwagwagwa. flat",
+	infinite: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "bonk bonk bonk bonk . flatg mode"
+},
+
+env.STATUS_EFFECTS.silicon_mode3 = {
+	slug: "silicom_mode3",
+	name: "katamari if i fuckiing blulgeoned you. round",
+	infinite: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "Na na~ nanananana~ na~ na~ na~, na~ na~ nana~ na~ katamari damaciiiiii"
 },
 
 //life
