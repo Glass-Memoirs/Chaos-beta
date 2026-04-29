@@ -790,8 +790,8 @@ env.COMBAT_COMPONENTS.steel = {
 env.COMBAT_COMPONENTS.silicon = {
      name: "Silicon",
      slug: "silicon",
-     description: "shhhh",
-     help: "not here yet",
+     description: "'Evershaped materials';'Inexplicably always three'",
+     help: "'formation';'boundary';'exploit'",
 
      primary: {
           alterations: [["primary", "silicon_Unwanted"], ["STATUS", "silicon_turnStopStatus"]],
@@ -812,7 +812,6 @@ env.COMBAT_COMPONENTS.silicon = {
           }
      }
 }
-
 
 /*
 env.COMBAT_COMPONENTS.meat = {
