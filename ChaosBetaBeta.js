@@ -810,7 +810,8 @@ env.COMBAT_COMPONENTS.silicon = {
           stats: {
                maxhp: 3
           }
-     }
+     },
+	 combatModifiers: ["silicon_Misdrawn"]
 }
 
 /*
@@ -1394,6 +1395,14 @@ env.MODIFIERS.maddening_ignorance = {
 	getHelp: ()=> {return env.STATUS_EFFECTS.maddening_ignorance.help},
 	alterations: {
 		all: [["STATUS", "maddening_ignorance"]]
+	}
+}
+//silicon
+env.MODIFIERS.silicon_Misdrawn = {
+	name: "Misdrawn Connection",
+	getHelp: ()=> {return env.STATUS_EFFECTS.silicon_Misdrawn.help},
+	alterations: {
+		all: [["STATUS", "silicon_Misdrawn"]]
 	}
 }
 
@@ -3011,6 +3020,27 @@ env.STATUS_EFFECTS.silicon_mode3 = {
 	help: /*"Na na~ nanananana~ na~ na~ na~, na~ na~ nana~ na~ katamari damaciiiiii"*/ "CURRENT SHAPE IS CURVED"
 },
 
+env.STATUS_EFFECTS.silicon_Misdrawn = {
+	slug: "silicon_Misdrawn",
+	name: "Misdraw Connection",
+	infinite: true,
+	passive: "modifier",
+	beneficial: false,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "REDIRECTION is swapped out with BP",
+	events: {
+		onBeforeAddStatus: function(context) {
+			if(context.status == "redirection") context.noAdd = true
+			combatHit(this.status.affecting, {amt: 3, beneficial: true, type: "barrier", runEvents: false})
+			sendFloater({
+				target: this.status.affecting,
+				type: "arbitrary",
+				arbitraryString: "MISDRAWN!",
+				beneficial: false
+			})
+		},
+	}
+},
 //life
 env.STATUS_EFFECTS.life_healing = {
 	slug: "life_healing",
@@ -6931,7 +6961,7 @@ env.ACTIONS.silicon_Amber = { //the sheild
 				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: "spikes", length: 3})
 				} else if (hasStatus(user, "silicon_mode2")) {
-					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false});
+					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false})
 				} else if (hasStatus(user, "silicon_mode3")) {
 					if (target != user) {
 						addStatus({target: target, origin: user, status: "redirection", length: 3})
@@ -6942,7 +6972,7 @@ env.ACTIONS.silicon_Amber = { //the sheild
 				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: "spikes", length: 3})
 				} else if (hasStatus(user, "silicon_mode2")) {
-					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false});
+					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false})
 				} else if (hasStatus(user, "silicon_mode3")) {
 					if (target != user) {
 						addStatus({target: target, origin: user, status: "redirection", length: 3})
@@ -7098,7 +7128,7 @@ env.ACTIONS.silicon_Moulded = {
 				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: this.stats.status.spikes.name, length: this.stats.status.spikes.length})
 				} else if (hasStatus(user, "silicon_mode2")) {
-					combatHit(target, {amt: this.stats.amtBP, beneficial: true, type: "barrier", origin: user, runEvents: false});
+					combatHit(target, {amt: this.stats.amtBP, beneficial: true, type: "barrier", origin: user, runEvents: false})
 				} else if (hasStatus(user, "silicon_mode3")) {
 					if (target != user) {
 						addStatus({target: target, origin: user, status: this.stats.status.redirection.name, length: this.stats.status.redirection.length})
@@ -7110,7 +7140,7 @@ env.ACTIONS.silicon_Moulded = {
 				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: this.stats.status.spikes.name, length: this.stats.status.spikes.length * 2})
 				} else if (hasStatus(user, "silicon_mode2")) {
-					combatHit(target, {amt: this.stats.amtBP * 2, beneficial: true, type: "barrier", origin: user, runEvents: false});
+					combatHit(target, {amt: this.stats.amtBP * 2, beneficial: true, type: "barrier", origin: user, runEvents: false})
 				} else if (hasStatus(user, "silicon_mode3")) {
 					if (target != user) {
 						addStatus({target: target, origin: user, status: this.stats.status.redirection.name, length: this.stats.status.redirection.length * 2})
