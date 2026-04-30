@@ -1147,7 +1147,7 @@ env.ACTOR_AUGMENTS.generic.silicon_Dissoluted = {
 	name: "Dissoluted Form",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "'focus the dull into the gauntlet';'severely damage foes'",
-	alteration: [["silicon_Burnt", "silicon_Dissoluted"]],
+	alterations: [["silicon_Burnt", "silicon_Dissoluted"]],
 	component: ["utility", "silicon"],
 	cost: 3
 }
