@@ -3030,14 +3030,16 @@ env.STATUS_EFFECTS.silicon_Misdrawn = {
 	help: "REDIRECTION is swapped out with BP",
 	events: {
 		onBeforeAddStatus: function(context) {
-			if(context.status == "redirection") context.noAdd = true
-			combatHit(this.status.affecting, {amt: 3, beneficial: true, type: "barrier", runEvents: false})
-			sendFloater({
-				target: this.status.affecting,
-				type: "arbitrary",
-				arbitraryString: "MISDRAWN!",
-				beneficial: false
-			})
+			if(context.status == "redirection") {
+				context.noAdd = true
+				combatHit(this.status.affecting, {amt: 3, beneficial: true, type: "barrier", runEvents: false})
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					arbitraryString: "MISDRAWN!",
+					beneficial: false
+				})
+			}
 		},
 	}
 },
