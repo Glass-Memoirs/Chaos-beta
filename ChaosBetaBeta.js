@@ -1136,9 +1136,19 @@ env.ACTOR_AUGMENTS.generic.silicon_Moulded = {
 	slug: "silicon_Moulded",
 	name: "Moulded Crystal",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	description: "'utilize excess coating to help protect allies'",
+	description: "'utilize excess coating to help protect allies';'enough to heal and protect'",
 	alterations: [["silicon_Amber", "silicon_Moulded"]],
 	component: ["secondary", "silicon"],
+	cost: 3
+}
+
+env.ACTOR_AUGMENTS.generic.silicon_Dissoluted = {
+	slug: "silicon_Dissoluted",
+	name: "Dissoluted Form",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'focus the dull into the gauntlet';'severely damage foes'",
+	alteration: [["silicon_Burnt", "silicon_Dissoluted"]],
+	component: ["utility", "silicon"],
 	cost: 3
 }
 
@@ -6967,7 +6977,7 @@ env.ACTIONS.silicon_Burnt = {
 		status: {
 			destabilized: {name: "destabilized", length: 3},
 			siphon: {name: "siphon", length: 2},
-			stun: {name: "stun", length: 2},
+			stun: {name: "stun", length: 1},
 			fear: {name: "fear", length: 3}
 		}
 	},
@@ -7017,7 +7027,7 @@ env.ACTIONS.silicon_Leading = {
 		status: {
 			focused: {name: "focused", length: 3},
 			puncture: {name: "puncture", length: 5},
-			stun: {name: "stun", length: 2},
+			stun: {name: "stun", length: 1},
 			vulnerable: {name: "vulnerable", length: 4},
 			siphon: {name: "siphon", length: 3},
 			weakened: {name: "weakened", length: 6},
@@ -7032,7 +7042,7 @@ env.ACTIONS.silicon_Leading = {
 			hitSxf: {name: "click2", rate: 1},
 			hitExec: ()=> {
 				if (Math.random() < 0.25) {
-					addStatus({target: user, status: "focused", length: 2})
+					addStatus({target: user, status: this.stats.status.focused.name, length: this.stats.status.focused.length})
 				}
 				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: this.stats.status.puncture.name, length: this.stats.status.puncture.length})
@@ -7109,7 +7119,68 @@ env.ACTIONS.silicon_Moulded = {
 			}
 		})
 	}
-}
+},
+
+env.ACTIONS.silicon_Dissoluted = {
+	slug: "silicon_Dissoluted",
+	name: "Dissoluted Form",
+	type: 'target',
+	verb: "melt",
+	anim: "skitter",
+	details: {
+		flavor: "'Melt into foes with the dull';'destabilize them further'",
+		onHit: "[STAT::amt], [STATUS::destabilized], apply status depending on SHAPE",
+		onCrit: "double [STATUS::destabilized] and apply secondary status depending on SHAPE",
+		conditional: "<em>HIT::</em>\n    <em>SPIKY:</em> [STATUS::siphon]\n    <em>FLAT:</em> [STATUS::stun]\n    <em>CURVED:</em> [STATUS::fear]\n<em>CRIT::</em>\n    <em>SPIKY:</em> [STATUS::vulnerable]\n    <em>FLAT:</em> [STATUS::critical_flaw]\n    <em>CURVED:</em> [STATUS::madness]"
+	},
+	usage: {
+		act: "%USER SENDS A FLARE TOWARDS %TARGET",
+		hit: "%TARGET IS SLIGHTLY VISIBLY MELTING",
+		crit: "%TARGET IS MELING A LOT"
+	},
+	stats: {
+		amt: 4,
+		accuracy: 0.76,
+		crit: 0.147,
+		status: {
+			destabilized: {name: "destabilized", length: 3},
+			siphon: {name: "siphon", length: 2},
+			stun: {name: "stun", length: 1},
+			fear: {name: "fear", length: 3},
+			vulnerable: {name: "vulnerable", length: 3},
+			critical_flaw: {name: "critical_flaw", length: 3},
+			madness: {name: "madness", length: 1}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action:this,
+			user,
+			target,
+			hitSxf: {name: "click2", rate: 1},
+			hitExec: ()=> {
+				addStatus({target: target, status: this.stats.status.destabilized.name, length: this.stats.status.destabilized.length})
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: this.stats.status.siphon.name, length: this.stats.status.siphon.length})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					addStatus({target: target, status: this.stats.status.stun.name, length: this.stats.status.stun.length})
+				} else if (hasStatus(user, "silicon_mode3")) {
+					addStatus({target: target, status: this.stats.status.fear.name, length: this.stats.status.fear.length})
+				}
+			},
+			critExec: ()=> {
+				addStatus({target: target, status: this.stats.status.destabilized.name, length: this.stats.status.destabilized.length})
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: this.stats.status.vulnerable.name, length: this.stats.status.vulnerable.length})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					addStatus({target: target, status: this.stats.status.critical_flaw.name, length: this.stats.status.critical_flaw.length})
+				} else if (hasStatus(user, "silicon_mode3")) {
+					addStatus({target: target, status: this.stats.status.madness.name, length: this.stats.status.madness.length})
+				}
+			}
+		})
+	}
+},
 //life
 env.ACTIONS.life_seeding = {
 	slug: "life_seeding",
