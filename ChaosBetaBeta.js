@@ -6873,7 +6873,7 @@ env.ACTOR_AUGMENTS.silicon_Amber = { //the sheild
 		flavor: "warp yourself around the body of an ally",
 		onUse: "apply a protective effect depending on SHAPE",
 		onCrit: "double the effects",
-		conditional: "<em>SPIKY:</em> [STATUS::spikes]\n<em>FLAT:</em> [STAT::amtBP]\n<em>CURVED:</em> [STATUS::redirection]"
+		conditional: "<em>SPIKY:</em> [STATUS::spikes]\n<em>FLAT:</em> +3BP\n<em>CURVED:</em> [STATUS::redirection]"
 	},
 	usage: {
 		act: "%USER'S BODY WRAPS AROUND %TARGET",
@@ -6882,7 +6882,6 @@ env.ACTOR_AUGMENTS.silicon_Amber = { //the sheild
 	stats: {
 		amt: 0,
 		crit: 0.213,
-		amtBP: 3,
 		status: {
 			spikes: {name: "spikes", length: 3},
 			redirection: {name: "redirection", length: 3}
@@ -6915,6 +6914,7 @@ env.ACTOR_AUGMENTS.silicon_Amber = { //the sheild
 		})
 	}
 },
+
 //life
 env.ACTIONS.life_seeding = {
 	slug: "life_seeding",
