@@ -2965,7 +2965,7 @@ env.STATUS_EFFECTS.Metallic_ringing = {
 				})
 
 				readoutAdd({
-					message: `${target.name} Swings with burning hands!`, 
+					message: `${target.name} Swings back with a metallic noise!`, 
 					name: "sourceless", 
 					type: "sourceless combat minordetail", 
 					show: false,
