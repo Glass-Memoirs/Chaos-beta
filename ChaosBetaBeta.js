@@ -6898,7 +6898,7 @@ env.ACTIONS.silicon_Amber = { //the sheild
 				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: "spikes", length: 3})
 				} else if (hasStatus(user, "silicon_mode2")) {
-					combatHit(originalEventTarget, {amt: 3, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false});
 				} else if (hasStatus(user, "silicon_mode3")) {
 					addStatus({target: target, status: "redirection", length: 3})
 				}
@@ -6907,7 +6907,7 @@ env.ACTIONS.silicon_Amber = { //the sheild
 				if (hasStatus(user, "silicon_mode1")) {
 					addStatus({target: target, status: "spikes", length: 3})
 				} else if (hasStatus(user, "silicon_mode2")) {
-					combatHit(originalEventTarget, {amt: 3, beneficial: true, type: "barrier", origin: this.status.affecting, runEvents: false});
+					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false});
 				} else if (hasStatus(user, "silicon_mode3")) {
 					addStatus({target: target, status: "redirection", length: 3})
 				}
