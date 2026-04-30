@@ -2938,6 +2938,47 @@ env.STATUS_EFFECTS.fated_steel = {
 	},
 	help: "per humor of STEEL on this shell::\n-10% incoming damage\n+100% outgoing with EMPOWERED or CARAPACE"
 },
+
+//when struck with a crit, divide the damage by 3 and then retaliate with the primary for 1+(AMT/3) times
+//no clue if this works but fuck it we ball
+env.STATUS_EFFECTS.Metallic_ringing = {
+	slug: "Metallic_ringing",
+	name: "ACTION::METALLIC RINGING",
+	passive: true,
+	infinite: true,
+	beneficial: true,
+	help: "when struck with a crit, retaliate with PRIMARY 1+floor(damage/3) times",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	impulse: {type: "action", component: "steel"},
+	events: {
+		onCritStruck: function({subject, target, attack, beneficial}) {
+			let pow = Math.floor(attack/3)
+			if(beneficial || target.team.members.includes(subject) || target.state == "dead" || !target.actions[0]) return;
+			let action = env.ACTIONS[target.actions[0]]
+			setTimeout(()=>{
+				sendFloater({
+					target: target,
+					type: "arbitrary",
+					specialClass: "action",
+					arbitraryString: `METALLIC RINGING::${action.name}`,
+					size: 1.5,
+				})
+
+				readoutAdd({
+					message: `${target.name} Swings with burning hands!`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+				for (let i = 1; i <= 1+pow; i++) {
+					useAction(target, action, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "Metallic Ringing"})
+				}
+			}, 250)
+		}
+	}
+},
+
 //silicon
 //fuck it may actually be ready sometime soon
 env.STATUS_EFFECTS.silicon_turnStopStatus = {
