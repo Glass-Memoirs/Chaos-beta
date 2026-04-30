@@ -806,7 +806,7 @@ env.COMBAT_COMPONENTS.silicon = {
           }
      },
      utility: {
-          alterations: [["evade", "evade"], ["STATUS", "silicon_turnStopStatus"]],
+          alterations: [["evade", "silicon_Burnt"], ["STATUS", "silicon_turnStopStatus"]],
           stats: {
                maxhp: 3
           }
@@ -6826,9 +6826,9 @@ env.ACTIONS.silicon_Unwanted = {
 		conditional: "<em>SPIKY:</em> [STATUS::puncture]\n<em>FLAT:</em> [STATUS::stun]\n<em>CURVED:</em> [STATUS::vulnerable]"
 	},
 	usage: {
-		act: "%USER swings at %TARGET",
-		hit: "%TARGET is struck by the gauntlet of %USER",
-		crit: "%TARGET is left shaken as the gauntlet withdraws"
+		act: "%USER SWINGS AT %TARGET",
+		hit: "%TARGET IS STRUCK BY THE GAUNTLET OF %USER",
+		crit: "%TARGET IS LEFT SHAKEN AS THE GAUNTLET WITHDRAWS"
 	},
 	stats: {
 		accuracy: 0.867,
@@ -6922,6 +6922,55 @@ env.ACTIONS.silicon_Amber = { //the sheild
 	}
 },
 
+env.ACTIONS.silicon_Burnt = {
+	slug: "silicon_Burnt",
+	name: "Burnt Plastic",
+	type: "target",
+	verb: "melt",
+	anim: "skitter",
+	details: {
+		flavor: "'melt into foes with dull energy'",
+		onHit: "[STAT::amt], [STATUS::destabilized]",
+		onCrit: "apply status depending on SHAPE",
+		conditional: "<em>SPIKY:</em> [STATUS::siphon]\n<em>FLAT:</em> [STATUS::stun]\n<em>CURVED:</em> [STATUS::fear]"
+	},
+	usage: {
+		act: "%USER SENDS A BEAM TOWARDS %TARGET",
+		hit: "%TARGET IS SLIGHTLY MELTING",
+		crit: "%TARGET IS MELTING A LOT"
+	},
+	stats: {
+		accuracy: 0.76,
+		crit: 0.125,
+		amt: 3,
+		status: {
+			destabilized: {name: "destabilized", length: 3},
+			siphon: {name: "siphon", length: 2},
+			stun: {name: "stun", length: 2},
+			fear: {name: "fear", length: 3}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action:this,
+			user,
+			target,
+			hitSxf: {name: "click2", rate: 1},
+			hitExec: ()=> {
+				addStatus({target: target, status: this.stats.status.destabilized.name, length: this.stats.status.destabilized.length})
+			},
+			critExec: ()=> {
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: this.stats.status.siphon.name, length: this.stats.status.siphon.length})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					addStatus({target: target, status: this.stats.status.stun.name, length: this.stats.status.stun.length})
+				} else if (hasStatus(user, "silicon_mode3")) {
+					addStatus({target: target, status: this.stats.status.fear.name, length: this.stats.status.fear.length})
+				}
+			}
+		})
+	}
+},
 //life
 env.ACTIONS.life_seeding = {
 	slug: "life_seeding",
