@@ -6869,6 +6869,8 @@ env.ACTIONS.silicon_Amber = { //the sheild
 	slug: "silicon_Amber",
 	name: "Amber Transition",
 	type: 'target+support+autohit',
+	verb: "wrap",
+	anim: "heal",
 	details: {
 		flavor: "warp yourself around the body of an ally",
 		onUse: "apply a protective effect depending on SHAPE",
@@ -6900,7 +6902,9 @@ env.ACTIONS.silicon_Amber = { //the sheild
 				} else if (hasStatus(user, "silicon_mode2")) {
 					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false});
 				} else if (hasStatus(user, "silicon_mode3")) {
-					addStatus({target: target, status: "redirection", length: 3})
+					if (target != user) {
+						addStatus({target: target, origin: user, status: "redirection", length: 3})
+					}
 				}
 			},
 			critExec: () => {
@@ -6909,7 +6913,9 @@ env.ACTIONS.silicon_Amber = { //the sheild
 				} else if (hasStatus(user, "silicon_mode2")) {
 					combatHit(target, {amt: 3, beneficial: true, type: "barrier", origin: user, runEvents: false});
 				} else if (hasStatus(user, "silicon_mode3")) {
-					addStatus({target: target, status: "redirection", length: 3})
+					if (target != user) {
+						addStatus({target: target, origin: user, status: "redirection", length: 3})
+					}
 				}
 			}
 		})
