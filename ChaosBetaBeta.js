@@ -1132,6 +1132,16 @@ env.ACTOR_AUGMENTS.generic.silicon_Leading = {
 	cost: 3
 }
 
+env.ACTOR_AUGMENTS.generic.silicon_Moulded = {
+	slug: "silicon_Moulded",
+	name: "Moulded Crystal",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'utilize excess coating to help protect allies'",
+	alterations: [["silicon_Amber", "silicon_Moulded"]],
+	component: ["secondary", "silicon"],
+	cost: 3
+}
+
 //life
 env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, seeing colors that science cant see. im on that ekivik shit, seeing a ton of fucking shapes (in the voice of they forgot i'm him guy)
 	slug: "life_tuvazu",
@@ -6993,7 +7003,7 @@ env.ACTIONS.silicon_Leading = {
 		flavor: "'swing at the vital components of a foe';'weapon modified by the dull slightly'",
 		onHit: "[STAT::amt], 25% chance for [STATUS::focused], and a status dependant on SHAPE",
 		onCrit: "apply status depending on SHAPE",
-		conditional: "<em>HIT:</em>\n    <em>SPIKY:</em> [STATUS::puncture]\n    <em>FLAT:</em> [STATUS::stun]\n    <em>CURVED:</em> [STATUS::vulnerable]\n<em>CRIT:</em>\n    <em>SPIKY:</em> [STATUS::siphon]\n    <em>FLAT:</em> [STATUS::weakened]\n    <em>CURVED:</em> [STATUS::destabilized]",
+		conditional: "<em>HIT::</em>\n    <em>SPIKY:</em> [STATUS::puncture]\n    <em>FLAT:</em> [STATUS::stun]\n    <em>CURVED:</em> [STATUS::vulnerable]\n<em>CRIT::</em>\n    <em>SPIKY:</em> [STATUS::siphon]\n    <em>FLAT:</em> [STATUS::weakened]\n    <em>CURVED:</em> [STATUS::destabilized]",
 	},
 	usage: {
 		act: "%USER SWINGS AT %TARGET",
@@ -7044,6 +7054,62 @@ env.ACTIONS.silicon_Leading = {
 		})
 	}
 },
+
+env.ACTIONS.silicon_Moulded = {
+	slug: "silicon_Moulded",
+	name: "Moulded Crystal",
+	type: "target+support+autohit",
+	verb: "reinforce",
+	anim: "heal",
+	details: {
+		flavor: "'use excess materials to make allies stronger'",
+		onUse: "[STAT::amt] and a status depending on SHAPE",
+		onCrit: "tripple effects and add [STATUS::regen]",
+		conditional: "<em>SPIKY:</em> [STATUS::spikes]\n<em>FLAT:</em> [STAT::amtBP]\n<em>CURVED:</em> [STATUS::redirection]"
+	},
+	stats: {
+		amt: -3,
+		crit: 0.245,
+		amtBP: 4,
+		status: {
+			spikes: {name: "spikes", length: 4},
+			redirection: {name: "redirection", length: 4},
+			regen: {name: "regen", length: 3}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			beneficial: true,
+			user,
+			target,
+			hitSfx: {name: "guard", rate: 0.84},
+			hitExec: () => {
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: this.stats.status.spikes.name, length: this.stats.status.spikes.length})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					combatHit(target, {amt: this.stats.amtBP, beneficial: true, type: "barrier", origin: user, runEvents: false});
+				} else if (hasStatus(user, "silicon_mode3")) {
+					if (target != user) {
+						addStatus({target: target, origin: user, status: this.stats.status.redirection.name, length: this.stats.status.redirection.length})
+					}
+				}
+			},
+			critExec: () => {
+				addStatus({target: target, status: this.stats.status.regen.name, length: this.stats.status.regen.length})
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: this.stats.status.spikes.name, length: this.stats.status.spikes.length * 2})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					combatHit(target, {amt: this.stats.amtBP * 2, beneficial: true, type: "barrier", origin: user, runEvents: false});
+				} else if (hasStatus(user, "silicon_mode3")) {
+					if (target != user) {
+						addStatus({target: target, origin: user, status: this.stats.status.redirection.name, length: this.stats.status.redirection.length * 2})
+					}
+				}
+			}
+		})
+	}
+}
 //life
 env.ACTIONS.life_seeding = {
 	slug: "life_seeding",
