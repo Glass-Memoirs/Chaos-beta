@@ -1118,9 +1118,20 @@ env.ACTOR_AUGMENTS.generic.steel_angel = {
 	description: "'The burnt angel's purpose unfolds';'A shield for all';'IMPORTANT: requires songbird to be active first'",
 	alterations: [["steel_songbird","steel_angel"]],
 	component: ["utility","steel"],
-	//showIf: "editingMember.augments|steel_songbird",
+	//showIf: () => "editingMember.augments|steel_songbird", ill do tbhis later
 	cost: 2
 }
+//silicon
+env.ACTOR_AUGMENTS.generic.silicon_Leading = {
+	slug: "silicon_Leading",
+	name: "Leading Infection",
+	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	description: "'allow the dull to slightly coat the golem arm';'ripples allow for more effects'",
+	alterations: [["silicon_Unwanted", "silicon_Leading"]],
+	component: ["primary", "silicon"],
+	cost: 3
+}
+
 //life
 env.ACTOR_AUGMENTS.generic.life_tuvazu = { //im smokiung that pack from tuvazu, seeing colors that science cant see. im on that ekivik shit, seeing a ton of fucking shapes (in the voice of they forgot i'm him guy)
 	slug: "life_tuvazu",
@@ -6966,6 +6977,68 @@ env.ACTIONS.silicon_Burnt = {
 					addStatus({target: target, status: this.stats.status.stun.name, length: this.stats.status.stun.length})
 				} else if (hasStatus(user, "silicon_mode3")) {
 					addStatus({target: target, status: this.stats.status.fear.name, length: this.stats.status.fear.length})
+				}
+			}
+		})
+	}
+},
+
+env.ACTIONS.silicon_Leading = {
+	slug: "silicon_Leading",
+	name: "Leading Infection",
+	type: 'target',
+	verb: "strike",
+	anim: "basic-attack",
+	details: {
+		flavor: "'swing at the vital components of a foe';'weapon modified by the dull slightly'",
+		onHit: "[STAT::amt], 25% chance for [STATUS::focused], and a status dependant on SHAPE",
+		onCrit: "apply status depending on SHAPE",
+		conditional: "<em>HIT:</em>\n    <em>SPIKY:</em> [STATUS::puncture]\n    <em>FLAT:</em> [STATUS::stun]\n    <em>CURVED:</em> [STATUS::vulnerable]\n<em>CRIT:</em>\n    <em>SPIKY:</em> [STATUS::siphon]\n    <em>FLAT:</em> [STATUS::weakened]\n    <em>CURVED:</em> [STATUS::destabilized]",
+	},
+	usage: {
+		act: "%USER SWINGS AT %TARGET",
+		hit: "%TARGET IS STRUCK BY THE GAUNTLET OF %USER",
+		crit: "%TARGET IS LEFT SHAKEN AS THE GAUNTLET WITHDRAWS"
+	},
+	stats: {
+		accuracy: 0.867,
+		crit: 0.338,
+		amt: 2,
+		status: {
+			focused: {name: "focused", length: 3},
+			puncture: {name: "puncture", length: 5},
+			stun: {name: "stun", length: 2},
+			vulnerable: {name: "vulnerable", length: 4},
+			siphon: {name: "siphon", length: 3},
+			weakened: {name: "weakened", length: 6},
+			destabilized: {name: "destabilized", length: 5}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action:this,
+			user,
+			target,
+			hitSxf: {name: "click2", rate: 1},
+			hitExec: ()=> {
+				if (Math.random() < 0.25) {
+					addStatus({target: user, status: "focused", length: 2})
+				}
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: this.stats.status.puncture.name, length: this.stats.status.puncture.length})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					addStatus({target: target, status: this.stats.status.stun.name, length: this.stats.status.stun.length})
+				} else if (hasStatus(user, "silicon_mode3")) {
+					addStatus({target: target, status: this.stats.status.vulnerable.name, length: this.stats.status.vulnerable.length})
+				}
+			},
+			critExec: ()=> {
+				if (hasStatus(user, "silicon_mode1")) {
+					addStatus({target: target, status: this.stats.status.siphon.name, length: this.stats.status.siphon.length})
+				} else if (hasStatus(user, "silicon_mode2")) {
+					addStatus({target: target, status: this.stats.status.weakened.name, length: this.stats.status.weakened.length})
+				} else if (hasStatus(user, "silicon_mode3")) {
+					addStatus({target: target, status: this.stats.status.destabilized.name, length: this.stats.status.destabilized.length})
 				}
 			}
 		})
