@@ -492,6 +492,10 @@ function midCombatAllyAdd(actorSpecifier, side = "right") {
     return actor
 }
 
+function randomInt(min, max) { // min and max included <---- thank you, random stackoverflow user
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 function TempIconChoice() {
 	let Icons = ["https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif", "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/testinghumor.png"]
 	let IconChoice = Icons.sample()
