@@ -5043,7 +5043,7 @@ env.ACTIONS.life_repairs = {
 env.ACTIONS.life_tuvazu = {
 	slug: "life_tuvazu",
 	name: "Tuvazu Imports",
-	type: "target", //look this is done just to not run an autohit thing ok.
+	type: "target+autohit", //look this is done just to not run an autohit thing ok.
 	details: {
 		flavor: "'new plants that rot out anything';'make your foes rot'",
 		onHit: "ALL FOES: [STATS::amt], 60%[STATUS::fear], 10% chance for [STATUS::rot], [STATUS::life_amalgamate]",
