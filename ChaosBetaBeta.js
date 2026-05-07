@@ -4354,7 +4354,7 @@ env.STATUS_EFFECTS.kivcria_wall = {
 //Rotten wounds - 100% outgoing and 20% incoming damage per Trot, random chance to turn status effects into rot
 env.STATUS_EFFECTS.kivcria_festering = {
 	slug: "kivcria_festering",
-	name: "Rotten Wounds",
+	name: "Festering Wounds",
 	beneficial: true,
 	passive: "modifier",
 	infinite: true,
