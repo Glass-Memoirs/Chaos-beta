@@ -3734,7 +3734,7 @@ env.STATUS_EFFECTS.graceful_honk = {
 		}
 	},
 
-	help: `when hitting a foe, laugh\n-10% IN:HIT & IN:CRIT`
+	help: `when a foe MISSES this actor, laugh\n-10% IN:HIT & IN:CRIT`
 },
 
 //ACTION::kind spirit - on ally hit, use secondary
@@ -4001,11 +4001,11 @@ env.STATUS_EFFECTS.graceful_deggur = {
                 	}
             	})
 				for (let i in validEffects) {
-					if (hasStatus(user, i)) { //if the status didnt die or if it doesnt get rolled twice (i dunno if thats possible)
+					if (hasStatus(user, i.slug)) { //if the status didnt die or if it doesnt get rolled twice (i dunno if thats possible)
                     //slap it onto another person
-		    	    	addStatus({target: user, origin: false, status: stun, length: Math.floor(hasStatus(user, i)), noReact: true})
+		    	    	addStatus({target: user, origin: false, status: "stun", length: Math.floor(hasStatus(user, i.slug)), noReact: true})
                     //and then remove it from you!
-			            removeStatus(user, i)
+			            removeStatus(user, i.slug)
 		            }    
 				}
 			}
