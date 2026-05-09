@@ -3976,22 +3976,21 @@ env.STATUS_EFFECTS.graceful_deggur = {
 		onCritStruck: function({subject, target, beneficial}) {
 			let user = this.status.affecting
 			if (target != user || user.team.members.includes(subject) || beneficial || subject == user) {
-				user = this.status.affecting
 				let statusPool = [] //List of valid status effects
 				for (let i in env.STATUS_EFFECTS) { //takes the entire list of status effects (including modded)
 					let statusData = env.STATUS_EFFECTS[i] //gives status to something comparable
 					let usable = true //assuming that we can use it
 					if(statusData.infinite) {usable = false} //in this case, moving infinite things could break something (glaring at windup)
 					if(statusData.passive) {usable = false} //in this case, we dont really wanna shuffle passives.
-					if(i.includes("global_")) {usable = false} //Globals are escalation and some fish modifiers.
-					if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false} //AbsurdFrame specific statuses
-					if(i == "imperfect_reset") {usable = false} //Firmament looping status. you already know
-					if(i == "redirection") {usable = false} //honestly i dont know if im unable to move redirection around. it has an origin so just exclude it already
-					if(i == "entropy_eternal") {usable = false} //yeah so, Passive: true and Passive: "modifier" dont equal the exact same thing
-					if(i == "unnatural_carapace") {usable = false}
-					if(i == "channeling_flat"|| i == "coiling_flat"|| i == "rocket_bearer") {usable = false}
+					if(statusData.slug.includes("global_")) {usable = false} //Globals are escalation and some fish modifiers.
+					if(statusData.slug == "misalign_weaken" || statusData.slug == "misalign_stun" || statusData.slug == "realign" || statusData.slug == "realign_stun") {usable = false} //AbsurdFrame specific statuses
+					if(statusData.slug == "imperfect_reset") {usable = false} //Firmament looping status. you already know
+					if(statusData.slug == "redirection") {usable = false} //honestly i dont know if im unable to move redirection around. it has an origin so just exclude it already
+					if(statusData.slug == "entropy_eternal") {usable = false} //yeah so, Passive: true and Passive: "modifier" dont equal the exact same thing
+					if(statusData.slug == "unnatural_carapace") {usable = false}
+					if(statusData.slug == "channeling_flat"|| statusData.slug == "coiling_flat"|| statusData.slug == "rocket_bearer") {usable = false}
 //              	console.log(i, usable)
-					if(usable) statusPool.push(i) //if that shit usable? add it to the list
+					if(usable) statusPool.push(statusData.slug) //if that shit usable? add it to the list
 				}
 	        	let validEffects = [] //list for who the modifier is affecting on the current turn
 				user.statusEffects.forEach((status, i) => { //get their status list!
@@ -4001,11 +4000,10 @@ env.STATUS_EFFECTS.graceful_deggur = {
                 	}
             	})
 				for (let i in validEffects) {
-					if (hasStatus(user, i.slug)) { //if the status didnt die or if it doesnt get rolled twice (i dunno if thats possible)
-                    //slap it onto another person
-		    	    	addStatus({target: user, origin: false, status: "stun", length: Math.floor(hasStatus(user, i.slug)), noReact: true})
-                    //and then remove it from you!
-			            removeStatus(user, i.slug)
+					let TargetedEffect = validEffects[i]
+					if (hasStatus(user, TargetedEffect)) { //if the status didnt die or if it doesnt get rolled twice (i dunno if thats possible)
+		    	    	addStatus({target: user, origin: false, status: "stun", length: Math.floor(hasStatus(user, TargetedEffect)), noReact: true})
+			            removeStatus(user, TargetedEffect)
 		            }    
 				}
 			}
