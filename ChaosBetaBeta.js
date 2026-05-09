@@ -4975,6 +4975,7 @@ env.ACTIONS.entropy_call = {
 	slug: "entropy_call",
 	name: "Send Signal",
 	type: "autohit",
+	beneficial: true,
 	details: {
 		flavor: "'Call out with a strained and distorted voice';'summon more casualties'",
 		onUse: "'Summon more foes that cannot attack'",
@@ -5300,6 +5301,7 @@ env.ACTIONS.player_act = {
 	type: 'support+autohit+target+self',
 	//desc: "'STARVED THIN AND CHITTIN SCATTERED';'YOU MUST CONTINUE!';'VELZIE DEMANDS! VELZIE COMMANDS!'",
 	verb: "Work on",
+	beneficial: true,
 	//help: "aaaaaaaaaa",
 	details: {
 		flavor: "'STARVED THIN AND CHITTIN SCATTERED';'YOU MUST CONTINUE!';'VELZIE DEMANDS! VELZIE COMMANDS!'",
@@ -6095,6 +6097,7 @@ env.ACTIONS.smog_haze = {
 	name: "Haze",
 	type: "support+target+self+autohit",
 	verb: "shroud",
+	beneficial: true,
 	details: {
 		flavor: "'Surround an ally with smog';'Heal them and make them harder to hit'",
 		onHit: "'2T:[STATUS::regen] 2T:[STATUS::evasion]'",
@@ -6136,6 +6139,7 @@ env.ACTIONS.smog_cloud = {
 	slug: "smog_cloud",
 	name: "Cloud",
 	type: "autohit+support",
+	beneficial: true,
 	details: {
 		flavor: "'Shroud the entire team in smog';'harder to be hit if you cannot be seen'",
 		onUse: "'[STATUS::regen] [STATUS::evasion] to team'"
@@ -6167,6 +6171,7 @@ env.ACTIONS.smog_chatter = {
 	slug: "smog_chatter",
 	name: "Chatter",
 	type: "autohit",
+	beneficial: true,
 	details: {
 		flavor: "'Call a voice';'a weak voice but a voice none the less'",
 		onUse: "'Call a speech bubble'",
@@ -6189,6 +6194,7 @@ env.ACTIONS.smog_shout ={
 	slug: "smog_shout",
 	name: "Shout",
 	type: "autohit",
+	beneficial: true,
 	details: {
 		flavor: "'Call a voice';'a Strong voice but a voice none the less'",
 		onUse: "'Call a much more violent speech bubble'",
@@ -6453,6 +6459,7 @@ env.ACTIONS.steel_songbird = {
 	name: "Songbird",
 	type: "self+autohit+support",
 	autohit: true,
+	beneficial: true,
 	details: {
 		flavor: "'songbird, oh songbird, what truly is wrong?';'do they not give you the destruction of those who oppose?'",
 		onUse: "ALLIES: -2HP USER: [STATUS::carapace] [STATUS::empowered] per Ally"
@@ -6498,6 +6505,7 @@ env.ACTIONS.steel_angel = {
 	name: "Guarding Angel",
 	type: "self+support+autohit",
 	autohit: true,
+	beneficial: true,
 	details: {
 		flavor: "'sacrifice a part of yourself to protect others'",
 		onUse: "ALLIES [STATUS::carapace], USER -2HP"
@@ -6896,6 +6904,7 @@ env.ACTIONS.silicon_turnStop = {
 	slug: "silicon_turnStop",
 	name: "Reshape",
 	type: "autohit+self+support+special",
+	beneficial: true,
 	details: {
 		flavor: /*"testing the turn addition idea",*/ "reform your body and weapons into a new shape"
 	},
@@ -6973,6 +6982,7 @@ env.ACTIONS.silicon_Amber = { //the sheild
 	type: 'target+support+autohit',
 	verb: "wrap",
 	anim: "heal",
+	beneficial: true,
 	details: {
 		flavor: "warp yourself around the body of an ally",
 		onUse: "apply a protective effect depending on SHAPE",
@@ -7142,6 +7152,7 @@ env.ACTIONS.silicon_Moulded = {
 	type: "target+support+autohit",
 	verb: "reinforce",
 	anim: "heal",
+	beneficial: true,
 	details: {
 		flavor: "'use excess materials to make allies stronger'",
 		onUse: "[STAT::amt] and a status depending on SHAPE",
@@ -7343,6 +7354,7 @@ env.ACTIONS.life_veilkstrider = {
 	name: "Veilkstrider",
 	verb: "modify",
 	type: "self+support+autohit",
+	beneficial: true,
 	details: {
 		flavor: "'modify body with spindly limbs reminiscent of young veilk';'enables passive evasion'",
 		onUse: "[STATUS::deft]"
@@ -7393,6 +7405,7 @@ env.ACTIONS.life_repairs = {
 	name: "Field Repairs",
 	verb: "repair",
 	type: "support+autohit+target+self",
+	beneficial: true,
 	autohit: true,
 	details: {
 		flavor: "'Make quick repairs to an ally''",
@@ -7503,6 +7516,7 @@ env.ACTIONS.life_intimidating = {
 	name: "Intimidating Stance",
 	type: "support+self+autohit",
 	autohit: true,
+	beneficial: true,
 	details: {
 		flavor: "'modify to greatly increase size';'block incoming attacks and weaken blows of attackers'",
 		onUse: "ALLIES: [STATUS::redirection], SELF: [STATUS::shattering_carapace]"
@@ -7536,6 +7550,7 @@ env.ACTIONS.parry = {
 	slug: "parry",
 	name: "Parry",
 	type: "support+autohit+self",
+	beneficial: true,
 	autohit: true,
 	details: {
 		flavor: "Hit the attack back",
@@ -7793,6 +7808,7 @@ env.ACTIONS.graceful_pray = {
 	slug: "graceful_pray",
 	name: "Pray",
 	type: "support+self+autohit",
+	beneficial: true,
 	details: {
 		onUse: "'gain [STATUS::parry] [STATUS::stun]'",
 		flavour: "'call for Him';'a sheild He provides'",
@@ -7818,6 +7834,7 @@ env.ACTIONS.graceful_repent = {
 	slug: "graceful_repent",
 	name: "Repent",
 	type: "support+self+autohit",
+	beneficial: true,
 	anim: "",
 	details: {
 		onUse: "'gain [STATUS::parry] [STATUS::vulnerable]",
@@ -7856,6 +7873,7 @@ env.ACTIONS.graceful_heed = {
 	slug: "graceful_heed",
 	name: "Heed",
 	type: "support+self+autohit+target",
+	beneficial: true,
 	autohit: true,
 	details: {
 		flavor: "Please... look away... I don't want you to look at me",
@@ -8481,6 +8499,7 @@ env.ACTIONS.energizer = {
 	slug: "energizer",
 	name: "Energizer",
 	type: "support+autohit+target+self",
+	beneficial: true,
 	itemAction: true,
 	details: {
 		flavor: "'It still seems to have power';'Why did a bright cousin throw it down there?'",
