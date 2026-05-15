@@ -5995,7 +5995,7 @@ env.ACTIONS.smog_minute = {
 			addStatus({target: user, status: "regen", length: 2})
 			console.log("Elsen was struck lmao")
 		}
-		amt = this.status.amt 
+		amt = this.stats.amt 
 		env.GENERIC_ACTIONS.singleTarget({
 			action:this,
 			user,
