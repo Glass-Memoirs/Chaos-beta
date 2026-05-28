@@ -4418,7 +4418,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 					play('stab', 0.5)
 					this.status.lastSide = 0
 				} else {
-					midCombatActorAdd(env.rpg.allyTeam, 'rot_bearer_ally', 'left')
+					midCombatActorAdd(env.rpg.allyTeam, 'rot_bearer_ally', 'right')
 					play('stab', 0.5)
 					this.status.lastSide = 1
 				}
@@ -8392,7 +8392,7 @@ env.ACTIONS.kivcria_frenzy = {
 	},
 	details: {
 		flavor: "'actor swipes their rotting claws at a target.';'it wants to spread.'",
-		onHit: "'[STATUS::ROT], [STAT::amt]'",
+		onHit: "'[STATUS::rot], [STAT::amt]'",
 		onCrit: "'use this action again'"
 	},
 	stats: {
