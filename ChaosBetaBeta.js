@@ -8444,13 +8444,12 @@ env.ACTIONS.kivcria_viral = {
 		miss: "THE SPORES CLING TO %USER"
 	},
 	details: {
-		flavor: "'it writhes inside, pupetteering the shell",
+		flavor: "'it writhes inside, pupetteering the shell'",
 		onHit: "'[STATUS::destabilized], [STATUS::rot] on foes, [STATUS::rot] -1T on allies'",
 		onCrit: "'additional [STATUS::destabilized]'",
 		conditional: "MISS INFESTS THE USER WITH [STATUS::rot]"
 	},
 	stats: {
-		range: 3,
 		accuracy: 0.8,
 		crit: 0.1,
 		status: {
