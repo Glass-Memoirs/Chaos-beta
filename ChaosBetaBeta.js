@@ -4398,7 +4398,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 	events: {
 		onDeath: function() {
 			let user = this.status.affecting
-			if(user.initialStatusEffects && user.initialStatusEffects.includes("ethereal")) return;
+			if(hasStatus(user, "ethereal")) return;
 			else if(user.slug.includes("rot")) return;
 			else if(user.team.members.includes("critta_jester")) return;
 			else if(user.team.members.includes("critta_spawner")) return;
