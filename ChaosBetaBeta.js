@@ -4500,8 +4500,8 @@ env.STATUS_EFFECTS.kivcria_tendril_hell = {
 	events: {
 		onCreated: function({statusObj}) {
 			if (statusObj.slug == this.status.slug) {
-				for (let i in env.rpg.enemyTeam) {
-					let member = env.rpg.enemyTeam[i]
+				for (let i in env.rpg.enemyTeam.members) {
+					let member = env.rpg.enemyTeam.members[i]
 					for (let j in member.statusEffects) {
 						let statusCompare = member.statusEffects[j]
 						console.log(statusCompare)
