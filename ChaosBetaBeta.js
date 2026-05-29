@@ -4500,15 +4500,17 @@ env.STATUS_EFFECTS.kivcria_tendril_hell = {
 	events: {
 		onCreated: function({statusObj}) {
 			if (statusObj == this.status.slug) {
-				env.rpg.enemyTeam.forEach((member, i) => {
+				for (let i in env.rpg.enemyTeam) {
+					let member = env.rpg.enemyTeam[i]
 					if (hasStatus(member, "kivcria_tendril_hell")) {
-						member.statusEffects.forEach((status, i) => {
-							if (status.slug == this.status.slug && status.yummysporce > this.status.compVal) {
-								this.status.compVal = status.yummysporce
+						for (let j in member.statusEffects) {
+						let statusCompare =member.statusEffects[j]
+							if (statusCompare.slug == this.status.slug && statusCompare.yummysporce > this.status.compVal) {
+								this.status.compVal = statusCompare.yummysporce
 							}
-						})
+						}
 					}
-				})
+				}
 				this.status.yummysporce = this.status.compVal
 			}
 		},
