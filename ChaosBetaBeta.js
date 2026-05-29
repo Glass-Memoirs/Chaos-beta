@@ -4504,7 +4504,7 @@ env.STATUS_EFFECTS.kivcria_tendril_hell = {
 					let member = env.rpg.enemyTeam[i]
 					if (hasStatus(member, "kivcria_tendril_hell")) {
 						for (let j in member.statusEffects) {
-						let statusCompare =member.statusEffects[j]
+						let statusCompare = member.statusEffects[j]
 							if (statusCompare.slug == this.status.slug && statusCompare.yummysporce > this.status.compVal) {
 								this.status.compVal = statusCompare.yummysporce
 							}
