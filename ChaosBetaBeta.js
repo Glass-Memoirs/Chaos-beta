@@ -4442,8 +4442,15 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 					hellSpot = i
 				}
 			}
+			let rotless = 0
+			for (let i in env.rpg.enemyTeam.members) {
+				let Entity = env.rpg.enemyTeam.members[i]
+				if (!Entitiy.slug.include("rot_")) {
+					rotless += 1
+				}
+			}
 
-			if(hasStatus(user, "kivcria_tendril_hell") && user.statusEffects[hellSpot].yummysporce == (env.crittaMap.getModQty("global_infested")*2) ) return;
+			if(hasStatus(user, "kivcria_tendril_hell") && user.statusEffects[hellSpot].yummysporce == (env.crittaMap.getModQty("global_infested")*2) + rotless) return;
 			else if (!hasStatus(user, "kivcria_tendril_hell") && hasStatus(user,"ethereal")) return;
 			else if (user.team.name == "enemy") {
 				if(this.status.lastSide) {
