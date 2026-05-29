@@ -1259,11 +1259,11 @@ env.MODIFIERS.global_infested = {
         priority: 3,
 
         getHelp: (withCurrent)=> {
-            let help = `<span class='bastard-color'>VELZIE'S GLEE::+50% chance to trigger</span>`
+            let help = `<span class='bastard-color'>TENDRIL DECAY::+2 additional rot bearers</span>`
 
             if(withCurrent) {
                 let currentEffects = ""
-                let qty = env.crittaMap.getModQty("global_megaglee")
+                let qty = env.crittaMap.getModQty("global_infested")
                 let effects = [
                     `+${qty * 2} EXTRA ROTBEARERS FOR FOE TEAM CAN SPAWN`
                 ]
