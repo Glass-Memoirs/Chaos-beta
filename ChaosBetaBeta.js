@@ -1249,6 +1249,39 @@ env.ACTOR_AUGMENTS.generic.kivcria_cavernclear = { //tzuvtil
 //END OF AUGMENTS
 
 //COMBAT MODIFIERS
+//REVISIONS
+env.MODIFIERS.global_infested = {
+        name: "Infestation",
+        global: true,
+        stacks: true,
+        tension: 1,
+        icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/Tendril.gif",
+        priority: 3,
+
+        getHelp: (withCurrent)=> {
+            let help = `<span class='bastard-color'>VELZIE'S GLEE::+50% chance to trigger</span>`
+
+            if(withCurrent) {
+                let currentEffects = ""
+                let qty = env.crittaMap.getModQty("global_megaglee")
+                let effects = [
+                    `+${qty * 2} EXTRA ROTBEARERS FOR FOE TEAM CAN SPAWN`
+                ]
+
+                for (const effectString of effects) {
+                    if(!effectString) continue;
+                    if(currentEffects) currentEffects += ", ";
+                    else currentEffects = "CURRENT EFFECT::";
+
+                    currentEffects += effectString
+                }
+                
+                help = help + `\n${currentEffects}`
+            }
+
+            return help
+        },
+    },
 //entropy
 env.MODIFIERS.entropy_eternal = {
 	name: "Eternal Decay",
@@ -1483,7 +1516,8 @@ env.MODIFIERS.kivcria_tendril = {
 	name: "Tendril Decay",
 	getHelp: ()=> {return env.STATUS_EFFECTS.kivcria_tendril.help},
 	alterations: {
-		all: [["STATUS", "kivcria_tendril"]]
+		all: [["STATUS", "kivcria_tendril"]],
+		enemy: [["STATUS", "kivcria_tendril_hell"]]
 	}
 }
 //END OF MODIFIERS
@@ -4398,11 +4432,16 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 	events: {
 		onDeath: function() {
 			let user = this.status.affecting
-			if(hasStatus(user, "ethereal")) return;
-			else if(user.slug.includes("rot")) return;
-			else if(user.team.members.includes("critta_jester")) return;
-			else if(user.team.members.includes("critta_spawner")) return;
-			else if(user.team.name == "enemy") {
+			let hellSpot = 0
+			user.statusEffects.forEach((status, i) => {
+				if (status.slug == "kivcria_tendril_hell") {
+					hellSpot = i
+				}
+			})
+
+			if(hasStatus(user, "kivcria_tendril_hell") && user.statusEffects[hellSpot].yummysporce == (env.crittaMap.getModQty("global_infested")*2) ) return;
+			else if (!hasStatus(user, "kivcria_tendril_hell") && hasStatus(user,"ethereal")) return;
+			else if (user.team.name == "enemy") {
 				if(this.status.lastSide) {
 					midCombatActorAdd(env.rpg.enemyTeam, 'rot_bearer_foe', 'left')
 					play('stab', 0.5)
@@ -4445,6 +4484,38 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 		},
 	},
 },
+
+env.STATUS_EFFECTS.kivcria_tendril_hell = {
+	slug: "kivcria_tendril_hell",
+	name: "tendril hell",
+	passive: true,
+	infinite: true,
+	silent: true,
+	yummysporce: 0,
+	compVal: 0,
+	events: {
+		onCreated: function({statusObj}) {
+			if (statusObj == this.status.slug) {
+				env.rpg.enemyTeam.forEach((member, i) => {
+					if (hasStatus(member, "kivcria_tendril_hell")) {
+						member.statusEffects.forEach((status, i) => {
+							if (status.slug == this.status.slug && status.yummysporce > this.status.compVal) {
+								this.status.compVal = status.yummysporce
+							}
+						})
+					}
+				})
+				this.status.yummysporce = this.status.compVal
+			}
+		},
+		GLOBAL_onDeath: function({originalEventTarget}) {
+			let subject = originalEventTarget
+			if (subject.team == env.rpg.enemyTeam) {
+				this.status.yummysporce += 1
+			}
+		}
+	}
+}
 //misc
 //https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif <- placeholder sprite that we can usewhen no images are made for a thing yet
 env.STATUS_EFFECTS.minor_concussion = {
@@ -4700,13 +4771,13 @@ env.ACTIONS.level_statuses ={ //this would not deal damage for me at all so i ma
 			let usable = true
 			if(statusData.infinite && (statusData.slug != "windup")) {usable = false}
 			if(statusData.passive) {usable = false}
-			if(i.includes("global_")) {usable = false}
-			if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
-			if(i == "imperfect_reset") {usable = false}
-			if(i == "redirection") {usable = false}
-			if(i == "entropy_eternal") {usable = false}
+			if(statusData.slug.includes("global_")) {usable = false}
+			if(statusData.slug == "misalign_weaken" || statusData.slug == "misalign_stun" || statusData.slug == "realign" || statusData.slug == "realign_stun") {usable = false}
+			if(statusData.slug == "imperfect_reset") {usable = false}
+			if(statusData.slug == "redirection") {usable = false}
+			if(statusData.slug == "entropy_eternal") {usable = false}
 			//console.log(i, usable)
-			if(usable) statusPool.push(i)
+			if(usable) statusPool.push(statusData.slug)
 		}
 		let targetEffects = []
 		target.statusEffects.forEach((status, i) => {
@@ -4786,13 +4857,13 @@ env.ACTIONS.player_rig = {
 			let usable = true
 			if(statusData.infinite && (statusData.slug != "windup")) {usable = false}
 			if(statusData.passive) {usable = false}
-			if(i.includes("global_")) {usable = false}
-			if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
-			if(i == "imperfect_reset") {usable = false}
-			if(i == "redirection") {usable = false}
-			if(i == "entropy_eternal") {usable = false}
+			if(statusData.slug.includes("global_")) {usable = false}
+			if(statusData.slug == "misalign_weaken" || statusData.slug == "misalign_stun" || statusData.slug == "realign" || statusData.slug == "realign_stun") {usable = false}
+			if(statusData.slug == "imperfect_reset") {usable = false}
+			if(statusData.slug == "redirection") {usable = false}
+			if(statusData.slug == "entropy_eternal") {usable = false}
 			//console.log(i, usable)
-			if(usable) statusPool.push(i)
+			if(usable) statusPool.push(statusData.slug)
 		}
 		let targetEffects = []
 		target.statusEffects.forEach((status, i) => {
