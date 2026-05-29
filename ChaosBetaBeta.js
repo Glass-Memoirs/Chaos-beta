@@ -4436,11 +4436,12 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 		onDeath: function() {
 			let user = this.status.affecting
 			let hellSpot = 0
-			user.statusEffects.forEach((status, i) => {
-				if (status.slug == "kivcria_tendril_hell") {
+			for (let i in user.statusEffects) {
+				let statusView = user.statusEffects[i]
+				if (statusView.slug == "kivcria_tendril_hell") {
 					hellSpot = i
 				}
-			})
+			}
 
 			if(hasStatus(user, "kivcria_tendril_hell") && user.statusEffects[hellSpot].yummysporce == (env.crittaMap.getModQty("global_infested")*2) ) return;
 			else if (!hasStatus(user, "kivcria_tendril_hell") && hasStatus(user,"ethereal")) return;
