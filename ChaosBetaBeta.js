@@ -1281,6 +1281,9 @@ env.MODIFIERS.global_infested = {
 
             return help
         },
+		alterations: {
+			enemy: [["STATUS", "kivcria_tendril"], ["STATUS", "kivcria_tendril_hell"]]
+		}
     },
 //entropy
 env.MODIFIERS.entropy_eternal = {
