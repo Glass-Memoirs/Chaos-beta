@@ -4505,6 +4505,7 @@ env.STATUS_EFFECTS.kivcria_tendril_hell = {
 					if (hasStatus(member, "kivcria_tendril_hell")) {
 						for (let j in member.statusEffects) {
 							let statusCompare = member.statusEffects[j]
+							console.log(statusCompare)
 							if (statusCompare.slug == this.status.slug && statusCompare.yummysporce > this.status.compVal) {
 								this.status.compVal = statusCompare.yummysporce
 							}
