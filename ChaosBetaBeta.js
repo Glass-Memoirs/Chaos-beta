@@ -4445,7 +4445,7 @@ env.STATUS_EFFECTS.kivcria_tendril = {
 			let rotless = 0
 			for (let i in env.rpg.enemyTeam.members) {
 				let Entity = env.rpg.enemyTeam.members[i]
-				if (!Entitiy.slug.include("rot_")) {
+				if (!Entity.slug.include("rot_")) {
 					rotless += 1
 				}
 			}
