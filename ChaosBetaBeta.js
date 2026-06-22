@@ -3121,6 +3121,281 @@ env.STATUS_EFFECTS.silicon_Misdrawn = {
 		},
 	}
 },
+
+env.STATUS_EFFECTS.silicon_dramatique = {
+	slug: "silicon_dramatique",
+	name: "Dramatique",
+	infinite: true,
+	passive: true,
+	beneficial: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "cycle between many faces",
+	effectVal: 0,
+	turnCount: 0,
+	impulse: {type: "common", component: "silicon"},
+	events: {
+		onTurnEnd: function () {
+			/* 
+				Value list.
+				i wish i could actually put it in the help but yknow. cant when its able to be changed
+				0 - DARK EYE
+				1 - LAUGHTERHOUSE
+				2 - BETRAYAL
+				3 - DESPERATION
+				4 - GLEE
+				5 - STRENGTH
+				6 - ABLATVE
+				7 - SPIKES
+			*/
+			if (this.status.turnCount == 3) {
+				this.status.turnCount = 0
+				if ((this.status.effectVal == 3 && !hasStatus(this.status.affecting, "silicon_sugar")) || this.status.effectVal == 7) {
+					this.status.effectVal = 0
+				} else {
+					this.status.effectVal += 1
+				}
+				switch (this.status.turnCount) {
+					case 0 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "DARKENED MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+						break;
+					case 1 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "LAUGHING MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+						break;
+					case 2 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "BACKSTABBING MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+						break;
+					case 3 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "DESPERATE MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+						break;
+					case 4 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "GRINNING MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+						break;
+					case 5 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "STRONG MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+						break;
+					case 6 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "LAYERED MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+						break;
+					case 7 :
+						sendFloater({
+                    		target: this.status.affecting,
+                    		type: "arbitrary",
+                    		arbitraryString: "SPIKY MASK",
+                    		size: 2,
+                    		beneficial: false
+                		})
+				}
+			} else {
+				this.status.turnCount += 1
+			}
+		},
+
+		onAddStatus: function({target, statusObj}) {
+			//DARK EYE
+			if(statusObj.slug == "fear" && this.status.effectVal == 0) {
+				this.status.outgoingMult = 1
+				updateStats({actor: this.status.affecting})
+			}
+		},
+
+		onRemoveStatus: function({target, removingStatusName}) {
+			//DARK EYE
+			if(removingStatusName == "fear" && this.status.effectVal == 0) {
+				this.status.outgoingMult = 0
+				updateStats({actor: this.status.affecting})
+			}
+		},
+
+		onCrit: function({subject, origin, attack, beneficial}) {
+			//DARK EYE
+			if((beneficial || origin.team.members.includes(subject) || origin.state == "dead" || subject.state == "dead") && this.status.effectVal != 0) return;
+			addStatus({target: subject, origin, status: "fear", length: 1}); 
+
+			setTimeout(()=>{
+				play("fear", 0.5, 0.5)
+				
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					arbitraryString: "DARKNESS!",
+                    })
+                                    
+				readoutAdd({
+					message: `${this.status.affecting.name}'s strike terrifies ${subject.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail",
+					show: false,
+					sfx: false
+				})
+			}, env.ADVANCE_RATE * 0.2)
+		},
+
+		onAction: function({user, action, target}) {
+			//LAUGHTERHOUSE
+			if((action.slug.includes("incoherent_") || action.slug.includes("intrusive") || action.slug == "special_archiveshelf_annihilate" || target.state == "dead" || user.state == "dead" || hasStatus(user, "fear")) && this.status.effectVal != 1) return;
+                
+			if(Math.random() < (0.2 + hasStatus(user, "light_humorist") ? 0.2 : 0)) {
+				reactDialogue(this.status.affecting, 'laugh')
+
+				sendFloater({
+					target: this.status.affecting,
+					type: "arbitrary",
+					arbitraryString: "LAUGHTERHOUSE!",
+					size: 1.5
+				})
+
+				readoutAdd({
+					message: `${user.name} acts again! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail", 
+					show: false,
+					sfx: false
+				})
+				setTimeout(()=>useAction(user, action, target, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "laughterhouse"}), 500)
+			}
+		},
+
+		onBeforeAction: function(context) {
+			//BETRAYAL
+			if((!context.settings.action.type.includes("target") || !context.settings.action.beneficial) && this.status.effectVal != 2) return;
+                
+			// alter action maybe
+			if(Math.random() < 0.2) {
+
+				context.settings.action = env.ACTIONS["subvert"]
+				let subject = context.settings.user
+
+				reactDialogue(subject, 'laugh')
+
+				sendFloater({
+					target: subject,
+					type: "arbitrary",
+					arbitraryString: "BETRAYAL!",
+					beneficial: false,
+					size: 2,
+				})
+
+				readoutAdd({
+					message: `${subject.name} betrays ${context.settings.target.name}! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
+					name: "sourceless", 
+					type: "sourceless combat minordetail",
+					show: false,
+					sfx: false
+				})
+			}
+		},
+
+		onTurn: function() {
+			//DESPERATION
+			if (this.status.effectVal == 3) {
+				if(this.status.affecting.hp <= (this.status.affecting.maxhp / 2)) {
+					this.status.outgoingCrit = 0.5
+					this.status.outgoingToHit = 0.5
+				} else {
+					this.status.outgoingCrit = 0
+					this.status.outgoingToHit = 0
+				}
+				updateStats({actor: this.status.affecting})
+			}
+
+			//STRENGTH
+			if (this.status.effectVal == 5) {
+				if(this.status.affecting.hp >= this.status.affecting.maxhp * 0.75) this.status.outgoingMult = 1
+                	else this.status.outgoingMult = 0
+			}
+		},
+
+		onBeforeAddStatus: function(context) {
+			//GLEE
+			if (this.status.effectVal == 4) {
+				let chance = 0.5
+				let extra = 0
+				if(env.crittaMap) if(env.crittaMap.getModQty("global_megaglee")) {
+					chance = 1;
+					extra = (env.crittaMap.getModQty("global_megaglee") - 1)
+				}
+
+				if(Math.random() < chance) {
+
+					sendFloater({
+						target: this.status.affecting,
+						type: "arbitrary",
+						arbitraryString: "GLEE!",
+						beneficial: false
+					})
+
+					let newStatus = env.STATUS_EFFECTS[context.status]
+					if(newStatus.opposite) context.status = newStatus.opposite
+					if(extra) context.length += extra
+				}
+			}
+			//SPIKES
+			if (this.status.effectVal == 7) {
+				if(context.status == "evasion") context.status = "spikes"
+			}
+		},
+
+		onBeforeCombatHit: function(context) {
+				//ABLATIVE
+                if(context.amt < 0 && context.type == 'hp' && this.status.effectVal == 6) {
+                    context.type = 'barrier'
+                    context.amt = context.amt * -2
+                }
+		},
+	}
+},
+
+env.STATUS_EFFECTS.silicon_sugar = {
+	slug: "silicon_sugar",
+	name: "Burnt Sugar",
+	infinite: true,
+	passive: true,
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	help: "modifies DRAMATIQUE with more faces",
+	impulse: {type: "common", component: "silicon"}
+}
 //life
 env.STATUS_EFFECTS.life_healing = {
 	slug: "life_healing",
