@@ -3134,6 +3134,16 @@ env.STATUS_EFFECTS.silicon_dramatique = {
 	turnCount: 0,
 	impulse: {type: "common", component: "silicon"},
 	events: {
+		onCreated: function({statusObj}) {
+			if(statusObj.slug != this.status.slug) return;
+			sendFloater({
+				target: this.status.affecting,
+				type: "arbitrary",
+				arbitraryString: "DARKENED MASK",
+				size: 2,
+				beneficial: false
+			})
+		},
 		onTurnEnd: function () {
 			/* 
 				Value list.
@@ -3154,7 +3164,7 @@ env.STATUS_EFFECTS.silicon_dramatique = {
 				} else {
 					this.status.effectVal += 1
 				}
-				switch (this.status.turnCount) {
+				switch (this.status.effectVal) {
 					case 0 :
 						sendFloater({
                     		target: this.status.affecting,
