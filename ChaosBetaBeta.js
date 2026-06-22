@@ -3032,19 +3032,19 @@ env.STATUS_EFFECTS.silicon_turnStopStatus = {
 			addStatus({target: this.status.affecting, status: "silicon_mode1"})
 		},
 		onBeforeAction: function(context) {
-			if (context.settings.action != env.ACTIONS["silicon_turnStop"]) {
+			/*if (context.settings.action != env.ACTIONS["silicon_turnStop"]) {
 				env.rpg.turnOrder = []
 				env.rpg.teams.forEach((team, i) => {
             		env.rpg.turnOrder = env.rpg.turnOrder.concat(team.members)
 				})
 				env.rpg.currentActorIndex = env.rpg.turnOrder.indexOf(env.rpg.currentActor)
-			} else {
+			} else {*/
 				if (this.status.modeVal != 2) { 
 					this.status.modeVal += 1
 				} else {
 					this.status.modeVal = 0
 				}
-			}
+			//}
 		},
 		onAction: function({user}) {
 			switch (this.status.modeVal) {
@@ -6998,7 +6998,8 @@ env.ACTIONS.silicon_turnStop = {
 		amt: 0
 	},
 	exec: function(user,target, beingUsedAsync) {
-		env.rpg.turnOrder.splice(env.rpg.currentActorIndex + 1, 0, env.rpg.currentActor)
+		//env.rpg.turnOrder.splice(env.rpg.currentActorIndex + 1, 0, env.rpg.currentActor)
+		env.rpg.currentActorIndex -= 1
 		setTimeout(()=>{
 			//animElement.classList.remove('aiming')                
                 if(!beingUsedAsync) advanceTurn(user, {ignoreTime: false, clearActions: true, advanceStats: false})
