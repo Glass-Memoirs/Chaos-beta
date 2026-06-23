@@ -1285,6 +1285,33 @@ env.MODIFIERS.global_infested = {
 			enemy: [["STATUS", "kivcria_tendril"], ["STATUS", "kivcria_tendril_hell"]]
 		}
     },
+
+	env.MODIFIERS.global_citadel = {
+		name: "THE FIFTH",
+		global: true,
+		stacks: false,
+		showIf: () => {
+			return (
+				page.party.some(mem => mem.alterations && mem.alterations.some(alt => alt.includes('silicon_sugar'))) 
+				&&
+				env.crittaMap.tension >= 1
+			)
+		},
+		tension: 0,
+		icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+		priority: 999,
+		getHelp: ()=> `<span class="friend-color">Ô+'s .a secråá„ ÆðleSC„ ÷... ÷he ƒíB6h.epü„en.t.|.ß d+& ”os‰ œ”‰ortaÎš ele ¤e”÷</span>`,
+
+		onChosen: function () {
+			env.crittaMap.currentRowSetting = CrittaMap.ROWSETTINGS.intrusive
+			env.crittaMap.setAttribute("special", "intrusive")
+
+			setTimeout(()=>{
+				env.crittaMap.querySelector('critta-node[difficulty="3"]').formation = env.COMBAT_FORMATIONS.sugarCrash
+			}, 800)
+		}
+	}
+	
 //entropy
 env.MODIFIERS.entropy_eternal = {
 	name: "Eternal Decay",
@@ -8180,7 +8207,7 @@ env.ACTIONS.graceful_pray = {
 	beneficial: true,
 	details: {
 		onUse: "'gain [STATUS::parry] [STATUS::stun]'",
-		flavour: "'call for Him';'a sheild He provides'",
+		flavor: "'call for Him';'a sheild He provides'",
 	},
 	usage: {
 		act: "%USER STARTS TO PRAY"
@@ -8896,6 +8923,438 @@ env.ACTIONS.energizer = {
 			}
 		})
 	}
+},
+
+env.ACTIONS.sleeping_mask = { //focus
+	slug: "sleeping_mask",
+	name: "Sleeping Mask",
+	type: "support+autohit+target",
+	beneficial: true,
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'Eyes closed as the world sleeps. a lone star stares up'",
+		onHit: "'[STATUS::focused]'"
+	},
+	stats: {
+		amt: 0,
+		status: {
+			focused: {name: "focused", length: 7}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.focused.name,
+				length: this.stats.status.focused.length
+			}
+		})
+	}
+},
+
+env.ACTIONS.waking_mask = { //vulnerable
+	slug: "waking_mask",
+	name: "Waking Mask",
+	type: "target",
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'Lost to the world. Lost to those near'",
+		onHit: "'[STAT::amt] [STATUS::vulnerable]'"
+	},
+	stats: {
+		amt: 1,
+		status: {
+			vulnerable: {name: "vulnerable", length: 4}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.vulnerable.name,
+				length: this.stats.status.vulnerable.length
+			},
+			hitSfx: {name: "hit", rate: 1.2}
+		})
+	}
+},
+
+env.ACTIONS.medical_mask = { //healing
+	slug: "medical_mask",
+	name: "Medical Mask",
+	type: "support+autohit+target",
+	beneficial: true,
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'The eye gazes and looks away gazes away gazesawaygazesawaygazeŠßWŸYLÔðÎKÝBC¬i¿Äƒ&¤«±«ºé¯d‰ìÅ÷xËQÅúÓœ¼Má'",
+		onHit: "'[STAT::amt] [STATUS::regen]'"
+	},
+	stats: {
+		amt: -10,
+		status: {
+			regen: {name: "regen", length: 10}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.regen.name,
+				length: this.stats.status.regen.length
+			},
+			hitSfx: {name: "hit", rate: 1.2}
+		})
+	}
+},
+
+env.ACTIONS.maladictive_mask = { //siphon
+	slug: "maladictive_mask",
+	name: "Maladictive Mask",
+	type: "target",
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'a spiral ever inward dug at by claws'",
+		onHit: "'[STAT::amt] [STATUS::siphon]'"
+	},
+	stats: {
+		amt: 2,
+		accuracy: 0.9,
+		crit: 0.23,
+		status: {
+			siphon: {name: "siphon", length: 3}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.siphon.name,
+				length: this.stats.status.siphon.length
+			},
+			hitSfx: {name: "hit", rate: 1.2}
+		})
+	}
+},
+
+env.ACTIONS.falling_mask = { //fear
+	slug: "falling_mask",
+	name: "Falling Mask",
+	type: "target",
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'truths better hidden'",
+		onHit: "'[STAT::amt] [STATUS::fear]'"
+	},
+	stats: {
+		amt: 2,
+		accuracy: 0.87,
+		crit: 0.1,
+		status: {
+			fear: {name: "fear", length: 4}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.fear.name,
+				length: this.stats.status.fear.length
+			},
+			hitSfx: {name: "hit", rate: 1.2}
+		})
+	}
+},
+
+env.ACTIONS.rising_mask = { //evade
+	slug: "rising_mask",
+	name: "Rising Mask",
+	type: "support+autohit+target",
+	beneficial: true,
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'dissociated as she looked'",
+		onHit: "'[STATUS::evasion]'"
+	},
+	stats: {
+		amt: 0,
+		status: {
+			evasion: {name: "evasion", length: 4}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.evasion.name,
+				length: this.stats.status.evasion.length
+			},
+			hitSfx: {name: "hit", rate: 1.2}
+		})
+	}
+},
+
+env.ACTIONS.emotional_mask = { //spikes
+	slug: "emotional_mask",
+	name: "Emotional Mask",
+	type: "support+autohit+target",
+	beneficial: true,
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'SufƒÕcateð tea¬s'",
+		onHit: "'[STATUS::spikes]'"
+	},
+	stats: {
+		amt: 0,
+		status: {
+			spikes: {name: "spikes", length: "5"}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.spikes.name,
+				length: this.stats.status.spikes.length
+			},
+			hitSfx: {name: "hit", rate: 1.2}
+		})
+	}
+},
+
+env.ACTIONS.logical_mask = { //destabilize
+	slug: "logical_mask",
+	name: "Logical Mask",
+	type: "target",
+	usage: {
+		act: "%USER FLOATS AROUND"
+	},
+	details: {
+		flavor: "'é mask Fo¬ theßpðra5itœs tha± ¬oo„fd ßé÷iö6õKll'",
+		onHit: "'[STAT::amt] [STATUS::destabilized]'"
+	},
+	stats: {
+		amt: 1,
+		accuracy: 0.9,
+		crit: 0.2,
+		status: {
+			destabilized: {name: "destabilized", length: 5}
+		}
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitStatus: {
+				name: this.stats.status.destabilized.name,
+				length: this.stats.status.destabilized.length
+			},
+			hitSfx: {name: "hit", rate: 1.2}
+		})
+	}
+},
+
+env.ACTIONS.sugar_teamstrike = {
+	slug: "sugar_teamstrike",
+	name: "Teamstrike",
+	type: "autohit+target",
+	usage: {
+		act: "%USER SWIPES AT THE ENEMY",
+		hit: "%TARGET IS HIT",
+		crit: "%TARGET IS SEVERELY HURT"
+	},
+	details: {
+		flavor: "'Ice cream melting away'",
+		onHit: "'[STAT::amt]'"
+	},
+	stats: {
+		amt: 2,
+		crit: 0.2,
+	},
+	exec: function(user,target) {
+		env.GENERIC_ACTIONS.teamWave({
+			team: user.enemyTeam,
+			exec: (actor, i) => {
+				env.GENERIC_ACTIONS.singleTarget({
+					action: this,
+					user,
+					target: actor,
+					hitSfx: {name: "hit", rate: 1.2}
+				})
+			}
+		})
+	}
+},
+
+env.ACTIONS.sugar_hardCandy = {
+	slug: "sugar_hardCandy",
+	name: "Hard Candy",
+	type: "target",
+	usage: {
+		act: "%USER TAKES A SWING AT %TARGET",
+		hit: "%TARGET IS STRUCK IN THE FACE WITH CARAMEL",
+		crit: "%TARGET IS STUNNED BY THE HEAVY BLOW"
+	},
+	details: {
+		flavor: "'etween 235°F and 245°F (113°C and 118°C). At higher elevations, aim for the lower end of the temperature ra'",
+		onHit: "'[STAT::amt]'",
+		onCrit: "[STATUS::stun]"
+	},
+	stats: {
+		amt: 2,
+		accuracy: 0.9,
+		crit: 0.238,
+		status: {
+			stun: {name: "stun", length: 2}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {name: "hit", rate: 0.8},
+			critStatus: {
+				name: this.stats.status.stun.name,
+				length: this.stats.status.stun.length
+			}
+		})
+	}
+},
+
+env.ACTIONS.sugar_collapsedCake = {
+	slug: "sugar_collapsedCake",
+	name: "Collapsed Cake",
+	type: "target",
+	usage: {
+		act: "%USER SWINGS AT %TARGET",
+		hit: "%TARGET IS STRUCK HARD",
+		crit: "%TARGET FALLS DOWN FROM THE BLOW",
+	},
+	details: {
+		flavor: "'It was overbaked'",
+		onHit: "'[STAT::amt]'"
+	},
+	stats: {
+		amt: 4,
+		accuracy: 0.8,
+		crit: 0.24,
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {name: "hit", rate: 1}
+		})
+	}
+},
+
+env.ACTIONS.sugar_rainbowCake = {
+	slug: "sugar_rainbowCake",
+	name: "Rainbow Cake",
+	type: "target",
+	usage: {
+		act: "%USER LEERS OVER %TARGET",
+		hit: "%TARGET BACKS UP, FRIGHTENED"
+	},
+	details: {
+		flavor: "'foam cake that has a high ratio of eggs to flour and is leavened mainly from the air beaten into the egg'",
+		onHit: "'[STATUS::critical_flaw]'",
+		onCrit: "'[STATUS::critical_flaw]'"
+	},
+	stats: {
+		amt: 0,
+		accuracy: 0.9,
+		crit: 0.2,
+		status: {
+			critical_flaw: {name: "critical_flaw", length: 2}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {name: "bingbong", rate: 1},
+			hitStatus: {
+				name: this.stats.status.critical_flaw.name,
+				length: this.stats.status.critical_flaw.length
+			},
+			critStatus: {
+				name: this.stats.status.critical_flaw.name,
+				length: this.stats.status.critical_flaw.length
+			}
+		})
+	}
+},
+
+env.ACTIONS.sugar_meltingCone = {
+	slug: "sugar_meltingCone",
+	name: "Melting Cone",
+	type: "target",
+	usage: {
+		act: "%USER TAKES A QUICK JAB AT %TARGET",
+		hit: "%TARGET IS HIT",
+		crit: "%TARGET FEELS THEIR BODY STINGING"
+	},
+	detalils: {
+		flavor: "'a brittle, cone-shaped pastry, usually made of a wafer similar in texture to a waffle, made so ice cr'",
+		onHit: "'[STAT::amt] [STATUS::rot]'",
+		onCrit: "'[STATUS::rot]'"
+	},
+	stats: {
+		amt: 1,
+		accuracy:  0.87,
+		crit: 0.125,
+		status: {
+			rot: {name: "rot", length: 3}
+		}
+	},
+	exec: function(user, target) {
+		env.GENERIC_ACTIONS.singleTarget({
+			action: this,
+			user,
+			target,
+			hitSfx: {name: "dull", rate: 2},
+			hitStatus: {
+				name: this.stats.status.rot.name,
+				length: this.stats.status.rot.length
+			},
+			critStatus: {
+				name: this.stats.status.rot.name,
+				length: this.stats.status.rot.length
+			}
+		})
+	}
 }
 
 //END OF ACTIONS
@@ -9283,6 +9742,105 @@ env.COMBAT_ACTORS.rot_bearer_ally = {
 		receive_fear: ["IT   Iœ S4 .TA¾ IN& O «|Væ®.   ¬K.I  L1  MÉ   P ã  L EA £&E-", "î5ý¼Td‰ÅK‰", "içÆüÕÆº½5‰", "ižš°éiŠŸÜÓ", "M¢mûÆ¿*Vx”", "¾«úÂwíõºaQ"],
 		receive_redirection: ["wh y  ¶r o tec t .me Â.. .?", "Æ«Åº÷aìàÚš", "ÉQï*Îö#Mûº", "YétËÎý°+UÆ", "Æ6tm+Ëyßõb", "zç¢ÜÚð6bÙÙ"]
 	}
+}
+
+env.COMBAT_ACTORS.blind_shell = {
+	name: "dummy",
+	maxhp: 500,
+	hp: 500,
+	actions: ["sleeping_mask", "waking_mask"],
+	initialStatusEffects: [["ethereal", 1]],
+	graphic: `
+            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+                <div class="target" entity="anti"></div>
+                <figure class="daemon falsecritta">
+                    <img src="/img/sprites/daemons/falsecritta.gif">
+                    <div class="eye"></div>
+                </figure>
+            </div>
+            `,
+	reactions: {} //SILENT CREATURE
+}
+
+env.COMBAT_ACTORS.sick_shell = {
+	name: "dummy",
+	maxhp: 500,
+	hp: 500,
+	actions: ["medical_mask", "maladictive_mask"],
+	initialStatusEffects: [["ethereal", 1]],
+	graphic: `
+            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+                <div class="target" entity="anti"></div>
+                <figure class="daemon falsecritta">
+                    <img src="/img/sprites/daemons/falsecritta2.gif">
+                    <div class="eye"></div>
+                </figure>
+            </div>
+            `,
+	reactions: {} //SILENT CREATURE
+}
+
+env.COMBAT_ACTORS.loose_shell = {
+	name: "dummy",
+	maxhp: 500,
+	hp: 500,
+	actions: ["falling_mask", "rising_mask"],
+	initialStatusEffects: [["ethereal", 1]],
+	graphic: `
+            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+                <div class="target" entity="anti"></div>
+                <figure class="daemon falsecritta">
+                    <img src="/img/sprites/daemons/falsecritta3.gif">
+                    <div class="eye"></div>
+                </figure>
+            </div>
+            `,
+	reactions: {} //SILENT CREATURE
+}
+
+env.COMBAT_ACTORS.empathetic_shell = {
+	name: "dummy",
+	maxhp: 500,
+	hp: 500,
+	actions: ["logical_mask", "emotional_mask"],
+	initialStatusEffects: [["ethereal", 1]],
+	graphic: `
+            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+                <div class="target" entity="anti"></div>
+                <figure class="daemon falsecritta">
+                    <img src="/img/sprites/daemons/falsecritta5.gif">
+                    <div class="eye"></div>
+                </figure>
+            </div>
+            `,
+	reactions: {} //SILENT CREATURE
+}
+
+env.COMBAT_ACTORS.grazuteschek = {
+	name: "Grazu",
+	maxhp: 1200,
+	hp: 1200,
+	actions: ["sugar_teamstrike", "sugar_hardCandy", "sugar_collapsedCake", "sugar_rainbowCake", "sugar_meltingCone"],
+	graphic: `
+            <div class="sprite-wrapper daemonsprite intrusiveactor" id="%SLUG-sprite-wrapper">
+                <div class="target" ></div>
+                <figure class="daemon falsecritta">
+                    <img src="/img/sprites/combat/foes/turboglazika.gif">
+                    <div class="eye"></div>
+                </figure>
+            </div>
+            `,
+}
+
+//FORMATIONS
+env.COMBAT_FORMATIONS.sugarCrash = {
+        name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
+        help: "'Let us slip velze's eye on introductions';'so we may entertain velzie with this dance';'velii :-}'",
+        enemies: ["bind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell"],
+        class: "intrusivefight summonerboss",
+        advanceRate: 1000,
+        bgmRate: 0.3,
+        getBgm: ()=> {return env.e3a2.bgm[23]}
 }
 
 /*env.COMBAT_ACTORS.bstrdcoin = {
