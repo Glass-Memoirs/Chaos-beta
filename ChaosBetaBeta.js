@@ -897,7 +897,7 @@ env.COMBAT_COMPONENTS.life = {
 }
 
 env.COMBAT_COMPONENTS.faith = {
-	name: "Faith",
+	name: "faith",
 	slug: "faith",
 	description: "'Cousinly religion taken to an extreme';'like the most maddened worshippers of velzie'",
 	help: "'corruption';'light of divine eyes';'protection in belief'",
@@ -3861,7 +3861,7 @@ env.STATUS_EFFECTS.parry = {
 	name: "Parry",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/faithParry.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/GracefulParry.gif",
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
 	incomingFlat: -9999999999999999999,
 	events: {
@@ -4002,7 +4002,7 @@ env.STATUS_EFFECTS.faith_rosary = {
 	beneficial: true,
 	passive: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Rosary_ring.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Rosary_ring.gif",
 	impulse: {type: "common", component: "faith"},
 	help: "recieve a random beneficial status when critting a foe",
 	events: {
@@ -4038,7 +4038,7 @@ env.STATUS_EFFECTS.faith_dome = {
 	passive: true,
 	beneficial: true,
 	impulse: {type: "common", component: "faith"},
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Domehead.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Domehead.gif",
 	events: {
 		onStruck: function({subject, target, beneficial}) {
 			let user = this.status.affecting
@@ -4056,7 +4056,7 @@ env.STATUS_EFFECTS.faith_ten = {
 	passive: true,
 	beneficial: true,
 	impulse: {type: "common", component: "faith"},
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/10-point_Crampons.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/10-point_Crampons.gif",
 	events: {
 		onTurn: function() {
 			if(this.status.affecting.hp >= this.status.affecting.maxhp * 1) this.status.outgoingMult = 1
@@ -4073,7 +4073,7 @@ env.STATUS_EFFECTS.faith_honk = {
 	beneficial: true,
 	incomingtoHit: -0.1,
 	incomingCrit: -0.1,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Honk.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Honk.gif",
 	impulse: {type: "common", component: "faith"},
         
 	events: {
@@ -4266,7 +4266,7 @@ env.STATUS_EFFECTS.faith_solent = {
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Solent.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Solent.gif",
 	help: "recieve a random negative status when critting a foe",
 	events: {
 		onCrit: function({subject, origin, attack, beneficial}) {
@@ -4301,7 +4301,7 @@ env.STATUS_EFFECTS.faith_toginco = {
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Toginco.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Toginco.gif",
 	help: "when missing a foe, lose 10HP",
 	events: {
 		onMiss: function({subject, origin, beneficial}) {
@@ -4319,7 +4319,7 @@ env.STATUS_EFFECTS.faith_deggur = {
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Deggur.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Deggur.gif",
 	help: "replace all status effects with stun when crit",
 	events: {
 		onCritStruck: function({subject, target, beneficial}) {
