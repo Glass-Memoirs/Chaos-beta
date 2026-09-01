@@ -157,7 +157,7 @@ if(page.party){
 			page.flags.components.steel = 30
 			page.flags.components.silicon = 30
 			page.flags.components.life = 30
-			page.flags.components.graceful = 30
+			page.flags.components.faith = 30
 			page.flags.components.kivcria = 30
 			
 			page.party[0].components["primary"] = "claws"
@@ -190,7 +190,7 @@ if(page.party){
 			page.flags.components.steel = 3
 			page.flags.components.silicon = 3
 			page.flags.components.life = 3
-			page.flags.components.graceful = 3
+			page.flags.components.faith = 3
 			page.flags.components.kivcria = 3
 			
 			page.party[0].components["primary"] = "claws"
@@ -272,13 +272,13 @@ if(page.party){
 				member.components["utility"]="life"
 			})
 			break
-		case "graceful":
-			page.flags.components = {graceful: 12}
+		case "faith":
+			page.flags.components = {faith: 12}
 
 			page.party.forEach(member=>{
-				member.components["primary"]="graceful"
-				member.components["secondary"]="graceful"
-				member.components["utility"]="graceful"
+				member.components["primary"]="faith"
+				member.components["secondary"]="faith"
+				member.components["utility"]="faith"
 			})
 		break
 		case "kivcria":
@@ -385,10 +385,10 @@ if (page.path == '/local/beneath/embassy/') {
     	--accent-color: var(--neutral-color);
     	--font-color: var(--fundfriend-color);
 	}
-	[component="graceful"] {
-		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/GracefulHumor.gif);
-		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/GracefulHumor.gif);
-    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/GracefulHumor.gif);
+	[component="faith"] {
+		--background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/faithHumor.gif);
+		--organelle-background: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/faithHumor.gif);
+    	--background-small: url(https://glass-memoirs.github.io/Chaos-beta/Images/Humors/faithHumor.gif);
     	--background-size: auto;
     	--background-position: center;
     	--background-color: var(--dark-color);
@@ -896,30 +896,30 @@ env.COMBAT_COMPONENTS.life = {
 	combatModifiers: ["life_healing", "life_transfer", "life_shared"]
 }
 
-env.COMBAT_COMPONENTS.graceful = {
-	name: "Graceful",
-	slug: "graceful",
+env.COMBAT_COMPONENTS.faith = {
+	name: "Faith",
+	slug: "faith",
 	description: "'Cousinly religion taken to an extreme';'like the most maddened worshippers of velzie'",
 	help: "'corruption';'light of divine eyes';'protection in belief'",
 	primary: {
-		alterations: [["primary","graceful_taint"]],
+		alterations: [["primary","faith_taint"]],
 		stats: {
 			maxhp: 3
 		}
 	},
 	secondary: {
-		alterations: [["secondary","graceful_beacon"]],
+		alterations: [["secondary","faith_beacon"]],
 		stats: {
 			maxhp: 3
 		}
 	},
 	utility: {
-		alterations: [["evade","graceful_pray"]],
+		alterations: [["evade","faith_pray"]],
 		stats: {
 			maxhp: 3
 		}
 	},
-	combatModifiers: ["graceful_solent", "graceful_toginco", "graceful_deggur"]
+	combatModifiers: ["faith_solent", "faith_toginco", "faith_deggur"]
 }
 
 env.COMBAT_COMPONENTS.kivcria = {
@@ -1184,34 +1184,34 @@ env.ACTOR_AUGMENTS.generic.life_intimidating = {
 	cost: 2
 }
 
-//Graceful
-env.ACTOR_AUGMENTS.generic.graceful_sin = {
-	slug: "graceful_sin",
+//faith
+env.ACTOR_AUGMENTS.generic.faith_sin = {
+	slug: "faith_sin",
 	name: "Sin",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "'they are blind';'entwined in their close yet distant realm';'break them'",
-	alterations: [["graceful_taint", "graceful_sin"]],
-	component: ["primary", "graceful"],
+	alterations: [["faith_taint", "faith_sin"]],
+	component: ["primary", "faith"],
 	cost: 2
 }
 
-env.ACTOR_AUGMENTS.generic.graceful_gleam = {
-	slug: "graceful_gleam",
+env.ACTOR_AUGMENTS.generic.faith_gleam = {
+	slug: "faith_gleam",
 	name: "Gleam",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "'Strengthen your light'",
-	alterations: [["graceful_beacon", "graceful_gleam"]],
-	component: ["secondary", "graceful"],
+	alterations: [["faith_beacon", "faith_gleam"]],
+	component: ["secondary", "faith"],
 	cost: 2
 }
 
-env.ACTOR_AUGMENTS.generic.graceful_repent = {
-	slug: "graceful_repent",
+env.ACTOR_AUGMENTS.generic.faith_repent = {
+	slug: "faith_repent",
 	name: "Repent",
 	image: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
 	description: "'hear His words';'His assurance'",
-	alterations: [["graceful_pray", "graceful_repent"]],
-	component: ["utility", "graceful"],
+	alterations: [["faith_pray", "faith_repent"]],
+	component: ["utility", "faith"],
 	cost: 2
 }
 
@@ -1493,36 +1493,36 @@ env.MODIFIERS.life_shared = {
 		all: [["STATUS", "life_shared"]]
 	}
 }
-//graceful
-/*env.MODIFIERS.graceful_safezone = {
-	name: "Graceful Safezone",
-	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_safezone.help},
+//faith
+/*env.MODIFIERS.faith_safezone = {
+	name: "faith Safezone",
+	getHelp: ()=> {return env.STATUS_EFFECTS.faith_safezone.help},
 	alterations: {
-		all: [["STATUS", "graceful_safezone"],["ADD","parry"]]
+		all: [["STATUS", "faith_safezone"],["ADD","parry"]]
 	}
 }*/
 
-env.MODIFIERS.graceful_solent = {
+env.MODIFIERS.faith_solent = {
 	name: "Solent",
-	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_solent.help},
+	getHelp: ()=> {return env.STATUS_EFFECTS.faith_solent.help},
 	alterations: {
-		all: [["STATUS", "graceful_solent"]]
+		all: [["STATUS", "faith_solent"]]
 	}
 }
 
-env.MODIFIERS.graceful_toginco = {
+env.MODIFIERS.faith_toginco = {
 	name: "Tognico",
-	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_toginco.help},
+	getHelp: ()=> {return env.STATUS_EFFECTS.faith_toginco.help},
 	alterations: {
-		all: [["STATUS", "graceful_toginco"]]
+		all: [["STATUS", "faith_toginco"]]
 	}
 }
 
-env.MODIFIERS.graceful_deggur = {
+env.MODIFIERS.faith_deggur = {
 	name: "Deggur",
-	getHelp: ()=> {return env.STATUS_EFFECTS.graceful_deggur.help},
+	getHelp: ()=> {return env.STATUS_EFFECTS.faith_deggur.help},
 	alterations: {
-		all: [["STATUS", "graceful_deggur"]]
+		all: [["STATUS", "faith_deggur"]]
 	}
 }
 
@@ -3855,13 +3855,13 @@ env.STATUS_EFFECTS.fated_life = {
 		}*/
 	}
 },
-//graceful
+//faith
 env.STATUS_EFFECTS.parry = {
 	slug: "parry",
 	name: "Parry",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/GracefulParry.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/faithParry.gif",
 	help: "redirect incoming hit back to the attacker, nullifies incoming flat damage",
 	incomingFlat: -9999999999999999999,
 	events: {
@@ -3901,8 +3901,8 @@ env.STATUS_EFFECTS.parry = {
 	}
 },
 
-env.STATUS_EFFECTS.graceful_taintStatus = {
-	slug: "graceful_taintStatus",
+env.STATUS_EFFECTS.faith_taintStatus = {
+	slug: "faith_taintStatus",
 	name: "Taint",
 	beneficial: false,
 	infinite: true,
@@ -3911,7 +3911,7 @@ env.STATUS_EFFECTS.graceful_taintStatus = {
 	events: {
 		GLOBAL_onRemoveStatus: function({subject, origin, beneficial,removingStatusName}) {
 			if(subject == this.status.affecting && removingStatusName == "fear") {
-				removeStatus(this.status.affecting, "graceful_taintStatus")
+				removeStatus(this.status.affecting, "faith_taintStatus")
 			}
 		},
 		onTurn: function() {
@@ -3947,10 +3947,10 @@ env.STATUS_EFFECTS.graceful_taintStatus = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/GracefulParry.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/faithParry.gif",
 	grantsActions: ["parry"],
 	help: "gives move PARRY, nullifies all incoming damage while PARRY is active",
-	impulse: {type: "common", component: "graceful"},
+	impulse: {type: "common", component: "faith"},
 	events: { //god this code prolly is bad, unfortunately i think it has to be like this to make the checks work
 		onAddStatus: function({statusObj}) {
 			if(statusObj.slug == "parry") {
@@ -3969,8 +3969,8 @@ env.STATUS_EFFECTS.graceful_taintStatus = {
 	}
 },
 
-env.STATUS_EFFECTS.graceful_safezone = {
-	slug: "graceful_safezone",
+env.STATUS_EFFECTS.faith_safezone = {
+	slug: "faith_safezone",
 	name: "Safezone",
 	beneficial: true,
 	infinite: true,
@@ -3996,14 +3996,14 @@ env.STATUS_EFFECTS.graceful_safezone = {
 },*/
 
 //Rosary Ring - recieve random beneficial effect on crit
-env.STATUS_EFFECTS.graceful_rosary = {
-	slug: "graceful_rosary",
+env.STATUS_EFFECTS.faith_rosary = {
+	slug: "faith_rosary",
 	name: "Rosary Ring",
 	beneficial: true,
 	passive: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Rosary_ring.gif",
-	impulse: {type: "common", component: "graceful"},
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Rosary_ring.gif",
+	impulse: {type: "common", component: "faith"},
 	help: "recieve a random beneficial status when critting a foe",
 	events: {
 		onCrit: function({subject, origin, attack, beneficial}) {
@@ -4032,31 +4032,31 @@ env.STATUS_EFFECTS.graceful_rosary = {
 	}
 },
 //Dome-head - when struck at, retaliate (50% -1hp, 10% 1T stun)
-env.STATUS_EFFECTS.graceful_dome = {
-	slug: "graceful_dome",
+env.STATUS_EFFECTS.faith_dome = {
+	slug: "faith_dome",
 	name: "Dome-Head",
 	passive: true,
 	beneficial: true,
-	impulse: {type: "common", component: "graceful"},
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Domehead.gif",
+	impulse: {type: "common", component: "faith"},
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Domehead.gif",
 	events: {
 		onStruck: function({subject, target, beneficial}) {
 			let user = this.status.affecting
 			if (subject == user || user.team.members.includes(subject) || user != target || beneficial) return;
-			useAction(user, env.ACTIONS["graceful_retaliate"], subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful-retaliation"})
+			useAction(user, env.ACTIONS["faith_retaliate"], subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "faith-retaliation"})
 		}
 	},
 	help: "when struck, RETALIATE\nRETALIATE:: (50% -1HP, 10% +1T:STUN)"
 },
 
 //ten-point crampons - +100% outgoing damage when at full health
-env.STATUS_EFFECTS.graceful_ten = { 
-	slug: "graceful_ten",
+env.STATUS_EFFECTS.faith_ten = { 
+	slug: "faith_ten",
 	name: "Ten-Point Crampons",
 	passive: true,
 	beneficial: true,
-	impulse: {type: "common", component: "graceful"},
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/10-point_Crampons.gif",
+	impulse: {type: "common", component: "faith"},
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/10-point_Crampons.gif",
 	events: {
 		onTurn: function() {
 			if(this.status.affecting.hp >= this.status.affecting.maxhp * 1) this.status.outgoingMult = 1
@@ -4066,15 +4066,15 @@ env.STATUS_EFFECTS.graceful_ten = {
 	help: `+100% outgoing damage/heal at 100% HP`
 },
 //Honk - laugh whenever a foe misses, +10% base evasion chance
-env.STATUS_EFFECTS.graceful_honk = { 
-	slug: "graceful_honk",
+env.STATUS_EFFECTS.faith_honk = { 
+	slug: "faith_honk",
 	name: "Honk",
 	passive: true,
 	beneficial: true,
 	incomingtoHit: -0.1,
 	incomingCrit: -0.1,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Honk.gif",
-	impulse: {type: "common", component: "graceful"},
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Honk.gif",
+	impulse: {type: "common", component: "faith"},
         
 	events: {
 		onEvade: function({subject, target, attack, beneficial}) {
@@ -4088,14 +4088,14 @@ env.STATUS_EFFECTS.graceful_honk = {
 
 //ACTION::kind spirit - on ally hit, use secondary
 //if shell dies, revive with 1 hp and utilize primary and secondary teamwaved. only functions once
-env.STATUS_EFFECTS.graceful_kind = {
-	slug: "graceful_kind",
+env.STATUS_EFFECTS.faith_kind = {
+	slug: "faith_kind",
 	name: "ACTION::KIND SPIRIT",
 	beneficial: true,
 	passive: true,
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	impulse: {type: "action", component: "graceful"},
+	impulse: {type: "action", component: "faith"},
 	help: "if alive, when another ally crits a foe, use secondary\nif secondary is beneficial, used on ally\nif secondary is offensive, used on foe\nunknown additional effect",
 	events: {
 		GLOBAL_onBeforeAction: function({user, reason, beingUsedAsync, action}) { 
@@ -4161,22 +4161,22 @@ env.STATUS_EFFECTS.graceful_kind = {
 
 			setTimeout(()=>{
 				subject.hp = 0.1 // hack to avoid extra updatestats
-				useAction(user, env.ACTIONS.ichor_passive_restore, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+				useAction(user, env.ACTIONS.ichor_passive_restore, subject, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "faith"})
 
 				setTimeout(()=>{
 					if(subject.hp != 0) combatRevive(subject)
 				}, 310)
 
 				for (let i in user.enemyTeam.member) {
-					useAction(user, primary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+					useAction(user, primary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "faith"})
 				}
 				if (secondary.beneficial) {
 					for (let i in user.team.member) {
-						useAction(user, secondary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+						useAction(user, secondary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "faith"})
 					}
 				} else {
 					for (let i in user.enemyTeam.member) {
-						useAction(user, secondary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "graceful"})
+						useAction(user, secondary, i, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "faith"})
 					}
 				}
 
@@ -4200,28 +4200,28 @@ env.STATUS_EFFECTS.graceful_kind = {
 	}
 },
 
-//FATED::Graceful - +1% base crit chance and +1hp when regaining or giving hp per graceful
-env.STATUS_EFFECTS.fated_graceful = {
-	slug: "fated_graceful",
-	name: "FATED::GRACEFUL",
+//FATED::faith - +1% base crit chance and +1hp when regaining or giving hp per faith
+env.STATUS_EFFECTS.fated_faith = {
+	slug: "fated_faith",
+	name: "FATED::faith",
 	beneficial: true,
 	passive: true,
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	impulse: {type: "fated", component: "graceful"},
-	help: "per humor of graceful on this shell::\n+1% base crit% (before bonuses)\n+1HP on incoming/outgoing heals",
+	impulse: {type: "fated", component: "faith"},
+	help: "per humor of faith on this shell::\n+1% base crit% (before bonuses)\n+1HP on incoming/outgoing heals",
 	events: {
 		onCreated: function({statusObj}) {
 			if(statusObj.slug != this.status.slug) return;
 			
 			this.status.power = 0
 			if(this.status.affecting?.member?.components) for (const [slotName, slotContents] of Object.entries(this.status.affecting.member.components)) {
-				if(slotContents == "graceful") this.status.power++
+				if(slotContents == "faith") this.status.power++
 			}
 
 			if(this.status.affecting?.member?.augments) for (const augmentSlug of this.status.affecting.member.augments) {
 				let augment = env.ACTOR_AUGMENTS.generic[augmentSlug]
-				if(augment?.component) if(augment.component[1] == "graceful") this.status.power += 2
+				if(augment?.component) if(augment.component[1] == "faith") this.status.power += 2
 			}
 			this.status.outgoingFlatCrit = 0.01 * this.status.power
 		},
@@ -4245,7 +4245,7 @@ env.STATUS_EFFECTS.fated_graceful = {
 					target: this.status.affecting,
 					type: "arbitrary",
 					specialClass: "fate",
-					arbitraryString: "FATE::GRACEFUL",
+					arbitraryString: "FATE::faith",
 				})
 
 				readoutAdd({
@@ -4260,13 +4260,13 @@ env.STATUS_EFFECTS.fated_graceful = {
 	}
 },
 //Solent - on crit recieve a random negative status effect
-env.STATUS_EFFECTS.graceful_solent = {
-	slug: "graceful_solent",
+env.STATUS_EFFECTS.faith_solent = {
+	slug: "faith_solent",
 	name: "Solent",
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Solent.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Solent.gif",
 	help: "recieve a random negative status when critting a foe",
 	events: {
 		onCrit: function({subject, origin, attack, beneficial}) {
@@ -4295,13 +4295,13 @@ env.STATUS_EFFECTS.graceful_solent = {
 	}
 },
 //Toginco - lose 10hp when missing a foe
-env.STATUS_EFFECTS.graceful_toginco = {
-	slug: "graceful_toginco",
+env.STATUS_EFFECTS.faith_toginco = {
+	slug: "faith_toginco",
 	name: "toginco",
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Toginco.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Toginco.gif",
 	help: "when missing a foe, lose 10HP",
 	events: {
 		onMiss: function({subject, origin, beneficial}) {
@@ -4313,13 +4313,13 @@ env.STATUS_EFFECTS.graceful_toginco = {
 },
 //deggur - replace all effects with stun when crit
 //NOTE:: PLAYER INPUT NEEDED FOR THIS ONE
-env.STATUS_EFFECTS.graceful_deggur = {
-	slug: "graceful_deggur",
+env.STATUS_EFFECTS.faith_deggur = {
+	slug: "faith_deggur",
 	name: "Deggur",
 	beneficial: false,
 	passive: "modifier",
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/Deggur.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/faith/Deggur.gif",
 	help: "replace all status effects with stun when crit",
 	events: {
 		onCritStruck: function({subject, target, beneficial}) {
@@ -7941,7 +7941,7 @@ env.ACTIONS.life_intimidating = {
 		})
 	}
 },
-//graceful
+//faith
 env.ACTIONS.parry = {
 	slug: "parry",
 	name: "Parry",
@@ -7966,8 +7966,8 @@ env.ACTIONS.parry = {
 	}
 },
 
-env.ACTIONS.graceful_taint = {
-	slug: "graceful_taint",
+env.ACTIONS.faith_taint = {
+	slug: "faith_taint",
 	name: "Taint",
 	type: "target",
 	anim: "",
@@ -7988,7 +7988,7 @@ env.ACTIONS.graceful_taint = {
 		accuracy: 0.9,
 		status: {
 			fear: {name: "fear", length: 2},
-			taint: {name: "graceful_taintStatus", showReference: true}
+			taint: {name: "faith_taintStatus", showReference: true}
 		}
 	},
 	exec: function(user,target) {
@@ -8003,7 +8003,7 @@ env.ACTIONS.graceful_taint = {
 				length: 2,
 			},
 			critStatus: {
-				name: "graceful_taintStatus",
+				name: "faith_taintStatus",
 				length: 1
 			}
 		})
@@ -8011,8 +8011,8 @@ env.ACTIONS.graceful_taint = {
 },
 
 //same as above but with 3 and teamwide taint
-env.ACTIONS.graceful_sin ={ 
-	slug: "graceful_sin",
+env.ACTIONS.faith_sin ={ 
+	slug: "faith_sin",
 	name: "Sin",
 	type: "target",
 	anim: "",
@@ -8033,7 +8033,7 @@ env.ACTIONS.graceful_sin ={
 		accuracy: 0.5,
 		crit: 0.3,
 		status: {
-			taint: {name: "graceful_taintStatus", showReference: true},
+			taint: {name: "faith_taintStatus", showReference: true},
 			fear: {name: "fear", length: 3}
 		}
 	},
@@ -8043,14 +8043,14 @@ env.ACTIONS.graceful_sin ={
 			exec: (actor, i) => {
 				play('destabilize', 0.75)
 				addStatus({target: actor, status: "fear", length: 3})
-				addStatus({target: actor, status: "graceful_taintStatus", length: 1})
+				addStatus({target: actor, status: "faith_taintStatus", length: 1})
 			}
 		})
 	}
 },
 
-env.ACTIONS.graceful_preparation = {
-	slug: "graceful_preparation",
+env.ACTIONS.faith_preparation = {
+	slug: "faith_preparation",
 	name: "Preparation",
 	type: "target",
 	anim: "",
@@ -8094,8 +8094,8 @@ env.ACTIONS.graceful_preparation = {
 	}
 }
 
-env.ACTIONS.graceful_beacon = {
-	slug: "graceful_beacon",
+env.ACTIONS.faith_beacon = {
+	slug: "faith_beacon",
 	name: "Beacon",
 	type: "target",
 	details: {
@@ -8137,8 +8137,8 @@ env.ACTIONS.graceful_beacon = {
 	}
 },
 //Gleam: 10x -1HP, low hit/crit chance, give surge, regen, or carapace to random ally on crit
-env.ACTIONS.graceful_gleam = {
-	slug: "graceful_gleam",
+env.ACTIONS.faith_gleam = {
+	slug: "faith_gleam",
 	name: "Gleam",
 	type: "target",
 	details: {
@@ -8200,8 +8200,8 @@ env.ACTIONS.graceful_gleam = {
 	}
 },
 //Apply parry and a stun
-env.ACTIONS.graceful_pray = {
-	slug: "graceful_pray",
+env.ACTIONS.faith_pray = {
+	slug: "faith_pray",
 	name: "Pray",
 	type: "support+self+autohit",
 	beneficial: true,
@@ -8226,8 +8226,8 @@ env.ACTIONS.graceful_pray = {
 	}
 },
 //Repent - apply parry and vulnerable and give 4 bp
-env.ACTIONS.graceful_repent = {
-	slug: "graceful_repent",
+env.ACTIONS.faith_repent = {
+	slug: "faith_repent",
 	name: "Repent",
 	type: "support+self+autohit",
 	beneficial: true,
@@ -8265,8 +8265,8 @@ env.ACTIONS.graceful_repent = {
 	}
 },
 
-env.ACTIONS.graceful_heed = {
-	slug: "graceful_heed",
+env.ACTIONS.faith_heed = {
+	slug: "faith_heed",
 	name: "Heed",
 	type: "support+self+autohit+target",
 	beneficial: true,
@@ -8302,8 +8302,8 @@ env.ACTIONS.graceful_heed = {
 	}
 },
 
-env.ACTIONS.graceful_retaliate = {
-	slug: "graceful_retaliate",
+env.ACTIONS.faith_retaliate = {
+	slug: "faith_retaliate",
 	name: "Retaliate",
 	type: "target",
 	anim: "basic-attack",
@@ -9504,7 +9504,7 @@ env.COMBAT_ACTORS.generic.reactionPersonalities.life = {
 	receive_redirection: ["r-really…?","t… thank you so much...", "you are really doing this…?","I will make sure you are all healthy for this!"],
 },
 
-env.COMBAT_ACTORS.generic.reactionPersonalities.Graceful= {
+env.COMBAT_ACTORS.generic.reactionPersonalities.faith= {
 	evade: ["ah…","no… not you…","no…"],
     crit: ["let the silence consume you, taint...","your punishment is nigh…","for His glory…"],
 	crit_buff: ["end this taint, for Him...","leave nothing…","careful that you do not waste it…"],
@@ -10056,7 +10056,7 @@ for (const componentName of ["life"]) {
 	env.e3a2.merchant.commerce.push(commerceObject)
 }
 
-for (const componentName of ["graceful"]) {
+for (const componentName of ["faith"]) {
 	const component = env.COMBAT_COMPONENTS[componentName]
 	let commerceObject = ({
 		 type: "humor",
@@ -10183,14 +10183,14 @@ if(typeof env.CHAOSB_HUMORS == "undefined") {
 				removeItem("sfer_cube", 5)
 			}
 		},
-		graceful: {
-			name: "Graceful",
+		faith: {
+			name: "faith",
 			value: 5,
 			showIf: ()=> checkItem("sfer_cube", 5) >=5,
 			hideRead: true,
 			type: "item", //we have to lie here so that these don't take up too much space in the UI
 			exec: ()=> {
-				CrittaReward.safeAdd(page.flags.components, "graceful", 1)
+				CrittaReward.safeAdd(page.flags.components, "faith", 1)
 				removeItem("sfer_cube", 5)
 			}
 		},
