@@ -1286,7 +1286,7 @@ env.MODIFIERS.global_infested = {
 		}
     },
 
-	env.MODIFIERS.global_citadel = {
+	env.MODIFIERS.global_Sugar = {
 		name: "THE FIFTH",
 		global: true,
 		stacks: false,
