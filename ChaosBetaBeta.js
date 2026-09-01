@@ -3430,7 +3430,7 @@ env.STATUS_EFFECTS.silicon_sugar = {
 	infinite: true,
 	passive: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
-	help: "modifies DRAMATIQUE with more faces",
+	help: "modifies DRAMATIQUE with more faces, Unknown additional effect",
 	impulse: {type: "common", component: "silicon"}
 }
 //life
