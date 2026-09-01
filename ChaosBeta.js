@@ -5767,7 +5767,7 @@ for (let key in env.CHAOSB_HUMORS) {
 	})
 }
 
-if (!check("modList").includes("narra_morehumors")) {
+if (!check("modList").includes("narra_morehumors") || !check("modList").includes("organic-chemistry")) {
 	CrittaMenu.generateStatHTMLObject = function(stats, {member, slotName, componentName, editingMember = {}} = {}) {
 	    let returnStats = {
     	    core: "",
