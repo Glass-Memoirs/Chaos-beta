@@ -1256,7 +1256,7 @@ env.MODIFIERS.global_infested = {
         stacks: true,
         tension: 1,
         icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/Tendril.gif",
-        priority: 3,
+        priority: 0,
 
         getHelp: (withCurrent)=> {
             let help = `<span class='bastard-color'>TENDRIL DECAY::+2 additional rot bearers</span>`
