@@ -4529,7 +4529,7 @@ env.STATUS_EFFECTS.kivcria_clean = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/CleanAndClear.gif",
 	impulse: {type: "action", component: "kivcria"},
 	help: "on foe evade or when this shell is crit, use utility and gain +2BP",
 	events: {
