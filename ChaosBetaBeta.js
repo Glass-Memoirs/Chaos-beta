@@ -3858,7 +3858,7 @@ env.STATUS_EFFECTS.fated_life = {
 //faith
 env.STATUS_EFFECTS.parry = {
 	slug: "parry",
-	name: "Parry",
+	name: "Talisman",
 	beneficial: true,
 	infinite: true,
 	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Graceful/GracefulParry.gif",
@@ -7944,16 +7944,16 @@ env.ACTIONS.life_intimidating = {
 //faith
 env.ACTIONS.parry = {
 	slug: "parry",
-	name: "Parry",
+	name: "Ward",
 	type: "support+autohit+self",
 	beneficial: true,
 	autohit: true,
 	details: {
-		flavor: "Hit the attack back",
+		flavor: "Prepare a ward to protect yourself",
 		onUse: "[STATUS::parry]",
 	},
 	usage: {
-		act: "%USER prepares theirself"
+		act: "%USER PREPARES A TALISMAN"
 	},
 	stats: {
 		status: {
