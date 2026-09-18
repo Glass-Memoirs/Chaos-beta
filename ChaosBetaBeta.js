@@ -9930,7 +9930,7 @@ env.COMBAT_FORMATIONS.sugarCrash = {
         class: "intrusivefight summonerboss",
         advanceRate: 1000,
         bgmRate: 0.3,
-        getBgm: ()=> {return env.e3a2.bgm[23]}
+        getBgm: ()=> {return env.e3a2.bgms[23]}
 }
 
 /*env.COMBAT_ACTORS.bstrdcoin = {
