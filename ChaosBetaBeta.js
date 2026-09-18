@@ -4365,7 +4365,7 @@ env.STATUS_EFFECTS.spraying = {
 	name: "Spraying",
 	beneficial: true,
 	infinite: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/spraying.gif",
 	outgoingMult: 0,
 	incomingMult: 0,
 	events: {
@@ -4428,7 +4428,7 @@ env.STATUS_EFFECTS.kivcria_dull ={
 	slug: "kivcria_dull",
 	name: "dull blessing",
 	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/dull_blessing.gif",
 	outgoingMult: 0,
 	events: {
 		GLOBAL_onBeforeCombatHit: function(context) {
@@ -4455,7 +4455,7 @@ env.STATUS_EFFECTS.kivcria_rot = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/rot_spread.gif",
 	impulse: {type: "common", component: "kivcria"},
 	help: "When attacking foe, apply ROT equal to the amount of ROT on this actor",
 	events: {
@@ -4517,7 +4517,7 @@ env.STATUS_EFFECTS.kivcria_exposure = {
 	beneficial: true,
 	infinite: true,
 	passive: true,
-	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Placeholder.gif",
+	icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/Blessing.gif",
 	impulse: {type: "common", component: "kivcria"},
 	help: "halve the effects of ROT"
 }
