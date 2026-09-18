@@ -136,59 +136,58 @@ if( page.path == '/local/ozo/' || page.path == '/local/beneath/embassy') {
 			"hideRead":true
 		})
 	}
-}
-
-if (Ochem?.humorQuantities){
-	Ochem.humorQuantities.entropy = {
-		"name":"entropy",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","entropy")'),
-		"hideRead":true
-	};
-	Ochem.humorQuantities.surge = {
-		"name":"surge",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","surge")'),
-		"hideRead":true	
-	};
-	Ochem.humorQuantities.stupidhorrible = {
-		"name":"stupidhorrible",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","stupidhorrible")'),
-		"hideRead":true
-	};
-	Ochem.humorQuantities.smog = {
-		"name":"smog",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","smog")'),
-		"hideRead":true
-	};
-	Ochem.humorQuantities.steel = {
-		"name":"steel",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","steel")'),
-		"hideRead":true
-	};
-	Ochem.humorQuantities.silicon = {
-		"name":"silicon",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","silicon")'),
-		"hideRead":true
-	};
-	Ochem.humorQuantities.life = {
-		"name":"life",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","life")'),
-		"hideRead":true
-	};
-	Ochem.humorQuantities.kivcria = {
-		"name":"kivcria",
-		"destination":"loop",
-		"exec": Function('change("e3a2_newcomp","kivcria")'),
-		"hideRead":true
-	};
+	if (Ochem?.humorQuantities){
+		Ochem.humorQuantities.entropy = {
+			"name":"entropy",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","entropy")'),
+			"hideRead":true
+		};
+		Ochem.humorQuantities.surge = {
+			"name":"surge",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","surge")'),
+			"hideRead":true	
+		};
+		Ochem.humorQuantities.stupidhorrible = {
+			"name":"stupidhorrible",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","stupidhorrible")'),
+			"hideRead":true
+		};
+		Ochem.humorQuantities.smog = {
+			"name":"smog",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","smog")'),
+			"hideRead":true
+		};
+		Ochem.humorQuantities.steel = {
+			"name":"steel",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","steel")'),
+			"hideRead":true
+		};
+		Ochem.humorQuantities.silicon = {
+			"name":"silicon",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","silicon")'),
+			"hideRead":true
+		};
+		Ochem.humorQuantities.life = {
+			"name":"life",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","life")'),
+			"hideRead":true
+		};
+		Ochem.humorQuantities.kivcria = {
+			"name":"kivcria",
+			"destination":"loop",
+			"exec": Function('change("e3a2_newcomp","kivcria")'),
+			"hideRead":true
+		};
   
-	Ochem.recalculateDialogue();
+		Ochem.recalculateDialogue();
+	}
 }
 
 if(page.party){
