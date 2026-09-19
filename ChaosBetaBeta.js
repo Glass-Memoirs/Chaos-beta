@@ -9841,7 +9841,7 @@ env.COMBAT_ACTORS.blind_shell = {
 	actions: ["sleeping_mask", "waking_mask"],
 	initialStatusEffects: [["ethereal", 1]],
 	graphic: `
-            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+            <div class="sprite-wrapper daemonsprite intrusiveactor" id="%SLUG-sprite-wrapper">
                 <div class="target" entity="anti"></div>
                 <figure class="daemon falsecritta">
                     <img src="/img/sprites/daemons/falsecritta.gif">
@@ -9859,7 +9859,7 @@ env.COMBAT_ACTORS.sick_shell = {
 	actions: ["medical_mask", "maladictive_mask"],
 	initialStatusEffects: [["ethereal", 1]],
 	graphic: `
-            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+            <div class="sprite-wrapper daemonsprite intrusiveactor" id="%SLUG-sprite-wrapper">
                 <div class="target" entity="anti"></div>
                 <figure class="daemon falsecritta">
                     <img src="/img/sprites/daemons/falsecritta2.gif">
@@ -9877,7 +9877,7 @@ env.COMBAT_ACTORS.loose_shell = {
 	actions: ["falling_mask", "rising_mask"],
 	initialStatusEffects: [["ethereal", 1]],
 	graphic: `
-            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+            <div class="sprite-wrapper daemonsprite intrusiveactor" id="%SLUG-sprite-wrapper">
                 <div class="target" entity="anti"></div>
                 <figure class="daemon falsecritta">
                     <img src="/img/sprites/daemons/falsecritta3.gif">
@@ -9895,7 +9895,7 @@ env.COMBAT_ACTORS.empathetic_shell = {
 	actions: ["logical_mask", "emotional_mask"],
 	initialStatusEffects: [["ethereal", 1]],
 	graphic: `
-            <div class="sprite-wrapper daemonsprite" id="%SLUG-sprite-wrapper">
+            <div class="sprite-wrapper daemonsprite intrusiveactor" id="%SLUG-sprite-wrapper">
                 <div class="target" entity="anti"></div>
                 <figure class="daemon falsecritta">
                     <img src="/img/sprites/daemons/falsecritta5.gif">
@@ -9920,6 +9920,7 @@ env.COMBAT_ACTORS.grazuteschek = {
                 </figure>
             </div>
             `,
+	reactions: {}
 }
 
 //FORMATIONS
