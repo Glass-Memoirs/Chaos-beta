@@ -9923,6 +9923,21 @@ env.COMBAT_ACTORS.grazuteschek = {
 }
 
 //FORMATIONS
+
+env.e3a2.sweet_dream = new Howl({
+	onload: function () {page.howls.push(this)},
+	src: ['/audio/ozooutside.ogg'],
+	preload: true,
+	loop: true,
+	volume: 1,
+	rate: 0.3,
+	sprite: {
+		__default: [0, 188948, true]
+	},
+})
+env.e3a2.sweet_dream.intendedVol = 1
+env.e3a2.sweet_dream.intendedRate = 0.3
+
 env.COMBAT_FORMATIONS.sugarCrash = {
         name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
         help: "'Let us slip velze's eye on introductions';'so we may entertain velzie with this dance';'velii :-}'",
@@ -9930,7 +9945,7 @@ env.COMBAT_FORMATIONS.sugarCrash = {
         class: "intrusivefight summonerboss",
         advanceRate: 1000,
         bgmRate: 0.3,
-        getBgm: ()=> {return env.e3a2.bgms[23]}
+        getBgm: ()=> {return env.e3a2.sweet_dream}
 }
 
 /*env.COMBAT_ACTORS.bstrdcoin = {
