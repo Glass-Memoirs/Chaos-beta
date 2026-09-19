@@ -9844,7 +9844,7 @@ env.COMBAT_ACTORS.blind_shell = {
             <div class="sprite-wrapper daemonsprite intrusiveactor" id="%SLUG-sprite-wrapper">
                 <div class="target" entity="anti"></div>
                 <figure class="daemon falsecritta">
-                    <img src="/img/sprites/daemons/falsecritta.gif">
+                    <img src="/img/sprites/daemons/falsecritta1.gif">
                     <div class="eye"></div>
                 </figure>
             </div>
@@ -9942,7 +9942,7 @@ env.e3a2.sweet_dream.intendedRate = 0.3
 env.COMBAT_FORMATIONS.sugarCrash = {
         name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
         help: "'Let us slip velze's eye on introductions';'so we may entertain velzie with this dance';'velii :-}'",
-        enemies: ["bind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell"],
+        enemies: [/*"bind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell"*/ "critta_spawner"],
         class: "intrusivefight summonerboss",
         advanceRate: 1000,
         bgmRate: 0.3,
