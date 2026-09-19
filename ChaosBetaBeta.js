@@ -1397,7 +1397,7 @@ env.MODIFIERS.global_infested = {
 			env.crittaMap.setAttribute("special", "intrusive")
 
 			setTimeout(()=>{
-				env.crittaMap.querySelector('critta-node[difficulty="3"]').formation = env.COMBAT_FORMATIONS.sugarCrash
+				env.crittaMap.querySelector('critta-node[difficulty="3"]').formation = env.COMBAT_FORMATIONS.sugar_crash
 			}, 800)
 		}
 	}
@@ -9940,7 +9940,7 @@ env.e3a2.sweet_dream = new Howl({
 env.e3a2.sweet_dream.intendedVol = 1
 env.e3a2.sweet_dream.intendedRate = 0.3
 
-env.COMBAT_FORMATIONS.sugarCrash = {
+env.COMBAT_FORMATIONS.sugar_crash = {
         /*name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
         help: "'Let us slip velze's eye on introductions';'so we may entertain velzie with this dance';'velii :-}'",
         enemies: ["blind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell" "critta_spawner"],
