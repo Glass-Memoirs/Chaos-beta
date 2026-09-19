@@ -9943,7 +9943,7 @@ env.e3a2.sweet_dream.intendedRate = 0.3
 env.COMBAT_FORMATIONS.sugar_crash = {
         name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
         help: "'Let us slip velze's eye on introductions';'so we may entertain velzie with this dance';'velii :-}'",
-        enemies: [/*"blind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell"*/ "critta_spawner"],
+        enemies: ["blind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell" /*"critta_spawner"*/],
         class: "intrusivefight summonerboss",
         advanceRate: 1000,
         bgmRate: 0.3,
