@@ -1346,7 +1346,7 @@ env.MODIFIERS.global_infested = {
         stacks: true,
         tension: 1,
         icon: "https://glass-memoirs.github.io/Chaos-beta/Images/Icons/Kivcria/Tendril.gif",
-        priority: 0,
+        priority: 2,
 
         getHelp: (withCurrent)=> {
             let help = `<span class='bastard-color'>TENDRIL DECAY::+2 additional rot bearers</span>`
@@ -9941,20 +9941,20 @@ env.e3a2.sweet_dream.intendedVol = 1
 env.e3a2.sweet_dream.intendedRate = 0.3
 
 env.COMBAT_FORMATIONS.sugar_crash = {
-        /*name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
+        name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
         help: "'Let us slip velze's eye on introductions';'so we may entertain velzie with this dance';'velii :-}'",
-        enemies: ["blind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell" "critta_spawner"],
+        enemies: [/*"blind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell"*/ "critta_spawner"],
         class: "intrusivefight summonerboss",
         advanceRate: 1000,
         bgmRate: 0.3,
-        getBgm: ()=> {return env.e3a2.sweet_dream}*/
-		name: "??????",
+        getBgm: ()=> {return env.e3a2.sweet_dream}
+		/*name: "??????",
         help: "'unprocessable entity';'no context'",
         enemies: ["intrusive"],
         class: "intrusivefight summonerboss",
         advanceRate: 1000,
         bgmRate: 0.3,
-        getBgm: ()=> {return env.intrusive}
+        getBgm: ()=> {return env.intrusive}*/
 }
 
 /*env.COMBAT_ACTORS.bstrdcoin = {
