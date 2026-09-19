@@ -9910,6 +9910,7 @@ env.COMBAT_ACTORS.grazuteschek = {
 	name: "Grazu",
 	maxhp: 1200,
 	hp: 1200,
+	specialClass: "intrusiveactor mainfoe",
 	actions: ["sugar_teamstrike", "sugar_hardCandy", "sugar_collapsedCake", "sugar_rainbowCake", "sugar_meltingCone"],
 	graphic: `
             <div class="sprite-wrapper daemonsprite intrusiveactor" id="%SLUG-sprite-wrapper">
@@ -9940,13 +9941,20 @@ env.e3a2.sweet_dream.intendedVol = 1
 env.e3a2.sweet_dream.intendedRate = 0.3
 
 env.COMBAT_FORMATIONS.sugarCrash = {
-        name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
+        /*name: "TÆ®®ïƒyÛn9 DÛ|ck i|æ",
         help: "'Let us slip velze's eye on introductions';'so we may entertain velzie with this dance';'velii :-}'",
-        enemies: [/*"blind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell"*/ "critta_spawner"],
+        enemies: ["blind_shell", "sick_shell", "grazuteschek", "loose_shell", "empathetic_shell" "critta_spawner"],
         class: "intrusivefight summonerboss",
         advanceRate: 1000,
         bgmRate: 0.3,
-        getBgm: ()=> {return env.e3a2.sweet_dream}
+        getBgm: ()=> {return env.e3a2.sweet_dream}*/
+		name: "??????",
+        help: "'unprocessable entity';'no context'",
+        enemies: ["intrusive"],
+        class: "intrusivefight summonerboss",
+        advanceRate: 1000,
+        bgmRate: 0.3,
+        getBgm: ()=> {return env.intrusive}
 }
 
 /*env.COMBAT_ACTORS.bstrdcoin = {
